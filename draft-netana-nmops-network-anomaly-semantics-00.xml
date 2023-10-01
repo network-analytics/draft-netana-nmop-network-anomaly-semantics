@@ -133,7 +133,7 @@
           anomalous if those values as a collection deviate significantly from
           the entire data set, but the values of the individual data points
           are not themselves anomalous in either a contextual or global sense.
-          In network telemetry time series, one way this can manifest is that
+          In Network Telemetry time series, one way this can manifest is that
           the amount of network path and interface state changes matches the
           time range when the forwarded packet volume decreases as a
           group.</dd>
@@ -148,7 +148,7 @@
 
         <t>In terms of network observability, semantics of operational network
         metrics are defined by IETF and are categorized as described in the
-        Network Telemetry Frameork <xref target="RFC9232"/> in the following
+        Network Telemetry Framework <xref target="RFC9232"/> in the following
         three different network planes:</t>
 
         <dl>
@@ -203,14 +203,15 @@
         packetDeltaCount(IE2) of dropped traffic with reason code dropped and
         status code unrouteable in forwardingStatus(IE89). The annotation
         would be that it is classified as global outlier network anomaly in
-        the forwarding plane of a network. It could also have been observed
-        alongside a control plane time series for the same network service
-        where network reachability has been withdrawed with BGP.</t>
+        the forwarding plane of a network.</t>
 
-        <t>In case of collective outlier in network anomaly detection, the
-        same data points would now being described as collective outlier
-        network anomaly in the forwarding plane with a control plane network
-        reachability withdrawal and customer impacting context.</t>
+        <t>It could also have been observed alongside a control plane time
+        series for the same network service where network reachability has
+        been withdrawed with BGP. In case of collective outlier in network
+        anomaly detection, the same data points would now being described as
+        collective outlier network anomaly in the forwarding plane with a
+        control plane network reachability withdrawal and customer impacting
+        context.</t>
       </section>
     </section>
 

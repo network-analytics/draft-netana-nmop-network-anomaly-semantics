@@ -128,7 +128,7 @@ Internet-Draft          Network Anomaly Semantis            October 2023
       if those values as a collection deviate significantly from the
       entire data set, but the values of the individual data points are
       not themselves anomalous in either a contextual or global sense.
-      In network telemetry time series, one way this can manifest is
+      In Network Telemetry time series, one way this can manifest is
       that the amount of network path and interface state changes
       matches the time range when the forwarded packet volume decreases
       as a group.
@@ -142,8 +142,8 @@ Internet-Draft          Network Anomaly Semantis            October 2023
 
    In terms of network observability, semantics of operational network
    metrics are defined by IETF and are categorized as described in the
-   Network Telemetry Frameork [RFC9232] in the following three different
-   network planes:
+   Network Telemetry Framework [RFC9232] in the following three
+   different network planes:
 
    Management Plane:
       Time series data describing the state changes and statistics of a
@@ -192,14 +192,15 @@ Internet-Draft          Network Anomaly Semantis            October 2023
    dropped traffic with reason code dropped and status code unrouteable
    in forwardingStatus(IE89).  The annotation would be that it is
    classified as global outlier network anomaly in the forwarding plane
-   of a network.  It could also have been observed alongside a control
-   plane time series for the same network service where network
-   reachability has been withdrawed with BGP.
+   of a network.
 
-   In case of collective outlier in network anomaly detection, the same
-   data points would now being described as collective outlier network
-   anomaly in the forwarding plane with a control plane network
-   reachability withdrawal and customer impacting context.
+   It could also have been observed alongside a control plane time
+   series for the same network service where network reachability has
+   been withdrawed with BGP.  In case of collective outlier in network
+   anomaly detection, the same data points would now being described as
+   collective outlier network anomaly in the forwarding plane with a
+   control plane network reachability withdrawal and customer impacting
+   context.
 
 2.  Security Considerations
 
@@ -214,10 +215,9 @@ Internet-Draft          Network Anomaly Semantis            October 2023
 
 4.1.  Normative References
 
-   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
-              Requirement Levels", BCP 14, RFC 2119,
-              DOI 10.17487/RFC2119, March 1997,
-              <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
 
 
 
@@ -225,6 +225,11 @@ Graf, et al.              Expires 3 April 2024                  [Page 4]
 
 Internet-Draft          Network Anomaly Semantis            October 2023
 
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/info/rfc2119>.
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -268,11 +273,6 @@ Internet-Draft          Network Anomaly Semantis            October 2023
               Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
               2006, <https://www.rfc-editor.org/info/rfc4364>.
 
-   [RFC5102]  Quittek, J., Bryant, S., Claise, B., Aitken, P., and J.
-              Meyer, "Information Model for IP Flow Information Export",
-              RFC 5102, DOI 10.17487/RFC5102, January 2008,
-              <https://www.rfc-editor.org/info/rfc5102>.
-
 
 
 
@@ -281,6 +281,11 @@ Graf, et al.              Expires 3 April 2024                  [Page 5]
 
 Internet-Draft          Network Anomaly Semantis            October 2023
 
+
+   [RFC5102]  Quittek, J., Bryant, S., Claise, B., Aitken, P., and J.
+              Meyer, "Information Model for IP Flow Information Export",
+              RFC 5102, DOI 10.17487/RFC5102, January 2008,
+              <https://www.rfc-editor.org/info/rfc5102>.
 
    [RFC7011]  Claise, B., Ed., Trammell, B., Ed., and P. Aitken,
               "Specification of the IP Flow Information Export (IPFIX)
@@ -326,11 +331,6 @@ Authors' Addresses
    Email: wanting.du@swisscom.com
 
 
-   Alex Huang Feng
-   INSA-Lyon
-   Lyon
-   France
-
 
 
 Graf, et al.              Expires 3 April 2024                  [Page 6]
@@ -338,11 +338,11 @@ Graf, et al.              Expires 3 April 2024                  [Page 6]
 Internet-Draft          Network Anomaly Semantis            October 2023
 
 
+   Alex Huang Feng
+   INSA-Lyon
+   Lyon
+   France
    Email: alex.huang-feng@insa-lyon.fr
-
-
-
-
 
 
 
