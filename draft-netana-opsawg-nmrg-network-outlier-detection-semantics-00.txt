@@ -89,9 +89,9 @@ Table of Contents
 
 1.1.  Outlier Detection
 
-   _Outlier Detection describes a systematic approach to identify.
-   outliers, which are rare data points deviating significantly from the
-   majority.  Outliers are classified in three categories:
+   Outlier Detection describes a systematic approach to identify rare
+   data points deviating significantly from the majority.  Outliers are
+   classified in three categories:
 
    Global outliers:
       A data point is considered a global outlier if its value is far

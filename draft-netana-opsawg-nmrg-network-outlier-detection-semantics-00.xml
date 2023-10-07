@@ -102,9 +102,9 @@
   <middle>
     <section anchor="Introduction" title="Introduction">
       <section anchor="Outlier_Detection_Intro" title="Outlier Detection">
-        <t>_Outlier Detection describes a systematic approach to identify.
-        outliers, which are rare data points deviating significantly from the
-        majority. Outliers are classified in three categories:</t>
+        <t>Outlier Detection describes a systematic approach to identify rare
+        data points deviating significantly from the majority. Outliers are
+        classified in three categories:</t>
 
         <dl>
           <dt>Global outliers:</dt>
