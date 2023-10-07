@@ -10,11 +10,12 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="exp" docName="draft-netana-nmops-network-anomaly-semantics-00"
+<rfc category="exp"
+     docName="draft-netana-opsawg-nmrg-network-outlier-detection-semantics-00"
      ipr="trust200902">
   <front>
-    <title abbrev="Network Anomaly Semantis">Semantic Metadata Annotation for
-    Network Anomaly Detection</title>
+    <title abbrev="Network Outlier Detection Semantics">Semantic Metadata
+    Annotation for Network Outlier Detection</title>
 
     <author fullname="Thomas Graf" initials="T" surname="Graf">
       <organization>Swisscom</organization>
@@ -78,15 +79,15 @@
       </address>
     </author>
 
-    <date day="01" month="October" year="2023"/>
+    <date day="07" month="October" year="2023"/>
 
     <abstract>
       <t>This document explains why and how semantic metadata annotation helps
-      to test and validate anomaly detection, supports supervised and
+      to test and validate outlier detection, supports supervised and
       semi-supervised machine learning development and make anomalies for
       humans apprehensible. The proposed semantics uniforms the network
-      anomaly data exchange between and among operators and vendors to improve
-      their network anomaly detection systems.</t>
+      outlier data exchange between and among operators and vendors to improve
+      their network outlier detection systems.</t>
     </abstract>
 
     <note title="Requirements Language">
@@ -100,8 +101,8 @@
 
   <middle>
     <section anchor="Introduction" title="Introduction">
-      <section anchor="Anomaly_Detection_Intro" title="Anomaly Detection">
-        <t>Anomaly Detection describes a systematic approach to identify.
+      <section anchor="Outlier_Detection_Intro" title="Outlier Detection">
+        <t>_Outlier Detection describes a systematic approach to identify.
         outliers, which are rare data points deviating significantly from the
         majority. Outliers are classified in three categories:</t>
 
@@ -198,20 +199,18 @@
         Semantic Metadata the meaning or ontology of the annotated data is
         being described.</t>
 
-        <t>For example a global outlier in Network Anomaly detection
-        describing a data point of a high packet count with
-        packetDeltaCount(IE2) of dropped traffic with reason code dropped and
-        status code unrouteable in forwardingStatus(IE89). The annotation
-        would be that it is classified as global outlier network anomaly in
-        the forwarding plane of a network.</t>
+        <t>For example a global network outlier describes a data point of a
+        high packet count with packetDeltaCount(IE2) of dropped traffic with
+        reason code dropped and status code unrouteable in
+        forwardingStatus(IE89). The annotation would be that it is classified
+        as global network outlier in the forwarding plane of a network.</t>
 
         <t>It could also have been observed alongside a control plane time
         series for the same network service where network reachability has
-        been withdrawed with BGP. In case of collective outlier in network
-        anomaly detection, the same data points would now being described as
-        collective outlier network anomaly in the forwarding plane with a
-        control plane network reachability withdrawal and customer impacting
-        context.</t>
+        been withdrawed with BGP. In case of collective network outlier, the
+        same data points would now being described as collective network
+        outlier in the forwarding plane with a control plane network
+        reachability withdrawal and customer impacting context.</t>
       </section>
     </section>
 

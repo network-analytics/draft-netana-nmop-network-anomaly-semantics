@@ -5,22 +5,22 @@
 Network Working Group                                            T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 3 April 2024                                      A. Huang Feng
+Expires: 9 April 2024                                      A. Huang Feng
                                                                INSA-Lyon
-                                                          1 October 2023
+                                                          7 October 2023
 
 
-       Semantic Metadata Annotation for Network Anomaly Detection
-            draft-netana-nmops-network-anomaly-semantics-00
+       Semantic Metadata Annotation for Network Outlier Detection
+    draft-netana-opsawg-nmrg-network-outlier-detection-semantics-00
 
 Abstract
 
    This document explains why and how semantic metadata annotation helps
-   to test and validate anomaly detection, supports supervised and semi-
+   to test and validate outlier detection, supports supervised and semi-
    supervised machine learning development and make anomalies for humans
-   apprehensible.  The proposed semantics uniforms the network anomaly
+   apprehensible.  The proposed semantics uniforms the network outlier
    data exchange between and among operators and vendors to improve
-   their network anomaly detection systems.
+   their network outlier detection systems.
 
 Requirements Language
 
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 April 2024.
+   This Internet-Draft will expire on 9 April 2024.
 
 
 
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Graf, et al.              Expires 3 April 2024                  [Page 1]
+Graf, et al.              Expires 9 April 2024                  [Page 1]
 
-Internet-Draft          Network Anomaly Semantis            October 2023
+Internet-Draft     Network Outlier Detection Semantics      October 2023
 
 
 Copyright Notice
@@ -75,7 +75,7 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-     1.1.  Anomaly Detection . . . . . . . . . . . . . . . . . . . .   2
+     1.1.  Outlier Detection . . . . . . . . . . . . . . . . . . . .   2
      1.2.  Data Mesh . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.3.  Semantic Metadata . . . . . . . . . . . . . . . . . . . .   4
    2.  Security Considerations . . . . . . . . . . . . . . . . . . .   4
@@ -87,9 +87,9 @@ Table of Contents
 
 1.  Introduction
 
-1.1.  Anomaly Detection
+1.1.  Outlier Detection
 
-   Anomaly Detection describes a systematic approach to identify.
+   _Outlier Detection describes a systematic approach to identify.
    outliers, which are rare data points deviating significantly from the
    majority.  Outliers are classified in three categories:
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Graf, et al.              Expires 3 April 2024                  [Page 2]
+Graf, et al.              Expires 9 April 2024                  [Page 2]
 
-Internet-Draft          Network Anomaly Semantis            October 2023
+Internet-Draft     Network Outlier Detection Semantics      October 2023
 
 
    Contextual outliers:
@@ -165,9 +165,9 @@ Internet-Draft          Network Anomaly Semantis            October 2023
 
 
 
-Graf, et al.              Expires 3 April 2024                  [Page 3]
+Graf, et al.              Expires 9 April 2024                  [Page 3]
 
-Internet-Draft          Network Anomaly Semantis            October 2023
+Internet-Draft     Network Outlier Detection Semantics      October 2023
 
 
    In terms of network observability, semantics of analytical data
@@ -187,20 +187,19 @@ Internet-Draft          Network Anomaly Semantis            October 2023
    Metadata the meaning or ontology of the annotated data is being
    described.
 
-   For example a global outlier in Network Anomaly detection describing
-   a data point of a high packet count with packetDeltaCount(IE2) of
-   dropped traffic with reason code dropped and status code unrouteable
-   in forwardingStatus(IE89).  The annotation would be that it is
-   classified as global outlier network anomaly in the forwarding plane
-   of a network.
+   For example a global network outlier describes a data point of a high
+   packet count with packetDeltaCount(IE2) of dropped traffic with
+   reason code dropped and status code unrouteable in
+   forwardingStatus(IE89).  The annotation would be that it is
+   classified as global network outlier in the forwarding plane of a
+   network.
 
    It could also have been observed alongside a control plane time
    series for the same network service where network reachability has
-   been withdrawed with BGP.  In case of collective outlier in network
-   anomaly detection, the same data points would now being described as
-   collective outlier network anomaly in the forwarding plane with a
-   control plane network reachability withdrawal and customer impacting
-   context.
+   been withdrawed with BGP.  In case of collective network outlier, the
+   same data points would now being described as collective network
+   outlier in the forwarding plane with a control plane network
+   reachability withdrawal and customer impacting context.
 
 2.  Security Considerations
 
@@ -215,21 +214,17 @@ Internet-Draft          Network Anomaly Semantis            October 2023
 
 4.1.  Normative References
 
-
-
-
-
-
-
-Graf, et al.              Expires 3 April 2024                  [Page 4]
-
-Internet-Draft          Network Anomaly Semantis            October 2023
-
-
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
               <https://www.rfc-editor.org/info/rfc2119>.
+
+
+
+Graf, et al.              Expires 9 April 2024                  [Page 4]
+
+Internet-Draft     Network Outlier Detection Semantics      October 2023
+
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -265,27 +260,27 @@ Internet-Draft          Network Anomaly Semantis            October 2023
               Mirsky, G., Halpern, J. M., Min, X., Clemm, A., Strassner,
               J., and J. François, "Precision Availability Metrics for
               Services Governed by Service Level Objectives (SLOs)",
-              Work in Progress, Internet-Draft, draft-ietf-ippm-pam-06,
-              22 August 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-ippm-pam-06>.
+              Work in Progress, Internet-Draft, draft-ietf-ippm-pam-07,
+              6 October 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-ippm-pam-07>.
 
    [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
               Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
               2006, <https://www.rfc-editor.org/info/rfc4364>.
 
-
-
-
-
-Graf, et al.              Expires 3 April 2024                  [Page 5]
-
-Internet-Draft          Network Anomaly Semantis            October 2023
-
-
    [RFC5102]  Quittek, J., Bryant, S., Claise, B., Aitken, P., and J.
               Meyer, "Information Model for IP Flow Information Export",
               RFC 5102, DOI 10.17487/RFC5102, January 2008,
               <https://www.rfc-editor.org/info/rfc5102>.
+
+
+
+
+
+Graf, et al.              Expires 9 April 2024                  [Page 5]
+
+Internet-Draft     Network Outlier Detection Semantics      October 2023
+
 
    [RFC7011]  Claise, B., Ed., Trammell, B., Ed., and P. Aitken,
               "Specification of the IP Flow Information Export (IPFIX)
@@ -331,17 +326,18 @@ Authors' Addresses
    Email: wanting.du@swisscom.com
 
 
-
-
-Graf, et al.              Expires 3 April 2024                  [Page 6]
-
-Internet-Draft          Network Anomaly Semantis            October 2023
-
-
    Alex Huang Feng
    INSA-Lyon
    Lyon
    France
+
+
+
+Graf, et al.              Expires 9 April 2024                  [Page 6]
+
+Internet-Draft     Network Outlier Detection Semantics      October 2023
+
+
    Email: alex.huang-feng@insa-lyon.fr
 
 
@@ -389,4 +385,8 @@ Internet-Draft          Network Anomaly Semantis            October 2023
 
 
 
-Graf, et al.              Expires 3 April 2024                  [Page 7]
+
+
+
+
+Graf, et al.              Expires 9 April 2024                  [Page 7]
