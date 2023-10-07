@@ -102,9 +102,10 @@
   <middle>
     <section anchor="Introduction" title="Introduction">
       <section anchor="Outlier_Detection_Intro" title="Outlier Detection">
-        <t>Outlier Detection describes a systematic approach to identify rare
-        data points deviating significantly from the majority. Outliers are
-        classified in three categories:</t>
+        <t>Outlier Detection, also known as anomaly detection, describes a
+        systematic approach to identify rare data points deviating
+        significantly from the majority. Outliers are classified in three
+        categories:</t>
 
         <dl>
           <dt>Global outliers:</dt>
@@ -187,8 +188,8 @@
         target="I-D.feng-opsawg-incident-management"/>, the health status and
         symptoms described in the Service Assurance Intend Based Networking
         <xref target="RFC9418"/> or the precision availability metrics defined
-        in <xref target="I-D.ietf-ippm-pam"/> or Network Anomalies and its
-        Symptoms as described in this document.</t>
+        in <xref target="I-D.ietf-ippm-pam"/> or network anomalies and its
+        symptoms as described in this document.</t>
       </section>
 
       <section anchor="Semantic_Metadata_Intro" title="Semantic Metadata">

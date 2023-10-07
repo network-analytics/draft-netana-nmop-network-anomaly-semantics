@@ -89,9 +89,10 @@ Table of Contents
 
 1.1.  Outlier Detection
 
-   Outlier Detection describes a systematic approach to identify rare
-   data points deviating significantly from the majority.  Outliers are
-   classified in three categories:
+   Outlier Detection, also known as anomaly detection, describes a
+   systematic approach to identify rare data points deviating
+   significantly from the majority.  Outliers are classified in three
+   categories:
 
    Global outliers:
       A data point is considered a global outlier if its value is far
@@ -100,12 +101,11 @@ Table of Contents
       week observation and the observed global outlier was 100000
       packets.
 
-
-
-
-
-
-
+   Contextual outliers:
+      A data point is considered a contextual outlier if its value
+      significantly deviates from the rest of the data points in the
+      same time series context.  For example, the forwarded packet
+      volume in a timeseries are changing during the time of the day
 
 
 
@@ -114,11 +114,6 @@ Graf, et al.              Expires 9 April 2024                  [Page 2]
 Internet-Draft     Network Outlier Detection Semantics      October 2023
 
 
-   Contextual outliers:
-      A data point is considered a contextual outlier if its value
-      significantly deviates from the rest of the data points in the
-      same time series context.  For example, the forwarded packet
-      volume in a timeseries are changing during the time of the day
       like an oscillation curve, where the observed contextual packet
       volume outlier is outside the oscillation curve at that moment in
       time.  At another time the same value could be considered normal.
@@ -165,6 +160,11 @@ Internet-Draft     Network Outlier Detection Semantics      October 2023
 
 
 
+
+
+
+
+
 Graf, et al.              Expires 9 April 2024                  [Page 3]
 
 Internet-Draft     Network Outlier Detection Semantics      October 2023
@@ -176,7 +176,7 @@ Internet-Draft     Network Outlier Detection Semantics      October 2023
    [I-D.feng-opsawg-incident-management], the health status and symptoms
    described in the Service Assurance Intend Based Networking [RFC9418]
    or the precision availability metrics defined in [I-D.ietf-ippm-pam]
-   or Network Anomalies and its Symptoms as described in this document.
+   or network anomalies and its symptoms as described in this document.
 
 1.3.  Semantic Metadata
 
