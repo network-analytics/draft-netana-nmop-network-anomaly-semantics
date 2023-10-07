@@ -11,11 +11,11 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="exp"
-     docName="draft-netana-opsawg-nmrg-network-outlier-detection-semantics-00"
+     docName="draft-netana-opsawg-nmrg-network-anomaly-semantics-00"
      ipr="trust200902">
   <front>
-    <title abbrev="Network Outlier Detection Semantics">Semantic Metadata
-    Annotation for Network Outlier Detection</title>
+    <title abbrev="Network Anomaly Semantics">Semantic Metadata Annotation for
+    Network Anomaly Detection</title>
 
     <author fullname="Thomas Graf" initials="T" surname="Graf">
       <organization>Swisscom</organization>
@@ -86,7 +86,7 @@
       to test and validate outlier detection, supports supervised and
       semi-supervised machine learning development and make anomalies for
       humans apprehensible. The proposed semantics uniforms the network
-      outlier data exchange between and among operators and vendors to improve
+      anomaly data exchange between and among operators and vendors to improve
       their network outlier detection systems.</t>
     </abstract>
 

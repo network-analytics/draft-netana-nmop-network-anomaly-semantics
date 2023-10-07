@@ -10,15 +10,15 @@ Expires: 9 April 2024                                      A. Huang Feng
                                                           7 October 2023
 
 
-       Semantic Metadata Annotation for Network Outlier Detection
-    draft-netana-opsawg-nmrg-network-outlier-detection-semantics-00
+       Semantic Metadata Annotation for Network Anomaly Detection
+         draft-netana-opsawg-nmrg-network-anomaly-semantics-00
 
 Abstract
 
    This document explains why and how semantic metadata annotation helps
    to test and validate outlier detection, supports supervised and semi-
    supervised machine learning development and make anomalies for humans
-   apprehensible.  The proposed semantics uniforms the network outlier
+   apprehensible.  The proposed semantics uniforms the network anomaly
    data exchange between and among operators and vendors to improve
    their network outlier detection systems.
 
@@ -55,7 +55,7 @@ Status of This Memo
 
 Graf, et al.              Expires 9 April 2024                  [Page 1]
 
-Internet-Draft     Network Outlier Detection Semantics      October 2023
+Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 Copyright Notice
@@ -111,7 +111,7 @@ Table of Contents
 
 Graf, et al.              Expires 9 April 2024                  [Page 2]
 
-Internet-Draft     Network Outlier Detection Semantics      October 2023
+Internet-Draft          Network Anomaly Semantics           October 2023
 
 
       like an oscillation curve, where the observed contextual packet
@@ -167,7 +167,7 @@ Internet-Draft     Network Outlier Detection Semantics      October 2023
 
 Graf, et al.              Expires 9 April 2024                  [Page 3]
 
-Internet-Draft     Network Outlier Detection Semantics      October 2023
+Internet-Draft          Network Anomaly Semantics           October 2023
 
 
    In terms of network observability, semantics of analytical data
@@ -223,7 +223,7 @@ Internet-Draft     Network Outlier Detection Semantics      October 2023
 
 Graf, et al.              Expires 9 April 2024                  [Page 4]
 
-Internet-Draft     Network Outlier Detection Semantics      October 2023
+Internet-Draft          Network Anomaly Semantics           October 2023
 
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
@@ -279,7 +279,7 @@ Internet-Draft     Network Outlier Detection Semantics      October 2023
 
 Graf, et al.              Expires 9 April 2024                  [Page 5]
 
-Internet-Draft     Network Outlier Detection Semantics      October 2023
+Internet-Draft          Network Anomaly Semantics           October 2023
 
 
    [RFC7011]  Claise, B., Ed., Trammell, B., Ed., and P. Aitken,
@@ -335,7 +335,7 @@ Authors' Addresses
 
 Graf, et al.              Expires 9 April 2024                  [Page 6]
 
-Internet-Draft     Network Outlier Detection Semantics      October 2023
+Internet-Draft          Network Anomaly Semantics           October 2023
 
 
    Email: alex.huang-feng@insa-lyon.fr
