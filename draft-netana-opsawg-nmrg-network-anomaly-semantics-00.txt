@@ -5,9 +5,9 @@
 Network Working Group                                            T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 10 April 2024                                     A. Huang Feng
+Expires: 13 April 2024                                     A. Huang Feng
                                                                INSA-Lyon
-                                                          8 October 2023
+                                                         11 October 2023
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 April 2024.
+   This Internet-Draft will expire on 13 April 2024.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf, et al.              Expires 10 April 2024                 [Page 1]
+Graf, et al.              Expires 13 April 2024                 [Page 1]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf, et al.              Expires 10 April 2024                 [Page 2]
+Graf, et al.              Expires 13 April 2024                 [Page 2]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -165,7 +165,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 10 April 2024                 [Page 3]
+Graf, et al.              Expires 13 April 2024                 [Page 3]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -221,7 +221,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 10 April 2024                 [Page 4]
+Graf, et al.              Expires 13 April 2024                 [Page 4]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -277,7 +277,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 10 April 2024                 [Page 5]
+Graf, et al.              Expires 13 April 2024                 [Page 5]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -333,7 +333,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 10 April 2024                 [Page 6]
+Graf, et al.              Expires 13 April 2024                 [Page 6]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -389,4 +389,4 @@ Authors' Addresses
 
 
 
-Graf, et al.              Expires 10 April 2024                 [Page 7]
+Graf, et al.              Expires 13 April 2024                 [Page 7]
