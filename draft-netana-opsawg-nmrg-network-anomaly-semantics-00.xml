@@ -79,7 +79,7 @@
       </address>
     </author>
 
-    <date day="07" month="October" year="2023"/>
+    <date day="08" month="October" year="2023"/>
 
     <abstract>
       <t>This document explains why and how semantic metadata annotation helps
@@ -192,6 +192,53 @@
         symptoms as described in this document.</t>
       </section>
 
+      <section anchor="Observed_Symptoms_Intro" title="Observed Symptoms">
+        <t>In this section observed network symptoms are specified and
+        categorized according to the following scheme:</t>
+
+        <dl>
+          <dt>Where:</dt>
+
+          <dd>In which network plane, Network Telemetry Framework <xref
+          target="RFC9232"/>, it was observed in a global, contextual or
+          collective outlier or related in a collective outlier.</dd>
+        </dl>
+
+        <dl>
+          <dt>Which:</dt>
+
+          <dd>
+            <t>Which behaviour was observed in a global, contextual or
+            collective outlier or related in a collective outlier.</t>
+
+            <t>There are two behaviours for Forwarding Plane: drop and delay.
+            Where drops are packets or frames which are no longer being
+            forwarded and described with status code dropped in
+            forwardingStatus(IE89) <xref target="RFC7270"/>. Where delay
+            refers to On-Path delay as described in <xref
+            target="I-D.ietf-opsawg-ipfix-on-path-telemetry"/>.</t>
+
+            <t>There ar two behaviours for Control Plane: rechability and
+            adjacency. Where reachability are paths such as exported with BMP
+            routing-monitoring described in Section 5 of <xref
+            target="RFC7854"/>. Where adjacency refers to peering such as
+            exported with BMP peer_up and peer_down described in Section 4.9
+            and 4.10 of <xref target="RFC7854"/>.</t>
+
+            <t>There at least two behaviours for Management Plane: ingress and
+            egress interface such as being exported with YANG Push in
+            ietf-interfaces.yang as described in <xref target="RFC8343"/>.</t>
+          </dd>
+        </dl>
+
+        <dl>
+          <dt>Why:</dt>
+
+          <dd>Why this behaviour was observed in a global, contextual or
+          collective outlier or related in a collective outlier.</dd>
+        </dl>
+      </section>
+
       <section anchor="Semantic_Metadata_Intro" title="Semantic Metadata">
         <t>Metadata adds additional context to data. For instance, in networks
         the software version of a network node where management plane metrics
@@ -254,6 +301,8 @@
       <?rfc include='reference.I-D.ietf-ippm-pam'?>
 
       <?rfc include='reference.I-D.claise-opsawg-collected-data-manifest'?>
+
+      <?rfc include='reference.I-D.ietf-opsawg-ipfix-on-path-telemetry'?>
 
       <reference anchor="Deh22">
         <front>
