@@ -75,20 +75,23 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-     1.1.  Outlier Detection . . . . . . . . . . . . . . . . . . . .   2
-     1.2.  Data Mesh . . . . . . . . . . . . . . . . . . . . . . . .   3
-     1.3.  Observed Symptoms . . . . . . . . . . . . . . . . . . . .   4
-     1.4.  Semantic Metadata . . . . . . . . . . . . . . . . . . . .   7
-   2.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   3.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
-   4.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     4.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     4.2.  Informative References  . . . . . . . . . . . . . . . . .   8
+   2.  Outlier Detection . . . . . . . . . . . . . . . . . . . . . .   2
+   3.  Data Mesh . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   4.  Observed Symptoms . . . . . . . . . . . . . . . . . . . . . .   4
+   5.  Semantic Metadata . . . . . . . . . . . . . . . . . . . . . .   7
+     5.1.  Overview of the Model . . . . . . . . . . . . . . . . . .   7
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .   8
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
 
 1.  Introduction
 
-1.1.  Outlier Detection
+   Give context to ANRW.  Intend ind Test.  Supervised Machine Learning
+
+2.  Outlier Detection
 
    Outlier Detection, also known as anomaly detection, describes a
    systematic approach to identify rare data points deviating
@@ -102,10 +105,7 @@ Table of Contents
       week observation and the observed global outlier was 100000
       packets.
 
-   Contextual outliers:
-      A data point is considered a contextual outlier if its value
-      significantly deviates from the rest of the data points in the
-      same time series context.  For example, the forwarded packet
+
 
 
 
@@ -114,6 +114,10 @@ Graf, et al.              Expires 16 April 2024                 [Page 2]
 Internet-Draft          Network Anomaly Semantics           October 2023
 
 
+   Contextual outliers:
+      A data point is considered a contextual outlier if its value
+      significantly deviates from the rest of the data points in the
+      same time series context.  For example, the forwarded packet
       volume in a timeseries are changing during the time of the day
       like an oscillation curve, where the observed contextual packet
       volume outlier is outside the oscillation curve at that moment in
@@ -133,7 +137,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    higher the value, the higher the probability that the observed data
    point is an outlier.
 
-1.2.  Data Mesh
+3.  Data Mesh
 
    The Data Mesh [Deh22] Architecture distinguishes between operational
    and analytical data.  Operational data refers to collected data from
@@ -156,11 +160,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
       withdrawals exported in BGP Monitoring Protocol (BMP) [RFC7854]
       and modeled in BGP [RFC4364]
 
-   Forwarding Plane:
-      Time series data describing the forwarding behavior of packets and
-      its data-plane context.  For example, dropped packet count
-      modelled in IPFIX entity forwardingStatus(IE89) [RFC7270] and
-      packetDeltaCount(IE2) [RFC5102] and exportet with IPFIX [RFC7011].
+
 
 
 
@@ -170,6 +170,12 @@ Graf, et al.              Expires 16 April 2024                 [Page 3]
 Internet-Draft          Network Anomaly Semantics           October 2023
 
 
+   Forwarding Plane:
+      Time series data describing the forwarding behavior of packets and
+      its data-plane context.  For example, dropped packet count
+      modelled in IPFIX entity forwardingStatus(IE89) [RFC7270] and
+      packetDeltaCount(IE2) [RFC5102] and exportet with IPFIX [RFC7011].
+
    In terms of network observability, semantics of analytical data
    refers to incident notifications or service level indicators.  For
    example the incident notification described in Section 7.2 of
@@ -178,14 +184,10 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    or the precision availability metrics defined in [I-D.ietf-ippm-pam]
    or network anomalies and its symptoms as described in this document.
 
-1.3.  Observed Symptoms
+4.  Observed Symptoms
 
    In this section observed network symptoms are specified and
    categorized according to the following scheme:
-
-   Plane:  In which network plane, Network Telemetry Framework
-      [RFC9232], it was observed in a global, contextual or collective
-      outlier.
 
    Action:  Which action the network node performed for a packet in the
       Forwarding Plane, a path or adjancency in the Control Plane or
@@ -202,7 +204,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    Reason:  For each action one or more reasons describinging why this
       action was used.  For Drops in Forwarding Plane we distinguish
       between Unreachable because network layer reachability information
-      was missing, Administered because an administrator configured a
+      was missing, administered because an administrator configured a
       rule preventing the forwarding for this packet and Corrupt where
       the network node was unable to determine where to forward to due
       to packet, software or hardware error.  For On-Path Delay we
@@ -214,10 +216,8 @@ Internet-Draft          Network Anomaly Semantics           October 2023
       plane entity, a packet, control-plane or node administered
       instruction.
 
-
-
-
-
+   Table 1 consolidates for the forwarding plane a list of common
+   symptoms with their actions, reasons and relations.
 
 
 
@@ -265,8 +265,8 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               Table 1: Describing Symptoms and their Actions,
                   Reason and Relation for Forwarding Plane
 
-
-
+   Table 2 consolidates for the control plane a list of common symptoms
+   with their actions, reasons and relations.
 
 
 
@@ -306,6 +306,9 @@ Internet-Draft          Network Anomaly Semantics           October 2023
                       Actions, Reason and Relation for
                                Control Plane
 
+   Table 3 consolidates for the management plane a list of common
+   symptoms with their actions, reasons and relations.
+
                +===========+==================+============+
                | Action    | Reason           | Relation   |
                +===========+==================+============+
@@ -330,15 +333,12 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-
-
-
 Graf, et al.              Expires 16 April 2024                 [Page 6]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
 
-1.4.  Semantic Metadata
+5.  Semantic Metadata
 
    Metadata adds additional context to data.  For instance, in networks
    the software version of a network node where management plane metrics
@@ -347,32 +347,30 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    Metadata the meaning or ontology of the annotated data is being
    described.
 
-   For example a global network outlier describes a data point of a high
-   packet count with packetDeltaCount(IE2) of dropped traffic with
-   reason code dropped and status code unroutable in
-   forwardingStatus(IE89).  The annotation would be that it is
-   classified as global network outlier in the forwarding plane of a
-   network.
+5.1.  Overview of the Model
 
-   It could also have been observed alongside a control plane time
-   series for the same network service where network reachability has
-   been withdrawn with BGP.  In case of collective network outlier, the
-   same data points would now being described as collective network
-   outlier in the forwarding plane with a control plane network
-   reachability withdrawal and customer impacting context.
+   Figure 1 contains the YANG tree diagram [RFC8340] of the ietf-
+   anomaly-detection-semantic-metadata module.
 
-2.  Security Considerations
+   module: ietf-anomaly-detection-semantic-metadata
+
+      Figure 1: YANG tree diagram for ietf-anomaly-detection-semantic-
+                                  metadata
+
+   Describe YANG module
+
+6.  Security Considerations
 
    The security considerations.
 
-3.  Acknowledgements
+7.  Acknowledgements
 
    The authors would like to thank xxx for their review and valuable
    comments.
 
-4.  References
+8.  References
 
-4.1.  Normative References
+8.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -383,7 +381,9 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-
+   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
+              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
+              <https://www.rfc-editor.org/info/rfc8340>.
 
 
 
@@ -399,7 +399,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               DOI 10.17487/RFC9232, May 2022,
               <https://www.rfc-editor.org/info/rfc9232>.
 
-4.2.  Informative References
+8.2.  Informative References
 
    [Deh22]    Dehghani, Z., "Data Mesh", 2022.  O'Reilly Media, Inc.
               ISBN 9781492092391
