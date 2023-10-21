@@ -79,7 +79,7 @@
       </address>
     </author>
 
-    <date day="11" month="October" year="2023"/>
+    <date day="14" month="October" year="2023"/>
 
     <abstract>
       <t>This document explains why and how semantic metadata annotation helps
@@ -104,8 +104,8 @@
       <section anchor="Outlier_Detection_Intro" title="Outlier Detection">
         <t>Outlier Detection, also known as anomaly detection, describes a
         systematic approach to identify rare data points deviating
-        significantly from the majority. Outliers are classified in three
-        categories:</t>
+        significantly from the majority. Outliers are commonly classified in
+        three categories:</t>
 
         <dl>
           <dt>Global outliers:</dt>
@@ -140,6 +140,10 @@
           time range when the forwarded packet volume decreases as a
           group.</dd>
         </dl>
+
+        <t>For each outlier a score between 0 and 1 is being calculated. The
+        higher the value, the higher the probability that the observed data
+        point is an outlier.</t>
       </section>
 
       <section anchor="Data_Mesh_Intro" title="Data Mesh">
@@ -197,46 +201,338 @@
         categorized according to the following scheme:</t>
 
         <dl>
-          <dt>Where:</dt>
+          <dt>Plane:</dt>
 
           <dd>In which network plane, Network Telemetry Framework <xref
           target="RFC9232"/>, it was observed in a global, contextual or
-          collective outlier or related in a collective outlier.</dd>
+          collective outlier.</dd>
         </dl>
 
         <dl>
-          <dt>Which:</dt>
+          <dt>Action:</dt>
 
           <dd>
-            <t>Which behaviour was observed in a global, contextual or
-            collective outlier or related in a collective outlier.</t>
-
-            <t>There are two behaviours for Forwarding Plane: drop and delay.
-            Where drops are packets or frames which are no longer being
-            forwarded and described with status code dropped in
-            forwardingStatus(IE89) <xref target="RFC7270"/>. Where delay
-            refers to On-Path delay as described in <xref
-            target="I-D.ietf-opsawg-ipfix-on-path-telemetry"/>.</t>
-
-            <t>There ar two behaviours for Control Plane: rechability and
-            adjacency. Where reachability are paths such as exported with BMP
-            routing-monitoring described in Section 5 of <xref
-            target="RFC7854"/>. Where adjacency refers to peering such as
-            exported with BMP peer_up and peer_down described in Section 4.9
-            and 4.10 of <xref target="RFC7854"/>.</t>
-
-            <t>There at least two behaviours for Management Plane: ingress and
-            egress interface such as being exported with YANG Push in
-            ietf-interfaces.yang as described in <xref target="RFC8343"/>.</t>
+            <t>Which action the network node performed for a packet in the
+            Forwarding Plane, a path or adjancency in the Control Plane or
+            state or statistical changes in the Management Plane. For
+            Forwarding Plane we distinguish between missing, where the drop
+            occured outside the measured network node, drop and on-path delay,
+            which was measured on the network node. For control-plane we
+            distinguish between reachability, which refers to a change in the
+            routing or forwarding information base (RIB/FIB) and adjcacency
+            which refers to a change in peering or link-layer resolution. For
+            Management Plane we refer to state or statistical changed on
+            interfaces.</t>
           </dd>
         </dl>
 
         <dl>
-          <dt>Why:</dt>
+          <dt>Reason:</dt>
 
-          <dd>Why this behaviour was observed in a global, contextual or
-          collective outlier or related in a collective outlier.</dd>
+          <dd>
+            <t>For each action one or more reasons describinging why this
+            action was used. For Drops in Forwarding Plane we distinguish
+            between Unreachable because network layer reachability information
+            was missing, Administered because an administrator configured a
+            rule preventing the forwarding for this packet and Corrupt where
+            the network node was unable to determine where to forward to due
+            to packet, software or hardware error. For On-Path Delay we
+            distinguish between Minimum, Average and Maximum Delay for a given
+            Flow.</t>
+          </dd>
         </dl>
+
+        <dl>
+          <dt>Relation:</dt>
+
+          <dd>
+            <t>For each reason one or more relation describe the cause why the
+            action was chosen. These reason could relate network plane entity,
+            a packet, control-plane or node administered instruction.</t>
+          </dd>
+        </dl>
+
+        <table align="center">
+          <name slugifiedName="symptom_forwarding-plane_actions">Describing
+          Symptoms and their Actions, Reason and Relation for Forwarding
+          Plane</name>
+
+          <thead>
+            <tr>
+              <th align="left" colspan="1" rowspan="1">Action</th>
+
+              <th align="left" colspan="1" rowspan="1">Reason</th>
+
+              <th align="left" colspan="1" rowspan="1">Relation</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Missing</td>
+
+              <td align="left" colspan="1" rowspan="1">Previous</td>
+
+              <td align="left" colspan="1" rowspan="1">Time</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+              <td align="left" colspan="1" rowspan="1">next-hop</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+              <td align="left" colspan="1" rowspan="1">link-layer</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+              <td align="left" colspan="1" rowspan="1">Time To Life
+              expired</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+              <td align="left" colspan="1" rowspan="1">Fragmentation needed
+              and Don't Fragment set</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Administered</td>
+
+              <td align="left" colspan="1" rowspan="1">Access-List</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Administered</td>
+
+              <td align="left" colspan="1" rowspan="1">Unicast Reverse Path
+              Forwarding</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Administered</td>
+
+              <td align="left" colspan="1" rowspan="1">Discard Route</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Administered</td>
+
+              <td align="left" colspan="1" rowspan="1">Policed</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Administered</td>
+
+              <td align="left" colspan="1" rowspan="1">Shaped</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Corrupt</td>
+
+              <td align="left" colspan="1" rowspan="1">Bad Packet</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Drop</td>
+
+              <td align="left" colspan="1" rowspan="1">Corrupt</td>
+
+              <td align="left" colspan="1" rowspan="1">Bad Egress
+              Interface</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Delay</td>
+
+              <td align="left" colspan="1" rowspan="1">Min</td>
+
+              <td align="left" colspan="1" rowspan="1">-</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Delay</td>
+
+              <td align="left" colspan="1" rowspan="1">Mean</td>
+
+              <td align="left" colspan="1" rowspan="1">-</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Delay</td>
+
+              <td align="left" colspan="1" rowspan="1">Max</td>
+
+              <td align="left" colspan="1" rowspan="1">-</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table align="center">
+          <name slugifiedName="symptom_control-plane_actions">Describing
+          Symptoms and their Actions, Reason and Relation for Control
+          Plane</name>
+
+          <thead>
+            <tr>
+              <th align="left" colspan="1" rowspan="1">Action</th>
+
+              <th align="left" colspan="1" rowspan="1">Reason</th>
+
+              <th align="left" colspan="1" rowspan="1">Relation</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+              <td align="left" colspan="1" rowspan="1">Update</td>
+
+              <td align="left" colspan="1" rowspan="1">Imported</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+              <td align="left" colspan="1" rowspan="1">Update</td>
+
+              <td align="left" colspan="1" rowspan="1">Received</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+              <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+              <td align="left" colspan="1" rowspan="1">Received</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+              <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+              <td align="left" colspan="1" rowspan="1">Peer Down</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+              <td align="left" colspan="1" rowspan="1">Established</td>
+
+              <td align="left" colspan="1" rowspan="1">Peer</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+              <td align="left" colspan="1" rowspan="1">Established</td>
+
+              <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+              <td align="left" colspan="1" rowspan="1">Teared Down</td>
+
+              <td align="left" colspan="1" rowspan="1">Peer</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+              <td align="left" colspan="1" rowspan="1">Teared Down</td>
+
+              <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table align="center">
+          <name slugifiedName="symptom_management-plane_actions">Describing
+          Symptoms and their Actions, Reason and Relation for Management
+          Plane</name>
+
+          <thead>
+            <tr>
+              <th align="left" colspan="1" rowspan="1">Action</th>
+
+              <th align="left" colspan="1" rowspan="1">Reason</th>
+
+              <th align="left" colspan="1" rowspan="1">Relation</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Interface</td>
+
+              <td align="left" colspan="1" rowspan="1">Up</td>
+
+              <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Interface</td>
+
+              <td align="left" colspan="1" rowspan="1">Down</td>
+
+              <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Interface</td>
+
+              <td align="left" colspan="1" rowspan="1">Errors</td>
+
+              <td align="left" colspan="1" rowspan="1">-</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Interface</td>
+
+              <td align="left" colspan="1" rowspan="1">Discards</td>
+
+              <td align="left" colspan="1" rowspan="1">-</td>
+            </tr>
+
+            <tr>
+              <td align="left" colspan="1" rowspan="1">Interface</td>
+
+              <td align="left" colspan="1" rowspan="1">Unknown Protocol</td>
+
+              <td align="left" colspan="1" rowspan="1">-</td>
+            </tr>
+          </tbody>
+        </table>
       </section>
 
       <section anchor="Semantic_Metadata_Intro" title="Semantic Metadata">
@@ -249,13 +545,13 @@
 
         <t>For example a global network outlier describes a data point of a
         high packet count with packetDeltaCount(IE2) of dropped traffic with
-        reason code dropped and status code unrouteable in
+        reason code dropped and status code unroutable in
         forwardingStatus(IE89). The annotation would be that it is classified
         as global network outlier in the forwarding plane of a network.</t>
 
         <t>It could also have been observed alongside a control plane time
         series for the same network service where network reachability has
-        been withdrawed with BGP. In case of collective network outlier, the
+        been withdrawn with BGP. In case of collective network outlier, the
         same data points would now being described as collective network
         outlier in the forwarding plane with a control plane network
         reachability withdrawal and customer impacting context.</t>

@@ -5,9 +5,9 @@
 Network Working Group                                            T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 13 April 2024                                     A. Huang Feng
+Expires: 16 April 2024                                     A. Huang Feng
                                                                INSA-Lyon
-                                                         11 October 2023
+                                                         14 October 2023
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -45,7 +45,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 13 April 2024.
+   This Internet-Draft will expire on 16 April 2024.
 
 
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf, et al.              Expires 13 April 2024                 [Page 1]
+Graf, et al.              Expires 16 April 2024                 [Page 1]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -78,13 +78,13 @@ Table of Contents
      1.1.  Outlier Detection . . . . . . . . . . . . . . . . . . . .   2
      1.2.  Data Mesh . . . . . . . . . . . . . . . . . . . . . . . .   3
      1.3.  Observed Symptoms . . . . . . . . . . . . . . . . . . . .   4
-     1.4.  Semantic Metadata . . . . . . . . . . . . . . . . . . . .   4
-   2.  Security Considerations . . . . . . . . . . . . . . . . . . .   5
-   3.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   5
-   4.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     4.1.  Normative References  . . . . . . . . . . . . . . . . . .   5
-     4.2.  Informative References  . . . . . . . . . . . . . . . . .   5
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   7
+     1.4.  Semantic Metadata . . . . . . . . . . . . . . . . . . . .   7
+   2.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
+   3.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
+   4.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     4.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
+     4.2.  Informative References  . . . . . . . . . . . . . . . . .   8
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
 
 1.  Introduction
 
@@ -92,8 +92,8 @@ Table of Contents
 
    Outlier Detection, also known as anomaly detection, describes a
    systematic approach to identify rare data points deviating
-   significantly from the majority.  Outliers are classified in three
-   categories:
+   significantly from the majority.  Outliers are commonly classified in
+   three categories:
 
    Global outliers:
       A data point is considered a global outlier if its value is far
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf, et al.              Expires 13 April 2024                 [Page 2]
+Graf, et al.              Expires 16 April 2024                 [Page 2]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -128,6 +128,10 @@ Internet-Draft          Network Anomaly Semantics           October 2023
       that the amount of network path and interface state changes
       matches the time range when the forwarded packet volume decreases
       as a group.
+
+   For each outlier a score between 0 and 1 is being calculated.  The
+   higher the value, the higher the probability that the observed data
+   point is an outlier.
 
 1.2.  Data Mesh
 
@@ -158,18 +162,18 @@ Internet-Draft          Network Anomaly Semantics           October 2023
       modelled in IPFIX entity forwardingStatus(IE89) [RFC7270] and
       packetDeltaCount(IE2) [RFC5102] and exportet with IPFIX [RFC7011].
 
-   In terms of network observability, semantics of analytical data
-   refers to incident notifications or service level indicators.  For
-   example the incident notification described in Section 7.2 of
-   [I-D.feng-opsawg-incident-management], the health status and symptoms
 
 
 
-Graf, et al.              Expires 13 April 2024                 [Page 3]
+Graf, et al.              Expires 16 April 2024                 [Page 3]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
 
+   In terms of network observability, semantics of analytical data
+   refers to incident notifications or service level indicators.  For
+   example the incident notification described in Section 7.2 of
+   [I-D.feng-opsawg-incident-management], the health status and symptoms
    described in the Service Assurance Intend Based Networking [RFC9418]
    or the precision availability metrics defined in [I-D.ietf-ippm-pam]
    or network anomalies and its symptoms as described in this document.
@@ -179,32 +183,160 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    In this section observed network symptoms are specified and
    categorized according to the following scheme:
 
-   Where:  In which network plane, Network Telemetry Framework
+   Plane:  In which network plane, Network Telemetry Framework
       [RFC9232], it was observed in a global, contextual or collective
-      outlier or related in a collective outlier.
+      outlier.
 
-   Which:  Which behaviour was observed in a global, contextual or
-      collective outlier or related in a collective outlier.
+   Action:  Which action the network node performed for a packet in the
+      Forwarding Plane, a path or adjancency in the Control Plane or
+      state or statistical changes in the Management Plane.  For
+      Forwarding Plane we distinguish between missing, where the drop
+      occured outside the measured network node, drop and on-path delay,
+      which was measured on the network node.  For control-plane we
+      distinguish between reachability, which refers to a change in the
+      routing or forwarding information base (RIB/FIB) and adjcacency
+      which refers to a change in peering or link-layer resolution.  For
+      Management Plane we refer to state or statistical changed on
+      interfaces.
 
-      There are two behaviours for Forwarding Plane: drop and delay.
-      Where drops are packets or frames which are no longer being
-      forwarded and described with status code dropped in
-      forwardingStatus(IE89) [RFC7270].  Where delay refers to On-Path
-      delay as described in [I-D.ietf-opsawg-ipfix-on-path-telemetry].
+   Reason:  For each action one or more reasons describinging why this
+      action was used.  For Drops in Forwarding Plane we distinguish
+      between Unreachable because network layer reachability information
+      was missing, Administered because an administrator configured a
+      rule preventing the forwarding for this packet and Corrupt where
+      the network node was unable to determine where to forward to due
+      to packet, software or hardware error.  For On-Path Delay we
+      distinguish between Minimum, Average and Maximum Delay for a given
+      Flow.
 
-      There ar two behaviours for Control Plane: rechability and
-      adjacency.  Where reachability are paths such as exported with BMP
-      routing-monitoring described in Section 5 of [RFC7854].  Where
-      adjacency refers to peering such as exported with BMP peer_up and
-      peer_down described in Section 4.9 and 4.10 of [RFC7854].
+   Relation:  For each reason one or more relation describe the cause
+      why the action was chosen.  These reason could relate network
+      plane entity, a packet, control-plane or node administered
+      instruction.
 
-      There at least two behaviours for Management Plane: ingress and
-      egress interface such as being exported with YANG Push in ietf-
-      interfaces.yang as described in [RFC8343].
 
-   Why:
-      Why this behaviour was observed in a global, contextual or
-      collective outlier or related in a collective outlier.
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 4]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
+            +=========+==============+========================+
+            | Action  | Reason       | Relation               |
+            +=========+==============+========================+
+            | Missing | Previous     | Time                   |
+            +---------+--------------+------------------------+
+            | Drop    | Unreachable  | next-hop               |
+            +---------+--------------+------------------------+
+            | Drop    | Unreachable  | link-layer             |
+            +---------+--------------+------------------------+
+            | Drop    | Unreachable  | Time To Life expired   |
+            +---------+--------------+------------------------+
+            | Drop    | Unreachable  | Fragmentation needed   |
+            |         |              | and Don't Fragment set |
+            +---------+--------------+------------------------+
+            | Drop    | Administered | Access-List            |
+            +---------+--------------+------------------------+
+            | Drop    | Administered | Unicast Reverse Path   |
+            |         |              | Forwarding             |
+            +---------+--------------+------------------------+
+            | Drop    | Administered | Discard Route          |
+            +---------+--------------+------------------------+
+            | Drop    | Administered | Policed                |
+            +---------+--------------+------------------------+
+            | Drop    | Administered | Shaped                 |
+            +---------+--------------+------------------------+
+            | Drop    | Corrupt      | Bad Packet             |
+            +---------+--------------+------------------------+
+            | Drop    | Corrupt      | Bad Egress Interface   |
+            +---------+--------------+------------------------+
+            | Delay   | Min          | -                      |
+            +---------+--------------+------------------------+
+            | Delay   | Mean         | -                      |
+            +---------+--------------+------------------------+
+            | Delay   | Max          | -                      |
+            +---------+--------------+------------------------+
+
+              Table 1: Describing Symptoms and their Actions,
+                  Reason and Relation for Forwarding Plane
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 5]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
+                +==============+=============+============+
+                | Action       | Reason      | Relation   |
+                +==============+=============+============+
+                | Reachability | Update      | Imported   |
+                +--------------+-------------+------------+
+                | Reachability | Update      | Received   |
+                +--------------+-------------+------------+
+                | Reachability | Withdraw    | Received   |
+                +--------------+-------------+------------+
+                | Reachability | Withdraw    | Peer Down  |
+                +--------------+-------------+------------+
+                | Adjacency    | Established | Peer       |
+                +--------------+-------------+------------+
+                | Adjacency    | Established | Link-Layer |
+                +--------------+-------------+------------+
+                | Adjacency    | Teared Down | Peer       |
+                +--------------+-------------+------------+
+                | Adjacency    | Teared Down | Link-Layer |
+                +--------------+-------------+------------+
+
+                   Table 2: Describing Symptoms and their
+                      Actions, Reason and Relation for
+                               Control Plane
+
+               +===========+==================+============+
+               | Action    | Reason           | Relation   |
+               +===========+==================+============+
+               | Interface | Up               | Link-Layer |
+               +-----------+------------------+------------+
+               | Interface | Down             | Link-Layer |
+               +-----------+------------------+------------+
+               | Interface | Errors           | -          |
+               +-----------+------------------+------------+
+               | Interface | Discards         | -          |
+               +-----------+------------------+------------+
+               | Interface | Unknown Protocol | -          |
+               +-----------+------------------+------------+
+
+                   Table 3: Describing Symptoms and their
+                      Actions, Reason and Relation for
+                              Management Plane
+
+
+
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 6]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
 
 1.4.  Semantic Metadata
 
@@ -217,22 +349,14 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
    For example a global network outlier describes a data point of a high
    packet count with packetDeltaCount(IE2) of dropped traffic with
-   reason code dropped and status code unrouteable in
-
-
-
-Graf, et al.              Expires 13 April 2024                 [Page 4]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
+   reason code dropped and status code unroutable in
    forwardingStatus(IE89).  The annotation would be that it is
    classified as global network outlier in the forwarding plane of a
    network.
 
    It could also have been observed alongside a control plane time
    series for the same network service where network reachability has
-   been withdrawed with BGP.  In case of collective network outlier, the
+   been withdrawn with BGP.  In case of collective network outlier, the
    same data points would now being described as collective network
    outlier in the forwarding plane with a control plane network
    reachability withdrawal and customer impacting context.
@@ -259,6 +383,17 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 7]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
    [RFC9232]  Song, H., Qin, F., Martinez-Julia, P., Ciavaglia, L., and
               A. Wang, "Network Telemetry Framework", RFC 9232,
               DOI 10.17487/RFC9232, May 2022,
@@ -269,19 +404,6 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    [Deh22]    Dehghani, Z., "Data Mesh", 2022.  O'Reilly Media, Inc.
               ISBN 9781492092391
 
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 13 April 2024                 [Page 5]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
    [I-D.claise-opsawg-collected-data-manifest]
               Claise, B., Quilbeuf, J., Lopez, D., Martinez-Casanueva,
               I. D., and T. Graf, "A Data Manifest for Contextualized
@@ -291,20 +413,20 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               opsawg-collected-data-manifest-06>.
 
    [I-D.feng-opsawg-incident-management]
-              Feng, C., Hu, T., Contreras, L. M., Graf, T., Wu, Q., Yu,
+              Feng, C., Hu, T., Murillo, L. M. C., Graf, T., Wu, Q., Yu,
               C., and N. Davis, "Incident Management for Network
               Services", Work in Progress, Internet-Draft, draft-feng-
-              opsawg-incident-management-01, 7 July 2023,
-              <https://datatracker.ietf.org/doc/html/draft-feng-opsawg-
-              incident-management-01>.
+              opsawg-incident-management-02, 21 October 2023,
+              <https://datatracker.ietf.org/api/v1/doc/document/draft-
+              feng-opsawg-incident-management/>.
 
    [I-D.ietf-ippm-pam]
               Mirsky, G., Halpern, J. M., Min, X., Clemm, A., Strassner,
               J., and J. François, "Precision Availability Metrics for
               Services Governed by Service Level Objectives (SLOs)",
-              Work in Progress, Internet-Draft, draft-ietf-ippm-pam-07,
-              6 October 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-ippm-pam-07>.
+              Work in Progress, Internet-Draft, draft-ietf-ippm-pam-08,
+              18 October 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-ippm-pam-08>.
 
    [I-D.ietf-opsawg-ipfix-on-path-telemetry]
               Graf, T., Claise, B., and A. H. Feng, "Export of On-Path
@@ -317,6 +439,17 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
               2006, <https://www.rfc-editor.org/info/rfc4364>.
 
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 8]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
    [RFC5102]  Quittek, J., Bryant, S., Claise, B., Aitken, P., and J.
               Meyer, "Information Model for IP Flow Information Export",
               RFC 5102, DOI 10.17487/RFC5102, January 2008,
@@ -327,16 +460,6 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               Protocol for the Exchange of Flow Information", STD 77,
               RFC 7011, DOI 10.17487/RFC7011, September 2013,
               <https://www.rfc-editor.org/info/rfc7011>.
-
-
-
-
-
-
-Graf, et al.              Expires 13 April 2024                 [Page 6]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
 
    [RFC7270]  Yourtchenko, A., Aitken, P., and B. Claise, "Cisco-
               Specific Information Elements Reused in IP Flow
@@ -376,6 +499,13 @@ Authors' Addresses
    Email: wanting.du@swisscom.com
 
 
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 9]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
    Alex Huang Feng
    INSA-Lyon
    Lyon
@@ -389,4 +519,42 @@ Authors' Addresses
 
 
 
-Graf, et al.              Expires 13 April 2024                 [Page 7]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                [Page 10]
