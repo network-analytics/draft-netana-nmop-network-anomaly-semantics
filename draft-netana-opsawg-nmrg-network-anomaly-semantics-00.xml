@@ -101,8 +101,25 @@
 
   <middle>
     <section anchor="Introduction" title="Introduction">
-      <t>Give context to ANRW. Intend ind Test. Supervised Machine
-      Learning</t>
+      <t><xref target="Ahf23">Network Anomaly Detection Architecture</xref>
+      provides an overall introduction into how anomaly detection is being
+      applied into the IP network domain and which operational data is needed.
+      It approaches the problem space by automating what a Network Engineer
+      would normally do when veryfing a network connectivity service. Monitor
+      from different network plane perspectives to understand wherever one
+      network plane affects another negatively.</t>
+
+      <t>In order to fine tune outlier detection, the results provided as
+      analytical data need to be reviewed by a Network Engineer. Keeping the
+      human out of the monitoring but still involving him in the alert
+      verification loop.</t>
+
+      <t>This document describes what information is needed to understand the
+      output of the outlier detection for a Network Engineer, but also at the
+      same time is semantically structured that it can be used for outlier
+      detection testing by comparing the results systematically and set a
+      baseline for supervised machine learning which requires labeled
+      operational data.</t>
     </section>
 
     <section anchor="Outlier_Detection" title="Outlier Detection">
@@ -146,7 +163,9 @@
 
       <t>For each outlier a score between 0 and 1 is being calculated. The
       higher the value, the higher the probability that the observed data
-      point is an outlier.</t>
+      point is an outlier. <xref target="VAP09">Anomaly detection: A
+      survey</xref> gives additional details on anomaly detection and its
+      types.</t>
     </section>
 
     <section anchor="Data_Mesh" title="Data Mesh">
@@ -215,7 +234,7 @@
           reachability, which refers to a change in the routing or forwarding
           information base (RIB/FIB) and adjcacency which refers to a change
           in peering or link-layer resolution. For Management Plane we refer
-          to state or statistical changed on interfaces.</t>
+          to state or statistical changes on interfaces.</t>
         </dd>
       </dl>
 
@@ -579,6 +598,24 @@ module: ietf-anomaly-detection-semantic-metadata
       <?rfc include='reference.RFC.8340'?>
 
       <?rfc include='reference.RFC.9232'?>
+
+      <reference anchor="Ahf23"
+                 target="https://anrw23.hotcrp.com/doc/anrw23-paper8.pdf">
+        <front>
+          <title>Daisy: Practical Anomaly Detection in large BGP/MPLS and
+          BGP/SRv6 VPN Networks</title>
+
+          <author fullname="Alex Huang Feng" initials="A."
+                  surname="Huang Feng"/>
+
+          <date month="July" year="2023"/>
+        </front>
+
+        <seriesInfo name="DOI" value="10.1145/3606464.3606470"/>
+
+        <refcontent>IETF 117, Applied Networking Research
+        Workshop</refcontent>
+      </reference>
     </references>
 
     <references title="Informative References">
@@ -604,18 +641,39 @@ module: ietf-anomaly-detection-semantic-metadata
 
       <?rfc include='reference.I-D.ietf-opsawg-ipfix-on-path-telemetry'?>
 
-      <reference anchor="Deh22">
+      <reference anchor="VAP09"
+                 target="https://www.researchgate.net/publication/220565847_Anomaly_Detection_A_Survey">
+        <front>
+          <title>Anomaly detection: A survey</title>
+
+          <author fullname="Varun Chandola" initials="V." surname="Chandola"/>
+
+          <author fullname="Arindam Banerjee" initials="A." surname="Banerjee"/>
+
+          <author fullname="Vipin Kumar" initials="V." surname="Kumar"/>
+
+          <date month="July" year="2009"/>
+        </front>
+
+        <seriesInfo name="DOI" value="10.1145/1541880.1541882"/>
+
+        <refcontent>IETF 117, Applied Networking Research
+        Workshop</refcontent>
+      </reference>
+
+      <reference anchor="Deh22"
+                 target="https://www.oreilly.com/library/view/data-mesh/9781492092384/">
         <front>
           <title>Data Mesh</title>
 
-          <author fullname="Zhamak Dehghani" initials="Z." surname="Dehghani">
-            <organization/>
-          </author>
+          <author fullname="Zhamak Dehghani" initials="Z." surname="Dehghani"/>
 
-          <date year="2022"/>
+          <date month="March" year="2022"/>
         </front>
 
-        <annotation>O'Reilly Media, Inc. ISBN 9781492092391</annotation>
+        <seriesInfo name="ISBN" value="9781492092391"/>
+
+        <refcontent>O'Reilly Media</refcontent>
       </reference>
     </references>
   </back>

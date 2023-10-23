@@ -75,21 +75,51 @@ Copyright Notice
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Outlier Detection . . . . . . . . . . . . . . . . . . . . . .   2
-   3.  Data Mesh . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Outlier Detection . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Data Mesh . . . . . . . . . . . . . . . . . . . . . . . . . .   4
    4.  Observed Symptoms . . . . . . . . . . . . . . . . . . . . . .   4
-   5.  Semantic Metadata . . . . . . . . . . . . . . . . . . . . . .   7
-     5.1.  Overview of the Model . . . . . . . . . . . . . . . . . .   7
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   7
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   7
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .   8
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .   9
+   5.  Semantic Metadata . . . . . . . . . . . . . . . . . . . . . .   8
+     5.1.  Overview of the Model . . . . . . . . . . . . . . . . . .   8
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .   9
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
 
 1.  Introduction
 
-   Give context to ANRW.  Intend ind Test.  Supervised Machine Learning
+   Network Anomaly Detection Architecture [Ahf23] provides an overall
+   introduction into how anomaly detection is being applied into the IP
+   network domain and which operational data is needed.  It approaches
+   the problem space by automating what a Network Engineer would
+   normally do when veryfing a network connectivity service.  Monitor
+   from different network plane perspectives to understand wherever one
+   network plane affects another negatively.
+
+   In order to fine tune outlier detection, the results provided as
+   analytical data need to be reviewed by a Network Engineer.  Keeping
+   the human out of the monitoring but still involving him in the alert
+   verification loop.
+
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 2]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
+   This document describes what information is needed to understand the
+   output of the outlier detection for a Network Engineer, but also at
+   the same time is semantically structured that it can be used for
+   outlier detection testing by comparing the results systematically and
+   set a baseline for supervised machine learning which requires labeled
+   operational data.
 
 2.  Outlier Detection
 
@@ -104,15 +134,6 @@ Table of Contents
       dropped packet count is between 0 and 10 per minute during a one
       week observation and the observed global outlier was 100000
       packets.
-
-
-
-
-
-Graf, et al.              Expires 16 April 2024                 [Page 2]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
 
    Contextual outliers:
       A data point is considered a contextual outlier if its value
@@ -135,7 +156,19 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
    For each outlier a score between 0 and 1 is being calculated.  The
    higher the value, the higher the probability that the observed data
-   point is an outlier.
+   point is an outlier.  Anomaly detection: A survey [VAP09] gives
+   additional details on anomaly detection and its types.
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 3]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
 
 3.  Data Mesh
 
@@ -159,16 +192,6 @@ Internet-Draft          Network Anomaly Semantics           October 2023
       reachability.  For example, BGP VPNv6 unicast updates and
       withdrawals exported in BGP Monitoring Protocol (BMP) [RFC7854]
       and modeled in BGP [RFC4364]
-
-
-
-
-
-
-Graf, et al.              Expires 16 April 2024                 [Page 3]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
 
    Forwarding Plane:
       Time series data describing the forwarding behavior of packets and
@@ -195,10 +218,18 @@ Internet-Draft          Network Anomaly Semantics           October 2023
       Forwarding Plane we distinguish between missing, where the drop
       occured outside the measured network node, drop and on-path delay,
       which was measured on the network node.  For control-plane we
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 4]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
       distinguish between reachability, which refers to a change in the
       routing or forwarding information base (RIB/FIB) and adjcacency
       which refers to a change in peering or link-layer resolution.  For
-      Management Plane we refer to state or statistical changed on
+      Management Plane we refer to state or statistical changes on
       interfaces.
 
    Reason:  For each action one or more reasons describinging why this
@@ -221,7 +252,32 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 16 April 2024                 [Page 4]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 5]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -277,7 +333,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 16 April 2024                 [Page 5]
+Graf, et al.              Expires 16 April 2024                 [Page 6]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -333,7 +389,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 16 April 2024                 [Page 6]
+Graf, et al.              Expires 16 April 2024                 [Page 7]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
@@ -372,6 +428,12 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 8.1.  Normative References
 
+   [Ahf23]    Huang Feng, A., "Daisy: Practical Anomaly Detection in
+              large BGP/MPLS and BGP/SRv6 VPN Networks", IETF 117,
+              Applied Networking Research Workshop,
+              DOI 10.1145/3606464.3606470, July 2023,
+              <https://anrw23.hotcrp.com/doc/anrw23-paper8.pdf>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -381,18 +443,16 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
-              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
-              <https://www.rfc-editor.org/info/rfc8340>.
 
 
-
-
-
-Graf, et al.              Expires 16 April 2024                 [Page 7]
+Graf, et al.              Expires 16 April 2024                 [Page 8]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
+
+   [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
+              BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
+              <https://www.rfc-editor.org/info/rfc8340>.
 
    [RFC9232]  Song, H., Qin, F., Martinez-Julia, P., Ciavaglia, L., and
               A. Wang, "Network Telemetry Framework", RFC 9232,
@@ -401,8 +461,10 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 8.2.  Informative References
 
-   [Deh22]    Dehghani, Z., "Data Mesh", 2022.  O'Reilly Media, Inc.
-              ISBN 9781492092391
+   [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
+              ISBN 9781492092391, March 2022,
+              <https://www.oreilly.com/library/view/data-
+              mesh/9781492092384/>.
 
    [I-D.claise-opsawg-collected-data-manifest]
               Claise, B., Quilbeuf, J., Lopez, D., Martinez-Casanueva,
@@ -435,20 +497,18 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
               ipfix-on-path-telemetry-04>.
 
-   [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
-              Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
-              2006, <https://www.rfc-editor.org/info/rfc4364>.
 
 
 
 
-
-
-
-Graf, et al.              Expires 16 April 2024                 [Page 8]
+Graf, et al.              Expires 16 April 2024                 [Page 9]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
+
+   [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
+              Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
+              2006, <https://www.rfc-editor.org/info/rfc4364>.
 
    [RFC5102]  Quittek, J., Bryant, S., Claise, B., Aitken, P., and J.
               Meyer, "Information Model for IP Flow Information Export",
@@ -481,6 +541,12 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               RFC 9418, DOI 10.17487/RFC9418, July 2023,
               <https://www.rfc-editor.org/info/rfc9418>.
 
+   [VAP09]    Chandola, V., Banerjee, A., and V. Kumar, "Anomaly
+              detection: A survey", IETF 117, Applied Networking
+              Research Workshop, DOI 10.1145/1541880.1541882, July 2009,
+              <https://www.researchgate.net/
+              publication/220565847_Anomaly_Detection_A_Survey>.
+
 Authors' Addresses
 
    Thomas Graf
@@ -488,6 +554,14 @@ Authors' Addresses
    Binzring 17
    CH-8045 Zurich
    Switzerland
+
+
+
+Graf, et al.              Expires 16 April 2024                [Page 10]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
    Email: thomas.graf@swisscom.com
 
 
@@ -497,13 +571,6 @@ Authors' Addresses
    CH-8045 Zurich
    Switzerland
    Email: wanting.du@swisscom.com
-
-
-
-
-Graf, et al.              Expires 16 April 2024                 [Page 9]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
 
 
    Alex Huang Feng
@@ -546,15 +613,4 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 16 April 2024                [Page 10]
+Graf, et al.              Expires 16 April 2024                [Page 11]
