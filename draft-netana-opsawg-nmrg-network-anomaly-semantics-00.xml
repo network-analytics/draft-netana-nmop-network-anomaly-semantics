@@ -622,27 +622,159 @@
 
     <section anchor="Semantic_Metadata" title="Semantic Metadata">
       <t>Metadata adds additional context to data. For instance, in networks
-      the software version of a network node where management plane metrics
-      are obtained from as described in <xref
-      target="I-D.claise-opsawg-collected-data-manifest"/>. Where in Semantic
-      Metadata the meaning or ontology of the annotated data is being
-      described.</t>
+        the software version of a network node where management plane metrics
+        are obtained from as described in<xref
+                target="I-D.claise-opsawg-collected-data-manifest"/>. Where in
+        Semantic Metadata the meaning or ontology of the annotated data is
+        being described.
 
-      <section anchor="model-tree" title="Overview of the Model">
-        <t><xref target="anomaly-detection-semantic-metadata-tree"/> contains
-        the YANG tree diagram <xref target="RFC8340"/> of the
-        ietf-anomaly-detection-semantic-metadata module. <figure
-            anchor="anomaly-detection-semantic-metadata-tree"
-            title="YANG tree diagram for ietf-anomaly-detection-semantic-metadata">
+        In this section, a YANG model is defined, in order to provide a
+        structure for the metadata related to anomalies happening in the
+        network.
+        The module is intended to describe the metadata used to
+        "annotate" the observability data collected from the network nodes,
+        which can include time series data and logs, as well as other forms
+        of data that is "time-bounded".
+
+        The aspects discussed so far in this document are grouped under the
+        concept of "incident" which represents a collection of symptoms.
+        The incident overall has a set of parameters that describe the
+        overall behavior of the network in a given time-window including all
+        the spotted symptoms (network anomalies).
+      </t>
+
+      <section anchor="symptom-model-tree"
+               title="Overview of the Model for the Symptom Semantic Metadata">
+        <t>
+          <xref target="symptom-semantic-metadata-tree"/> contains the YANG
+          tree diagram <xref target="RFC8340"/> of the
+          ietf-symptom-semantic-metadata module.
+
+          For each symptom, the following parameters have been assigned:
+          - a unique ID for identification; a description of
+            the symptom;
+          - a list of affected metrics / counters;
+          - Start and End time, to specify the time-window;
+          - a concern score, indicating how critical the symptom is;
+          - the source, indicating if it has been identified by a network
+          expert or an algorithm;
+          - the outlier type;
+          - Action, Reason and Relation, as described in previous sections.
+          <figure
+            anchor="symptom-semantic-metadata-tree"
+            title="YANG tree diagram for ietf-symptom-semantic-metadata">
             <artwork><![CDATA[
-module: ietf-anomaly-detection-semantic-metadata
-                ]]></artwork>
-          </figure></t>
+              module: ietf-symptom-semantic-metadata
+                +--rw symptoms
+                  +--rw symptom* [id]
+                    +--rw id                        string
+                    +--rw description               string
+                    +--rw metrics* [metric]
+                    |  +--rw metric    string
+                    +--rw start-time                yang:date-and-time
+                    +--rw end-time                  yang:date-and-time
+                    +--rw concern?                  uint8
+                    +--rw source
+                    |  +--rw (source-type)
+                    |  |  +--:(human)
+                    |  |  |  +--rw human        empty
+                    |  |  +--:(algorithm)
+                    |  |     +--rw algorithm    empty
+                    |  +--rw name?              string
+                    +--rw (plane)?
+                    |  +--:(forwarding-plane)
+                    |  |  +--rw forwarding-plane    empty
+                    |  +--:(control-plane)
+                    |  |  +--rw control-plane       empty
+                    |  +--:(management-plane)
+                    |     +--rw management-plane    empty
+                    +--rw (outlier-type)?
+                    |  +--:(global)
+                    |  |  +--rw global              empty
+                    |  +--:(contextual)
+                    |  |  +--rw contextual          empty
+                    |  +--:(collective)
+                    |  |  +--rw collective          empty
+                    |  +--:(other)
+                    |     +--rw other               empty
+                    +--rw action?                   string
+                    +--rw reason?                   string
+                    +--rw relation?                 string
+                    ]]>
+            </artwork>
+          </figure>
+        </t>
+        </section>
 
-        <t>Describe YANG module</t>
+        <section anchor="incident-model-tree"
+                   title="Overview of the Model for the Incident Semantic Metadata">
+          <t>
+            <xref target="incident-semantic-metadata-tree"/> contains
+            the YANG tree diagram <xref target="RFC8340"/> of the
+            ietf-incident-semantic-metadata module.
+
+            The semantic of the fields of this model is in line with what
+            specified in the previous section, for the
+            symptom-semantic-metadata-tree.
+            <figure
+                    anchor="incident-semantic-metadata-tree"
+                    title="YANG tree diagram for ietf-incident-semantic-metadata">
+              <artwork><![CDATA[
+                  module: ietf-incident-label
+                  +--rw incidents
+                    +--rw incident* [id]
+                    +--rw id               string
+                    +--rw description      string
+                    +--rw start-time       yang:date-and-time
+                    +--rw end-time         yang:date-and-time
+                    +--rw concern-score    uint8
+                    +--rw symptoms
+                    |  +--rw symptom* [id]
+                    |     +--rw id                        string
+                    |     +--rw description               string
+                    |     +--rw metrics* [metric]
+                    |     |  +--rw metric    string
+                    |     +--rw start-time                yang:date-and-time
+                    |     +--rw end-time                  yang:date-and-time
+                    |     +--rw concern?                  uint8
+                    |     +--rw source
+                    |     |  +--rw (source-type)
+                    |     |  |  +--:(human)
+                    |     |  |  |  +--rw human        empty
+                    |     |  |  +--:(algorithm)
+                    |     |  |     +--rw algorithm    empty
+                    |     |  +--rw name?              string
+                    |     +--rw (plane)?
+                    |     |  +--:(forwarding-plane)
+                    |     |  |  +--rw forwarding-plane    empty
+                    |     |  +--:(control-plane)
+                    |     |  |  +--rw control-plane       empty
+                    |     |  +--:(management-plane)
+                    |     |     +--rw management-plane    empty
+                    |     +--rw (outlier-type)?
+                    |     |  +--:(global)
+                    |     |  |  +--rw global              empty
+                    |     |  +--:(contextual)
+                    |     |  |  +--rw contextual          empty
+                    |     |  +--:(collective)
+                    |     |  |  +--rw collective          empty
+                    |     |  +--:(other)
+                    |     |     +--rw other               empty
+                    |     +--rw action?                   string
+                    |     +--rw reason?                   string
+                    |     +--rw relation?                 string
+                    +--rw source
+                      +--rw (source-type)
+                      |  +--:(human)
+                      |  |  +--rw human        empty
+                      |  +--:(algorithm)
+                      |     +--rw algorithm    empty
+                      +--rw name?              string
+                  ]]>
+                </artwork>
+              </figure></t>
+        </section>
       </section>
-    </section>
-
     <section anchor="Security" title="Security Considerations">
       <t>The security considerations.</t>
     </section>
