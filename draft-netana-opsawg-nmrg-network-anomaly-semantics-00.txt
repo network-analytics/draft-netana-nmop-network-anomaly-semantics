@@ -7,6 +7,9 @@ Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
 Expires: 16 April 2024                                     A. Huang Feng
                                                                INSA-Lyon
+                                                            V. Riccobene
+                                                              A. Roberto
+                                                                  Huawei
                                                          14 October 2023
 
 
@@ -24,7 +27,7 @@ Abstract
 
 Requirements Language
 
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
    "OPTIONAL" in this document are to be interpreted as described in BCP
    14 [RFC2119] [RFC8174] when, and only when, they appear in all
@@ -46,9 +49,6 @@ Status of This Memo
    material or to cite them other than as "work in progress."
 
    This Internet-Draft will expire on 16 April 2024.
-
-
-
 
 
 
@@ -79,13 +79,16 @@ Table of Contents
    3.  Data Mesh . . . . . . . . . . . . . . . . . . . . . . . . . .   4
    4.  Observed Symptoms . . . . . . . . . . . . . . . . . . . . . .   4
    5.  Semantic Metadata . . . . . . . . . . . . . . . . . . . . . .   8
-     5.1.  Overview of the Model . . . . . . . . . . . . . . . . . .   8
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .   8
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .   8
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   8
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .   9
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  10
+     5.1.  Overview of the Model for the Symptom Semantic
+           Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   8
+     5.2.  Overview of the Model for the Incident Semantic
+           Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   9
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  11
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  11
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Introduction
 
@@ -93,7 +96,7 @@ Table of Contents
    introduction into how anomaly detection is being applied into the IP
    network domain and which operational data is needed.  It approaches
    the problem space by automating what a Network Engineer would
-   normally do when veryfing a network connectivity service.  Monitor
+   normally do when verifying a network connectivity service.  Monitor
    from different network plane perspectives to understand wherever one
    network plane affects another negatively.
 
@@ -101,9 +104,6 @@ Table of Contents
    analytical data need to be reviewed by a Network Engineer.  Keeping
    the human out of the monitoring but still involving him in the alert
    verification loop.
-
-
-
 
 
 
@@ -125,41 +125,41 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
    Outlier Detection, also known as anomaly detection, describes a
    systematic approach to identify rare data points deviating
-   significantly from the majority.  Outliers are commonly classified in
-   three categories:
+   significantly from the majority.  Outliers can manifest as single
+   data point or as a sequence of data points.  There are multiple ways
+   in general to classify anomalies, but for the context of this draft,
+   the following three classes are taken into account:
 
-   Global outliers:
-      A data point is considered a global outlier if its value is far
-      outside the entirety of a data set.  For example, an average
-      dropped packet count is between 0 and 10 per minute during a one
-      week observation and the observed global outlier was 100000
-      packets.
+   Global outliers:  An outlier is considered "global" if its behaviour
+      is outside the entirety of the considered data set.  For example,
+      if the average dropped packet count is between 0 and 10 per minute
+      and a small time-window gets the value 1000, this is considered a
+      global anomaly.
 
-   Contextual outliers:
-      A data point is considered a contextual outlier if its value
-      significantly deviates from the rest of the data points in the
-      same time series context.  For example, the forwarded packet
-      volume in a timeseries are changing during the time of the day
-      like an oscillation curve, where the observed contextual packet
-      volume outlier is outside the oscillation curve at that moment in
-      time.  At another time the same value could be considered normal.
+   Contextual outliers:  An outlier is considered "contextual" if its
+      behaviour is within a normal (expected) range, but it would not be
+      expected based on some context.  Context can be defined as a
+      function of multiple parameters, such as time, location, etc.  For
+      example, the forwarded packet volume overnight reaches levels
+      which might be totally normal for the daytime, but anomalous and
+      unexpected for the nighttime.
 
-   Collective outliers:
-      A subset of data points within a data set is considered anomalous
-      if those values as a collection deviate significantly from the
-      entire data set, but the values of the individual data points are
-      not themselves anomalous in either a contextual or global sense.
-      In Network Telemetry time series, one way this can manifest is
-      that the amount of network path and interface state changes
-      matches the time range when the forwarded packet volume decreases
-      as a group.
+   Collective outliers:  An outlier is considered "collective" if the
+      behaviour of each single data point that are part of the anomaly
+      are within expected ranges (so they are not anomalous it either a
+      contextual or a global sense), but the group, taking all the data
+      points together, is.  Note that the group can be made within a
+      single time series (a sequence of data points is anomalous) or
+      across multiple metrics (e.g.  if looking at two metrics together,
+      the combined behavior turns out to be anomalous).  In Network
+      Telemetry time series, one way this can manifest is that the
+      amount of network path and interface state changes matches the
+      time range when the forwarded packet volume decreases as a group.
 
    For each outlier a score between 0 and 1 is being calculated.  The
    higher the value, the higher the probability that the observed data
    point is an outlier.  Anomaly detection: A survey [VAP09] gives
    additional details on anomaly detection and its types.
-
-
 
 
 
@@ -182,22 +182,21 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    Network Telemetry Framework [RFC9232] in the following three
    different network planes:
 
-   Management Plane:
-      Time series data describing the state changes and statistics of a
-      network node and its components.  For example, Interface state and
-      statistics modelled in ietf-interfaces.yang [RFC8343]
+   Management Plane:  Time series data describing the state changes and
+      statistics of a network node and its components.  For example,
+      Interface state and statistics modelled in ietf-interfaces.yang
+      [RFC8343]
 
-   Control Plane:
-      Time series data describing the state and state changes of network
-      reachability.  For example, BGP VPNv6 unicast updates and
-      withdrawals exported in BGP Monitoring Protocol (BMP) [RFC7854]
-      and modeled in BGP [RFC4364]
+   Control Plane:  Time series data describing the state and state
+      changes of network reachability.  For example, BGP VPNv6 unicast
+      updates and withdrawals exported in BGP Monitoring Protocol (BMP)
+      [RFC7854] and modeled in BGP [RFC4364]
 
-   Forwarding Plane:
-      Time series data describing the forwarding behavior of packets and
-      its data-plane context.  For example, dropped packet count
-      modelled in IPFIX entity forwardingStatus(IE89) [RFC7270] and
-      packetDeltaCount(IE2) [RFC5102] and exportet with IPFIX [RFC7011].
+   Forwarding Plane:  Time series data describing the forwarding
+      behavior of packets and its data-plane context.  For example,
+      dropped packet count modelled in IPFIX entity
+      forwardingStatus(IE89) [RFC7270] and packetDeltaCount(IE2)
+      [RFC5102] and exportet with IPFIX [RFC7011].
 
    In terms of network observability, semantics of analytical data
    refers to incident notifications or service level indicators.  For
@@ -213,11 +212,12 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    categorized according to the following scheme:
 
    Action:  Which action the network node performed for a packet in the
-      Forwarding Plane, a path or adjancency in the Control Plane or
+      Forwarding Plane, a path or adjacency in the Control Plane or
       state or statistical changes in the Management Plane.  For
       Forwarding Plane we distinguish between missing, where the drop
       occured outside the measured network node, drop and on-path delay,
       which was measured on the network node.  For control-plane we
+      distinguish between reachability, which refers to a change in the
 
 
 
@@ -226,13 +226,12 @@ Graf, et al.              Expires 16 April 2024                 [Page 4]
 Internet-Draft          Network Anomaly Semantics           October 2023
 
 
-      distinguish between reachability, which refers to a change in the
       routing or forwarding information base (RIB/FIB) and adjcacency
       which refers to a change in peering or link-layer resolution.  For
       Management Plane we refer to state or statistical changes on
       interfaces.
 
-   Reason:  For each action one or more reasons describinging why this
+   Reason:  For each action one or more reasons describing why this
       action was used.  For Drops in Forwarding Plane we distinguish
       between Unreachable because network layer reachability information
       was missing, administered because an administrator configured a
@@ -249,6 +248,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
    Table 1 consolidates for the forwarding plane a list of common
    symptoms with their actions, reasons and relations.
+
 
 
 
@@ -398,22 +398,175 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
    Metadata adds additional context to data.  For instance, in networks
    the software version of a network node where management plane metrics
-   are obtained from as described in
-   [I-D.claise-opsawg-collected-data-manifest].  Where in Semantic
+   are obtained from as described
+   in[I-D.claise-opsawg-collected-data-manifest].  Where in Semantic
    Metadata the meaning or ontology of the annotated data is being
-   described.
+   described.  In this section, a YANG model is defined, in order to
+   provide a structure for the metadata related to anomalies happening
+   in the network.  The module is intended to describe the metadata used
+   to "annotate" the observability data collected from the network
+   nodes, which can include time series data and logs, as well as other
+   forms of data that is "time-bounded".  The aspects discussed so far
+   in this document are grouped under the concept of "incident" which
+   represents a collection of symptoms.  The incident overall has a set
+   of parameters that describe the overall behavior of the network in a
+   given time-window including all the spotted symptoms (network
+   anomalies).
 
-5.1.  Overview of the Model
+5.1.  Overview of the Model for the Symptom Semantic Metadata
 
    Figure 1 contains the YANG tree diagram [RFC8340] of the ietf-
-   anomaly-detection-semantic-metadata module.
+   symptom-semantic-metadata module.  For each symptom, the following
+   parameters have been assigned: - a unique ID for identification; a
+   description of the symptom; - a list of affected metrics / counters;
+   - Start and End time, to specify the time-window; - a concern score,
+   indicating how critical the symptom is; - the source, indicating if
+   it has been identified by a network expert or an algorithm; - the
+   outlier type; - Action, Reason and Relation, as described in previous
+   sections.
 
-   module: ietf-anomaly-detection-semantic-metadata
 
-      Figure 1: YANG tree diagram for ietf-anomaly-detection-semantic-
-                                  metadata
 
-   Describe YANG module
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 8]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
+                module: ietf-symptom-semantic-metadata
+                  +--rw symptoms
+                    +--rw symptom* [id]
+                      +--rw id                        string
+                      +--rw description               string
+                      +--rw metrics* [metric]
+                      |  +--rw metric    string
+                      +--rw start-time                yang:date-and-time
+                      +--rw end-time                  yang:date-and-time
+                      +--rw concern?                  uint8
+                      +--rw source
+                      |  +--rw (source-type)
+                      |  |  +--:(human)
+                      |  |  |  +--rw human        empty
+                      |  |  +--:(algorithm)
+                      |  |     +--rw algorithm    empty
+                      |  +--rw name?              string
+                      +--rw (plane)?
+                      |  +--:(forwarding-plane)
+                      |  |  +--rw forwarding-plane    empty
+                      |  +--:(control-plane)
+                      |  |  +--rw control-plane       empty
+                      |  +--:(management-plane)
+                      |     +--rw management-plane    empty
+                      +--rw (outlier-type)?
+                      |  +--:(global)
+                      |  |  +--rw global              empty
+                      |  +--:(contextual)
+                      |  |  +--rw contextual          empty
+                      |  +--:(collective)
+                      |  |  +--rw collective          empty
+                      |  +--:(other)
+                      |     +--rw other               empty
+                      +--rw action?                   string
+                      +--rw reason?                   string
+                      +--rw relation?                 string
+
+
+      Figure 1: YANG tree diagram for ietf-symptom-semantic-metadata
+
+5.2.  Overview of the Model for the Incident Semantic Metadata
+
+   Figure 2 contains the YANG tree diagram [RFC8340] of the ietf-
+   incident-semantic-metadata module.  The semantic of the fields of
+   this model is in line with what specified in the previous section,
+   for the symptom-semantic-metadata-tree.
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                 [Page 9]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
+                  module: ietf-incident-label
+                  +--rw incidents
+                    +--rw incident* [id]
+                    +--rw id               string
+                    +--rw description      string
+                    +--rw start-time       yang:date-and-time
+                    +--rw end-time         yang:date-and-time
+                    +--rw concern-score    uint8
+                    +--rw symptoms
+                    |  +--rw symptom* [id]
+                    |     +--rw id                        string
+                    |     +--rw description               string
+                    |     +--rw metrics* [metric]
+                    |     |  +--rw metric    string
+                    |     +--rw start-time                yang:date-and-time
+                    |     +--rw end-time                  yang:date-and-time
+                    |     +--rw concern?                  uint8
+                    |     +--rw source
+                    |     |  +--rw (source-type)
+                    |     |  |  +--:(human)
+                    |     |  |  |  +--rw human        empty
+                    |     |  |  +--:(algorithm)
+                    |     |  |     +--rw algorithm    empty
+                    |     |  +--rw name?              string
+                    |     +--rw (plane)?
+                    |     |  +--:(forwarding-plane)
+                    |     |  |  +--rw forwarding-plane    empty
+                    |     |  +--:(control-plane)
+                    |     |  |  +--rw control-plane       empty
+                    |     |  +--:(management-plane)
+                    |     |     +--rw management-plane    empty
+                    |     +--rw (outlier-type)?
+                    |     |  +--:(global)
+                    |     |  |  +--rw global              empty
+                    |     |  +--:(contextual)
+                    |     |  |  +--rw contextual          empty
+                    |     |  +--:(collective)
+                    |     |  |  +--rw collective          empty
+                    |     |  +--:(other)
+                    |     |     +--rw other               empty
+                    |     +--rw action?                   string
+                    |     +--rw reason?                   string
+                    |     +--rw relation?                 string
+                    +--rw source
+                      +--rw (source-type)
+                      |  +--:(human)
+                      |  |  +--rw human        empty
+                      |  +--:(algorithm)
+
+
+
+Graf, et al.              Expires 16 April 2024                [Page 10]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
+                      |     +--rw algorithm    empty
+                      +--rw name?              string
+
+
+   Figure 2: YANG tree diagram for ietf-incident-semantic-metadata
 
 6.  Security Considerations
 
@@ -443,13 +596,6 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
 
-
-
-Graf, et al.              Expires 16 April 2024                 [Page 8]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
@@ -460,6 +606,17 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               <https://www.rfc-editor.org/info/rfc9232>.
 
 8.2.  Informative References
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                [Page 11]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
 
    [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
               ISBN 9781492092391, March 2022,
@@ -475,12 +632,12 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               opsawg-collected-data-manifest-06>.
 
    [I-D.feng-opsawg-incident-management]
-              Feng, C., Hu, T., Murillo, L. M. C., Graf, T., Wu, Q., Yu,
+              Feng, C., Hu, T., Contreras, L. M., Graf, T., Wu, Q., Yu,
               C., and N. Davis, "Incident Management for Network
               Services", Work in Progress, Internet-Draft, draft-feng-
-              opsawg-incident-management-02, 21 October 2023,
-              <https://datatracker.ietf.org/api/v1/doc/document/draft-
-              feng-opsawg-incident-management/>.
+              opsawg-incident-management-03, 23 October 2023,
+              <https://datatracker.ietf.org/doc/html/draft-feng-opsawg-
+              incident-management-03>.
 
    [I-D.ietf-ippm-pam]
               Mirsky, G., Halpern, J. M., Min, X., Clemm, A., Strassner,
@@ -497,15 +654,6 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
               ipfix-on-path-telemetry-04>.
 
-
-
-
-
-Graf, et al.              Expires 16 April 2024                 [Page 9]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
    [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
               Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
               2006, <https://www.rfc-editor.org/info/rfc4364>.
@@ -514,6 +662,17 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               Meyer, "Information Model for IP Flow Information Export",
               RFC 5102, DOI 10.17487/RFC5102, January 2008,
               <https://www.rfc-editor.org/info/rfc5102>.
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                [Page 12]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
 
    [RFC7011]  Claise, B., Ed., Trammell, B., Ed., and P. Aitken,
               "Specification of the IP Flow Information Export (IPFIX)
@@ -554,14 +713,6 @@ Authors' Addresses
    Binzring 17
    CH-8045 Zurich
    Switzerland
-
-
-
-Graf, et al.              Expires 16 April 2024                [Page 10]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
    Email: thomas.graf@swisscom.com
 
 
@@ -573,6 +724,12 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    Email: wanting.du@swisscom.com
 
 
+
+Graf, et al.              Expires 16 April 2024                [Page 13]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
    Alex Huang Feng
    INSA-Lyon
    Lyon
@@ -580,6 +737,18 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    Email: alex.huang-feng@insa-lyon.fr
 
 
+   Vincenzo Riccobene
+   Huawei
+   Dublin
+   Ireland
+   Email: vincenzo.riccobene@huawei-partners.com
+
+
+   Antonio Roberto
+   Huawei
+   Dublin
+   Ireland
+   Email: antonio.roberto@huawei.com
 
 
 
@@ -612,5 +781,4 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-
-Graf, et al.              Expires 16 April 2024                [Page 11]
+Graf, et al.              Expires 16 April 2024                [Page 14]
