@@ -79,6 +79,58 @@
       </address>
     </author>
 
+    <author fullname="Vincenzo Riccobene" initials="V." surname="Riccobene">
+      <organization>Huawei</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Dublin</city>
+
+          <region/>
+
+          <code/>
+
+          <country>Ireland</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>vincenzo.riccobene@huawei-partners.com</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <author fullname="Antonio Roberto" initials="A." surname="Roberto">
+      <organization>Huawei</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Dublin</city>
+
+          <region/>
+
+          <code/>
+
+          <country>Ireland</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>antonio.roberto@huawei.com</email>
+
+        <uri/>
+      </address>
+    </author>
+
     <date day="14" month="October" year="2023"/>
 
     <abstract>
@@ -91,7 +143,7 @@
     </abstract>
 
     <note title="Requirements Language">
-      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
       "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
       "OPTIONAL" in this document are to be interpreted as described in BCP 14
       <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when,
@@ -105,7 +157,7 @@
       provides an overall introduction into how anomaly detection is being
       applied into the IP network domain and which operational data is needed.
       It approaches the problem space by automating what a Network Engineer
-      would normally do when veryfing a network connectivity service. Monitor
+      would normally do when verifying a network connectivity service. Monitor
       from different network plane perspectives to understand wherever one
       network plane affects another negatively.</t>
 
@@ -124,41 +176,53 @@
 
     <section anchor="Outlier_Detection" title="Outlier Detection">
       <t>Outlier Detection, also known as anomaly detection, describes a
-      systematic approach to identify rare data points deviating significantly
-      from the majority. Outliers are commonly classified in three
-      categories:</t>
+        systematic approach to identify rare data points deviating significantly
+        from the majority.
+        Outliers can manifest as single data point or as a sequence of data
+        points.
+        There are multiple ways in general to classify anomalies, but for the
+        context of this draft, the following three classes are taken into
+        account:
+      </t>
 
       <dl>
         <dt>Global outliers:</dt>
 
-        <dd>A data point is considered a global outlier if its value is far
-        outside the entirety of a data set. For example, an average dropped
-        packet count is between 0 and 10 per minute during a one week
-        observation and the observed global outlier was 100000 packets.</dd>
+        <dd>An outlier is considered "global" if its behaviour is outside
+          the entirety of the considered data set. For example, if the average
+          dropped packet count is between 0 and 10 per minute and a small
+          time-window gets the value 1000, this is considered a global anomaly.
+        </dd>
       </dl>
 
       <dl>
         <dt>Contextual outliers:</dt>
 
-        <dd>A data point is considered a contextual outlier if its value
-        significantly deviates from the rest of the data points in the same
-        time series context. For example, the forwarded packet volume in a
-        timeseries are changing during the time of the day like an oscillation
-        curve, where the observed contextual packet volume outlier is outside
-        the oscillation curve at that moment in time. At another time the same
-        value could be considered normal.</dd>
+        <dd>An outlier is considered "contextual" if its behaviour is within a
+          normal (expected) range, but it would not be expected based on some
+          context. Context can be defined as a function of multiple
+          parameters, such as time, location, etc.
+          For example, the forwarded packet volume overnight reaches levels
+          which might be totally normal for the daytime, but anomalous and
+          unexpected for the nighttime.
+          </dd>
       </dl>
 
       <dl>
         <dt>Collective outliers:</dt>
 
-        <dd>A subset of data points within a data set is considered anomalous
-        if those values as a collection deviate significantly from the entire
-        data set, but the values of the individual data points are not
-        themselves anomalous in either a contextual or global sense. In
-        Network Telemetry time series, one way this can manifest is that the
-        amount of network path and interface state changes matches the time
-        range when the forwarded packet volume decreases as a group.</dd>
+        <dd>An outlier is considered "collective" if the behaviour of each
+          single data point that are part of the anomaly are within expected
+          ranges (so they are not anomalous it either a contextual or a
+          global sense), but the group, taking all the data points
+          together, is.
+          Note that the group can be made within a single time series (a
+          sequence of data points is anomalous) or across multiple metrics (e.g.
+          if looking at two metrics together, the combined behavior turns out
+          to be anomalous).
+          In Network Telemetry time series, one way this can manifest is that
+          the amount of network path and interface state changes matches the
+          time range when the forwarded packet volume decreases as a group.</dd>
       </dl>
 
       <t>For each outlier a score between 0 and 1 is being calculated. The
@@ -226,7 +290,7 @@
 
         <dd>
           <t>Which action the network node performed for a packet in the
-          Forwarding Plane, a path or adjancency in the Control Plane or state
+          Forwarding Plane, a path or adjacency in the Control Plane or state
           or statistical changes in the Management Plane. For Forwarding Plane
           we distinguish between missing, where the drop occured outside the
           measured network node, drop and on-path delay, which was measured on
@@ -242,7 +306,7 @@
         <dt>Reason:</dt>
 
         <dd>
-          <t>For each action one or more reasons describinging why this action
+          <t>For each action one or more reasons describing why this action
           was used. For Drops in Forwarding Plane we distinguish between
           Unreachable because network layer reachability information was
           missing, administered because an administrator configured a rule
