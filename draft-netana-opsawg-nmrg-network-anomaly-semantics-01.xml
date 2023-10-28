@@ -79,7 +79,59 @@
       </address>
     </author>
 
-    <date day="23" month="October" year="2023"/>
+    <author fullname="Vincenzo Riccobene" initials="V." surname="Riccobene">
+      <organization>Huawei</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Dublin</city>
+
+          <region/>
+
+          <code/>
+
+          <country>Ireland</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>vincenzo.riccobene@huawei-partners.com</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <author fullname="Antonio Roberto" initials="A." surname="Roberto">
+      <organization>Huawei</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Dublin</city>
+
+          <region/>
+
+          <code/>
+
+          <country>Ireland</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>antonio.roberto@huawei.com</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <date day="14" month="October" year="2023"/>
 
     <abstract>
       <t>This document explains why and how semantic metadata annotation helps
@@ -91,7 +143,7 @@
     </abstract>
 
     <note title="Requirements Language">
-      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      <t>The keywords "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
       "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
       "OPTIONAL" in this document are to be interpreted as described in BCP 14
       <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when,
@@ -105,7 +157,7 @@
       provides an overall introduction into how anomaly detection is being
       applied into the IP network domain and which operational data is needed.
       It approaches the problem space by automating what a Network Engineer
-      would normally do when veryfing a network connectivity service. Monitor
+      would normally do when verifying a network connectivity service. Monitor
       from different network plane perspectives to understand wherever one
       network plane affects another negatively.</t>
 
@@ -124,41 +176,53 @@
 
     <section anchor="Outlier_Detection" title="Outlier Detection">
       <t>Outlier Detection, also known as anomaly detection, describes a
-      systematic approach to identify rare data points deviating significantly
-      from the majority. Outliers are commonly classified in three
-      categories:</t>
+        systematic approach to identify rare data points deviating significantly
+        from the majority.
+        Outliers can manifest as single data point or as a sequence of data
+        points.
+        There are multiple ways in general to classify anomalies, but for the
+        context of this draft, the following three classes are taken into
+        account:
+      </t>
 
       <dl>
         <dt>Global outliers:</dt>
 
-        <dd>A data point is considered a global outlier if its value is far
-        outside the entirety of a data set. For example, an average dropped
-        packet count is between 0 and 10 per minute during a one week
-        observation and the observed global outlier was 100000 packets.</dd>
+        <dd>An outlier is considered "global" if its behaviour is outside
+          the entirety of the considered data set. For example, if the average
+          dropped packet count is between 0 and 10 per minute and a small
+          time-window gets the value 1000, this is considered a global anomaly.
+        </dd>
       </dl>
 
       <dl>
         <dt>Contextual outliers:</dt>
 
-        <dd>A data point is considered a contextual outlier if its value
-        significantly deviates from the rest of the data points in the same
-        time series context. For example, the forwarded packet volume in a
-        timeseries are changing during the time of the day like an oscillation
-        curve, where the observed contextual packet volume outlier is outside
-        the oscillation curve at that moment in time. At another time the same
-        value could be considered normal.</dd>
+        <dd>An outlier is considered "contextual" if its behaviour is within a
+          normal (expected) range, but it would not be expected based on some
+          context. Context can be defined as a function of multiple
+          parameters, such as time, location, etc.
+          For example, the forwarded packet volume overnight reaches levels
+          which might be totally normal for the daytime, but anomalous and
+          unexpected for the nighttime.
+          </dd>
       </dl>
 
       <dl>
         <dt>Collective outliers:</dt>
 
-        <dd>A subset of data points within a data set is considered anomalous
-        if those values as a collection deviate significantly from the entire
-        data set, but the values of the individual data points are not
-        themselves anomalous in either a contextual or global sense. In
-        Network Telemetry time series, one way this can manifest is that the
-        amount of network path and interface state changes matches the time
-        range when the forwarded packet volume decreases as a group.</dd>
+        <dd>An outlier is considered "collective" if the behaviour of each
+          single data point that are part of the anomaly are within expected
+          ranges (so they are not anomalous it either a contextual or a
+          global sense), but the group, taking all the data points
+          together, is.
+          Note that the group can be made within a single time series (a
+          sequence of data points is anomalous) or across multiple metrics (e.g.
+          if looking at two metrics together, the combined behavior turns out
+          to be anomalous).
+          In Network Telemetry time series, one way this can manifest is that
+          the amount of network path and interface state changes matches the
+          time range when the forwarded packet volume decreases as a group.</dd>
       </dl>
 
       <t>For each outlier a score between 0 and 1 is being calculated. The
@@ -226,7 +290,7 @@
 
         <dd>
           <t>Which action the network node performed for a packet in the
-          Forwarding Plane, a path or adjancency in the Control Plane or state
+          Forwarding Plane, a path or adjacency in the Control Plane or state
           or statistical changes in the Management Plane. For Forwarding Plane
           we distinguish between missing, where the drop occured outside the
           measured network node, drop and on-path delay, which was measured on
@@ -242,7 +306,7 @@
         <dt>Reason:</dt>
 
         <dd>
-          <t>For each action one or more reasons describinging why this action
+          <t>For each action one or more reasons describing why this action
           was used. For Drops in Forwarding Plane we distinguish between
           Unreachable because network layer reachability information was
           missing, administered because an administrator configured a rule
@@ -558,27 +622,159 @@
 
     <section anchor="Semantic_Metadata" title="Semantic Metadata">
       <t>Metadata adds additional context to data. For instance, in networks
-      the software version of a network node where management plane metrics
-      are obtained from as described in <xref
-      target="I-D.claise-opsawg-collected-data-manifest"/>. Where in Semantic
-      Metadata the meaning or ontology of the annotated data is being
-      described.</t>
+        the software version of a network node where management plane metrics
+        are obtained from as described in<xref
+                target="I-D.claise-opsawg-collected-data-manifest"/>. Where in
+        Semantic Metadata the meaning or ontology of the annotated data is
+        being described.
 
-      <section anchor="model-tree" title="Overview of the Model">
-        <t><xref target="anomaly-detection-semantic-metadata-tree"/> contains
-        the YANG tree diagram <xref target="RFC8340"/> of the
-        ietf-anomaly-detection-semantic-metadata module. <figure
-            anchor="anomaly-detection-semantic-metadata-tree"
-            title="YANG tree diagram for ietf-anomaly-detection-semantic-metadata">
+        In this section, a YANG model is defined, in order to provide a
+        structure for the metadata related to anomalies happening in the
+        network.
+        The module is intended to describe the metadata used to
+        "annotate" the observability data collected from the network nodes,
+        which can include time series data and logs, as well as other forms
+        of data that is "time-bounded".
+
+        The aspects discussed so far in this document are grouped under the
+        concept of "incident" which represents a collection of symptoms.
+        The incident overall has a set of parameters that describe the
+        overall behavior of the network in a given time-window including all
+        the spotted symptoms (network anomalies).
+      </t>
+
+      <section anchor="symptom-model-tree"
+               title="Overview of the Model for the Symptom Semantic Metadata">
+        <t>
+          <xref target="symptom-semantic-metadata-tree"/> contains the YANG
+          tree diagram <xref target="RFC8340"/> of the
+          ietf-symptom-semantic-metadata module.
+
+          For each symptom, the following parameters have been assigned:
+          - a unique ID for identification; a description of
+            the symptom;
+          - a list of affected metrics / counters;
+          - Start and End time, to specify the time-window;
+          - a concern score, indicating how critical the symptom is;
+          - the source, indicating if it has been identified by a network
+          expert or an algorithm;
+          - the outlier type;
+          - Action, Reason and Relation, as described in previous sections.
+          <figure
+            anchor="symptom-semantic-metadata-tree"
+            title="YANG tree diagram for ietf-symptom-semantic-metadata">
             <artwork><![CDATA[
-module: ietf-anomaly-detection-semantic-metadata
-                ]]></artwork>
-          </figure></t>
+              module: ietf-symptom-semantic-metadata
+                +--rw symptoms
+                  +--rw symptom* [id]
+                    +--rw id                        string
+                    +--rw description               string
+                    +--rw metrics* [metric]
+                    |  +--rw metric    string
+                    +--rw start-time                yang:date-and-time
+                    +--rw end-time                  yang:date-and-time
+                    +--rw concern?                  uint8
+                    +--rw source
+                    |  +--rw (source-type)
+                    |  |  +--:(human)
+                    |  |  |  +--rw human        empty
+                    |  |  +--:(algorithm)
+                    |  |     +--rw algorithm    empty
+                    |  +--rw name?              string
+                    +--rw (plane)?
+                    |  +--:(forwarding-plane)
+                    |  |  +--rw forwarding-plane    empty
+                    |  +--:(control-plane)
+                    |  |  +--rw control-plane       empty
+                    |  +--:(management-plane)
+                    |     +--rw management-plane    empty
+                    +--rw (outlier-type)?
+                    |  +--:(global)
+                    |  |  +--rw global              empty
+                    |  +--:(contextual)
+                    |  |  +--rw contextual          empty
+                    |  +--:(collective)
+                    |  |  +--rw collective          empty
+                    |  +--:(other)
+                    |     +--rw other               empty
+                    +--rw action?                   string
+                    +--rw reason?                   string
+                    +--rw relation?                 string
+                    ]]>
+            </artwork>
+          </figure>
+        </t>
+        </section>
 
-        <t>Describe YANG module</t>
+        <section anchor="incident-model-tree"
+                   title="Overview of the Model for the Incident Semantic Metadata">
+          <t>
+            <xref target="incident-semantic-metadata-tree"/> contains
+            the YANG tree diagram <xref target="RFC8340"/> of the
+            ietf-incident-semantic-metadata module.
+
+            The semantic of the fields of this model is in line with what
+            specified in the previous section, for the
+            symptom-semantic-metadata-tree.
+            <figure
+                    anchor="incident-semantic-metadata-tree"
+                    title="YANG tree diagram for ietf-incident-semantic-metadata">
+              <artwork><![CDATA[
+                  module: ietf-incident-label
+                  +--rw incidents
+                    +--rw incident* [id]
+                    +--rw id               string
+                    +--rw description      string
+                    +--rw start-time       yang:date-and-time
+                    +--rw end-time         yang:date-and-time
+                    +--rw concern-score    uint8
+                    +--rw symptoms
+                    |  +--rw symptom* [id]
+                    |     +--rw id                        string
+                    |     +--rw description               string
+                    |     +--rw metrics* [metric]
+                    |     |  +--rw metric    string
+                    |     +--rw start-time                yang:date-and-time
+                    |     +--rw end-time                  yang:date-and-time
+                    |     +--rw concern?                  uint8
+                    |     +--rw source
+                    |     |  +--rw (source-type)
+                    |     |  |  +--:(human)
+                    |     |  |  |  +--rw human        empty
+                    |     |  |  +--:(algorithm)
+                    |     |  |     +--rw algorithm    empty
+                    |     |  +--rw name?              string
+                    |     +--rw (plane)?
+                    |     |  +--:(forwarding-plane)
+                    |     |  |  +--rw forwarding-plane    empty
+                    |     |  +--:(control-plane)
+                    |     |  |  +--rw control-plane       empty
+                    |     |  +--:(management-plane)
+                    |     |     +--rw management-plane    empty
+                    |     +--rw (outlier-type)?
+                    |     |  +--:(global)
+                    |     |  |  +--rw global              empty
+                    |     |  +--:(contextual)
+                    |     |  |  +--rw contextual          empty
+                    |     |  +--:(collective)
+                    |     |  |  +--rw collective          empty
+                    |     |  +--:(other)
+                    |     |     +--rw other               empty
+                    |     +--rw action?                   string
+                    |     +--rw reason?                   string
+                    |     +--rw relation?                 string
+                    +--rw source
+                      +--rw (source-type)
+                      |  +--:(human)
+                      |  |  +--rw human        empty
+                      |  +--:(algorithm)
+                      |     +--rw algorithm    empty
+                      +--rw name?              string
+                  ]]>
+                </artwork>
+              </figure></t>
+        </section>
       </section>
-    </section>
-
     <section anchor="Security" title="Security Considerations">
       <t>The security considerations.</t>
     </section>
