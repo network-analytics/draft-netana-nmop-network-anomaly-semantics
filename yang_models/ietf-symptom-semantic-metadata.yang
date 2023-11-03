@@ -44,136 +44,132 @@ module ietf-symptom-semantic-metadata {
           "IETF Draft: Network Symptom Detection Labels";
     }
 
-    grouping symptoms {
-        container symptoms {
-            list symptom {
-                key "id";
-                leaf id {
-                    type string;
-                    mandatory "true";
-                    description
-                      "Unique ID of the symptom";
-                }
-                leaf description {
-                    type string;
-                    mandatory "true";
-                    description
-                      "Textual description of the symptom";
-                }
-                list metrics {
-                    key "metric";
-                    leaf metric {
-                        type string;
+    grouping symptom-group {
+        container symptom {
+            leaf id {
+                type yang:uuid;
+                mandatory "true";
+                description
+                    "Unique ID of the symptom type";
+            }
+            leaf description {
+                type string;
+                mandatory "true";
+                description
+                    "Textual description of the symptom";
+            }
+            choice plane {
+                mandatory "false";
+                description
+                    "Network Plane affected by the symptom";
+                case forwarding-plane {
+                    leaf forwarding-plane {
                         mandatory "true";
-                        description
-                          "Name of the metric affected by the symptom";
+                        type empty;
                     }
                 }
-                leaf start-time {
-                    type yang:date-and-time;
-                    mandatory "true";
-                    description
-                      "Date and time indicating the beginning of the symptom";
-                }
-                leaf end-time {
-                    type yang:date-and-time;
-                    mandatory "true";
-                    description
-                      "Date and time indicating the end of the symptom";
-                }
-                leaf concern {
-                    type uint8;
-                    mandatory "false";
-                    description
-                        "Degree of concern related to the symptom";
-                }
-                container source {
-                    choice source-type {
+                case control-plane {
+                    leaf control-plane {
                         mandatory "true";
-                        case human {
-                            leaf human {
-                                mandatory "true";
-                                type empty;
-                            }
-                        }
-                        case algorithm {
-                            leaf algorithm {
-                                mandatory "true";
-                                type empty;
-                            }
-                        }
-                    }
-                    leaf name {
-                        mandatory "false";
-                        type string;
+                        type empty;
                     }
                 }
-                choice plane {
-                    mandatory "false";
-                    description
-                        "Network Plane affected by the symptom";
-                    case forwarding-plane {
-                        leaf forwarding-plane {
+                case management-plane {
+                    leaf management-plane {
+                        mandatory "true";
+                        type empty;
+                    }
+                }
+            }
+            leaf condition {
+                mandatory "false";
+                type string;
+            }
+            leaf action {
+                mandatory "false";
+                type string;
+            }
+            leaf cause {
+                mandatory "false";
+                type string;
+            }
+            leaf entity_type {
+                mandatory "false";
+                type yang:uuid;
+                description 
+                    "Type of the entity affected by the symptom. Entites can be objects in the network inventory, subservices as defined in SAIN, etc.";
+            }
+            choice pattern {
+                mandatory "false";
+                description
+                    "Network Plane affected by the symptom";
+                case drop {
+                    leaf drop {
+                        mandatory "true";
+                        type empty;
+                    }
+                }
+                case spike {
+                    leaf spike {
+                        mandatory "true";
+                        type empty;
+                    }
+                }
+                case mean-shift {
+                    leaf mean-shift {
+                        mandatory "true";
+                        type empty;
+                    }
+                }
+                case trend {
+                    leaf trend {
+                        mandatory "true";
+                        type empty;
+                    }
+                }
+            }
+            leaf start-time {
+                type yang:date-and-time;
+                mandatory "true";
+                description
+                    "Date and time indicating the beginning of the symptom";
+            }
+            leaf end-time {
+                type yang:date-and-time;
+                mandatory "true";
+                description
+                    "Date and time indicating the end of the symptom";
+            }
+            leaf concern {
+                type uint8 {
+                    range "0 .. 100";
+                }
+                mandatory "true";
+                description
+                    "Degree of concern related to the symptom";
+            }
+            container source {
+                choice source-type {
+                    mandatory "true";
+                    case human {
+                        leaf human {
                             mandatory "true";
                             type empty;
                         }
                     }
-                    case control-plane {
-                        leaf control-plane {
-                            mandatory "true";
-                            type empty;
-                        }
-                    }
-                    case management-plane {
-                        leaf management-plane {
+                    case algorithm {
+                        leaf algorithm {
                             mandatory "true";
                             type empty;
                         }
                     }
                 }
-                choice outlier-type {
-                    mandatory "false";
-                    description
-                        "Type of symptom / anomaly";
-                    case global {
-                        leaf global {
-                            mandatory "true";
-                            type empty;
-                        }
-                    }
-                    case contextual {
-                        leaf contextual {
-                            mandatory "true";
-                            type empty;
-                        }
-                    }
-                    case collective {
-                        leaf collective {
-                            mandatory "true";
-                            type empty;
-                        }
-                    }
-                    case other {
-                        leaf other {
-                            mandatory "true";
-                            type empty;
-                        }
-                    }
-                }
-                leaf action {
-                    mandatory "false";
-                    type string;
-                }
-                leaf reason {
-                    mandatory "false";
-                    type string;
-                }
-                leaf relation {
+                leaf name {
                     mandatory "false";
                     type string;
                 }
             }
         }
     }
-    uses symptoms;
+    uses symptom-group;
 }

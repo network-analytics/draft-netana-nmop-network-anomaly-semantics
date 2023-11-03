@@ -9,8 +9,8 @@ module ietf-incident-semantic-metadata {
           "RFC 6991: Common YANG Data Types";
     }
 
-    import ietf-symptom-label {
-        prefix symptom;
+    import ietf-symptom-semantic-metadata {
+        prefix symptom-metadata;
     }
 
     organization
@@ -48,40 +48,77 @@ module ietf-incident-semantic-metadata {
           "IETF Draft: Network Incident Detection Labels";
     }
 
-    container incidents {
-        list incident {
+    container incident {
+        leaf id {
+            type yang:uuid;
+            mandatory "true";
+            description
+                "Unique ID of the network incident";
+        }
+        leaf description {
+            type string;
+            mandatory "true";
+            description
+                "Textual description of the incident";
+        }
+        leaf start-time {
+            type yang:date-and-time;
+            mandatory "true";
+            description
+                "Date and time indicating the beginning of the incident";
+        }
+        leaf end-time {
+            type yang:date-and-time;
+            mandatory "true";
+            description
+                "Date and time indicating the end of the incident";
+        }
+        leaf concern {
+            type uint8 {
+                range "0 .. 100";
+            }
+            mandatory "true";
+            description
+                "Degree of concern related to the incident";
+        }
+        list events {
             key "id";
             leaf id {
-                type string;
+                type yang:uuid;
                 mandatory "true";
-                description
-                  "Unique ID of the network incident";
+                description "ID of the event";
             }
-            leaf description {
-                type string;
-                mandatory "true";
-                description
-                  "Textual description of the incident";
+            list symptoms {
+                key "id";
+                leaf id {
+                    type yang:uuid;
+                    mandatory "true";
+                    description 
+                        "Unique ID of the Symptom Instance";
+                }
+                uses symptom-metadata:symptom-group;
+                leaf entity-id {
+                    type yang:uuid;
+                    mandatory "false";
+                    description 
+                        "ID of the entity affected by the symptom. Entites can be objects in the network inventory, subservices as defined in SAIN, etc.";
+                }
+                leaf start-time {
+                    type yang:date-and-time;
+                    mandatory "true";
+                    description "Start time of the event";
+                }
+                leaf end-time {
+                    type yang:date-and-time;
+                    mandatory "true";
+                    description "End time of the event";
+                }
+                leaf concern {
+                    type uint8 {
+                        range "1 .. 100";
+                    }
+                }
             }
-            leaf start-time {
-                type yang:date-and-time;
-                mandatory "true";
-                description
-                  "Date and time indicating the beginning of the incident";
-            }
-            leaf end-time {
-                type yang:date-and-time;
-                mandatory "true";
-                description
-                  "Date and time indicating the end of the incident";
-            }
-            leaf concern-score {
-                type uint8;
-                mandatory "true";
-                description
-                  "Degree of concern related to the incident";
-            }
-            uses symptom:symptoms;
             container source {
                 choice source-type {
                     mandatory "true";
@@ -101,8 +138,14 @@ module ietf-incident-semantic-metadata {
                 leaf name {
                     mandatory "false";
                     type string;
-                }
+                }   
             }
+        }
+        leaf remediation-action {
+            type string;
+            mandatory "false";
+            description 
+                "Description of the mitigation action(s) implemented to resolve the incident";
         }
     }
 }
