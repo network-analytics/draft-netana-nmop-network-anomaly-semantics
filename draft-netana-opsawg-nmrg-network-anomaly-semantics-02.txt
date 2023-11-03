@@ -87,7 +87,7 @@ Table of Contents
    7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  11
    8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
      8.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  12
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  11
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Introduction
@@ -452,38 +452,32 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
                  module: ietf-symptom-semantic-metadata
                    +--rw symptom
-                     +--rw id                        yang:uuid
-                     +--rw description               string
+                     +--rw id                         yang:uuid
+                     +--rw description                string
                      +--rw (plane)?
                      |  +--:(forwarding-plane)
-                     |  |  +--rw forwarding-plane    empty
+                     |  |  +--rw forwarding-plane     empty
                      |  +--:(control-plane)
-                     |  |  +--rw control-plane       empty
+                     |  |  +--rw control-plane        empty
                      |  +--:(management-plane)
-                     |     +--rw management-plane    empty
-                     +--rw condition?                string
-                     +--rw action?                   string
-                     +--rw cause?                    string
-                     +--rw entity_type?              yang:uuid
+                     |     +--rw management-plane     empty
+                     +--rw condition?                 string
+                     +--rw action?                    string
+                     +--rw cause?                     string
+                     +--rw entity_type?               yang:uuid
                      +--rw (pattern)?
-                     |  +--:(drop)
-                     |  |  +--rw drop                empty
-                     |  +--:(spike)
-                     |  |  +--rw spike               empty
-                     |  +--:(mean-shift)
-                     |  |  +--rw mean-shift          empty
-                     |  +--:(trend)
-                     |     +--rw trend               empty
-                     +--rw start-time                yang:date-and-time
-                     +--rw end-time                  yang:date-and-time
-                     +--rw concern                   uint8
-                     +--rw source
-                         +--rw (source-type)
-                         |  +--:(human)
-                         |  |  +--rw human        empty
-                         |  +--:(algorithm)
-                         |     +--rw algorithm    empty
-                         +--rw name?              string
+                         +--:(drop)
+                         |  +--rw drop                 empty
+                         +--:(spike)
+                         |  +--rw spike                empty
+                         +--:(mean-shift)
+                         |  +--rw mean-shift           empty
+                         +--:(seasonality-shift)
+                         |  +--rw seasonality-shift    empty
+                         +--:(trend)
+                         |  +--rw trend                empty
+                         +--:(other)
+                           +--rw other                string
 
 
        Figure 1: YANG tree diagram for ietf-symptom-semantic-metadata
@@ -495,9 +489,15 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    this model is in line with what specified in the previous section,
    for the symptom-semantic-metadata-tree.
 
-
-
-
+                 module: ietf-incident-semantic-metadata
+                   +--rw incident
+                     +--rw id                    yang:uuid
+                     +--rw description           string
+                     +--rw start-time            yang:date-and-time
+                     +--rw end-time              yang:date-and-time
+                     +--rw concern               uint8
+                     +--rw events* [id]
+                     |  +--rw id          yang:uuid
 
 
 
@@ -506,54 +506,54 @@ Graf, et al.              Expires 16 April 2024                 [Page 9]
 Internet-Draft          Network Anomaly Semantics           October 2023
 
 
-                  module: ietf-incident-semantic-metadata
-                    +--rw incident
-                      +--rw id                    yang:uuid
-                      +--rw description           string
-                      +--rw start-time            yang:date-and-time
-                      +--rw end-time              yang:date-and-time
-                      +--rw concern               uint8
-                      +--rw events* [id]
-                      |  +--rw id          yang:uuid
-                      |  +--rw symptoms* [id]
-                      |  |  +--rw id            yang:uuid
-                      |  |  +--rw symptom
-                      |  |  |  +--rw id                        yang:uuid
-                      |  |  |  +--rw description               string
-                      |  |  |  +--rw (plane)?
-                      |  |  |  |  +--:(forwarding-plane)
-                      |  |  |  |  |  +--rw forwarding-plane    empty
-                      |  |  |  |  +--:(control-plane)
-                      |  |  |  |  |  +--rw control-plane       empty
-                      |  |  |  |  +--:(management-plane)
-                      |  |  |  |     +--rw management-plane    empty
-                      |  |  |  +--rw condition?                string
-                      |  |  |  +--rw action?                   string
-                      |  |  |  +--rw cause?                    string
-                      |  |  |  +--rw entity_type?              yang:uuid
-                      |  |  |  +--rw (pattern)?
-                      |  |  |  |  +--:(drop)
-                      |  |  |  |  |  +--rw drop                empty
-                      |  |  |  |  +--:(spike)
-                      |  |  |  |  |  +--rw spike               empty
-                      |  |  |  |  +--:(mean-shift)
-                      |  |  |  |  |  +--rw mean-shift          empty
-                      |  |  |  |  +--:(trend)
-                      |  |  |  |     +--rw trend               empty
-                      |  |  |  +--rw start-time                yang:date-and-time
-                      |  |  |  +--rw end-time                  yang:date-and-time
-                      |  |  |  +--rw concern                   uint8
-                      |  |  |  +--rw source
-                      |  |  |     +--rw (source-type)
-                      |  |  |     |  +--:(human)
-                      |  |  |     |  |  +--rw human        empty
-                      |  |  |     |  +--:(algorithm)
-                      |  |  |     |     +--rw algorithm    empty
-                      |  |  |     +--rw name?              string
-                      |  |  +--rw entity-id?    yang:uuid
-                      |  |  +--rw start-time    yang:date-and-time
-                      |  |  +--rw end-time      yang:date-and-time
-                      |  |  +--rw concern?      uint8
+                     |  +--rw symptoms* [id]
+                     |  |  +--rw id            yang:uuid
+                     |  |  +--rw symptom
+                     |  |  |  +--rw id                         yang:uuid
+                     |  |  |  +--rw description                string
+                     |  |  |  +--rw (plane)?
+                     |  |  |  |  +--:(forwarding-plane)
+                     |  |  |  |  |  +--rw forwarding-plane     empty
+                     |  |  |  |  +--:(control-plane)
+                     |  |  |  |  |  +--rw control-plane        empty
+                     |  |  |  |  +--:(management-plane)
+                     |  |  |  |     +--rw management-plane     empty
+                     |  |  |  +--rw condition?                 string
+                     |  |  |  +--rw action?                    string
+                     |  |  |  +--rw cause?                     string
+                     |  |  |  +--rw entity_type?               yang:uuid
+                     |  |  |  +--rw (pattern)?
+                     |  |  |     +--:(drop)
+                     |  |  |     |  +--rw drop                 empty
+                     |  |  |     +--:(spike)
+                     |  |  |     |  +--rw spike                empty
+                     |  |  |     +--:(mean-shift)
+                     |  |  |     |  +--rw mean-shift           empty
+                     |  |  |     +--:(seasonality-shift)
+                     |  |  |     |  +--rw seasonality-shift    empty
+                     |  |  |     +--:(trend)
+                     |  |  |     |  +--rw trend                empty
+                     |  |  |     +--:(other)
+                     |  |  |        +--rw other                string
+                     |  |  +--rw entity-id?    yang:uuid
+                     |  |  +--rw start-time    yang:date-and-time
+                     |  |  +--rw end-time      yang:date-and-time
+                     |  |  +--rw concern?      uint8
+                     |  +--rw source
+                     |     +--rw (source-type)
+                     |     |  +--:(human)
+                     |     |  |  +--rw human        empty
+                     |     |  +--:(algorithm)
+                     |     |     +--rw algorithm    empty
+                     |     +--rw name?              string
+                     +--rw remediation-action?   string
+
+
+    Figure 2: YANG tree diagram for ietf-incident-semantic-metadata
+
+
+
+
 
 
 
@@ -561,18 +561,6 @@ Graf, et al.              Expires 16 April 2024                [Page 10]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
-
-                      |  +--rw source
-                      |     +--rw (source-type)
-                      |     |  +--:(human)
-                      |     |  |  +--rw human        empty
-                      |     |  +--:(algorithm)
-                      |     |     +--rw algorithm    empty
-                      |     +--rw name?              string
-                      +--rw remediation-action?   string
-
-
-   Figure 2: YANG tree diagram for ietf-incident-semantic-metadata
 
 6.  Security Considerations
 
@@ -611,13 +599,6 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               DOI 10.17487/RFC9232, May 2022,
               <https://www.rfc-editor.org/info/rfc9232>.
 
-
-
-Graf, et al.              Expires 16 April 2024                [Page 11]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
 8.2.  Informative References
 
    [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
@@ -629,6 +610,14 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               Claise, B., Quilbeuf, J., Lopez, D., Martinez-Casanueva,
               I. D., and T. Graf, "A Data Manifest for Contextualized
               Telemetry Data", Work in Progress, Internet-Draft, draft-
+
+
+
+Graf, et al.              Expires 16 April 2024                [Page 11]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
+
               claise-opsawg-collected-data-manifest-06, 10 March 2023,
               <https://datatracker.ietf.org/doc/html/draft-claise-
               opsawg-collected-data-manifest-06>.
@@ -665,15 +654,6 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               RFC 5102, DOI 10.17487/RFC5102, January 2008,
               <https://www.rfc-editor.org/info/rfc5102>.
 
-
-
-
-
-Graf, et al.              Expires 16 April 2024                [Page 12]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
    [RFC7011]  Claise, B., Ed., Trammell, B., Ed., and P. Aitken,
               "Specification of the IP Flow Information Export (IPFIX)
               Protocol for the Exchange of Flow Information", STD 77,
@@ -685,6 +665,14 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               Information Export (IPFIX)", RFC 7270,
               DOI 10.17487/RFC7270, June 2014,
               <https://www.rfc-editor.org/info/rfc7270>.
+
+
+
+
+Graf, et al.              Expires 16 April 2024                [Page 12]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
+
 
    [RFC7854]  Scudder, J., Ed., Fernando, R., and S. Stuart, "BGP
               Monitoring Protocol (BMP)", RFC 7854,
@@ -724,17 +712,22 @@ Authors' Addresses
    Email: wanting.du@swisscom.com
 
 
-
-Graf, et al.              Expires 16 April 2024                [Page 13]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
    Alex Huang Feng
    INSA-Lyon
    Lyon
    France
    Email: alex.huang-feng@insa-lyon.fr
+
+
+
+
+
+
+
+
+Graf, et al.              Expires 16 April 2024                [Page 13]
+
+Internet-Draft          Network Anomaly Semantics           October 2023
 
 
    Vincenzo Riccobene
@@ -749,6 +742,13 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    Dublin
    Ireland
    Email: antonio.roberto@huawei.com
+
+
+
+
+
+
+
 
 
 

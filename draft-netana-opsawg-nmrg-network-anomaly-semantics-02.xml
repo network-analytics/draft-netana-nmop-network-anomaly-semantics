@@ -666,38 +666,32 @@
             <artwork><![CDATA[
               module: ietf-symptom-semantic-metadata
                 +--rw symptom
-                  +--rw id                        yang:uuid
-                  +--rw description               string
+                  +--rw id                         yang:uuid
+                  +--rw description                string
                   +--rw (plane)?
                   |  +--:(forwarding-plane)
-                  |  |  +--rw forwarding-plane    empty
+                  |  |  +--rw forwarding-plane     empty
                   |  +--:(control-plane)
-                  |  |  +--rw control-plane       empty
+                  |  |  +--rw control-plane        empty
                   |  +--:(management-plane)
-                  |     +--rw management-plane    empty
-                  +--rw condition?                string
-                  +--rw action?                   string
-                  +--rw cause?                    string
-                  +--rw entity_type?              yang:uuid
+                  |     +--rw management-plane     empty
+                  +--rw condition?                 string
+                  +--rw action?                    string
+                  +--rw cause?                     string
+                  +--rw entity_type?               yang:uuid
                   +--rw (pattern)?
-                  |  +--:(drop)
-                  |  |  +--rw drop                empty
-                  |  +--:(spike)
-                  |  |  +--rw spike               empty
-                  |  +--:(mean-shift)
-                  |  |  +--rw mean-shift          empty
-                  |  +--:(trend)
-                  |     +--rw trend               empty
-                  +--rw start-time                yang:date-and-time
-                  +--rw end-time                  yang:date-and-time
-                  +--rw concern                   uint8
-                  +--rw source
-                      +--rw (source-type)
-                      |  +--:(human)
-                      |  |  +--rw human        empty
-                      |  +--:(algorithm)
-                      |     +--rw algorithm    empty
-                      +--rw name?              string
+                      +--:(drop)
+                      |  +--rw drop                 empty
+                      +--:(spike)
+                      |  +--rw spike                empty
+                      +--:(mean-shift)
+                      |  +--rw mean-shift           empty
+                      +--:(seasonality-shift)
+                      |  +--rw seasonality-shift    empty
+                      +--:(trend)
+                      |  +--rw trend                empty
+                      +--:(other)
+                        +--rw other                string
                     ]]>
             </artwork>
           </figure>
@@ -718,62 +712,56 @@
                     anchor="incident-semantic-metadata-tree"
                     title="YANG tree diagram for ietf-incident-semantic-metadata">
               <artwork><![CDATA[
-                  module: ietf-incident-semantic-metadata
-                    +--rw incident
-                      +--rw id                    yang:uuid
-                      +--rw description           string
-                      +--rw start-time            yang:date-and-time
-                      +--rw end-time              yang:date-and-time
-                      +--rw concern               uint8
-                      +--rw events* [id]
-                      |  +--rw id          yang:uuid
-                      |  +--rw symptoms* [id]
-                      |  |  +--rw id            yang:uuid
-                      |  |  +--rw symptom
-                      |  |  |  +--rw id                        yang:uuid
-                      |  |  |  +--rw description               string
-                      |  |  |  +--rw (plane)?
-                      |  |  |  |  +--:(forwarding-plane)
-                      |  |  |  |  |  +--rw forwarding-plane    empty
-                      |  |  |  |  +--:(control-plane)
-                      |  |  |  |  |  +--rw control-plane       empty
-                      |  |  |  |  +--:(management-plane)
-                      |  |  |  |     +--rw management-plane    empty
-                      |  |  |  +--rw condition?                string
-                      |  |  |  +--rw action?                   string
-                      |  |  |  +--rw cause?                    string
-                      |  |  |  +--rw entity_type?              yang:uuid
-                      |  |  |  +--rw (pattern)?
-                      |  |  |  |  +--:(drop)
-                      |  |  |  |  |  +--rw drop                empty
-                      |  |  |  |  +--:(spike)
-                      |  |  |  |  |  +--rw spike               empty
-                      |  |  |  |  +--:(mean-shift)
-                      |  |  |  |  |  +--rw mean-shift          empty
-                      |  |  |  |  +--:(trend)
-                      |  |  |  |     +--rw trend               empty
-                      |  |  |  +--rw start-time                yang:date-and-time
-                      |  |  |  +--rw end-time                  yang:date-and-time
-                      |  |  |  +--rw concern                   uint8
-                      |  |  |  +--rw source
-                      |  |  |     +--rw (source-type)
-                      |  |  |     |  +--:(human)
-                      |  |  |     |  |  +--rw human        empty
-                      |  |  |     |  +--:(algorithm)
-                      |  |  |     |     +--rw algorithm    empty
-                      |  |  |     +--rw name?              string
-                      |  |  +--rw entity-id?    yang:uuid
-                      |  |  +--rw start-time    yang:date-and-time
-                      |  |  +--rw end-time      yang:date-and-time
-                      |  |  +--rw concern?      uint8
-                      |  +--rw source
-                      |     +--rw (source-type)
-                      |     |  +--:(human)
-                      |     |  |  +--rw human        empty
-                      |     |  +--:(algorithm)
-                      |     |     +--rw algorithm    empty
-                      |     +--rw name?              string
-                      +--rw remediation-action?   string
+                module: ietf-incident-semantic-metadata
+                  +--rw incident
+                    +--rw id                    yang:uuid
+                    +--rw description           string
+                    +--rw start-time            yang:date-and-time
+                    +--rw end-time              yang:date-and-time
+                    +--rw concern               uint8
+                    +--rw events* [id]
+                    |  +--rw id          yang:uuid
+                    |  +--rw symptoms* [id]
+                    |  |  +--rw id            yang:uuid
+                    |  |  +--rw symptom
+                    |  |  |  +--rw id                         yang:uuid
+                    |  |  |  +--rw description                string
+                    |  |  |  +--rw (plane)?
+                    |  |  |  |  +--:(forwarding-plane)
+                    |  |  |  |  |  +--rw forwarding-plane     empty
+                    |  |  |  |  +--:(control-plane)
+                    |  |  |  |  |  +--rw control-plane        empty
+                    |  |  |  |  +--:(management-plane)
+                    |  |  |  |     +--rw management-plane     empty
+                    |  |  |  +--rw condition?                 string
+                    |  |  |  +--rw action?                    string
+                    |  |  |  +--rw cause?                     string
+                    |  |  |  +--rw entity_type?               yang:uuid
+                    |  |  |  +--rw (pattern)?
+                    |  |  |     +--:(drop)
+                    |  |  |     |  +--rw drop                 empty
+                    |  |  |     +--:(spike)
+                    |  |  |     |  +--rw spike                empty
+                    |  |  |     +--:(mean-shift)
+                    |  |  |     |  +--rw mean-shift           empty
+                    |  |  |     +--:(seasonality-shift)
+                    |  |  |     |  +--rw seasonality-shift    empty
+                    |  |  |     +--:(trend)
+                    |  |  |     |  +--rw trend                empty
+                    |  |  |     +--:(other)
+                    |  |  |        +--rw other                string
+                    |  |  +--rw entity-id?    yang:uuid
+                    |  |  +--rw start-time    yang:date-and-time
+                    |  |  +--rw end-time      yang:date-and-time
+                    |  |  +--rw concern?      uint8
+                    |  +--rw source
+                    |     +--rw (source-type)
+                    |     |  +--:(human)
+                    |     |  |  +--rw human        empty
+                    |     |  +--:(algorithm)
+                    |     |     +--rw algorithm    empty
+                    |     +--rw name?              string
+                    +--rw remediation-action?   string
                   ]]>
                 </artwork>
               </figure></t>

@@ -121,52 +121,24 @@ module ietf-symptom-semantic-metadata {
                         type empty;
                     }
                 }
+                case seasonality-shift {
+                    leaf seasonality-shift {
+                        mandatory "true";
+                        type empty;
+                    }
+                }
                 case trend {
                     leaf trend {
                         mandatory "true";
                         type empty;
                     }
                 }
-            }
-            leaf start-time {
-                type yang:date-and-time;
-                mandatory "true";
-                description
-                    "Date and time indicating the beginning of the symptom";
-            }
-            leaf end-time {
-                type yang:date-and-time;
-                mandatory "true";
-                description
-                    "Date and time indicating the end of the symptom";
-            }
-            leaf concern {
-                type uint8 {
-                    range "0 .. 100";
-                }
-                mandatory "true";
-                description
-                    "Degree of concern related to the symptom";
-            }
-            container source {
-                choice source-type {
-                    mandatory "true";
-                    case human {
-                        leaf human {
-                            mandatory "true";
-                            type empty;
-                        }
+                case other {
+                    leaf other {
+                        type string;
+                        mandatory "true";
+                        description "specify the type";
                     }
-                    case algorithm {
-                        leaf algorithm {
-                            mandatory "true";
-                            type empty;
-                        }
-                    }
-                }
-                leaf name {
-                    mandatory "false";
-                    type string;
                 }
             }
         }

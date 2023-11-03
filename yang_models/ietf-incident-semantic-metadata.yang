@@ -86,7 +86,7 @@ module ietf-incident-semantic-metadata {
             leaf id {
                 type yang:uuid;
                 mandatory "true";
-                description "ID of the event";
+                description "ID of the event. If only one symptom, the ID can be the same as the symptom ID";
             }
             list symptoms {
                 key "id";
