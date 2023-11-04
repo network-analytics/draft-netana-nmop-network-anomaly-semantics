@@ -455,7 +455,9 @@ Internet-Draft          Network Anomaly Semantics           October 2023
                      +--rw id                         yang:uuid
                      +--rw event-id                   yang:uuid
                      +--rw description                string
-                     +--rw confidence-score?          uint8
+                     +--rw start-time                 yang:date-and-time
+                     +--rw end-time                   yang:date-and-time
+                     +--rw confidence-score           uint8
                      +--rw concern-score?             uint8
                      +--rw tags* [key]
                      |  +--rw key      string
@@ -499,61 +501,59 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-
-
 Graf, et al.              Expires 16 April 2024                 [Page 9]
 
 Internet-Draft          Network Anomaly Semantics           October 2023
 
 
-                   module: ietf-incident-semantic-metadata
-                     +--rw incident
-                       +--rw id             yang:uuid
-                       +--rw description    string
-                       +--rw start-time     yang:date-and-time
-                       +--rw end-time       yang:date-and-time
-                       +--rw symptoms* []
-                       |  +--rw symptom
-                       |     +--rw id                         yang:uuid
-                       |     +--rw event-id                   yang:uuid
-                       |     +--rw description                string
-                       |     +--rw confidence-score?          uint8
-                       |     +--rw concern-score?             uint8
-                       |     +--rw tags* [key]
-                       |     |  +--rw key      string
-                       |     |  +--rw value    string
-                       |     +--rw (pattern)?
-                       |     |  +--:(drop)
-                       |     |  |  +--rw drop                 empty
-                       |     |  +--:(spike)
-                       |     |  |  +--rw spike                empty
-                       |     |  +--:(mean-shift)
-                       |     |  |  +--rw mean-shift           empty
-                       |     |  +--:(seasonality-shift)
-                       |     |  |  +--rw seasonality-shift    empty
-                       |     |  +--:(trend)
-                       |     |  |  +--rw trend                empty
-                       |     |  +--:(other)
-                       |     |     +--rw other                string
-                       |     +--rw source
-                       |        +--rw (source-type)
-                       |        |  +--:(human)
-                       |        |  |  +--rw human        empty
-                       |        |  +--:(algorithm)
-                       |        |     +--rw algorithm    empty
-                       |        +--rw name?              string
-                       +--rw source
-                           +--rw (type)
-                           |  +--:(human)
-                           |  |  +--rw human        empty
-                           |  +--:(algorithm)
-                           |     +--rw algorithm    empty
-                           +--rw name?              string
+                module: ietf-incident-semantic-metadata
+                  +--rw incident
+                    +--rw id             yang:uuid
+                    +--rw description    string
+                    +--rw start-time     yang:date-and-time
+                    +--rw end-time       yang:date-and-time
+                    +--rw symptoms* []
+                    |  +--rw symptom
+                    |     +--rw id                         yang:uuid
+                    |     +--rw event-id                   yang:uuid
+                    |     +--rw description                string
+                    |     +--rw start-time                 yang:date-and-time
+                    |     +--rw end-time                   yang:date-and-time
+                    |     +--rw confidence-score           uint8
+                    |     +--rw concern-score?             uint8
+                    |     +--rw tags* [key]
+                    |     |  +--rw key      string
+                    |     |  +--rw value    string
+                    |     +--rw (pattern)?
+                    |     |  +--:(drop)
+                    |     |  |  +--rw drop                 empty
+                    |     |  +--:(spike)
+                    |     |  |  +--rw spike                empty
+                    |     |  +--:(mean-shift)
+                    |     |  |  +--rw mean-shift           empty
+                    |     |  +--:(seasonality-shift)
+                    |     |  |  +--rw seasonality-shift    empty
+                    |     |  +--:(trend)
+                    |     |  |  +--rw trend                empty
+                    |     |  +--:(other)
+                    |     |     +--rw other                string
+                    |     +--rw source
+                    |        +--rw (source-type)
+                    |        |  +--:(human)
+                    |        |  |  +--rw human        empty
+                    |        |  +--:(algorithm)
+                    |        |     +--rw algorithm    empty
+                    |        +--rw name?              string
+                    +--rw source
+                        +--rw (type)
+                        |  +--:(human)
+                        |  |  +--rw human        empty
+                        |  +--:(algorithm)
+                        |     +--rw algorithm    empty
+                        +--rw name?              string
 
 
-      Figure 2: YANG tree diagram for ietf-incident-semantic-metadata
-
-
+   Figure 2: YANG tree diagram for ietf-incident-semantic-metadata
 
 
 

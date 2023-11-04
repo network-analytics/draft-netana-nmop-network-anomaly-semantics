@@ -727,7 +727,9 @@
                     |     +--rw id                         yang:uuid
                     |     +--rw event-id                   yang:uuid
                     |     +--rw description                string
-                    |     +--rw confidence-score?          uint8
+                    |     +--rw start-time                 yang:date-and-time
+                    |     +--rw end-time                   yang:date-and-time
+                    |     +--rw confidence-score           uint8
                     |     +--rw concern-score?             uint8
                     |     +--rw tags* [key]
                     |     |  +--rw key      string
