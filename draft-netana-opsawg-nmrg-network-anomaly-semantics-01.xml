@@ -11,7 +11,7 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="exp"
-     docName="draft-netana-opsawg-nmrg-network-anomaly-semantics-00"
+     docName="draft-netana-opsawg-nmrg-network-anomaly-semantics-01"
      ipr="trust200902">
   <front>
     <title abbrev="Network Anomaly Semantics">Semantic Metadata Annotation for
@@ -131,12 +131,13 @@
       </address>
     </author>
 
-    <date day="14" month="October" year="2023"/>
+    <date day="04" month="November" year="2023"/>
 
     <abstract>
       <t>This document explains why and how semantic metadata annotation helps
-      to test and validate outlier detection, supports supervised and
-      semi-supervised machine learning development and make anomalies for
+      to test, validate and compare outlier detection, supports supervised and
+      semi-supervised machine learning development, enables data exchange
+      among network operators, vendors and academia and make anomalies for
       humans apprehensible. The proposed semantics uniforms the network
       anomaly data exchange between and among operators and vendors to improve
       their network outlier detection systems.</t>
@@ -176,53 +177,47 @@
 
     <section anchor="Outlier_Detection" title="Outlier Detection">
       <t>Outlier Detection, also known as anomaly detection, describes a
-        systematic approach to identify rare data points deviating significantly
-        from the majority.
-        Outliers can manifest as single data point or as a sequence of data
-        points.
-        There are multiple ways in general to classify anomalies, but for the
-        context of this draft, the following three classes are taken into
-        account:
-      </t>
+      systematic approach to identify rare data points deviating significantly
+      from the majority. Outliers can manifest as single data point or as a
+      sequence of data points. There are multiple ways in general to classify
+      anomalies, but for the context of this draft, the following three
+      classes are taken into account:</t>
 
       <dl>
         <dt>Global outliers:</dt>
 
-        <dd>An outlier is considered "global" if its behaviour is outside
-          the entirety of the considered data set. For example, if the average
-          dropped packet count is between 0 and 10 per minute and a small
-          time-window gets the value 1000, this is considered a global anomaly.
-        </dd>
+        <dd>An outlier is considered "global" if its behaviour is outside the
+        entirety of the considered data set. For example, if the average
+        dropped packet count is between 0 and 10 per minute and a small
+        time-window gets the value 1000, this is considered a global
+        anomaly.</dd>
       </dl>
 
       <dl>
         <dt>Contextual outliers:</dt>
 
         <dd>An outlier is considered "contextual" if its behaviour is within a
-          normal (expected) range, but it would not be expected based on some
-          context. Context can be defined as a function of multiple
-          parameters, such as time, location, etc.
-          For example, the forwarded packet volume overnight reaches levels
-          which might be totally normal for the daytime, but anomalous and
-          unexpected for the nighttime.
-          </dd>
+        normal (expected) range, but it would not be expected based on some
+        context. Context can be defined as a function of multiple parameters,
+        such as time, location, etc. For example, the forwarded packet volume
+        overnight reaches levels which might be totally normal for the
+        daytime, but anomalous and unexpected for the nighttime.</dd>
       </dl>
 
       <dl>
         <dt>Collective outliers:</dt>
 
         <dd>An outlier is considered "collective" if the behaviour of each
-          single data point that are part of the anomaly are within expected
-          ranges (so they are not anomalous it either a contextual or a
-          global sense), but the group, taking all the data points
-          together, is.
-          Note that the group can be made within a single time series (a
-          sequence of data points is anomalous) or across multiple metrics (e.g.
-          if looking at two metrics together, the combined behavior turns out
-          to be anomalous).
-          In Network Telemetry time series, one way this can manifest is that
-          the amount of network path and interface state changes matches the
-          time range when the forwarded packet volume decreases as a group.</dd>
+        single data point that are part of the anomaly are within expected
+        ranges (so they are not anomalous it either a contextual or a global
+        sense), but the group, taking all the data points together, is. Note
+        that the group can be made within a single time series (a sequence of
+        data points is anomalous) or across multiple metrics (e.g. if looking
+        at two metrics together, the combined behavior turns out to be
+        anomalous). In Network Telemetry time series, one way this can
+        manifest is that the amount of network path and interface state
+        changes matches the time range when the forwarded packet volume
+        decreases as a group.</dd>
       </dl>
 
       <t>For each outlier a score between 0 and 1 is being calculated. The
@@ -294,7 +289,7 @@
           or statistical changes in the Management Plane. For Forwarding Plane
           we distinguish between missing, where the drop occured outside the
           measured network node, drop and on-path delay, which was measured on
-          the network node. For control-plane we distinguish between
+          the network node. For Control Plane we distinguish between
           reachability, which refers to a change in the routing or forwarding
           information base (RIB/FIB) and adjcacency which refers to a change
           in peering or link-layer resolution. For Management Plane we refer
@@ -313,27 +308,30 @@
           preventing the forwarding for this packet and Corrupt where the
           network node was unable to determine where to forward to due to
           packet, software or hardware error. For On-Path Delay we distinguish
-          between Minimum, Average and Maximum Delay for a given Flow.</t>
+          between Minimum, Average and Maximum Delay for a given Flow. For
+          Control Plane wherever a the reachability was updated or withdrawn
+          or the adjcacency was established or teared down. For Management
+          Plane we distinguish between interfaces states up and down, and
+          statistical erros, discards or unknown protocol counters.</t>
         </dd>
       </dl>
 
       <dl>
-        <dt>Relation:</dt>
+        <dt>Cause:</dt>
 
         <dd>
-          <t>For each reason one or more relation describe the cause why the
-          action was chosen. These reason could relate network plane entity, a
-          packet, control-plane or node administered instruction.</t>
+          <t>For each reason one or more cause describe the cause why the
+          action was chosen..</t>
         </dd>
       </dl>
 
       <t><xref target="symptom_forwarding_plane_actions_table"/> consolidates
-      for the forwarding plane a list of common symptoms with their actions,
-      reasons and relations.</t>
+      for the forwarding plane a list of common symptoms with their Actions,
+      Reasons and Causes.</t>
 
       <table align="center" anchor="symptom_forwarding_plane_actions_table">
         <name slugifiedName="symptom_forwarding_plane_actions">Describing
-        Symptoms and their Actions, Reason and Relation for Forwarding
+        Symptoms and their Actions, Reason and Cause for Forwarding
         Plane</name>
 
         <thead>
@@ -342,7 +340,7 @@
 
             <th align="left" colspan="1" rowspan="1">Reason</th>
 
-            <th align="left" colspan="1" rowspan="1">Relation</th>
+            <th align="left" colspan="1" rowspan="1">Cause</th>
           </tr>
         </thead>
 
@@ -473,12 +471,11 @@
 
       <t><xref target="symptom_control_plane_actions_table"/> consolidates for
       the control plane a list of common symptoms with their actions, reasons
-      and relations.</t>
+      and causess.</t>
 
       <table align="center" anchor="symptom_control_plane_actions_table">
         <name slugifiedName="symptom_control_plane_actions">Describing
-        Symptoms and their Actions, Reason and Relation for Control
-        Plane</name>
+        Symptoms and their Actions, Reason and Cause for Control Plane</name>
 
         <thead>
           <tr>
@@ -486,7 +483,7 @@
 
             <th align="left" colspan="1" rowspan="1">Reason</th>
 
-            <th align="left" colspan="1" rowspan="1">Relation</th>
+            <th align="left" colspan="1" rowspan="1">Cause</th>
           </tr>
         </thead>
 
@@ -558,12 +555,12 @@
       </table>
 
       <t><xref target="symptom_management_plane_actions_table"/> consolidates
-      for the management plane a list of common symptoms with their actions,
-      reasons and relations.</t>
+      for the management plane a list of common symptoms with their Actions,
+      Reasons and Causes.</t>
 
       <table align="center" anchor="symptom_management_plane_actions_table">
         <name slugifiedName="symptom_management_plane_actions">Describing
-        Symptoms and their Actions, Reason and Relation for Management
+        Symptoms and their Actions, Reason and Cause for Management
         Plane</name>
 
         <thead>
@@ -572,7 +569,7 @@
 
             <th align="left" colspan="1" rowspan="1">Reason</th>
 
-            <th align="left" colspan="1" rowspan="1">Relation</th>
+            <th align="left" colspan="1" rowspan="1">Cause</th>
           </tr>
         </thead>
 
@@ -622,159 +619,135 @@
 
     <section anchor="Semantic_Metadata" title="Semantic Metadata">
       <t>Metadata adds additional context to data. For instance, in networks
-        the software version of a network node where management plane metrics
-        are obtained from as described in<xref
-                target="I-D.claise-opsawg-collected-data-manifest"/>. Where in
-        Semantic Metadata the meaning or ontology of the annotated data is
-        being described.
-
-        In this section, a YANG model is defined, in order to provide a
-        structure for the metadata related to anomalies happening in the
-        network.
-        The module is intended to describe the metadata used to
-        "annotate" the observability data collected from the network nodes,
-        which can include time series data and logs, as well as other forms
-        of data that is "time-bounded".
-
-        The aspects discussed so far in this document are grouped under the
-        concept of "incident" which represents a collection of symptoms.
-        The incident overall has a set of parameters that describe the
-        overall behavior of the network in a given time-window including all
-        the spotted symptoms (network anomalies).
-      </t>
+      the software version of a network node where management plane metrics
+      are obtained from as described in<xref
+      target="I-D.claise-opsawg-collected-data-manifest"/>. Where in Semantic
+      Metadata the meaning or ontology of the annotated data is being
+      described. In this section, a YANG model is defined, in order to provide
+      a structure for the metadata related to anomalies happening in the
+      network. The module is intended to describe the metadata used to
+      "annotate" the observability data collected from the network nodes,
+      which can include time series data and logs, as well as other forms of
+      data that is "time-bounded". The aspects discussed so far in this
+      document are grouped under the concept of "incident" which represents a
+      collection of symptoms. The incident overall has a set of parameters
+      that describe the overall behavior of the network in a given time-window
+      including all the spotted symptoms (network anomalies).</t>
 
       <section anchor="symptom-model-tree"
                title="Overview of the Model for the Symptom Semantic Metadata">
-        <t>
-          <xref target="symptom-semantic-metadata-tree"/> contains the YANG
-          tree diagram <xref target="RFC8340"/> of the
-          ietf-symptom-semantic-metadata module.
-
-          For each symptom, the following parameters have been assigned:
-          - a unique ID for identification; a description of
-            the symptom;
-          - a list of affected metrics / counters;
-          - Start and End time, to specify the time-window;
-          - a concern score, indicating how critical the symptom is;
-          - the source, indicating if it has been identified by a network
-          expert or an algorithm;
-          - the outlier type;
-          - Action, Reason and Relation, as described in previous sections.
-          <figure
+        <t><xref target="symptom-semantic-metadata-tree"/> contains the YANG
+        tree diagram <xref target="RFC8340"/> of the
+        ietf-symptom-semantic-metadata module. For each symptom, the following
+        parameters have been assigned: - a unique ID for identification; a
+        description of the symptom; - a list of affected metrics / counters; -
+        Start and End time, to specify the time-window; - a confident score,
+        indicating how accurate the symptom was detected; - a concern score,
+        indicating how critical the symptom is; - the source, indicating if it
+        has been identified by a network expert or an algorithm; - the tags
+        with key value where; - Action, Reason and Cause, can be dannotaed as
+        described in previous section. <figure
             anchor="symptom-semantic-metadata-tree"
             title="YANG tree diagram for ietf-symptom-semantic-metadata">
             <artwork><![CDATA[
               module: ietf-symptom-semantic-metadata
-                +--rw symptoms
-                  +--rw symptom* [id]
-                    +--rw id                        string
-                    +--rw description               string
-                    +--rw metrics* [metric]
-                    |  +--rw metric    string
-                    +--rw start-time                yang:date-and-time
-                    +--rw end-time                  yang:date-and-time
-                    +--rw concern?                  uint8
-                    +--rw source
-                    |  +--rw (source-type)
-                    |  |  +--:(human)
-                    |  |  |  +--rw human        empty
-                    |  |  +--:(algorithm)
-                    |  |     +--rw algorithm    empty
-                    |  +--rw name?              string
-                    +--rw (plane)?
-                    |  +--:(forwarding-plane)
-                    |  |  +--rw forwarding-plane    empty
-                    |  +--:(control-plane)
-                    |  |  +--rw control-plane       empty
-                    |  +--:(management-plane)
-                    |     +--rw management-plane    empty
-                    +--rw (outlier-type)?
-                    |  +--:(global)
-                    |  |  +--rw global              empty
-                    |  +--:(contextual)
-                    |  |  +--rw contextual          empty
-                    |  +--:(collective)
-                    |  |  +--rw collective          empty
-                    |  +--:(other)
-                    |     +--rw other               empty
-                    +--rw action?                   string
-                    +--rw reason?                   string
-                    +--rw relation?                 string
-                    ]]>
-            </artwork>
-          </figure>
-        </t>
-        </section>
-
-        <section anchor="incident-model-tree"
-                   title="Overview of the Model for the Incident Semantic Metadata">
-          <t>
-            <xref target="incident-semantic-metadata-tree"/> contains
-            the YANG tree diagram <xref target="RFC8340"/> of the
-            ietf-incident-semantic-metadata module.
-
-            The semantic of the fields of this model is in line with what
-            specified in the previous section, for the
-            symptom-semantic-metadata-tree.
-            <figure
-                    anchor="incident-semantic-metadata-tree"
-                    title="YANG tree diagram for ietf-incident-semantic-metadata">
-              <artwork><![CDATA[
-                  module: ietf-incident-label
-                  +--rw incidents
-                    +--rw incident* [id]
-                    +--rw id               string
-                    +--rw description      string
-                    +--rw start-time       yang:date-and-time
-                    +--rw end-time         yang:date-and-time
-                    +--rw concern-score    uint8
-                    +--rw symptoms
-                    |  +--rw symptom* [id]
-                    |     +--rw id                        string
-                    |     +--rw description               string
-                    |     +--rw metrics* [metric]
-                    |     |  +--rw metric    string
-                    |     +--rw start-time                yang:date-and-time
-                    |     +--rw end-time                  yang:date-and-time
-                    |     +--rw concern?                  uint8
-                    |     +--rw source
-                    |     |  +--rw (source-type)
-                    |     |  |  +--:(human)
-                    |     |  |  |  +--rw human        empty
-                    |     |  |  +--:(algorithm)
-                    |     |  |     +--rw algorithm    empty
-                    |     |  +--rw name?              string
-                    |     +--rw (plane)?
-                    |     |  +--:(forwarding-plane)
-                    |     |  |  +--rw forwarding-plane    empty
-                    |     |  +--:(control-plane)
-                    |     |  |  +--rw control-plane       empty
-                    |     |  +--:(management-plane)
-                    |     |     +--rw management-plane    empty
-                    |     +--rw (outlier-type)?
-                    |     |  +--:(global)
-                    |     |  |  +--rw global              empty
-                    |     |  +--:(contextual)
-                    |     |  |  +--rw contextual          empty
-                    |     |  +--:(collective)
-                    |     |  |  +--rw collective          empty
-                    |     |  +--:(other)
-                    |     |     +--rw other               empty
-                    |     +--rw action?                   string
-                    |     +--rw reason?                   string
-                    |     +--rw relation?                 string
-                    +--rw source
+                +--rw symptom
+                  +--rw id                         yang:uuid
+                  +--rw event-id                   yang:uuid
+                  +--rw description                string
+                  +--rw start-time                 yang:date-and-time
+                  +--rw end-time                   yang:date-and-time
+                  +--rw confidence-score           float
+                  +--rw concern-score?             float
+                  +--rw tags* [key]
+                  |  +--rw key      string
+                  |  +--rw value    string
+                  +--rw (pattern)?
+                  |  +--:(drop)
+                  |  |  +--rw drop                 empty
+                  |  +--:(spike)
+                  |  |  +--rw spike                empty
+                  |  +--:(mean-shift)
+                  |  |  +--rw mean-shift           empty
+                  |  +--:(seasonality-shift)
+                  |  |  +--rw seasonality-shift    empty
+                  |  +--:(trend)
+                  |  |  +--rw trend                empty
+                  |  +--:(other)
+                  |     +--rw other                string
+                  +--rw source
                       +--rw (source-type)
                       |  +--:(human)
                       |  |  +--rw human        empty
                       |  +--:(algorithm)
                       |     +--rw algorithm    empty
                       +--rw name?              string
-                  ]]>
-                </artwork>
-              </figure></t>
-        </section>
+                    
+            ]]></artwork>
+          </figure></t>
       </section>
+
+      <section anchor="incident-model-tree"
+               title="Overview of the Model for the Incident Semantic Metadata">
+        <t><xref target="incident-semantic-metadata-tree"/> contains the YANG
+        tree diagram <xref target="RFC8340"/> of the
+        ietf-incident-semantic-metadata module. The semantic of the fields of
+        this model is in line with what specified in the previous section, for
+        the symptom-semantic-metadata-tree. <figure
+            anchor="incident-semantic-metadata-tree"
+            title="YANG tree diagram for ietf-incident-semantic-metadata">
+            <artwork><![CDATA[
+                module: ietf-incident-semantic-metadata
+                  +--rw incident
+                    +--rw id             yang:uuid
+                    +--rw description    string
+                    +--rw start-time     yang:date-and-time
+                    +--rw end-time       yang:date-and-time
+                    +--rw symptoms* []
+                    |  +--rw symptom
+                    |     +--rw id                         yang:uuid
+                    |     +--rw event-id                   yang:uuid
+                    |     +--rw description                string
+                    |     +--rw start-time                 yang:date-and-time
+                    |     +--rw end-time                   yang:date-and-time
+                    |     +--rw confidence-score           float
+                    |     +--rw concern-score?             float
+                    |     +--rw tags* [key]
+                    |     |  +--rw key      string
+                    |     |  +--rw value    string
+                    |     +--rw (pattern)?
+                    |     |  +--:(drop)
+                    |     |  |  +--rw drop                 empty
+                    |     |  +--:(spike)
+                    |     |  |  +--rw spike                empty
+                    |     |  +--:(mean-shift)
+                    |     |  |  +--rw mean-shift           empty
+                    |     |  +--:(seasonality-shift)
+                    |     |  |  +--rw seasonality-shift    empty
+                    |     |  +--:(trend)
+                    |     |  |  +--rw trend                empty
+                    |     |  +--:(other)
+                    |     |     +--rw other                string
+                    |     +--rw source
+                    |        +--rw (source-type)
+                    |        |  +--:(human)
+                    |        |  |  +--rw human        empty
+                    |        |  +--:(algorithm)
+                    |        |     +--rw algorithm    empty
+                    |        +--rw name?              string
+                    +--rw source
+                        +--rw (type)
+                        |  +--:(human)
+                        |  |  +--rw human        empty
+                        |  +--:(algorithm)
+                        |     +--rw algorithm    empty
+                        +--rw name?              string
+                  
+                ]]></artwork>
+          </figure></t>
+      </section>
+    </section>
+
     <section anchor="Security" title="Security Considerations">
       <t>The security considerations.</t>
     </section>

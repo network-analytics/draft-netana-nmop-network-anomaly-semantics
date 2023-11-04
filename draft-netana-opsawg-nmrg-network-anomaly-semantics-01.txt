@@ -5,25 +5,26 @@
 Network Working Group                                            T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 16 April 2024                                     A. Huang Feng
+Expires: 7 May 2024                                        A. Huang Feng
                                                                INSA-Lyon
                                                             V. Riccobene
                                                               A. Roberto
                                                                   Huawei
-                                                         14 October 2023
+                                                         4 November 2023
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
-         draft-netana-opsawg-nmrg-network-anomaly-semantics-00
+         draft-netana-opsawg-nmrg-network-anomaly-semantics-01
 
 Abstract
 
    This document explains why and how semantic metadata annotation helps
-   to test and validate outlier detection, supports supervised and semi-
-   supervised machine learning development and make anomalies for humans
-   apprehensible.  The proposed semantics uniforms the network anomaly
-   data exchange between and among operators and vendors to improve
-   their network outlier detection systems.
+   to test, validate and compare outlier detection, supports supervised
+   and semi-supervised machine learning development, enables data
+   exchange among network operators, vendors and academia and make
+   anomalies for humans apprehensible.  The proposed semantics uniforms
+   the network anomaly data exchange between and among operators and
+   vendors to improve their network outlier detection systems.
 
 Requirements Language
 
@@ -48,14 +49,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 April 2024.
+   This Internet-Draft will expire on 7 May 2024.
 
 
 
-
-Graf, et al.              Expires 16 April 2024                 [Page 1]
+Graf, et al.               Expires 7 May 2024                   [Page 1]
 
-Internet-Draft          Network Anomaly Semantics           October 2023
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Graf, et al.              Expires 16 April 2024                 [Page 2]
+Graf, et al.               Expires 7 May 2024                   [Page 2]
 
-Internet-Draft          Network Anomaly Semantics           October 2023
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
    This document describes what information is needed to understand the
@@ -150,7 +150,7 @@ Internet-Draft          Network Anomaly Semantics           October 2023
       contextual or a global sense), but the group, taking all the data
       points together, is.  Note that the group can be made within a
       single time series (a sequence of data points is anomalous) or
-      across multiple metrics (e.g.  if looking at two metrics together,
+      across multiple metrics (e.g. if looking at two metrics together,
       the combined behavior turns out to be anomalous).  In Network
       Telemetry time series, one way this can manifest is that the
       amount of network path and interface state changes matches the
@@ -165,9 +165,9 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 16 April 2024                 [Page 3]
+Graf, et al.               Expires 7 May 2024                   [Page 3]
 
-Internet-Draft          Network Anomaly Semantics           October 2023
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
 3.  Data Mesh
@@ -216,14 +216,14 @@ Internet-Draft          Network Anomaly Semantics           October 2023
       state or statistical changes in the Management Plane.  For
       Forwarding Plane we distinguish between missing, where the drop
       occured outside the measured network node, drop and on-path delay,
-      which was measured on the network node.  For control-plane we
+      which was measured on the network node.  For Control Plane we
       distinguish between reachability, which refers to a change in the
 
 
 
-Graf, et al.              Expires 16 April 2024                 [Page 4]
+Graf, et al.               Expires 7 May 2024                   [Page 4]
 
-Internet-Draft          Network Anomaly Semantics           October 2023
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
       routing or forwarding information base (RIB/FIB) and adjcacency
@@ -239,15 +239,17 @@ Internet-Draft          Network Anomaly Semantics           October 2023
       the network node was unable to determine where to forward to due
       to packet, software or hardware error.  For On-Path Delay we
       distinguish between Minimum, Average and Maximum Delay for a given
-      Flow.
+      Flow.  For Control Plane wherever a the reachability was updated
+      or withdrawn or the adjcacency was established or teared down.
+      For Management Plane we distinguish between interfaces states up
+      and down, and statistical erros, discards or unknown protocol
+      counters.
 
-   Relation:  For each reason one or more relation describe the cause
-      why the action was chosen.  These reason could relate network
-      plane entity, a packet, control-plane or node administered
-      instruction.
+   Cause:  For each reason one or more cause describe the cause why the
+      action was chosen..
 
    Table 1 consolidates for the forwarding plane a list of common
-   symptoms with their actions, reasons and relations.
+   symptoms with their Actions, Reasons and Causes.
 
 
 
@@ -275,15 +277,13 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-
-
-Graf, et al.              Expires 16 April 2024                 [Page 5]
+Graf, et al.               Expires 7 May 2024                   [Page 5]
 
-Internet-Draft          Network Anomaly Semantics           October 2023
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
             +=========+==============+========================+
-            | Action  | Reason       | Relation               |
+            | Action  | Reason       | Cause                  |
             +=========+==============+========================+
             | Missing | Previous     | Time                   |
             +---------+--------------+------------------------+
@@ -319,10 +319,10 @@ Internet-Draft          Network Anomaly Semantics           October 2023
             +---------+--------------+------------------------+
 
               Table 1: Describing Symptoms and their Actions,
-                  Reason and Relation for Forwarding Plane
+                   Reason and Cause for Forwarding Plane
 
    Table 2 consolidates for the control plane a list of common symptoms
-   with their actions, reasons and relations.
+   with their actions, reasons and causess.
 
 
 
@@ -333,13 +333,13 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 16 April 2024                 [Page 6]
+Graf, et al.               Expires 7 May 2024                   [Page 6]
 
-Internet-Draft          Network Anomaly Semantics           October 2023
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
                 +==============+=============+============+
-                | Action       | Reason      | Relation   |
+                | Action       | Reason      | Cause      |
                 +==============+=============+============+
                 | Reachability | Update      | Imported   |
                 +--------------+-------------+------------+
@@ -359,14 +359,14 @@ Internet-Draft          Network Anomaly Semantics           October 2023
                 +--------------+-------------+------------+
 
                    Table 2: Describing Symptoms and their
-                      Actions, Reason and Relation for
-                               Control Plane
+                   Actions, Reason and Cause for Control
+                                   Plane
 
    Table 3 consolidates for the management plane a list of common
-   symptoms with their actions, reasons and relations.
+   symptoms with their Actions, Reasons and Causes.
 
                +===========+==================+============+
-               | Action    | Reason           | Relation   |
+               | Action    | Reason           | Cause      |
                +===========+==================+============+
                | Interface | Up               | Link-Layer |
                +-----------+------------------+------------+
@@ -380,8 +380,8 @@ Internet-Draft          Network Anomaly Semantics           October 2023
                +-----------+------------------+------------+
 
                    Table 3: Describing Symptoms and their
-                      Actions, Reason and Relation for
-                              Management Plane
+                  Actions, Reason and Cause for Management
+                                   Plane
 
 
 
@@ -389,9 +389,9 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 16 April 2024                 [Page 7]
+Graf, et al.               Expires 7 May 2024                   [Page 7]
 
-Internet-Draft          Network Anomaly Semantics           October 2023
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
 5.  Semantic Metadata
@@ -419,11 +419,12 @@ Internet-Draft          Network Anomaly Semantics           October 2023
    symptom-semantic-metadata module.  For each symptom, the following
    parameters have been assigned: - a unique ID for identification; a
    description of the symptom; - a list of affected metrics / counters;
-   - Start and End time, to specify the time-window; - a concern score,
-   indicating how critical the symptom is; - the source, indicating if
-   it has been identified by a network expert or an algorithm; - the
-   outlier type; - Action, Reason and Relation, as described in previous
-   sections.
+   - Start and End time, to specify the time-window; - a confident
+   score, indicating how accurate the symptom was detected; - a concern
+   score, indicating how critical the symptom is; - the source,
+   indicating if it has been identified by a network expert or an
+   algorithm; - the tags with key value where; - Action, Reason and
+   Cause, can be dannotaed as described in previous section.
 
 
 
@@ -444,51 +445,46 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-
-Graf, et al.              Expires 16 April 2024                 [Page 8]
+Graf, et al.               Expires 7 May 2024                   [Page 8]
 
-Internet-Draft          Network Anomaly Semantics           October 2023
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
-                module: ietf-symptom-semantic-metadata
-                  +--rw symptoms
-                    +--rw symptom* [id]
-                      +--rw id                        string
-                      +--rw description               string
-                      +--rw metrics* [metric]
-                      |  +--rw metric    string
-                      +--rw start-time                yang:date-and-time
-                      +--rw end-time                  yang:date-and-time
-                      +--rw concern?                  uint8
-                      +--rw source
-                      |  +--rw (source-type)
-                      |  |  +--:(human)
-                      |  |  |  +--rw human        empty
-                      |  |  +--:(algorithm)
-                      |  |     +--rw algorithm    empty
-                      |  +--rw name?              string
-                      +--rw (plane)?
-                      |  +--:(forwarding-plane)
-                      |  |  +--rw forwarding-plane    empty
-                      |  +--:(control-plane)
-                      |  |  +--rw control-plane       empty
-                      |  +--:(management-plane)
-                      |     +--rw management-plane    empty
-                      +--rw (outlier-type)?
-                      |  +--:(global)
-                      |  |  +--rw global              empty
-                      |  +--:(contextual)
-                      |  |  +--rw contextual          empty
-                      |  +--:(collective)
-                      |  |  +--rw collective          empty
-                      |  +--:(other)
-                      |     +--rw other               empty
-                      +--rw action?                   string
-                      +--rw reason?                   string
-                      +--rw relation?                 string
+                 module: ietf-symptom-semantic-metadata
+                   +--rw symptom
+                     +--rw id                         yang:uuid
+                     +--rw event-id                   yang:uuid
+                     +--rw description                string
+                     +--rw start-time                 yang:date-and-time
+                     +--rw end-time                   yang:date-and-time
+                     +--rw confidence-score           float
+                     +--rw concern-score?             float
+                     +--rw tags* [key]
+                     |  +--rw key      string
+                     |  +--rw value    string
+                     +--rw (pattern)?
+                     |  +--:(drop)
+                     |  |  +--rw drop                 empty
+                     |  +--:(spike)
+                     |  |  +--rw spike                empty
+                     |  +--:(mean-shift)
+                     |  |  +--rw mean-shift           empty
+                     |  +--:(seasonality-shift)
+                     |  |  +--rw seasonality-shift    empty
+                     |  +--:(trend)
+                     |  |  +--rw trend                empty
+                     |  +--:(other)
+                     |     +--rw other                string
+                     +--rw source
+                         +--rw (source-type)
+                         |  +--:(human)
+                         |  |  +--rw human        empty
+                         |  +--:(algorithm)
+                         |     +--rw algorithm    empty
+                         +--rw name?              string
 
 
-      Figure 1: YANG tree diagram for ietf-symptom-semantic-metadata
+       Figure 1: YANG tree diagram for ietf-symptom-semantic-metadata
 
 5.2.  Overview of the Model for the Incident Semantic Metadata
 
@@ -501,72 +497,70 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 16 April 2024                 [Page 9]
+
+
+
+
+Graf, et al.               Expires 7 May 2024                   [Page 9]
 
-Internet-Draft          Network Anomaly Semantics           October 2023
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
-                  module: ietf-incident-label
-                  +--rw incidents
-                    +--rw incident* [id]
-                    +--rw id               string
-                    +--rw description      string
-                    +--rw start-time       yang:date-and-time
-                    +--rw end-time         yang:date-and-time
-                    +--rw concern-score    uint8
-                    +--rw symptoms
-                    |  +--rw symptom* [id]
-                    |     +--rw id                        string
-                    |     +--rw description               string
-                    |     +--rw metrics* [metric]
-                    |     |  +--rw metric    string
-                    |     +--rw start-time                yang:date-and-time
-                    |     +--rw end-time                  yang:date-and-time
-                    |     +--rw concern?                  uint8
-                    |     +--rw source
-                    |     |  +--rw (source-type)
-                    |     |  |  +--:(human)
-                    |     |  |  |  +--rw human        empty
-                    |     |  |  +--:(algorithm)
-                    |     |  |     +--rw algorithm    empty
-                    |     |  +--rw name?              string
-                    |     +--rw (plane)?
-                    |     |  +--:(forwarding-plane)
-                    |     |  |  +--rw forwarding-plane    empty
-                    |     |  +--:(control-plane)
-                    |     |  |  +--rw control-plane       empty
-                    |     |  +--:(management-plane)
-                    |     |     +--rw management-plane    empty
-                    |     +--rw (outlier-type)?
-                    |     |  +--:(global)
-                    |     |  |  +--rw global              empty
-                    |     |  +--:(contextual)
-                    |     |  |  +--rw contextual          empty
-                    |     |  +--:(collective)
-                    |     |  |  +--rw collective          empty
+                module: ietf-incident-semantic-metadata
+                  +--rw incident
+                    +--rw id             yang:uuid
+                    +--rw description    string
+                    +--rw start-time     yang:date-and-time
+                    +--rw end-time       yang:date-and-time
+                    +--rw symptoms* []
+                    |  +--rw symptom
+                    |     +--rw id                         yang:uuid
+                    |     +--rw event-id                   yang:uuid
+                    |     +--rw description                string
+                    |     +--rw start-time                 yang:date-and-time
+                    |     +--rw end-time                   yang:date-and-time
+                    |     +--rw confidence-score           float
+                    |     +--rw concern-score?             float
+                    |     +--rw tags* [key]
+                    |     |  +--rw key      string
+                    |     |  +--rw value    string
+                    |     +--rw (pattern)?
+                    |     |  +--:(drop)
+                    |     |  |  +--rw drop                 empty
+                    |     |  +--:(spike)
+                    |     |  |  +--rw spike                empty
+                    |     |  +--:(mean-shift)
+                    |     |  |  +--rw mean-shift           empty
+                    |     |  +--:(seasonality-shift)
+                    |     |  |  +--rw seasonality-shift    empty
+                    |     |  +--:(trend)
+                    |     |  |  +--rw trend                empty
                     |     |  +--:(other)
-                    |     |     +--rw other               empty
-                    |     +--rw action?                   string
-                    |     +--rw reason?                   string
-                    |     +--rw relation?                 string
+                    |     |     +--rw other                string
+                    |     +--rw source
+                    |        +--rw (source-type)
+                    |        |  +--:(human)
+                    |        |  |  +--rw human        empty
+                    |        |  +--:(algorithm)
+                    |        |     +--rw algorithm    empty
+                    |        +--rw name?              string
                     +--rw source
-                      +--rw (source-type)
-                      |  +--:(human)
-                      |  |  +--rw human        empty
-                      |  +--:(algorithm)
-
-
-
-Graf, et al.              Expires 16 April 2024                [Page 10]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
-                      |     +--rw algorithm    empty
-                      +--rw name?              string
+                        +--rw (type)
+                        |  +--:(human)
+                        |  |  +--rw human        empty
+                        |  +--:(algorithm)
+                        |     +--rw algorithm    empty
+                        +--rw name?              string
 
 
    Figure 2: YANG tree diagram for ietf-incident-semantic-metadata
+
+
+
+Graf, et al.               Expires 7 May 2024                  [Page 10]
+
+Internet-Draft          Network Anomaly Semantics          November 2023
+
 
 6.  Security Considerations
 
@@ -607,17 +601,6 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 8.2.  Informative References
 
-
-
-
-
-
-
-Graf, et al.              Expires 16 April 2024                [Page 11]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
    [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
               ISBN 9781492092391, March 2022,
               <https://www.oreilly.com/library/view/data-
@@ -627,6 +610,14 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               Claise, B., Quilbeuf, J., Lopez, D., Martinez-Casanueva,
               I. D., and T. Graf, "A Data Manifest for Contextualized
               Telemetry Data", Work in Progress, Internet-Draft, draft-
+
+
+
+Graf, et al.               Expires 7 May 2024                  [Page 11]
+
+Internet-Draft          Network Anomaly Semantics          November 2023
+
+
               claise-opsawg-collected-data-manifest-06, 10 March 2023,
               <https://datatracker.ietf.org/doc/html/draft-claise-
               opsawg-collected-data-manifest-06>.
@@ -663,17 +654,6 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               RFC 5102, DOI 10.17487/RFC5102, January 2008,
               <https://www.rfc-editor.org/info/rfc5102>.
 
-
-
-
-
-
-
-Graf, et al.              Expires 16 April 2024                [Page 12]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
    [RFC7011]  Claise, B., Ed., Trammell, B., Ed., and P. Aitken,
               "Specification of the IP Flow Information Export (IPFIX)
               Protocol for the Exchange of Flow Information", STD 77,
@@ -685,6 +665,14 @@ Internet-Draft          Network Anomaly Semantics           October 2023
               Information Export (IPFIX)", RFC 7270,
               DOI 10.17487/RFC7270, June 2014,
               <https://www.rfc-editor.org/info/rfc7270>.
+
+
+
+
+Graf, et al.               Expires 7 May 2024                  [Page 12]
+
+Internet-Draft          Network Anomaly Semantics          November 2023
+
 
    [RFC7854]  Scudder, J., Ed., Fernando, R., and S. Stuart, "BGP
               Monitoring Protocol (BMP)", RFC 7854,
@@ -724,17 +712,22 @@ Authors' Addresses
    Email: wanting.du@swisscom.com
 
 
-
-Graf, et al.              Expires 16 April 2024                [Page 13]
-
-Internet-Draft          Network Anomaly Semantics           October 2023
-
-
    Alex Huang Feng
    INSA-Lyon
    Lyon
    France
    Email: alex.huang-feng@insa-lyon.fr
+
+
+
+
+
+
+
+
+Graf, et al.               Expires 7 May 2024                  [Page 13]
+
+Internet-Draft          Network Anomaly Semantics          November 2023
 
 
    Vincenzo Riccobene
@@ -781,4 +774,11 @@ Internet-Draft          Network Anomaly Semantics           October 2023
 
 
 
-Graf, et al.              Expires 16 April 2024                [Page 14]
+
+
+
+
+
+
+
+Graf, et al.               Expires 7 May 2024                  [Page 14]
