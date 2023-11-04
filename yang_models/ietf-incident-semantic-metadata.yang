@@ -9,8 +9,8 @@ module ietf-incident-semantic-metadata {
           "RFC 6991: Common YANG Data Types";
     }
 
-    import ietf-symptom-label {
-        prefix symptom;
+    import ietf-symptom-semantic-metadata {
+        prefix symptom-metadata;
     }
 
     organization
@@ -48,42 +48,36 @@ module ietf-incident-semantic-metadata {
           "IETF Draft: Network Incident Detection Labels";
     }
 
-    container incidents {
-        list incident {
-            key "id";
-            leaf id {
-                type string;
-                mandatory "true";
-                description
-                  "Unique ID of the network incident";
-            }
-            leaf description {
-                type string;
-                mandatory "true";
-                description
-                  "Textual description of the incident";
-            }
-            leaf start-time {
-                type yang:date-and-time;
-                mandatory "true";
-                description
-                  "Date and time indicating the beginning of the incident";
-            }
-            leaf end-time {
-                type yang:date-and-time;
-                mandatory "true";
-                description
-                  "Date and time indicating the end of the incident";
-            }
-            leaf concern-score {
-                type uint8;
-                mandatory "true";
-                description
-                  "Degree of concern related to the incident";
-            }
-            uses symptom:symptoms;
-            container source {
-                choice source-type {
+    container incident {
+        leaf id {
+            type yang:uuid;
+            mandatory "true";
+            description
+                "Unique ID of the network incident";
+        }
+        leaf description {
+            type string;
+            mandatory "true";
+            description
+                "Textual description of the incident";
+        }
+        leaf start-time {
+            type yang:date-and-time;
+            mandatory "true";
+            description
+                "Date and time indicating the beginning of the incident";
+        }
+        leaf end-time {
+            type yang:date-and-time;
+            mandatory "true";
+            description
+                "Date and time indicating the end of the incident";
+        }
+        list symptoms {
+            uses symptom-metadata:symptom-group;
+        }
+        container source {
+                choice type {
                     mandatory "true";
                     case human {
                         leaf human {
@@ -101,8 +95,7 @@ module ietf-incident-semantic-metadata {
                 leaf name {
                     mandatory "false";
                     type string;
-                }
+                }   
             }
-        }
     }
 }
