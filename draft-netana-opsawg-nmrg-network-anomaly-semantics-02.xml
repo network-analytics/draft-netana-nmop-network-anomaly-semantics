@@ -671,8 +671,8 @@
                   +--rw description                string
                   +--rw start-time                 yang:date-and-time
                   +--rw end-time                   yang:date-and-time
-                  +--rw confidence-score           uint8
-                  +--rw concern-score?             uint8
+                  +--rw confidence-score           float
+                  +--rw concern-score?             float
                   +--rw tags* [key]
                   |  +--rw key      string
                   |  +--rw value    string
@@ -729,8 +729,8 @@
                     |     +--rw description                string
                     |     +--rw start-time                 yang:date-and-time
                     |     +--rw end-time                   yang:date-and-time
-                    |     +--rw confidence-score           uint8
-                    |     +--rw concern-score?             uint8
+                    |     +--rw confidence-score           float
+                    |     +--rw concern-score?             float
                     |     +--rw tags* [key]
                     |     |  +--rw key      string
                     |     |  +--rw value    string

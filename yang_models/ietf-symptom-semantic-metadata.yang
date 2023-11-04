@@ -77,13 +77,13 @@ module ietf-symptom-semantic-metadata {
             }
             leaf confidence-score {
                 mandatory "true";
-                type uint8 {
-                    range "1 .. 100";
+                type float {
+                    range "0 .. 1";
                 }
             }
             leaf concern-score {
-                type uint8 {
-                    range "1 .. 100";
+                type float {
+                    range "0 .. 1";
                 }
             }
             list tags {
