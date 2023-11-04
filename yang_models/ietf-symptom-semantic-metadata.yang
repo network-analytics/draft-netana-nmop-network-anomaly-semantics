@@ -52,52 +52,50 @@ module ietf-symptom-semantic-metadata {
                 description
                     "Unique ID of the symptom type";
             }
+            leaf event-id {
+                type yang:uuid;
+                mandatory "true";
+                description "Reference to the network event this symptom is part of";
+            }
             leaf description {
                 type string;
                 mandatory "true";
                 description
                     "Textual description of the symptom";
             }
-            choice plane {
-                mandatory "false";
+            leaf start-time {
+                type yang:date-and-time;
+                mandatory "true";
                 description
-                    "Network Plane affected by the symptom";
-                case forwarding-plane {
-                    leaf forwarding-plane {
-                        mandatory "true";
-                        type empty;
-                    }
-                }
-                case control-plane {
-                    leaf control-plane {
-                        mandatory "true";
-                        type empty;
-                    }
-                }
-                case management-plane {
-                    leaf management-plane {
-                        mandatory "true";
-                        type empty;
-                    }
+                    "Date and time indicating the beginning of the incident";
+            }
+            leaf end-time {
+                type yang:date-and-time;
+                mandatory "true";
+                description
+                    "Date and time indicating the end of the incident";
+            }
+            leaf confidence-score {
+                mandatory "true";
+                type uint8 {
+                    range "1 .. 100";
                 }
             }
-            leaf condition {
-                mandatory "false";
-                type string;
+            leaf concern-score {
+                type uint8 {
+                    range "1 .. 100";
+                }
             }
-            leaf action {
-                mandatory "false";
-                type string;
-            }
-            leaf cause {
-                mandatory "false";
-                type string;
-            }
-            leaf entity_type {
-                mandatory "false";
-                type yang:uuid;
-                description 
-                    "Type of the entity affected by the symptom. Entites can be objects in the network inventory, subservices as defined in SAIN, etc.";
+            list tags {
+                key "key";
+                leaf key {
+                    type "string";
+                    mandatory "true";
+                }
+                leaf value {
+                    type "string";
+                    mandatory "true";
+                }
             }
             choice pattern {
                 mandatory "false";
@@ -140,6 +138,27 @@ module ietf-symptom-semantic-metadata {
                         description "specify the type";
                     }
                 }
+            }
+            container source {
+                choice source-type {
+                    mandatory "true";
+                    case human {
+                        leaf human {
+                            mandatory "true";
+                            type empty;
+                        }
+                    }
+                    case algorithm {
+                        leaf algorithm {
+                            mandatory "true";
+                            type empty;
+                        }
+                    }
+                }
+                leaf name {
+                    mandatory "false";
+                    type string;
+                }   
             }
         }
     }

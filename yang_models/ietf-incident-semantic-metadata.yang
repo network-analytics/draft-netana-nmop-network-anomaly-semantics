@@ -73,54 +73,11 @@ module ietf-incident-semantic-metadata {
             description
                 "Date and time indicating the end of the incident";
         }
-        leaf concern {
-            type uint8 {
-                range "0 .. 100";
-            }
-            mandatory "true";
-            description
-                "Degree of concern related to the incident";
+        list symptoms {
+            uses symptom-metadata:symptom-group;
         }
-        list events {
-            key "id";
-            leaf id {
-                type yang:uuid;
-                mandatory "true";
-                description "ID of the event. If only one symptom, the ID can be the same as the symptom ID";
-            }
-            list symptoms {
-                key "id";
-                leaf id {
-                    type yang:uuid;
-                    mandatory "true";
-                    description 
-                        "Unique ID of the Symptom Instance";
-                }
-                uses symptom-metadata:symptom-group;
-                leaf entity-id {
-                    type yang:uuid;
-                    mandatory "false";
-                    description 
-                        "ID of the entity affected by the symptom. Entites can be objects in the network inventory, subservices as defined in SAIN, etc.";
-                }
-                leaf start-time {
-                    type yang:date-and-time;
-                    mandatory "true";
-                    description "Start time of the event";
-                }
-                leaf end-time {
-                    type yang:date-and-time;
-                    mandatory "true";
-                    description "End time of the event";
-                }
-                leaf concern {
-                    type uint8 {
-                        range "1 .. 100";
-                    }
-                }
-            }
-            container source {
-                choice source-type {
+        container source {
+                choice type {
                     mandatory "true";
                     case human {
                         leaf human {
@@ -140,12 +97,5 @@ module ietf-incident-semantic-metadata {
                     type string;
                 }   
             }
-        }
-        leaf remediation-action {
-            type string;
-            mandatory "false";
-            description 
-                "Description of the mitigation action(s) implemented to resolve the incident";
-        }
     }
 }
