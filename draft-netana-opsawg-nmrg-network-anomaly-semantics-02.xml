@@ -749,13 +749,23 @@
     </section>
 
     <section anchor="Implementation" title="Implementation status">
-      <t>This section provides pointers to existing open source implementations of this draft</t>
-
-      Note to the RFC-editor: Please remove this before publishing.
-      
+      <t>This section provides pointers to existing open source implementations of this draft.
+      Note to the RFC-editor: Please remove this before publishing.</t>
       <section anchor="Implementation-Antagonist" title="Antagonist">
-        A tool called Antagonist <xref target="Antagonist"> has been implemented 
-        during the IETF 118 Hackathon, to validate this draft.
+        <t>A tool called Antagonist has been implemented
+        during the IETF 118 Hackathon, in order to validate the application of the 
+        YANG models defined in this draft.
+        
+        Antagonist provides visual support for two important use cases in the scope of
+         this document: 
+        <ul>
+          <li>the generation of a ground truth in relation to symptoms and incidents 
+          in timeseries data</li>
+          <li>the visual validation of results produced by automated network 
+          anomaly detection tools.</li>
+        </ul>
+        The open source code can be found here: <xref target="Antagonist"/>
+        </t>
       </section>
     </section>
 
@@ -859,7 +869,10 @@
                  target="https://github.com/vriccobene/antagonist">
         <front>
           <title>Antagonist: Anomaly tagging on historical data</title>
-          <date month="July" year="2023"/>
+          <author fullname="Vincenzo Riccobene" initials="V." surname="Riccobene"/>
+          <author fullname="Wanting Du" initials="W." surname="Du"/>
+          <author fullname="Thomas Graf" initials="T." surname="Graf"/>
+          <author fullname="Alex Huang Feng" initials="H." surname="Huang Feng"/>
         </front>
       </reference>
     </references>
