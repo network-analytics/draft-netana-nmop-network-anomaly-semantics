@@ -5,12 +5,12 @@
 Network Working Group                                            T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 28 August 2024                                    A. Huang Feng
+Expires: 6 September 2024                                  A. Huang Feng
                                                                INSA-Lyon
                                                             V. Riccobene
                                                               A. Roberto
                                                                   Huawei
-                                                        25 February 2024
+                                                            5 March 2024
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -49,13 +49,13 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 August 2024.
+   This Internet-Draft will expire on 6 September 2024.
 
 
 
-Graf, et al.             Expires 28 August 2024                 [Page 1]
+Graf, et al.            Expires 6 September 2024                [Page 1]
 
-Internet-Draft          Network Anomaly Semantics          February 2024
+Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 Copyright Notice
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Graf, et al.             Expires 28 August 2024                 [Page 2]
+Graf, et al.            Expires 6 September 2024                [Page 2]
 
-Internet-Draft          Network Anomaly Semantics          February 2024
+Internet-Draft          Network Anomaly Semantics             March 2024
 
 
    outlier detection testing by comparing the results systematically and
@@ -165,9 +165,9 @@ Internet-Draft          Network Anomaly Semantics          February 2024
 
 
 
-Graf, et al.             Expires 28 August 2024                 [Page 3]
+Graf, et al.            Expires 6 September 2024                [Page 3]
 
-Internet-Draft          Network Anomaly Semantics          February 2024
+Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 3.  Data Mesh
@@ -198,13 +198,16 @@ Internet-Draft          Network Anomaly Semantics          February 2024
       forwardingStatus(IE89) [RFC7270] and packetDeltaCount(IE2)
       [RFC5102] and exportet with IPFIX [RFC7011].
 
-   In terms of network observability, semantics of analytical data
-   refers to anomaly notifications or service level indicators.  For
-   example the anomaly notification described , the health status and
-   symptoms described in the Service Assurance Intend Based Networking
-   [RFC9418], the precision availability metrics defined in
+   In terms of network observability, this applies to operational
+   semantic metadata and service level indicators.  The health status
+   and symptoms described in the Service Assurance Intend Based
+   Networking [RFC9418], the precision availability metrics defined in
    [I-D.ietf-ippm-pam] or network anomalies and its symptoms as
-   described in this document.
+   described in this document and applied in the network anomaly
+   postmortem lifecycle described in
+   [I-D.netana-nmop-network-anomaly-lifecycle] where the applied
+   semantic metadata of this document is refined for each detected
+   anomaly.
 
 4.  Observed Symptoms
 
@@ -215,17 +218,17 @@ Internet-Draft          Network Anomaly Semantics          February 2024
       Forwarding Plane, a path or adjacency in the Control Plane or
       state or statistical changes in the Management Plane.  For
       Forwarding Plane we distinguish between missing, where the drop
+
+
+
+Graf, et al.            Expires 6 September 2024                [Page 4]
+
+Internet-Draft          Network Anomaly Semantics             March 2024
+
+
       occured outside the measured network node, drop and on-path delay,
       which was measured on the network node.  For Control Plane we
       distinguish between reachability, which refers to a change in the
-
-
-
-Graf, et al.             Expires 28 August 2024                 [Page 4]
-
-Internet-Draft          Network Anomaly Semantics          February 2024
-
-
       routing or forwarding information base (RIB/FIB) and adjcacency
       which refers to a change in peering or link-layer resolution.  For
       Management Plane we refer to state or statistical changes on
@@ -274,12 +277,9 @@ Internet-Draft          Network Anomaly Semantics          February 2024
 
 
 
-
-
-
-Graf, et al.             Expires 28 August 2024                 [Page 5]
+Graf, et al.            Expires 6 September 2024                [Page 5]
 
-Internet-Draft          Network Anomaly Semantics          February 2024
+Internet-Draft          Network Anomaly Semantics             March 2024
 
 
             +=========+==============+========================+
@@ -333,9 +333,9 @@ Internet-Draft          Network Anomaly Semantics          February 2024
 
 
 
-Graf, et al.             Expires 28 August 2024                 [Page 6]
+Graf, et al.            Expires 6 September 2024                [Page 6]
 
-Internet-Draft          Network Anomaly Semantics          February 2024
+Internet-Draft          Network Anomaly Semantics             March 2024
 
 
     +--------------+-------------+------------------------------------+
@@ -389,9 +389,9 @@ Internet-Draft          Network Anomaly Semantics          February 2024
 
 
 
-Graf, et al.             Expires 28 August 2024                 [Page 7]
+Graf, et al.            Expires 6 September 2024                [Page 7]
 
-Internet-Draft          Network Anomaly Semantics          February 2024
+Internet-Draft          Network Anomaly Semantics             March 2024
 
 
          Table 2: Describing Symptoms and their Actions, Reason and
@@ -445,9 +445,9 @@ Internet-Draft          Network Anomaly Semantics          February 2024
 
 
 
-Graf, et al.             Expires 28 August 2024                 [Page 8]
+Graf, et al.            Expires 6 September 2024                [Page 8]
 
-Internet-Draft          Network Anomaly Semantics          February 2024
+Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 5.1.  Overview of the Model for the Symptom Semantic Metadata
@@ -501,9 +501,9 @@ Internet-Draft          Network Anomaly Semantics          February 2024
 
 
 
-Graf, et al.             Expires 28 August 2024                 [Page 9]
+Graf, et al.            Expires 6 September 2024                [Page 9]
 
-Internet-Draft          Network Anomaly Semantics          February 2024
+Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 6.  Security Considerations
@@ -557,9 +557,9 @@ Internet-Draft          Network Anomaly Semantics          February 2024
 
 
 
-Graf, et al.             Expires 28 August 2024                [Page 10]
+Graf, et al.            Expires 6 September 2024               [Page 10]
 
-Internet-Draft          Network Anomaly Semantics          February 2024
+Internet-Draft          Network Anomaly Semantics             March 2024
 
 
               claise-opsawg-collected-data-manifest-06, 10 March 2023,
@@ -580,6 +580,14 @@ Internet-Draft          Network Anomaly Semantics          February 2024
               ietf-opsawg-ipfix-on-path-telemetry-06, 14 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
               ipfix-on-path-telemetry-06>.
+
+   [I-D.netana-nmop-network-anomaly-lifecycle]
+              Riccobene, V., Roberto, A., Graf, T., Du, W., and A. H.
+              Feng, "Experiment: Network Anomaly Postmortem Lifecycle",
+              Work in Progress, Internet-Draft, draft-netana-nmop-
+              network-anomaly-lifecycle-00, 28 February 2024,
+              <https://datatracker.ietf.org/doc/html/draft-netana-nmop-
+              network-anomaly-lifecycle-00>.
 
    [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
               Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
@@ -602,6 +610,14 @@ Internet-Draft          Network Anomaly Semantics          February 2024
               DOI 10.17487/RFC7270, June 2014,
               <https://www.rfc-editor.org/info/rfc7270>.
 
+
+
+
+Graf, et al.            Expires 6 September 2024               [Page 11]
+
+Internet-Draft          Network Anomaly Semantics             March 2024
+
+
    [RFC7854]  Scudder, J., Ed., Fernando, R., and S. Stuart, "BGP
               Monitoring Protocol (BMP)", RFC 7854,
               DOI 10.17487/RFC7854, June 2016,
@@ -610,13 +626,6 @@ Internet-Draft          Network Anomaly Semantics          February 2024
    [RFC8343]  Bjorklund, M., "A YANG Data Model for Interface
               Management", RFC 8343, DOI 10.17487/RFC8343, March 2018,
               <https://www.rfc-editor.org/info/rfc8343>.
-
-
-
-Graf, et al.             Expires 28 August 2024                [Page 11]
-
-Internet-Draft          Network Anomaly Semantics          February 2024
-
 
    [RFC9418]  Claise, B., Quilbeuf, J., Lucente, P., Fasano, P., and T.
               Arumugam, "A YANG Data Model for Service Assurance",
@@ -654,6 +663,17 @@ Authors' Addresses
    Email: alex.huang-feng@insa-lyon.fr
 
 
+
+
+
+
+
+
+Graf, et al.            Expires 6 September 2024               [Page 12]
+
+Internet-Draft          Network Anomaly Semantics             March 2024
+
+
    Vincenzo Riccobene
    Huawei
    Dublin
@@ -669,4 +689,40 @@ Authors' Addresses
 
 
 
-Graf, et al.             Expires 28 August 2024                [Page 12]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf, et al.            Expires 6 September 2024               [Page 13]

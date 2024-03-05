@@ -130,7 +130,7 @@
       </address>
     </author>
 
-    <date day="25" month="February" year="2024"/>
+    <date day="05" month="March" year="2024"/>
 
     <abstract>
       <t>This document explains why and how semantic metadata annotation helps
@@ -265,14 +265,16 @@
         <xref target="RFC7011"/>.</dd>
       </dl>
 
-      <t>In terms of network observability, semantics of analytical data
-      refers to anomaly notifications or service level indicators. For example
-      the anomaly notification described <!-- <xref
-      target="I-D.netana-nmop-network-anomaly-postmortem-lifecycle"/> -->, the
-      health status and symptoms described in the Service Assurance Intend
-      Based Networking <xref target="RFC9418"/>, the precision availability
-      metrics defined in <xref target="I-D.ietf-ippm-pam"/> or network
-      anomalies and its symptoms as described in this document.</t>
+      <t>In terms of network observability, this applies to operational
+      semantic metadata and service level indicators. The health status and
+      symptoms described in the Service Assurance Intend Based Networking
+      <xref target="RFC9418"/>, the precision availability metrics defined in
+      <xref target="I-D.ietf-ippm-pam"/> or network anomalies and its symptoms
+      as described in this document and applied in the network anomaly
+      postmortem lifecycle described in <xref
+      target="I-D.netana-nmop-network-anomaly-lifecycle"/> where the applied
+      semantic metadata of this document is refined for each detected
+      anomaly.</t>
     </section>
 
     <section anchor="Observed_Symptoms" title="Observed Symptoms">
@@ -842,7 +844,7 @@
 
       <?rfc include='reference.RFC.9418'?>
 
-      <!-- <?rfc include='reference.I-D.netana-nmop-network-anomaly-postmortem-lifecycle'?> -->
+      <?rfc include='reference.I-D.netana-nmop-network-anomaly-lifecycle'?>
 
       <?rfc include='reference.I-D.ietf-ippm-pam'?>
 
