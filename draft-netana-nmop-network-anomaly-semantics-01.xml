@@ -130,7 +130,7 @@
       </address>
     </author>
 
-    <date day="05" month="March" year="2024"/>
+    <date day="15" month="March" year="2024"/>
 
     <abstract>
       <t>This document explains why and how semantic metadata annotation helps
@@ -794,6 +794,26 @@
       <t>The security considerations.</t>
     </section>
 
+    <section anchor="Implementation" title="Implementation status">
+      <t>This section provides pointers to existing open source
+      implementations of this draft. Note to the RFC-editor: Please remove
+      this before publishing.</t>
+
+      <section anchor="Implementation-Antagonist" title="Antagonist">
+        <t>A tool called Antagonist has been implemented during the IETF 119
+        Hackathon, in order to validate the application of the YANG models
+        defined in this draft. Antagonist provides visual support for two
+        important use cases in the scope of this document: <ul>
+            <li>the generation of a ground truth in relation to symptoms and
+            incidents in timeseries data</li>
+
+            <li>the visual validation of results produced by automated network
+            anomaly detection tools.</li>
+          </ul> The open source code can be found here: <xref
+        target="Antagonist"/></t>
+      </section>
+    </section>
+
     <section anchor="Acknowledgements" title="Acknowledgements">
       <t>The authors would like to thank xxx for their review and valuable
       comments.</t>
@@ -826,6 +846,25 @@
 
         <refcontent>IETF 117, Applied Networking Research
         Workshop</refcontent>
+      </reference>
+
+      <reference anchor="Antagonist"
+                 target="https://github.com/vriccobene/antagonist">
+        <front>
+          <title>Antagonist: Anomaly tagging on historical data</title>
+
+          <author fullname="Vincenzo Riccobene" initials="V."
+                  surname="Riccobene"/>
+
+          <author fullname="Antonio Roberto" initials="A." surname="Roberto"/>
+
+          <author fullname="Wanting Du" initials="W." surname="Du"/>
+
+          <author fullname="Thomas Graf" initials="T." surname="Graf"/>
+
+          <author fullname="Alex Huang Feng" initials="H."
+                  surname="Huang Feng"/>
+        </front>
       </reference>
     </references>
 

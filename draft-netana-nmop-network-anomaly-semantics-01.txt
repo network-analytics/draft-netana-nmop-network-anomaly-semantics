@@ -5,12 +5,12 @@
 Network Working Group                                            T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 6 September 2024                                  A. Huang Feng
+Expires: 16 September 2024                                 A. Huang Feng
                                                                INSA-Lyon
                                                             V. Riccobene
                                                               A. Roberto
                                                                   Huawei
-                                                            5 March 2024
+                                                           15 March 2024
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -49,11 +49,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 September 2024.
+   This Internet-Draft will expire on 16 September 2024.
 
 
 
-Graf, et al.            Expires 6 September 2024                [Page 1]
+Graf, et al.            Expires 16 September 2024               [Page 1]
 
 Internet-Draft          Network Anomaly Semantics             March 2024
 
@@ -82,11 +82,13 @@ Table of Contents
      5.1.  Overview of the Model for the Symptom Semantic
            Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   9
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  10
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  10
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  10
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  12
+   7.  Implementation status . . . . . . . . . . . . . . . . . . . .  10
+     7.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  10
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  10
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  10
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  10
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  11
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  13
 
 1.  Introduction
 
@@ -103,17 +105,18 @@ Table of Contents
    the human out of the monitoring but still involving him in the alert
    verification loop.
 
-   This document describes what information is needed to understand the
-   output of the outlier detection for a Network Engineer, but also at
-   the same time is semantically structured that it can be used for
 
 
 
-Graf, et al.            Expires 6 September 2024                [Page 2]
+
+Graf, et al.            Expires 16 September 2024               [Page 2]
 
 Internet-Draft          Network Anomaly Semantics             March 2024
 
 
+   This document describes what information is needed to understand the
+   output of the outlier detection for a Network Engineer, but also at
+   the same time is semantically structured that it can be used for
    outlier detection testing by comparing the results systematically and
    set a baseline for supervised machine learning which requires labeled
    operational data.
@@ -162,10 +165,7 @@ Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 
-
-
-
-Graf, et al.            Expires 6 September 2024                [Page 3]
+Graf, et al.            Expires 16 September 2024               [Page 3]
 
 Internet-Draft          Network Anomaly Semantics             March 2024
 
@@ -221,7 +221,7 @@ Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 
-Graf, et al.            Expires 6 September 2024                [Page 4]
+Graf, et al.            Expires 16 September 2024               [Page 4]
 
 Internet-Draft          Network Anomaly Semantics             March 2024
 
@@ -277,7 +277,7 @@ Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 
-Graf, et al.            Expires 6 September 2024                [Page 5]
+Graf, et al.            Expires 16 September 2024               [Page 5]
 
 Internet-Draft          Network Anomaly Semantics             March 2024
 
@@ -333,7 +333,7 @@ Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 
-Graf, et al.            Expires 6 September 2024                [Page 6]
+Graf, et al.            Expires 16 September 2024               [Page 6]
 
 Internet-Draft          Network Anomaly Semantics             March 2024
 
@@ -389,7 +389,7 @@ Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 
-Graf, et al.            Expires 6 September 2024                [Page 7]
+Graf, et al.            Expires 16 September 2024               [Page 7]
 
 Internet-Draft          Network Anomaly Semantics             March 2024
 
@@ -445,7 +445,7 @@ Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 
-Graf, et al.            Expires 6 September 2024                [Page 8]
+Graf, et al.            Expires 16 September 2024               [Page 8]
 
 Internet-Draft          Network Anomaly Semantics             March 2024
 
@@ -501,7 +501,7 @@ Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 
-Graf, et al.            Expires 6 September 2024                [Page 9]
+Graf, et al.            Expires 16 September 2024               [Page 9]
 
 Internet-Draft          Network Anomaly Semantics             March 2024
 
@@ -510,20 +510,57 @@ Internet-Draft          Network Anomaly Semantics             March 2024
 
    The security considerations.
 
-7.  Acknowledgements
+7.  Implementation status
+
+   This section provides pointers to existing open source
+   implementations of this draft.  Note to the RFC-editor: Please remove
+   this before publishing.
+
+7.1.  Antagonist
+
+   A tool called Antagonist has been implemented during the IETF 119
+   Hackathon, in order to validate the application of the YANG models
+   defined in this draft.  Antagonist provides visual support for two
+   important use cases in the scope of this document:
+
+   *  the generation of a ground truth in relation to symptoms and
+      incidents in timeseries data
+
+   *  the visual validation of results produced by automated network
+      anomaly detection tools.
+
+   The open source code can be found here: [Antagonist]
+
+8.  Acknowledgements
 
    The authors would like to thank xxx for their review and valuable
    comments.
 
-8.  References
+9.  References
 
-8.1.  Normative References
+9.1.  Normative References
 
    [Ahf23]    Huang Feng, A., "Daisy: Practical Anomaly Detection in
               large BGP/MPLS and BGP/SRv6 VPN Networks", IETF 117,
               Applied Networking Research Workshop,
               DOI 10.1145/3606464.3606470, July 2023,
               <https://anrw23.hotcrp.com/doc/anrw23-paper8.pdf>.
+
+   [Antagonist]
+              Riccobene, V., Roberto, A., Du, W., Graf, T., and H. Huang
+              Feng, "Antagonist: Anomaly tagging on historical data",
+              <https://github.com/vriccobene/antagonist>.
+
+
+
+
+
+
+
+Graf, et al.            Expires 16 September 2024              [Page 10]
+
+Internet-Draft          Network Anomaly Semantics             March 2024
+
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -543,7 +580,7 @@ Internet-Draft          Network Anomaly Semantics             March 2024
               DOI 10.17487/RFC9232, May 2022,
               <https://www.rfc-editor.org/info/rfc9232>.
 
-8.2.  Informative References
+9.2.  Informative References
 
    [Deh22]    Dehghani, Z., "Data Mesh", O'Reilly Media,
               ISBN 9781492092391, March 2022,
@@ -554,14 +591,6 @@ Internet-Draft          Network Anomaly Semantics             March 2024
               Claise, B., Quilbeuf, J., Lopez, D., Martinez-Casanueva,
               I. D., and T. Graf, "A Data Manifest for Contextualized
               Telemetry Data", Work in Progress, Internet-Draft, draft-
-
-
-
-Graf, et al.            Expires 6 September 2024               [Page 10]
-
-Internet-Draft          Network Anomaly Semantics             March 2024
-
-
               claise-opsawg-collected-data-manifest-06, 10 March 2023,
               <https://datatracker.ietf.org/doc/html/draft-claise-
               opsawg-collected-data-manifest-06>.
@@ -580,6 +609,14 @@ Internet-Draft          Network Anomaly Semantics             March 2024
               ietf-opsawg-ipfix-on-path-telemetry-06, 14 January 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
               ipfix-on-path-telemetry-06>.
+
+
+
+
+Graf, et al.            Expires 16 September 2024              [Page 11]
+
+Internet-Draft          Network Anomaly Semantics             March 2024
+
 
    [I-D.netana-nmop-network-anomaly-lifecycle]
               Riccobene, V., Roberto, A., Graf, T., Du, W., and A. H.
@@ -610,14 +647,6 @@ Internet-Draft          Network Anomaly Semantics             March 2024
               DOI 10.17487/RFC7270, June 2014,
               <https://www.rfc-editor.org/info/rfc7270>.
 
-
-
-
-Graf, et al.            Expires 6 September 2024               [Page 11]
-
-Internet-Draft          Network Anomaly Semantics             March 2024
-
-
    [RFC7854]  Scudder, J., Ed., Fernando, R., and S. Stuart, "BGP
               Monitoring Protocol (BMP)", RFC 7854,
               DOI 10.17487/RFC7854, June 2016,
@@ -637,6 +666,13 @@ Internet-Draft          Network Anomaly Semantics             March 2024
               Research Workshop, DOI 10.1145/1541880.1541882, July 2009,
               <https://www.researchgate.net/
               publication/220565847_Anomaly_Detection_A_Survey>.
+
+
+
+Graf, et al.            Expires 16 September 2024              [Page 12]
+
+Internet-Draft          Network Anomaly Semantics             March 2024
+
 
 Authors' Addresses
 
@@ -661,17 +697,6 @@ Authors' Addresses
    Lyon
    France
    Email: alex.huang-feng@insa-lyon.fr
-
-
-
-
-
-
-
-
-Graf, et al.            Expires 6 September 2024               [Page 12]
-
-Internet-Draft          Network Anomaly Semantics             March 2024
 
 
    Vincenzo Riccobene
@@ -700,29 +725,4 @@ Internet-Draft          Network Anomaly Semantics             March 2024
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Graf, et al.            Expires 6 September 2024               [Page 13]
+Graf, et al.            Expires 16 September 2024              [Page 13]
