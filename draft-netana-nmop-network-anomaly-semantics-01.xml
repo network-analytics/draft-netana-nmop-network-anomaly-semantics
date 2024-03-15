@@ -831,7 +831,7 @@
       <?rfc include='reference.RFC.9232'?>
 
       <reference anchor="Ahf23"
-                 target="https://anrw23.hotcrp.com/doc/anrw23-paper8.pdf">
+                 target="https://hal.science/hal-04307611">
         <front>
           <title>Daisy: Practical Anomaly Detection in large BGP/MPLS and
           BGP/SRv6 VPN Networks</title>

@@ -544,7 +544,7 @@ Internet-Draft          Network Anomaly Semantics             March 2024
               large BGP/MPLS and BGP/SRv6 VPN Networks", IETF 117,
               Applied Networking Research Workshop,
               DOI 10.1145/3606464.3606470, July 2023,
-              <https://anrw23.hotcrp.com/doc/anrw23-paper8.pdf>.
+              <https://hal.science/hal-04307611>.
 
    [Antagonist]
               Riccobene, V., Roberto, A., Du, W., Graf, T., and H. Huang
