@@ -76,7 +76,7 @@ module ietf-incident-semantic-metadata {
         list symptoms {
             uses symptom-metadata:symptom-group;
         }
-        container source {
+        container annotator {
                 choice type {
                     mandatory "true";
                     case human {

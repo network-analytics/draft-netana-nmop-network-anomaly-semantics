@@ -37,7 +37,7 @@ module ietf-symptom-semantic-metadata {
          Relating to IETF Documents
          (https://trustee.ietf.org/license-info).";
 
-    revision 2023-10-30 {
+    revision 2024-04-14 {
         description
           "Initial version";
         reference
@@ -139,8 +139,8 @@ module ietf-symptom-semantic-metadata {
                     }
                 }
             }
-            container source {
-                choice source-type {
+            container annotator {
+                choice annotator-type {
                     mandatory "true";
                     case human {
                         leaf human {
