@@ -27,7 +27,7 @@ module ietf-symptom-semantic-metadata {
     description
         "This module defines symptom objects to be used by a network
          anomaly detection system. The defined objects can be used to
-         augment operational network collected obervability data and 
+         augment operational network collected observability data and 
          analytical problem data equally. Describing the observed
          symptoms, confidence and concern scores and outlier patterns.
 

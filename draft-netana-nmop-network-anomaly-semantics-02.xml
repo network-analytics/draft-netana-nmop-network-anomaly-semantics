@@ -161,7 +161,7 @@
 
   <middle>
     <section anchor="Introduction" title="Introduction">
-      <t><xref target="Ahf23">Network Anomaly Detection Architecture</xref>
+      <t><xref target="I-D.netana-nmop-network-anomaly-architecture"/>
       provides an overall introduction into how anomaly detection is being
       applied into the IP network domain and which operational data is needed.
       It approaches the problem space by automating what a Network Engineer
@@ -205,11 +205,11 @@
         Broker.</t>
 
         <t>Additionally it makes use of the terms defined in <xref
-        target="Ahf23">Network Anomaly Detection Architecture</xref> and <xref
+        target="I-D.netana-nmop-network-anomaly-architecture"/> and <xref
         target="I-D.ietf-nmop-terminology"/>.</t>
 
         <t>The following terms are used as defined in <xref
-        target="Ahf23">Network Anomaly Detection Architecture</xref>:</t>
+        target="I-D.netana-nmop-network-anomaly-architecture"/>:</t>
 
         <t><list style="symbols">
             <t>Outlier</t>
@@ -1107,22 +1107,7 @@ module ietf-symptom-semantic-metadata {
 
       <?rfc include='reference.I-D.ietf-nmop-terminology'?>
 
-      <reference anchor="Ahf23" target="https://hal.science/hal-04307611">
-        <front>
-          <title>Daisy: Practical Anomaly Detection in large BGP/MPLS and
-          BGP/SRv6 VPN Networks</title>
-
-          <author fullname="Alex Huang Feng" initials="A."
-                  surname="Huang Feng"/>
-
-          <date month="July" year="2023"/>
-        </front>
-
-        <seriesInfo name="DOI" value="10.1145/3606464.3606470"/>
-
-        <refcontent>IETF 117, Applied Networking Research
-        Workshop</refcontent>
-      </reference>
+      <?rfc include='reference.I-D.netana-nmop-network-anomaly-architecture'?>
 
       <reference anchor="Antagonist"
                  target="https://github.com/vriccobene/antagonist">
