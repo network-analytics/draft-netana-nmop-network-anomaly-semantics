@@ -130,7 +130,7 @@
       </address>
     </author>
 
-    <date day="29" month="June" year="2024"/>
+    <date day="07" month="July" year="2024"/>
 
     <area>Operations and Management</area>
 
@@ -253,13 +253,13 @@
           <t>Which action the network node performed for a packet in the
           Forwarding Plane, a path or adjacency in the Control Plane or state
           or statistical changes in the Management Plane. For Forwarding Plane
-          we distinguish between missing, where the drop occured outside the
+          we distinguish between missing, where the drop occurred outside the
           measured network node, drop and on-path delay, which was measured on
           the network node. For Control Plane we distinguish between
           reachability, which refers to a change in the routing or forwarding
-          information base (RIB/FIB) and adjcacency which refers to a change
-          in peering or link-layer resolution. For Management Plane we refer
-          to state or statistical changes on interfaces.</t>
+          information base (RIB/FIB) and adjacency which refers to a change in
+          peering or link-layer resolution. For Management Plane we refer to
+          state or statistical changes on interfaces.</t>
         </dd>
       </dl>
 
@@ -276,9 +276,9 @@
           packet, software or hardware error. For on-path delay we distinguish
           between Minimum, Average and Maximum Delay for a given flow. For
           Control Plane wherever a the reachability was updated or withdrawn
-          or the adjcacency was established or teared down. For Management
+          or the adjacency was established or teared down. For Management
           Plane we distinguish between interfaces states up and down, and
-          statistical erros, discards or unknown protocol counters.</t>
+          statistical errors, discards or unknown protocol counters.</t>
         </dd>
       </dl>
 
@@ -921,7 +921,7 @@ module ietf-symptom-semantic-metadata {
     description
         "This module defines symptom objects to be used by a network
          anomaly detection system. The defined objects can be used to
-         augment operational network collected obervability data and 
+         augment operational network collected observability data and 
          analytical problem data equally. Describing the observed
          symptoms, confidence and concern scores and outlier patterns.
 
