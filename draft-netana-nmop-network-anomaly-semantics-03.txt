@@ -19,12 +19,12 @@ Expires: 10 March 2025                                     A. Huang Feng
 Abstract
 
    This document explains why and how semantic metadata annotation helps
-   to test, validate and compare outlier detection, supports supervised
-   and semi-supervised machine learning development, enables data
-   exchange among network operators, vendors and academia and make
+   to test, validate and compare Outlier and Symptom detection, supports
+   supervised and semi-supervised machine learning development, enables
+   data exchange among network operators, vendors and academia and make
    anomalies for humans apprehensible.  The proposed semantics uniforms
    the network anomaly data exchange between and among operators and
-   vendors to improve their network outlier detection systems.
+   vendors to improve their Service Disruption Detection Systems.
 
 Discussion Venues
 
@@ -85,18 +85,18 @@ Table of Contents
    2.  Conventions and Definitions . . . . . . . . . . . . . . . . .   3
      2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Observed Symptoms . . . . . . . . . . . . . . . . . . . . . .   4
-   4.  Semantic Metadata . . . . . . . . . . . . . . . . . . . . . .   8
+   4.  Semantic Metadata . . . . . . . . . . . . . . . . . . . . . .   7
      4.1.  Overview of the Model for the Symptom Semantic
-           Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   8
+           Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   7
      4.2.  YANG Module . . . . . . . . . . . . . . . . . . . . . . .  11
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  15
-   6.  Implementation status . . . . . . . . . . . . . . . . . . . .  15
-     6.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  15
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  15
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  15
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  15
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  16
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  14
+   6.  Implementation status . . . . . . . . . . . . . . . . . . . .  14
+     6.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  14
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  14
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  14
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  15
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Introduction
 
@@ -116,18 +116,18 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
    network plane affects another negatively.
 
-   In order to fine tune outlier detection as described in
+   In order to fine tune Service Disruption Detection as described in
    [I-D.netana-nmop-network-anomaly-lifecycle], the results provided as
    analytical data need to be reviewed by a Network Engineer.  Keeping
-   the human out of the monitoring but still involving him in the alert
+   the human out of the monitoring but still involving him in the alarm
    verification loop.
 
    This document describes what information is needed to understand the
-   output of the outlier detection for a Network Engineer, but also at
-   the same time is semantically structured that it can be used for
-   outlier detection testing by comparing the results systematically and
-   set a baseline for supervised machine learning which requires labeled
-   operational data.
+   output of the Service Disruption Detection for a Network Engineer,
+   but also at the same time is semantically structured that it can be
+   used for Service Disruption Detection System testing by comparing the
+   results systematically and set a baseline for supervised machine
+   learning which requires labeled operational data.
 
 2.  Conventions and Definitions
 
@@ -139,36 +139,21 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 2.1.  Terminology
 
-   This document defines the following terms:
-
-   Message Broker: is an intermediary software component that translates
-   messages from the formal messaging protocol of the sender to the
-   formal messaging protocol of the receiver routed in topics.  Message
-   brokers are elements in Data Mesh where software applications
-   communicate by exchanging formally-defined messages.
-
-   Stream Catalog: provides a single point of access that allows users
-   to centrally search semantics for information across a Message
-   Broker.
-
-   Additionally it makes use of the terms defined in
+   This document makes use of the terms defined in
    [I-D.netana-nmop-network-anomaly-architecture] and
    [I-D.ietf-nmop-terminology].
 
    The following terms are used as defined in
    [I-D.netana-nmop-network-anomaly-architecture]:
 
-   *  Outlier
+   *  Outlier Detection
+
+   *  Service Disruption Detection
+
+   *  Service Disruption Detection System
 
    The following terms are used as defined in
    [I-D.ietf-nmop-terminology]:
-
-
-
-Graf, et al.              Expires 10 March 2025                 [Page 3]
-
-Internet-Draft          Network Anomaly Semantics         September 2024
-
 
    *  System
 
@@ -178,9 +163,14 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
    *  State
 
-   *  Relevance
 
-   *  Occurrence
+
+Graf, et al.              Expires 10 March 2025                 [Page 3]
+
+Internet-Draft          Network Anomaly Semantics         September 2024
+
+
+   *  Relevance
 
    *  Problem
 
@@ -188,11 +178,11 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
    *  Cause
 
-   *  Alert
+   *  Alarm
 
 3.  Observed Symptoms
 
-   In this section observed network symptoms are specified and
+   In this section observed network Symptoms are specified and
    categorized according to the following scheme:
 
    Action:  Which action the network node performed for a packet in the
@@ -208,24 +198,6 @@ Internet-Draft          Network Anomaly Semantics         September 2024
       interfaces.
 
    Reason:  For each action, one or more reasons describe why this
-
-
-
-
-
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 10 March 2025                 [Page 4]
-
-Internet-Draft          Network Anomaly Semantics         September 2024
-
-
       action was used.  For Drops in Forwarding Plane we distinguish
       between Unreachable because network layer reachability information
       was missing, Administered because an administrator configured a
@@ -243,41 +215,13 @@ Internet-Draft          Network Anomaly Semantics         September 2024
       network node has chosen that action.
 
    Table 1 consolidates for the forwarding plane a list of common
-   symptoms with their Actions, Reasons and Causes.
+   Symptoms with their Actions, Reasons and Causes.
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 10 March 2025                 [Page 5]
+Graf, et al.              Expires 10 March 2025                 [Page 4]
 
 Internet-Draft          Network Anomaly Semantics         September 2024
 
@@ -322,7 +266,7 @@ Internet-Draft          Network Anomaly Semantics         September 2024
                    Reason and Cause for Forwarding Plane
 
    Table 2 consolidates for the control plane a list of common symptoms
-   with their actions, reasons and causess.
+   with their actions, reasons and causes.
 
     +==============+=============+====================================+
     | Action       | Reason      | Cause                              |
@@ -333,7 +277,7 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 6]
+Graf, et al.              Expires 10 March 2025                 [Page 5]
 
 Internet-Draft          Network Anomaly Semantics         September 2024
 
@@ -389,7 +333,7 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 7]
+Graf, et al.              Expires 10 March 2025                 [Page 6]
 
 Internet-Draft          Network Anomaly Semantics         September 2024
 
@@ -398,7 +342,7 @@ Internet-Draft          Network Anomaly Semantics         September 2024
                           Cause for Control Plane
 
    Table 3 consolidates for the management plane a list of common
-   symptoms with their Actions, Reasons and Causes.
+   Symptoms with their Actions, Reasons and Causes.
 
                +===========+==================+============+
                | Action    | Reason           | Cause      |
@@ -432,16 +376,72 @@ Internet-Draft          Network Anomaly Semantics         September 2024
    which can include time series data and logs, as well as other forms
    of data that is "time-bounded".  The aspects discussed so far in this
    document are grouped under the concept of "anomaly" which represents
-   a collection of symptoms.  The anomaly overall has a set of
+   a collection of Symptoms.  The anomaly overall has a set of
    parameters that describe the overall behavior of the network in a
-   given time-window including all the spotted symptoms (network
-   anomalies).
+   given time-window including all the observed Symptoms and Outliers.
 
 4.1.  Overview of the Model for the Symptom Semantic Metadata
 
-   Figure 2 contains the YANG tree diagram [RFC8340] of the Figure 1
-   which augments the [RFC8343] defined ietf-interfaces and the
-   Figure 3.
+   Figure 1 contains the YANG tree diagram [RFC8340] of the Figure 2
+   which augments the [I-D.netana-nmop-network-anomaly-lifecycle]
+   defined ietf-relevant-state.
+
+
+
+
+Graf, et al.              Expires 10 March 2025                 [Page 7]
+
+Internet-Draft          Network Anomaly Semantics         September 2024
+
+
+   For each Symptom, the following parameters have been assigned:
+   Action, Reason and Cause to describe the Symptom, a concern score
+   indicating how critical the Symptom is and with Forwarding, Control
+   and Management to which network plane the Symptom can be attributed
+   to.
+
+   module: ietf-network-anomaly-symptom-cbl
+
+     augment /rsn:relevant-state/rsn:anomalies/rsn:symptom:
+       +--rw action?             string
+       +--rw reason?             string
+       +--rw cause?              string
+       +--rw (plane)?
+          +--:(forwarding)
+          |  +--rw forwarding?   empty
+          +--:(control)
+          |  +--rw control?      empty
+          +--:(management)
+             +--rw management?   empty
+     augment /rsn:relevant-state-notification/rsn:anomalies/rsn:symptom:
+       +-- action?             string
+       +-- reason?             string
+       +-- cause?              string
+       +-- (plane)?
+          +--:(forwarding)
+          |  +-- forwarding?   empty
+          +--:(control)
+          |  +-- control?      empty
+          +--:(management)
+             +-- management?   empty
+
+      Figure 1: YANG tree diagram for ietf-network-anomaly-symptom-cbl
+
+   The module augments the anomaly-grouping of the relevant-state
+   container and the relevant-state-notification notification of ietf-
+   relevant-state.  The relevant-state container is used for modifying
+   the Symptom data in the Postmortem system.  Where the relevant-state-
+   notification notification is used for messaging from the Alarm
+   Aggregation to the Postmortem and the Alarm and Problem Management
+   system.
+
+   module: ietf-relevant-state
+     +--rw relevant-state
+        +--rw id             yang:uuid
+        +--rw description?   string
+        +--rw start-time     yang:date-and-time
+        +--rw end-time?      yang:date-and-time
+        +--rw anomalies* [id version]
 
 
 
@@ -450,54 +450,54 @@ Graf, et al.              Expires 10 March 2025                 [Page 8]
 Internet-Draft          Network Anomaly Semantics         September 2024
 
 
-   For each symptom, the following parameters have been assigned: A
-   unique ID for identification, a description of the symptom, a list of
-   affected metrics or counters, start and end time to specify the time-
-   window, a confident score indicating how accurate the symptom was
-   detected, a concern score indicating how critical the symptom is, the
-   annotator indicating if it has been identified by a network expert or
-   an algorithm, the tags with key value where Action, Reason and Cause
-   can be annotated as described in previous section.
-
-   <CODE BEGINS> file "ietf-interfaces-with-symptoms@2024-09-06.yang"
-   module ietf-interfaces-with-symptoms {
-       yang-version 1.1;
-       namespace "http://example.org/example-ietf-interfaces-with-symptoms";
-       prefix "ifws";
-
-       import ietf-symptom-semantic-metadata {
-           prefix "sm";
-       }
-       import ietf-interfaces {
-           prefix "if";
-       }
-
-       revision 2024-09-06 {
-           description
-             "Initial version";
-           reference
-             "Example: Symptoms Annotated IETF Interface";
-       }
-
-       augment "/if:interfaces/if:interface" {
-           description
-           "Augment interfaces with symptoms";
-           uses sm:symptom-group;
-       }
-   }
-   <CODE ENDS>
-
-        Figure 1: ietf-interfaces-with-symptoms Example YANG Module
-
-   module: ietf-interfaces
-     +--rw interfaces
-     |  +--rw interface* [name]
-     |     +--rw name                        string
-     |     +--rw description?                string
-     |     +--rw type                        identityref
-     |     +--rw enabled?                    boolean
-     |     +--rw link-up-down-trap-enable?   enumeration {if-mib}?
-     |     +--ro admin-status                enumeration {if-mib}?
+           +--rw id                         yang:uuid
+           +--rw version                    yang:counter32
+           +--rw state                      identityref
+           +--rw description?               string
+           +--rw start-time                 yang:date-and-time
+           +--rw end-time?                  yang:date-and-time
+           +--rw confidence-score           score
+           +--rw (pattern)?
+           |  +--:(drop)
+           |  |  +--rw drop?                empty
+           |  +--:(spike)
+           |  |  +--rw spike?               empty
+           |  +--:(mean-shift)
+           |  |  +--rw mean-shift?          empty
+           |  +--:(seasonality-shift)
+           |  |  +--rw seasonality-shift?   empty
+           |  +--:(trend)
+           |  |  +--rw trend?               empty
+           |  +--:(other)
+           |     +--rw other?               string
+           +--rw annotator!
+           |  +--rw name               string
+           |  +--rw (annotator-type)?
+           |     +--:(human)
+           |     |  +--rw human?       empty
+           |     +--:(algorithm)
+           |        +--rw algorithm?   empty
+           +--rw symptom!
+           |  +--rw id                               yang:uuid
+           |  +--rw concern-score                    score
+           |  +--rw smcblsymptom:action?             string
+           |  +--rw smcblsymptom:reason?             string
+           |  +--rw smcblsymptom:cause?              string
+           |  +--rw (smcblsymptom:plane)?
+           |     +--:(smcblsymptom:forwarding)
+           |     |  +--rw smcblsymptom:forwarding?   empty
+           |     +--:(smcblsymptom:control)
+           |     |  +--rw smcblsymptom:control?      empty
+           |     +--:(smcblsymptom:management)
+           |        +--rw smcblsymptom:management?   empty
+           +--rw service!
+              +--rw id
+              |       yang:uuid
+              +--rw smtopology:vpn-service-container
+              |  +--rw smtopology:vpn-service* [vpn-id]
+              |     +--rw smtopology:vpn-id      string
+              |     +--rw smtopology:vpn-name?   string
+              |     +--rw smtopology:site-ids*   string
 
 
 
@@ -506,54 +506,54 @@ Graf, et al.              Expires 10 March 2025                 [Page 9]
 Internet-Draft          Network Anomaly Semantics         September 2024
 
 
-     |     +--ro oper-status                 enumeration
-     |     +--ro last-change?                yang:date-and-time
-     |     +--ro if-index                    int32 {if-mib}?
-     |     +--ro phys-address?               yang:phys-address
-     |     +--ro higher-layer-if*            interface-ref
-     |     +--ro lower-layer-if*             interface-ref
-     |     +--ro speed?                      yang:gauge64
-     |     +--ro statistics
-     |     |  +--ro discontinuity-time    yang:date-and-time
-     |     |  +--ro in-octets?            yang:counter64
-     |     |  +--ro in-unicast-pkts?      yang:counter64
-     |     |  +--ro in-broadcast-pkts?    yang:counter64
-     |     |  +--ro in-multicast-pkts?    yang:counter64
-     |     |  +--ro in-discards?          yang:counter32
-     |     |  +--ro in-errors?            yang:counter32
-     |     |  +--ro in-unknown-protos?    yang:counter32
-     |     |  +--ro out-octets?           yang:counter64
-     |     |  +--ro out-unicast-pkts?     yang:counter64
-     |     |  +--ro out-broadcast-pkts?   yang:counter64
-     |     |  +--ro out-multicast-pkts?   yang:counter64
-     |     |  +--ro out-discards?         yang:counter32
-     |     |  +--ro out-errors?           yang:counter32
-     |     +--rw ifws:symptom* [event-id]
-     |        +--rw ifws:id?                        yang:uuid
-     |        +--rw ifws:event-id                   yang:uuid
-     |        +--rw ifws:description?               string
-     |        +--rw ifws:start-time?                yang:date-and-time
-     |        +--rw ifws:end-time?                  yang:date-and-time
-     |        +--rw ifws:confidence-score?          score
-     |        +--rw ifws:concern-score?             score
-     |        +--rw ifws:tags* [key]
-     |        |  +--rw ifws:key      string
-     |        |  +--rw ifws:value?   string
-     |        +--rw (ifws:pattern)?
-     |        |  +--:(ifws:drop)
-     |        |  |  +--rw ifws:drop?                empty
-     |        |  +--:(ifws:spike)
-     |        |  |  +--rw ifws:spike?               empty
-     |        |  +--:(ifws:mean-shift)
-     |        |  |  +--rw ifws:mean-shift?          empty
-     |        |  +--:(ifws:seasonality-shift)
-     |        |  |  +--rw ifws:seasonality-shift?   empty
-     |        |  +--:(ifws:trend)
-     |        |  |  +--rw ifws:trend?               empty
-     |        |  +--:(ifws:other)
-     |        |     +--rw ifws:other?               string
-     |        +--rw ifws:annotator* [name]
-     |           +--rw (ifws:annotator-type)?
+              +--rw smtopology:vpn-node-termination-container
+                 +--rw smtopology:vpn-node-termination*
+                         [hostname route-distinguisher]
+                    +--rw smtopology:hostname               inet:host
+                    +--rw smtopology:route-distinguisher    string
+                    +--rw smtopology:peer-ip*
+                    |       inet:ip-address
+                    +--rw smtopology:next-hop*
+                    |       inet:ip-address
+                    +--rw smtopology:interface-id*          int32
+
+     notifications:
+       +---n relevant-state-notification
+          +--ro id             yang:uuid
+          +--ro description?   string
+          +--ro start-time     yang:date-and-time
+          +--ro end-time?      yang:date-and-time
+          +--ro anomalies* [id version]
+             +--ro id                         yang:uuid
+             +--ro version                    yang:counter32
+             +--ro state                      identityref
+             +--ro description?               string
+             +--ro start-time                 yang:date-and-time
+             +--ro end-time?                  yang:date-and-time
+             +--ro confidence-score           score
+             +--ro (pattern)?
+             |  +--:(drop)
+             |  |  +--ro drop?                empty
+             |  +--:(spike)
+             |  |  +--ro spike?               empty
+             |  +--:(mean-shift)
+             |  |  +--ro mean-shift?          empty
+             |  +--:(seasonality-shift)
+             |  |  +--ro seasonality-shift?   empty
+             |  +--:(trend)
+             |  |  +--ro trend?               empty
+             |  +--:(other)
+             |     +--ro other?               string
+             +--ro annotator!
+             |  +--ro name               string
+             |  +--ro (annotator-type)?
+             |     +--:(human)
+             |     |  +--ro human?       empty
+             |     +--:(algorithm)
+             |        +--ro algorithm?   empty
+             +--ro symptom!
+             |  +--ro id                               yang:uuid
+             |  +--ro concern-score                    score
 
 
 
@@ -562,54 +562,54 @@ Graf, et al.              Expires 10 March 2025                [Page 10]
 Internet-Draft          Network Anomaly Semantics         September 2024
 
 
-     |           |  +--:(ifws:human)
-     |           |  |  +--rw ifws:human?       empty
-     |           |  +--:(ifws:algorithm)
-     |           |     +--rw ifws:algorithm?   empty
-     |           +--rw ifws:name               string
-     x--ro interfaces-state
-        x--ro interface* [name]
-           x--ro name               string
-           x--ro type               identityref
-           x--ro admin-status       enumeration {if-mib}?
-           x--ro oper-status        enumeration
-           x--ro last-change?       yang:date-and-time
-           x--ro if-index           int32 {if-mib}?
-           x--ro phys-address?      yang:phys-address
-           x--ro higher-layer-if*   interface-state-ref
-           x--ro lower-layer-if*    interface-state-ref
-           x--ro speed?             yang:gauge64
-           x--ro statistics
-              x--ro discontinuity-time    yang:date-and-time
-              x--ro in-octets?            yang:counter64
-              x--ro in-unicast-pkts?      yang:counter64
-              x--ro in-broadcast-pkts?    yang:counter64
-              x--ro in-multicast-pkts?    yang:counter64
-              x--ro in-discards?          yang:counter32
-              x--ro in-errors?            yang:counter32
-              x--ro in-unknown-protos?    yang:counter32
-              x--ro out-octets?           yang:counter64
-              x--ro out-unicast-pkts?     yang:counter64
-              x--ro out-broadcast-pkts?   yang:counter64
-              x--ro out-multicast-pkts?   yang:counter64
-              x--ro out-discards?         yang:counter32
-              x--ro out-errors?           yang:counter32
+             |  +--ro smcblsymptom:action?             string
+             |  +--ro smcblsymptom:reason?             string
+             |  +--ro smcblsymptom:cause?              string
+             |  +--ro (smcblsymptom:plane)?
+             |     +--:(smcblsymptom:forwarding)
+             |     |  +--ro smcblsymptom:forwarding?   empty
+             |     +--:(smcblsymptom:control)
+             |     |  +--ro smcblsymptom:control?      empty
+             |     +--:(smcblsymptom:management)
+             |        +--ro smcblsymptom:management?   empty
+             +--ro service!
+                +--ro id
+                |       yang:uuid
+                +--ro smtopology:vpn-service-container
+                |  +--ro smtopology:vpn-service* [vpn-id]
+                |     +--ro smtopology:vpn-id      string
+                |     +--ro smtopology:vpn-name?   string
+                |     +--ro smtopology:site-ids*   string
+                +--ro smtopology:vpn-node-termination-container
+                   +--ro smtopology:vpn-node-termination*
+                           [hostname route-distinguisher]
+                      +--ro smtopology:hostname               inet:host
+                      +--ro smtopology:route-distinguisher    string
+                      +--ro smtopology:peer-ip*
+                      |       inet:ip-address
+                      +--ro smtopology:next-hop*
+                      |       inet:ip-address
+                      +--ro smtopology:interface-id*          int32
 
-       Figure 2: YANG tree diagram for ietf-symptom-semantic-metadata
+            Figure 2: YANG tree diagram for ietf-relevant-state
 
 4.2.  YANG Module
 
    The YANG module has one typdef defining the score and a grouping
-   which can be augmented.
+   defining Action, Reason and Cause and how it attributes to the
+   network planes.
 
-   <CODE BEGINS> file "ietf-symptom-semantic-metadata@2024-09-06.yang"
-   module ietf-symptom-semantic-metadata {
+   <CODE BEGINS> file "ietf-network-anomaly-symptom-cbl@2024-10-18.yang"
+   module ietf-network-anomaly-symptom-cbl {
        yang-version 1.1;
-       namespace "urn:ietf:params:xml:ns:yang:ietf-symptom-semantic-metadata";
-       prefix sm;
+       namespace "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl";
+       prefix smcblsymptom;
 
-       import ietf-yang-types {
-           prefix yang;
+       import ietf-relevant-state {
+           prefix rsn;
+           reference
+             "RFC XXX: Relevant State and Relevant State Notification";
+       }
 
 
 
@@ -617,10 +617,6 @@ Graf, et al.              Expires 10 March 2025                [Page 11]
 
 Internet-Draft          Network Anomaly Semantics         September 2024
 
-
-           reference
-             "RFC 6991: Common YANG Data Types";
-       }
 
      organization "IETF NMOP (Network Management Operations) Working Group";
      contact
@@ -638,11 +634,10 @@ Internet-Draft          Network Anomaly Semantics         September 2024
                   Antonio Roberto
                   <mailto:antonio.roberto@huawei.com>";
        description
-           "This module defines symptom objects to be used by a network
-            anomaly detection system. The defined objects can be used to
-            augment operational network collected observability data and
-            analytical problem data equally. Describing the observed
-            symptoms, confidence and concern scores and outlier patterns.
+           "This module defines the semantic grouping to be used by a
+                    Service Disruption Detection Systems. The defined objects is
+                    used to augment the anomaly container. Describing the
+                    symptoms action, reason and and oncern-score.
 
             Copyright (c) 2023 IETF Trust and the persons identified as
             authors of the code.  All rights reserved.
@@ -657,15 +652,20 @@ Internet-Draft          Network Anomaly Semantics         September 2024
             This version of this YANG module is part of RFC XXXX; see the RFC
             itself for full legal notices.";
 
-       revision 2024-09-06 {
+       revision 2024-10-18 {
            description
              "Initial version";
            reference
              "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
        }
-
        typedef score {
          type uint8 {
+           range "0 .. 100";
+         }
+       }
+
+       grouping cbl-symptom {
+           leaf action {
 
 
 
@@ -674,54 +674,54 @@ Graf, et al.              Expires 10 March 2025                [Page 12]
 Internet-Draft          Network Anomaly Semantics         September 2024
 
 
-           range "0 .. 1";
-         }
+               type string;
+               description "action";
+           }
+           leaf reason {
+               type string;
+               description
+                   "reason";
+           }
+           leaf cause {
+               type string;
+               description
+                   "cause";
+           }
+           choice plane {
+               description
+                   "Network Plane affected by the symptom";
+               case forwarding {
+                   leaf forwarding {
+                       type empty;
+                   }
+               }
+               case control {
+                   leaf control {
+                       type empty;
+                   }
+               }
+               case management {
+                   leaf management {
+                       type empty;
+                   }
+               }
+           }
        }
 
-       grouping symptom-group {
-           list symptom {
-               key "event-id";
-               leaf id {
-                   type yang:uuid;
-                   description
-                       "Unique ID of the symptom type";
-               }
-               leaf event-id {
-                   type yang:uuid;
-                   description "Reference to the network event this symptom is part of";
-               }
-               leaf description {
-                   type string;
-                   description
-                       "Textual description of the symptom";
-               }
-               leaf start-time {
-                   type yang:date-and-time;
-                   description
-                       "Date and time indicating the beginning of the symptom";
-               }
-               leaf end-time {
-                   type yang:date-and-time;
-                   description
-                       "Date and time indicating the end of the symptom";
-               }
-               leaf confidence-score {
-                   type score;
-               }
-               leaf concern-score {
-                   type score;
-               }
-               list tags {
-                   key "key";
-                   leaf key {
-                       type "string";
-                   }
-                   leaf value {
-                       type "string";
-                   }
-               }
-               choice pattern {
-                   description
+       augment /rsn:relevant-state/rsn:anomalies/rsn:symptom {
+           uses cbl-symptom;
+       }
+
+       augment /rsn:relevant-state-notification/rsn:anomalies/rsn:symptom {
+           uses cbl-symptom;
+       }
+
+   }
+   <CODE ENDS>
+
+            Figure 3: ietf-symptom-semantic-metadata YANG Module
+
+
 
 
 
@@ -729,72 +729,6 @@ Graf, et al.              Expires 10 March 2025                [Page 13]
 
 Internet-Draft          Network Anomaly Semantics         September 2024
 
-
-                       "Network Plane affected by the symptom";
-                   case drop {
-                       leaf drop {
-                           type empty;
-                       }
-                   }
-                   case spike {
-                       leaf spike {
-                           type empty;
-                       }
-                   }
-                   case mean-shift {
-                       leaf mean-shift {
-                           type empty;
-                       }
-                   }
-                   case seasonality-shift {
-                       leaf seasonality-shift {
-                           type empty;
-                       }
-                   }
-                   case trend {
-                       leaf trend {
-                           type empty;
-                       }
-                   }
-                   case other {
-                       leaf other {
-                           type string;
-                           description "specify the type";
-                       }
-                   }
-               }
-               list annotator {
-                   key "name";
-                   choice annotator-type {
-                       case human {
-                           leaf human {
-                               type empty;
-                           }
-                       }
-                       case algorithm {
-                           leaf algorithm {
-                               type empty;
-                           }
-                       }
-                   }
-                   leaf name {
-
-
-
-Graf, et al.              Expires 10 March 2025                [Page 14]
-
-Internet-Draft          Network Anomaly Semantics         September 2024
-
-
-                       type string;
-                   }
-               }
-           }
-       }
-   }
-   <CODE ENDS>
-
-            Figure 3: ietf-symptom-semantic-metadata YANG Module
 
 5.  Security Considerations
 
@@ -808,13 +742,13 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 6.1.  Antagonist
 
-   A tool called Antagonist has been implemented during the IETF 119
-   Hackathon, in order to validate the application of the YANG models
-   defined in this draft.  Antagonist provides visual support for two
-   important use cases in the scope of this document:
+   A tool called Antagonist has been implemented and refined during the
+   IETF 119 and 120 hackathons, in order to validate the application of
+   the YANG models defined in this draft.  Antagonist provides visual
+   support for two important use cases in the scope of this document:
 
-   *  the generation of a ground truth in relation to symptoms and
-      problems in timeseries data
+   *  the generation of a ground truth in relation to Symptoms and
+      Problems in timeseries data
 
    *  the visual validation of results produced by automated network
       anomaly detection tools.
@@ -835,20 +769,22 @@ Internet-Draft          Network Anomaly Semantics         September 2024
               Feng, "Antagonist: Anomaly tagging on historical data",
               <https://github.com/vriccobene/antagonist>.
 
-
-
-Graf, et al.              Expires 10 March 2025                [Page 15]
-
-Internet-Draft          Network Anomaly Semantics         September 2024
-
-
    [I-D.ietf-nmop-terminology]
               Davis, N., Farrel, A., Graf, T., Wu, Q., and C. Yu, "Some
               Key Terms for Network Fault and Problem Management", Work
               in Progress, Internet-Draft, draft-ietf-nmop-terminology-
-              04, 23 August 2024,
+              06, 17 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
-              terminology-04>.
+              terminology-06>.
+
+
+
+
+
+Graf, et al.              Expires 10 March 2025                [Page 14]
+
+Internet-Draft          Network Anomaly Semantics         September 2024
+
 
    [I-D.netana-nmop-network-anomaly-architecture]
               Graf, T., Du, W., and P. Francois, "An Architecture for a
@@ -857,6 +793,14 @@ Internet-Draft          Network Anomaly Semantics         September 2024
               architecture-00, 8 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-netana-nmop-
               network-anomaly-architecture-00>.
+
+   [I-D.netana-nmop-network-anomaly-lifecycle]
+              Riccobene, V., Roberto, A., Graf, T., Du, W., and A. H.
+              Feng, "Experiment: Network Anomaly Lifecycle", Work in
+              Progress, Internet-Draft, draft-netana-nmop-network-
+              anomaly-lifecycle-03, 8 July 2024,
+              <https://datatracker.ietf.org/doc/html/draft-netana-nmop-
+              network-anomaly-lifecycle-03>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -871,11 +815,6 @@ Internet-Draft          Network Anomaly Semantics         September 2024
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
 
-   [RFC9232]  Song, H., Qin, F., Martinez-Julia, P., Ciavaglia, L., and
-              A. Wang, "Network Telemetry Framework", RFC 9232,
-              DOI 10.17487/RFC9232, May 2022,
-              <https://www.rfc-editor.org/info/rfc9232>.
-
 8.2.  Informative References
 
    [I-D.claise-opsawg-collected-data-manifest]
@@ -886,83 +825,6 @@ Internet-Draft          Network Anomaly Semantics         September 2024
               <https://datatracker.ietf.org/doc/html/draft-claise-
               opsawg-collected-data-manifest-06>.
 
-   [I-D.ietf-ippm-pam]
-              Mirsky, G., Halpern, J. M., Min, X., Clemm, A., Strassner,
-              J., and J. François, "Precision Availability Metrics for
-              Services Governed by Service Level Objectives (SLOs)",
-
-
-
-Graf, et al.              Expires 10 March 2025                [Page 16]
-
-Internet-Draft          Network Anomaly Semantics         September 2024
-
-
-              Work in Progress, Internet-Draft, draft-ietf-ippm-pam-09,
-              1 December 2023, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-ippm-pam-09>.
-
-   [I-D.ietf-opsawg-ipfix-on-path-telemetry]
-              Graf, T., Claise, B., and A. H. Feng, "Export of Delay
-              Performance Metrics in IP Flow Information eXport
-              (IPFIX)", Work in Progress, Internet-Draft, draft-ietf-
-              opsawg-ipfix-on-path-telemetry-12, 24 August 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              ipfix-on-path-telemetry-12>.
-
-   [I-D.netana-nmop-network-anomaly-lifecycle]
-              Riccobene, V., Roberto, A., Graf, T., Du, W., and A. H.
-              Feng, "Experiment: Network Anomaly Lifecycle", Work in
-              Progress, Internet-Draft, draft-netana-nmop-network-
-              anomaly-lifecycle-03, 8 July 2024,
-              <https://datatracker.ietf.org/doc/html/draft-netana-nmop-
-              network-anomaly-lifecycle-03>.
-
-   [RFC4364]  Rosen, E. and Y. Rekhter, "BGP/MPLS IP Virtual Private
-              Networks (VPNs)", RFC 4364, DOI 10.17487/RFC4364, February
-              2006, <https://www.rfc-editor.org/info/rfc4364>.
-
-   [RFC5102]  Quittek, J., Bryant, S., Claise, B., Aitken, P., and J.
-              Meyer, "Information Model for IP Flow Information Export",
-              RFC 5102, DOI 10.17487/RFC5102, January 2008,
-              <https://www.rfc-editor.org/info/rfc5102>.
-
-   [RFC7011]  Claise, B., Ed., Trammell, B., Ed., and P. Aitken,
-              "Specification of the IP Flow Information Export (IPFIX)
-              Protocol for the Exchange of Flow Information", STD 77,
-              RFC 7011, DOI 10.17487/RFC7011, September 2013,
-              <https://www.rfc-editor.org/info/rfc7011>.
-
-   [RFC7270]  Yourtchenko, A., Aitken, P., and B. Claise, "Cisco-
-              Specific Information Elements Reused in IP Flow
-              Information Export (IPFIX)", RFC 7270,
-              DOI 10.17487/RFC7270, June 2014,
-              <https://www.rfc-editor.org/info/rfc7270>.
-
-   [RFC7854]  Scudder, J., Ed., Fernando, R., and S. Stuart, "BGP
-              Monitoring Protocol (BMP)", RFC 7854,
-              DOI 10.17487/RFC7854, June 2016,
-              <https://www.rfc-editor.org/info/rfc7854>.
-
-
-
-
-
-
-Graf, et al.              Expires 10 March 2025                [Page 17]
-
-Internet-Draft          Network Anomaly Semantics         September 2024
-
-
-   [RFC8343]  Bjorklund, M., "A YANG Data Model for Interface
-              Management", RFC 8343, DOI 10.17487/RFC8343, March 2018,
-              <https://www.rfc-editor.org/info/rfc8343>.
-
-   [RFC9418]  Claise, B., Quilbeuf, J., Lucente, P., Fasano, P., and T.
-              Arumugam, "A YANG Data Model for Service Assurance",
-              RFC 9418, DOI 10.17487/RFC9418, July 2023,
-              <https://www.rfc-editor.org/info/rfc9418>.
-
 Authors' Addresses
 
    Thomas Graf
@@ -971,6 +833,13 @@ Authors' Addresses
    CH-8045 Zurich
    Switzerland
    Email: thomas.graf@swisscom.com
+
+
+
+
+Graf, et al.              Expires 10 March 2025                [Page 15]
+
+Internet-Draft          Network Anomaly Semantics         September 2024
 
 
    Wanting Du
@@ -1005,4 +874,23 @@ Authors' Addresses
 
 
 
-Graf, et al.              Expires 10 March 2025                [Page 18]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf, et al.              Expires 10 March 2025                [Page 16]

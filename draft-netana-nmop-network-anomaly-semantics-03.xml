@@ -138,12 +138,12 @@
 
     <abstract>
       <t>This document explains why and how semantic metadata annotation helps
-      to test, validate and compare outlier detection, supports supervised and
-      semi-supervised machine learning development, enables data exchange
-      among network operators, vendors and academia and make anomalies for
-      humans apprehensible. The proposed semantics uniforms the network
+      to test, validate and compare Outlier and Symptom detection, supports
+	  supervised and semi-supervised machine learning development, enables data
+	  exchange among network operators, vendors and academia and make anomalies
+	  for humans apprehensible. The proposed semantics uniforms the network
       anomaly data exchange between and among operators and vendors to improve
-      their network outlier detection systems.</t>
+      their Service Disruption Detection Systems.</t>
     </abstract>
 
     <note removeInRFC="true">
@@ -169,17 +169,17 @@
       from different network plane perspectives to understand wherever one
       network plane affects another negatively.</t>
 
-      <t>In order to fine tune outlier detection as described in <xref
+      <t>In order to fine tune Service Disruption Detection as described in <xref
       target="I-D.netana-nmop-network-anomaly-lifecycle"/>, the results
       provided as analytical data need to be reviewed by a Network Engineer.
       Keeping the human out of the monitoring but still involving him in the
-      alert verification loop.</t>
+      alarm verification loop.</t>
 
       <t>This document describes what information is needed to understand the
-      output of the outlier detection for a Network Engineer, but also at the
-      same time is semantically structured that it can be used for outlier
-      detection testing by comparing the results systematically and set a
-      baseline for supervised machine learning which requires labeled
+      output of the Service Disruption Detection for a Network Engineer, but also
+	  at the same time is semantically structured that it can be used for Service
+	  Disruption Detection System testing by comparing the results systematically
+	  and set a baseline for supervised machine learning which requires labeled
       operational data.</t>
     </section>
 
@@ -192,19 +192,7 @@
       they appear in all capitals, as shown here.</t>
 
       <section anchor="Terminology" title="Terminology">
-        <t>This document defines the following terms:</t>
-
-        <t>Message Broker: is an intermediary software component that
-        translates messages from the formal messaging protocol of the sender
-        to the formal messaging protocol of the receiver routed in topics.
-        Message brokers are elements in Data Mesh where software applications
-        communicate by exchanging formally-defined messages.</t>
-
-        <t>Stream Catalog: provides a single point of access that allows users
-        to centrally search semantics for information across a Message
-        Broker.</t>
-
-        <t>Additionally it makes use of the terms defined in <xref
+        <t>This document makes use of the terms defined in <xref
         target="I-D.netana-nmop-network-anomaly-architecture"/> and <xref
         target="I-D.ietf-nmop-terminology"/>.</t>
 
@@ -212,7 +200,11 @@
         target="I-D.netana-nmop-network-anomaly-architecture"/>:</t>
 
         <t><list style="symbols">
-            <t>Outlier</t>
+            <t>Outlier Detection</t>
+
+            <t>Service Disruption Detection</t>
+			
+            <t>Service Disruption Detection System</t>
           </list></t>
 
         <t>The following terms are used as defined in <xref
@@ -229,21 +221,19 @@
 
             <t>Relevance</t>
 
-            <t>Occurrence</t>
-
             <t>Problem</t>
 
             <t>Symptom</t>
 
             <t>Cause</t>
 
-            <t>Alert</t>
+            <t>Alarm</t>
           </list></t>
       </section>
     </section>
 
     <section anchor="Observed_Symptoms" title="Observed Symptoms">
-      <t>In this section observed network symptoms are specified and
+      <t>In this section observed network Symptoms are specified and
       categorized according to the following scheme:</t>
 
       <dl>
@@ -292,7 +282,7 @@
       </dl>
 
       <t><xref target="symptom_forwarding_plane_actions_table"/> consolidates
-      for the forwarding plane a list of common symptoms with their Actions,
+      for the forwarding plane a list of common Symptoms with their Actions,
       Reasons and Causes.</t>
 
       <table align="center" anchor="symptom_forwarding_plane_actions_table">
@@ -437,7 +427,7 @@
 
       <t><xref target="symptom_control_plane_actions_table"/> consolidates for
       the control plane a list of common symptoms with their actions, reasons
-      and causess.</t>
+      and causes.</t>
 
       <table align="center" anchor="symptom_control_plane_actions_table">
         <name slugifiedName="symptom_control_plane_actions">Describing
@@ -623,7 +613,7 @@
       </table>
 
       <t><xref target="symptom_management_plane_actions_table"/> consolidates
-      for the management plane a list of common symptoms with their Actions,
+      for the management plane a list of common Symptoms with their Actions,
       Reasons and Causes.</t>
 
       <table align="center" anchor="symptom_management_plane_actions_table">
@@ -698,172 +688,216 @@
       can include time series data and logs, as well as other forms of data
       that is "time-bounded". The aspects discussed so far in this document
       are grouped under the concept of "anomaly" which represents a collection
-      of symptoms. The anomaly overall has a set of parameters that describe
+      of Symptoms. The anomaly overall has a set of parameters that describe
       the overall behavior of the network in a given time-window including all
-      the spotted symptoms (network anomalies).</t>
+      the observed Symptoms and Outliers.</t>
 
       <section anchor="symptom-model-tree"
                title="Overview of the Model for the Symptom Semantic Metadata">
-        <t><xref target="symptom-semantic-metadata-tree"/> contains the YANG
+        <t><xref target="ietf-network-anomaly-symptom-tree"/> contains the YANG
         tree diagram <xref target="RFC8340"/> of the <xref
-        target="ietf-interfaces-with-symptoms-module"/> which augments the
-        <xref target="RFC8343"/> defined ietf-interfaces and the <xref
-        target="ietf-symptom-semantic-metadata-module"/>.</t>
+        target="ietf-relevant-state-tree"/> which augments the <xref target="I-D.netana-nmop-network-anomaly-lifecycle"/> defined
+		ietf-relevant-state.</t>
 
-        <t>For each symptom, the following parameters have been assigned: A
-        unique ID for identification, a description of the symptom, a list of
-        affected metrics or counters, start and end time to specify the
-        time-window, a confident score indicating how accurate the symptom was
-        detected, a concern score indicating how critical the symptom is, the
-        annotator indicating if it has been identified by a network expert or
-        an algorithm, the tags with key value where Action, Reason and Cause
-        can be annotated as described in previous section.</t>
+        <t>For each Symptom, the following parameters have been assigned: Action,
+		Reason and Cause to describe the Symptom, a concern score indicating how
+		critical the Symptom is and with Forwarding, Control and Management to
+		which network plane the Symptom can be attributed to.</t>
 
-        <t><figure anchor="ietf-interfaces-with-symptoms-module"
-            title="ietf-interfaces-with-symptoms Example YANG Module">
+        <t><figure anchor="ietf-network-anomaly-symptom-tree"
+            title="YANG tree diagram for ietf-network-anomaly-symptom-cbl">
             <artwork><![CDATA[
-<CODE BEGINS> file "ietf-interfaces-with-symptoms@2024-09-06.yang"
-module ietf-interfaces-with-symptoms {
-    yang-version 1.1;
-    namespace "http://example.org/example-ietf-interfaces-with-symptoms";
-    prefix "ifws";
+module: ietf-network-anomaly-symptom-cbl
 
-    import ietf-symptom-semantic-metadata {
-        prefix "sm";
-    }
-    import ietf-interfaces {
-        prefix "if";
-    }
-
-    revision 2024-09-06 {
-        description
-          "Initial version";
-        reference
-          "Example: Symptoms Annotated IETF Interface";
-    }
-
-    augment "/if:interfaces/if:interface" {
-        description
-        "Augment interfaces with symptoms";
-        uses sm:symptom-group;
-    }
-}
-<CODE ENDS>]]></artwork>
+  augment /rsn:relevant-state/rsn:anomalies/rsn:symptom:
+    +--rw action?             string
+    +--rw reason?             string
+    +--rw cause?              string
+    +--rw (plane)?
+       +--:(forwarding)
+       |  +--rw forwarding?   empty
+       +--:(control)
+       |  +--rw control?      empty
+       +--:(management)
+          +--rw management?   empty
+  augment /rsn:relevant-state-notification/rsn:anomalies/rsn:symptom:
+    +-- action?             string
+    +-- reason?             string
+    +-- cause?              string
+    +-- (plane)?
+       +--:(forwarding)
+       |  +-- forwarding?   empty
+       +--:(control)
+       |  +-- control?      empty
+       +--:(management)
+          +-- management?   empty
+		  ]]></artwork>
           </figure></t>
 
-        <t><figure anchor="symptom-semantic-metadata-tree"
-            title="YANG tree diagram for ietf-symptom-semantic-metadata">
-            <artwork><![CDATA[
-module: ietf-interfaces
-  +--rw interfaces
-  |  +--rw interface* [name]
-  |     +--rw name                        string
-  |     +--rw description?                string
-  |     +--rw type                        identityref
-  |     +--rw enabled?                    boolean
-  |     +--rw link-up-down-trap-enable?   enumeration {if-mib}?
-  |     +--ro admin-status                enumeration {if-mib}?
-  |     +--ro oper-status                 enumeration
-  |     +--ro last-change?                yang:date-and-time
-  |     +--ro if-index                    int32 {if-mib}?
-  |     +--ro phys-address?               yang:phys-address
-  |     +--ro higher-layer-if*            interface-ref
-  |     +--ro lower-layer-if*             interface-ref
-  |     +--ro speed?                      yang:gauge64
-  |     +--ro statistics
-  |     |  +--ro discontinuity-time    yang:date-and-time
-  |     |  +--ro in-octets?            yang:counter64
-  |     |  +--ro in-unicast-pkts?      yang:counter64
-  |     |  +--ro in-broadcast-pkts?    yang:counter64
-  |     |  +--ro in-multicast-pkts?    yang:counter64
-  |     |  +--ro in-discards?          yang:counter32
-  |     |  +--ro in-errors?            yang:counter32
-  |     |  +--ro in-unknown-protos?    yang:counter32
-  |     |  +--ro out-octets?           yang:counter64
-  |     |  +--ro out-unicast-pkts?     yang:counter64
-  |     |  +--ro out-broadcast-pkts?   yang:counter64
-  |     |  +--ro out-multicast-pkts?   yang:counter64
-  |     |  +--ro out-discards?         yang:counter32
-  |     |  +--ro out-errors?           yang:counter32
-  |     +--rw ifws:symptom* [event-id]
-  |        +--rw ifws:id?                        yang:uuid
-  |        +--rw ifws:event-id                   yang:uuid
-  |        +--rw ifws:description?               string
-  |        +--rw ifws:start-time?                yang:date-and-time
-  |        +--rw ifws:end-time?                  yang:date-and-time
-  |        +--rw ifws:confidence-score?          score
-  |        +--rw ifws:concern-score?             score
-  |        +--rw ifws:tags* [key]
-  |        |  +--rw ifws:key      string
-  |        |  +--rw ifws:value?   string
-  |        +--rw (ifws:pattern)?
-  |        |  +--:(ifws:drop)
-  |        |  |  +--rw ifws:drop?                empty
-  |        |  +--:(ifws:spike)
-  |        |  |  +--rw ifws:spike?               empty
-  |        |  +--:(ifws:mean-shift)
-  |        |  |  +--rw ifws:mean-shift?          empty
-  |        |  +--:(ifws:seasonality-shift)
-  |        |  |  +--rw ifws:seasonality-shift?   empty
-  |        |  +--:(ifws:trend)
-  |        |  |  +--rw ifws:trend?               empty
-  |        |  +--:(ifws:other)
-  |        |     +--rw ifws:other?               string
-  |        +--rw ifws:annotator* [name]
-  |           +--rw (ifws:annotator-type)?
-  |           |  +--:(ifws:human)
-  |           |  |  +--rw ifws:human?       empty
-  |           |  +--:(ifws:algorithm)
-  |           |     +--rw ifws:algorithm?   empty
-  |           +--rw ifws:name               string
-  x--ro interfaces-state
-     x--ro interface* [name]
-        x--ro name               string
-        x--ro type               identityref
-        x--ro admin-status       enumeration {if-mib}?
-        x--ro oper-status        enumeration
-        x--ro last-change?       yang:date-and-time
-        x--ro if-index           int32 {if-mib}?
-        x--ro phys-address?      yang:phys-address
-        x--ro higher-layer-if*   interface-state-ref
-        x--ro lower-layer-if*    interface-state-ref
-        x--ro speed?             yang:gauge64
-        x--ro statistics
-           x--ro discontinuity-time    yang:date-and-time
-           x--ro in-octets?            yang:counter64
-           x--ro in-unicast-pkts?      yang:counter64
-           x--ro in-broadcast-pkts?    yang:counter64
-           x--ro in-multicast-pkts?    yang:counter64
-           x--ro in-discards?          yang:counter32
-           x--ro in-errors?            yang:counter32
-           x--ro in-unknown-protos?    yang:counter32
-           x--ro out-octets?           yang:counter64
-           x--ro out-unicast-pkts?     yang:counter64
-           x--ro out-broadcast-pkts?   yang:counter64
-           x--ro out-multicast-pkts?   yang:counter64
-           x--ro out-discards?         yang:counter32
-           x--ro out-errors?           yang:counter32
-            ]]></artwork>
-          </figure></t>
-      </section>
+        <t>The module augments the anomaly-grouping of the relevant-state
+		container and the relevant-state-notification notification of
+		ietf-relevant-state. The  relevant-state container is used for modifying
+		the Symptom data in the Postmortem system. Where the
+		relevant-state-notification notification is used for messaging from the
+		Alarm Aggregation to the Postmortem and the Alarm and Problem
+		Management system.</t>
 
+        <t><figure anchor="ietf-relevant-state-tree"
+            title="YANG tree diagram for ietf-relevant-state">
+            <artwork><![CDATA[
+module: ietf-relevant-state
+  +--rw relevant-state
+     +--rw id             yang:uuid
+     +--rw description?   string
+     +--rw start-time     yang:date-and-time
+     +--rw end-time?      yang:date-and-time
+     +--rw anomalies* [id version]
+        +--rw id                         yang:uuid
+        +--rw version                    yang:counter32
+        +--rw state                      identityref
+        +--rw description?               string
+        +--rw start-time                 yang:date-and-time
+        +--rw end-time?                  yang:date-and-time
+        +--rw confidence-score           score
+        +--rw (pattern)?
+        |  +--:(drop)
+        |  |  +--rw drop?                empty
+        |  +--:(spike)
+        |  |  +--rw spike?               empty
+        |  +--:(mean-shift)
+        |  |  +--rw mean-shift?          empty
+        |  +--:(seasonality-shift)
+        |  |  +--rw seasonality-shift?   empty
+        |  +--:(trend)
+        |  |  +--rw trend?               empty
+        |  +--:(other)
+        |     +--rw other?               string
+        +--rw annotator!
+        |  +--rw name               string
+        |  +--rw (annotator-type)?
+        |     +--:(human)
+        |     |  +--rw human?       empty
+        |     +--:(algorithm)
+        |        +--rw algorithm?   empty
+        +--rw symptom!
+        |  +--rw id                               yang:uuid
+        |  +--rw concern-score                    score
+        |  +--rw smcblsymptom:action?             string
+        |  +--rw smcblsymptom:reason?             string
+        |  +--rw smcblsymptom:cause?              string
+        |  +--rw (smcblsymptom:plane)?
+        |     +--:(smcblsymptom:forwarding)
+        |     |  +--rw smcblsymptom:forwarding?   empty
+        |     +--:(smcblsymptom:control)
+        |     |  +--rw smcblsymptom:control?      empty
+        |     +--:(smcblsymptom:management)
+        |        +--rw smcblsymptom:management?   empty
+        +--rw service!
+           +--rw id
+           |       yang:uuid
+           +--rw smtopology:vpn-service-container
+           |  +--rw smtopology:vpn-service* [vpn-id]
+           |     +--rw smtopology:vpn-id      string
+           |     +--rw smtopology:vpn-name?   string
+           |     +--rw smtopology:site-ids*   string
+           +--rw smtopology:vpn-node-termination-container
+              +--rw smtopology:vpn-node-termination*
+                      [hostname route-distinguisher]
+                 +--rw smtopology:hostname               inet:host
+                 +--rw smtopology:route-distinguisher    string
+                 +--rw smtopology:peer-ip*
+                 |       inet:ip-address
+                 +--rw smtopology:next-hop*
+                 |       inet:ip-address
+                 +--rw smtopology:interface-id*          int32
+
+  notifications:
+    +---n relevant-state-notification
+       +--ro id             yang:uuid
+       +--ro description?   string
+       +--ro start-time     yang:date-and-time
+       +--ro end-time?      yang:date-and-time
+       +--ro anomalies* [id version]
+          +--ro id                         yang:uuid
+          +--ro version                    yang:counter32
+          +--ro state                      identityref
+          +--ro description?               string
+          +--ro start-time                 yang:date-and-time
+          +--ro end-time?                  yang:date-and-time
+          +--ro confidence-score           score
+          +--ro (pattern)?
+          |  +--:(drop)
+          |  |  +--ro drop?                empty
+          |  +--:(spike)
+          |  |  +--ro spike?               empty
+          |  +--:(mean-shift)
+          |  |  +--ro mean-shift?          empty
+          |  +--:(seasonality-shift)
+          |  |  +--ro seasonality-shift?   empty
+          |  +--:(trend)
+          |  |  +--ro trend?               empty
+          |  +--:(other)
+          |     +--ro other?               string
+          +--ro annotator!
+          |  +--ro name               string
+          |  +--ro (annotator-type)?
+          |     +--:(human)
+          |     |  +--ro human?       empty
+          |     +--:(algorithm)
+          |        +--ro algorithm?   empty
+          +--ro symptom!
+          |  +--ro id                               yang:uuid
+          |  +--ro concern-score                    score
+          |  +--ro smcblsymptom:action?             string
+          |  +--ro smcblsymptom:reason?             string
+          |  +--ro smcblsymptom:cause?              string
+          |  +--ro (smcblsymptom:plane)?
+          |     +--:(smcblsymptom:forwarding)
+          |     |  +--ro smcblsymptom:forwarding?   empty
+          |     +--:(smcblsymptom:control)
+          |     |  +--ro smcblsymptom:control?      empty
+          |     +--:(smcblsymptom:management)
+          |        +--ro smcblsymptom:management?   empty
+          +--ro service!
+             +--ro id
+             |       yang:uuid
+             +--ro smtopology:vpn-service-container
+             |  +--ro smtopology:vpn-service* [vpn-id]
+             |     +--ro smtopology:vpn-id      string
+             |     +--ro smtopology:vpn-name?   string
+             |     +--ro smtopology:site-ids*   string
+             +--ro smtopology:vpn-node-termination-container
+                +--ro smtopology:vpn-node-termination*
+                        [hostname route-distinguisher]
+                   +--ro smtopology:hostname               inet:host
+                   +--ro smtopology:route-distinguisher    string
+                   +--ro smtopology:peer-ip*
+                   |       inet:ip-address
+                   +--ro smtopology:next-hop*
+                   |       inet:ip-address
+                   +--ro smtopology:interface-id*          int32
+		  ]]></artwork>
+          </figure></t>
+      </section>		
+		
       <section anchor="YANG-Symptom-Module" title="YANG Module">
         <t>The YANG module has one typdef defining the score and a grouping
-        which can be augmented.</t>
+		defining Action, Reason and Cause and how it attributes to the
+		network planes.</t>
 
         <t><figure anchor="ietf-symptom-semantic-metadata-module"
             title="ietf-symptom-semantic-metadata YANG Module">
             <artwork><![CDATA[
-<CODE BEGINS> file "ietf-symptom-semantic-metadata@2024-09-06.yang"
-module ietf-symptom-semantic-metadata {
+<CODE BEGINS> file "ietf-network-anomaly-symptom-cbl@2024-10-18.yang"
+module ietf-network-anomaly-symptom-cbl {
     yang-version 1.1;
-    namespace "urn:ietf:params:xml:ns:yang:ietf-symptom-semantic-metadata";
-    prefix sm;
+    namespace "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl";
+    prefix smcblsymptom;
 
-    import ietf-yang-types {
-        prefix yang;
+    import ietf-relevant-state {
+        prefix rsn;
         reference
-          "RFC 6991: Common YANG Data Types";
+          "RFC XXX: Relevant State and Relevant State Notification";
     }
 
   organization "IETF NMOP (Network Management Operations) Working Group";
@@ -882,12 +916,11 @@ module ietf-symptom-semantic-metadata {
                Antonio Roberto
                <mailto:antonio.roberto@huawei.com>";
     description
-        "This module defines symptom objects to be used by a network
-         anomaly detection system. The defined objects can be used to
-         augment operational network collected observability data and 
-         analytical problem data equally. Describing the observed
-         symptoms, confidence and concern scores and outlier patterns.
-
+        "This module defines the semantic grouping to be used by a
+		 Service Disruption Detection Systems. The defined objects is
+		 used to augment the anomaly container. Describing the
+		 symptoms action, reason and and oncern-score.
+		 
          Copyright (c) 2023 IETF Trust and the persons identified as
          authors of the code.  All rights reserved.
 
@@ -901,116 +934,62 @@ module ietf-symptom-semantic-metadata {
          This version of this YANG module is part of RFC XXXX; see the RFC
          itself for full legal notices.";
 
-    revision 2024-09-06 {
+    revision 2024-10-18 {
         description
           "Initial version";
         reference
           "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
     }
-
     typedef score {
       type uint8 {
-        range "0 .. 1";
+        range "0 .. 100";
       }
     }
-
-    grouping symptom-group {
-        list symptom {
-            key "event-id";
-            leaf id {
-                type yang:uuid;
-                description
-                    "Unique ID of the symptom type";
-            }
-            leaf event-id {
-                type yang:uuid;
-                description "Reference to the network event this symptom is part of";
-            }
-            leaf description {
-                type string;
-                description
-                    "Textual description of the symptom";
-            }
-            leaf start-time {
-                type yang:date-and-time;
-                description
-                    "Date and time indicating the beginning of the symptom";
-            }
-            leaf end-time {
-                type yang:date-and-time;
-                description
-                    "Date and time indicating the end of the symptom";
-            }
-            leaf confidence-score {
-                type score;
-            }
-            leaf concern-score {
-                type score;
-            }
-            list tags {
-                key "key";
-                leaf key {
-                    type "string";
-                }
-                leaf value {
-                    type "string";
+    
+    grouping cbl-symptom {
+        leaf action {
+            type string;
+            description "action";
+        }
+        leaf reason {
+            type string;
+            description
+                "reason";
+        }
+        leaf cause {
+            type string;
+            description
+                "cause";
+        }
+        choice plane {
+            description
+                "Network Plane affected by the symptom";
+            case forwarding {
+                leaf forwarding {
+                    type empty;
                 }
             }
-            choice pattern {
-                description
-                    "Network Plane affected by the symptom";
-                case drop {
-                    leaf drop {
-                        type empty;
-                    }
-                }
-                case spike {
-                    leaf spike {
-                        type empty;
-                    }
-                }
-                case mean-shift {
-                    leaf mean-shift {
-                        type empty;
-                    }
-                }
-                case seasonality-shift {
-                    leaf seasonality-shift {
-                        type empty;
-                    }
-                }
-                case trend {
-                    leaf trend {
-                        type empty;
-                    }
-                }
-                case other {
-                    leaf other {
-                        type string;
-                        description "specify the type";
-                    }
+            case control {
+                leaf control {
+                    type empty;
                 }
             }
-            list annotator {
-                key "name";
-                choice annotator-type {
-                    case human {
-                        leaf human {
-                            type empty;
-                        }
-                    }
-                    case algorithm {
-                        leaf algorithm {
-                            type empty;
-                        }
-                    }
+            case management {
+                leaf management {
+                    type empty;
                 }
-                leaf name {
-                    type string;
-                }   
             }
         }
     }
+
+    augment /rsn:relevant-state/rsn:anomalies/rsn:symptom {
+        uses cbl-symptom;
+    }
+
+    augment /rsn:relevant-state-notification/rsn:anomalies/rsn:symptom {
+        uses cbl-symptom;
+    }
+
 }
 <CODE ENDS>]]></artwork>
           </figure></t>
@@ -1027,17 +1006,20 @@ module ietf-symptom-semantic-metadata {
       this before publishing.</t>
 
       <section anchor="Implementation-Antagonist" title="Antagonist">
-        <t>A tool called Antagonist has been implemented during the IETF 119
-        Hackathon, in order to validate the application of the YANG models
-        defined in this draft. Antagonist provides visual support for two
-        important use cases in the scope of this document: <ul>
-            <li>the generation of a ground truth in relation to symptoms and
-            problems in timeseries data</li>
+        <t>A tool called Antagonist has been implemented and refined during
+		the IETF 119 and 120 hackathons, in order to validate the application
+		of the YANG models defined in this draft. Antagonist provides visual
+		support for two important use cases in the scope of this document:
+		
+		<ul>
+            <li>the generation of a ground truth in relation to Symptoms and
+            Problems in timeseries data</li>
 
             <li>the visual validation of results produced by automated network
             anomaly detection tools.</li>
-          </ul> The open source code can be found here: <xref
-        target="Antagonist"/></t>
+        </ul>
+		
+		The open source code can be found here: <xref target="Antagonist"/></t>
       </section>
     </section>
 
@@ -1055,11 +1037,11 @@ module ietf-symptom-semantic-metadata {
 
       <?rfc include='reference.RFC.8340'?>
 
-      <?rfc include='reference.RFC.9232'?>
-
       <?rfc include='reference.I-D.ietf-nmop-terminology'?>
 
       <?rfc include='reference.I-D.netana-nmop-network-anomaly-architecture'?>
+
+      <?rfc include='reference.I-D.netana-nmop-network-anomaly-lifecycle'?>
 
       <reference anchor="Antagonist"
                  target="https://github.com/vriccobene/antagonist">
@@ -1082,27 +1064,7 @@ module ietf-symptom-semantic-metadata {
     </references>
 
     <references title="Informative References">
-      <?rfc include='reference.RFC.4364'?>
-
-      <?rfc include='reference.RFC.5102'?>
-
-      <?rfc include='reference.RFC.7011'?>
-
-      <?rfc include='reference.RFC.7270'?>
-
-      <?rfc include='reference.RFC.7854'?>
-
-      <?rfc include='reference.RFC.8343'?>
-
-      <?rfc include='reference.RFC.9418'?>
-
-      <?rfc include='reference.I-D.netana-nmop-network-anomaly-lifecycle'?>
-
-      <?rfc include='reference.I-D.ietf-ippm-pam'?>
-
       <?rfc include='reference.I-D.claise-opsawg-collected-data-manifest'?>
-
-      <?rfc include='reference.I-D.ietf-opsawg-ipfix-on-path-telemetry'?>
     </references>
   </back>
 </rfc>

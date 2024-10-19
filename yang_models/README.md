@@ -1,11 +1,10 @@
 ## YANG
 
 ```shell
-$ pyang ietf-symptom-semantic-metadata@2024-09-06.yang -f tree --tree-line-length 69 -p .
+$ pyang ietf-network-anomaly-symptom-cbl@2024-10-18.yang -f tree --tree-line-length 69 -p .
 ```
 
 Full tree
 ```shell
-# ietf-interface example full tree
-$ pyang ietf-symptom-semantic-metadata@2024-09-06.yang ietf-interfaces-with-symptoms@2024-09-06.yang ietf-interfaces@2018-02-20.yang -f tree --tree-line-length 69 -p .
+$ pyang ietf-relevant-state@2024-10-18.yang ietf-network-anomaly-symptom-cbl@2024-10-18.yang ietf-network-anomaly-service-topology@2024-10-18.yang ietf-inet-types@2013-07-15.yang -f tree --tree-line-length 69 -p .
 ```
