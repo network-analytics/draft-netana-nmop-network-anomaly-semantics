@@ -1,0 +1,1240 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd">
+<?rfc toc="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc tocdepth="2"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<rfc category="exp" docName="draft-netana-nmop-network-anomaly-semantics-04"
+     ipr="trust200902">
+  <front>
+    <title abbrev="Network Anomaly Semantics">Semantic Metadata Annotation for
+    Network Anomaly Detection</title>
+
+    <author fullname="Thomas Graf" initials="T" surname="Graf">
+      <organization>Swisscom</organization>
+
+      <address>
+        <postal>
+          <street>Binzring 17</street>
+
+          <city>Zurich</city>
+
+          <code>8045</code>
+
+          <country>Switzerland</country>
+        </postal>
+
+        <email>thomas.graf@swisscom.com</email>
+      </address>
+    </author>
+
+    <author fullname="Wanting Du" initials="W" surname="Du">
+      <organization>Swisscom</organization>
+
+      <address>
+        <postal>
+          <street>Binzring 17</street>
+
+          <city>Zurich</city>
+
+          <code>8045</code>
+
+          <country>Switzerland</country>
+        </postal>
+
+        <email>wanting.du@swisscom.com</email>
+      </address>
+    </author>
+
+    <author fullname="Alex Huang Feng" initials="A." surname="Huang Feng">
+      <organization>INSA-Lyon</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Lyon</city>
+
+          <region/>
+
+          <code/>
+
+          <country>France</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>alex.huang-feng@insa-lyon.fr</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <author fullname="Vincenzo Riccobene" initials="V." surname="Riccobene">
+      <organization>Huawei</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Dublin</city>
+
+          <region/>
+
+          <code/>
+
+          <country>Ireland</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>vincenzo.riccobene@huawei-partners.com</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <author fullname="Antonio Roberto" initials="A." surname="Roberto">
+      <organization>Huawei</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Dublin</city>
+
+          <region/>
+
+          <code/>
+
+          <country>Ireland</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>antonio.roberto@huawei.com</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <date day="29" month="October" year="2024"/>
+
+    <area>Operations and Management</area>
+
+    <workgroup>NMOP</workgroup>
+
+    <abstract>
+      <t>This document explains why and how semantic metadata annotation helps
+      to test, validate and compare Outlier and Symptom detection, supports
+	  supervised and semi-supervised machine learning development, enables data
+	  exchange among network operators, vendors and academia and make anomalies
+	  for humans apprehensible. The proposed semantics uniforms the network
+      anomaly data exchange between and among operators and vendors to improve
+      their Service Disruption Detection Systems.</t>
+    </abstract>
+
+    <note removeInRFC="true">
+      <name>Discussion Venues</name>
+
+      <t>Discussion of this document takes place on the Operations and
+      Management Area Working Group Working Group mailing list
+      (nmop@ietf.org), which is archived at <eref
+      target="https://mailarchive.ietf.org/arch/browse/nmop/"/>.</t>
+
+      <t>Source for this draft and an issue tracker can be found at <eref
+      target="https://github.com/network-analytics/draft-netana-nmop-network-anomaly-semantics/"/>.</t>
+    </note>
+  </front>
+
+  <middle>
+    <section anchor="Introduction" title="Introduction">
+      <t><xref target="I-D.ietf-nmop-network-anomaly-architecture"/>
+      provides an overall introduction into how anomaly detection is being
+      applied into the IP network domain and which operational data is needed.
+      It approaches the problem space by automating what a network engineer
+      would normally do when verifying a network connectivity service. Monitor
+      from different network plane perspectives to understand wherever one
+      network plane affects another negatively.</t>
+
+      <t>In order to fine tune Service Disruption Detection as described in <xref
+      target="I-D.netana-nmop-network-anomaly-lifecycle"/>, the results
+      provided as analytical data need to be reviewed by a Network Engineer.
+      Keeping the human out of the monitoring but still involving him in the
+      alarm verification loop.</t>
+
+      <t>This document describes what information is needed to understand the
+      output of the Service Disruption Detection for a Network Engineer, but also
+	  at the same time is semantically structured that it can be used for Service
+	  Disruption Detection System testing by comparing the results systematically
+	  and set a baseline for supervised machine learning which requires labeled
+      operational data.</t>
+    </section>
+
+    <section anchor="Conventions_and_Definitions"
+             title="Conventions and Definitions">
+      <t>The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+      "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+      "OPTIONAL" in this document are to be interpreted as described in BCP 14
+      <xref target="RFC2119"/> <xref target="RFC8174"/> when, and only when,
+      they appear in all capitals, as shown here.</t>
+
+      <section anchor="Terminology" title="Terminology">
+        <t>This document makes use of the terms defined in <xref
+        target="I-D.ietf-nmop-network-anomaly-architecture"/> and <xref
+        target="I-D.ietf-nmop-terminology"/>.</t>
+
+        <t>The following terms are used as defined in <xref
+        target="I-D.ietf-nmop-network-anomaly-architecture"/>:</t>
+
+        <t><list style="symbols">
+            <t>Outlier Detection</t>
+
+            <t>Service Disruption Detection</t>
+			
+            <t>Service Disruption Detection System</t>
+          </list></t>
+
+        <t>The following terms are used as defined in <xref
+        target="I-D.ietf-nmop-terminology"/>:</t>
+
+        <t><list style="symbols">
+            <t>System</t>
+
+            <t>Detect</t>
+
+            <t>Event</t>
+
+            <t>State</t>
+
+            <t>Relevance</t>
+
+            <t>Problem</t>
+
+            <t>Symptom</t>
+
+            <t>Cause</t>
+
+            <t>Alarm</t>
+          </list></t>
+      </section>
+    </section>
+
+    <section anchor="Observed_Symptoms" title="Observed Symptoms">
+      <t>Observed network Symptoms are specified and
+      categorized according to the following scheme:</t>
+
+      <dl>
+        <dt>Action:</dt>
+
+        <dd>
+          <t>Which action a network node performed for a packet in the
+          Forwarding Plane, a path or adjacency in the Control Plane or state
+          or statistical changes in the Management Plane. For Forwarding Plane
+          we distinguish between missing, where the drop occurred outside the
+          measured network node, drop and on-path delay, which was measured on
+          the network node. For Control Plane we distinguish between
+          reachability, which refers to a change in the routing or forwarding
+          information base (RIB/FIB) and adjacency which refers to a change in
+          peering or link-layer resolution. For Management Plane we refer to
+          state or statistical changes on interfaces.</t>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt>Reason:</dt>
+
+        <dd>
+          <t>For each action, one or more reasons describe why this action was
+          used. For Drops in Forwarding Plane we distinguish between
+          Unreachable because network layer reachability information was
+          missing, Administered because an administrator configured a rule
+          preventing the forwarding for this packet and Corrupt where the
+          network node was unable to determine where to forward to due to
+          packet, software or hardware error. For on-path delay we distinguish
+          between Minimum, Average and Maximum Delay for a given flow. For
+          Control Plane wherever a the reachability was updated or withdrawn
+          or the adjacency was established or teared down. For Management
+          Plane we distinguish between interfaces states up and down, and
+          statistical errors, discards or unknown protocol counters.</t>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt>Cause:</dt>
+
+        <dd>
+          <t>For each reason one or more causes describe why a network node
+		  has chosen that action.</t>
+        </dd>
+      </dl>
+
+      <t><xref target="symptom_forwarding_plane_actions_table"/> consolidates
+      for the forwarding plane a list of common Symptoms with their Actions,
+      Reasons and Causes.</t>
+
+      <table align="center" anchor="symptom_forwarding_plane_actions_table">
+        <name slugifiedName="symptom_forwarding_plane_actions">Describing
+        Symptoms and their Actions, Reason and Cause for Forwarding
+        Plane</name>
+
+        <thead>
+          <tr>
+            <th align="left" colspan="1" rowspan="1">Action</th>
+
+            <th align="left" colspan="1" rowspan="1">Reason</th>
+
+            <th align="left" colspan="1" rowspan="1">Cause</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Missing</td>
+
+            <td align="left" colspan="1" rowspan="1">Previous</td>
+
+            <td align="left" colspan="1" rowspan="1">Time</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+            <td align="left" colspan="1" rowspan="1">next-hop</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+            <td align="left" colspan="1" rowspan="1">link-layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+            <td align="left" colspan="1" rowspan="1">Time To Life expired</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+            <td align="left" colspan="1" rowspan="1">Fragmentation needed and
+            Don't Fragment set</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Access-List</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Unicast Reverse Path
+            Forwarding</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Discard Route</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Policed</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Shaped</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Corrupt</td>
+
+            <td align="left" colspan="1" rowspan="1">Bad Packet</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Corrupt</td>
+
+            <td align="left" colspan="1" rowspan="1">Bad Egress Interface</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Delay</td>
+
+            <td align="left" colspan="1" rowspan="1">Min</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Delay</td>
+
+            <td align="left" colspan="1" rowspan="1">Mean</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Delay</td>
+
+            <td align="left" colspan="1" rowspan="1">Max</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <t><xref target="symptom_control_plane_actions_table"/> consolidates for
+      the control plane a list of common symptoms with their actions, reasons
+      and causes.</t>
+
+      <table align="center" anchor="symptom_control_plane_actions_table">
+        <name slugifiedName="symptom_control_plane_actions">Describing
+        Symptoms and their Actions, Reason and Cause for Control Plane</name>
+
+        <thead>
+          <tr>
+            <th align="left" colspan="1" rowspan="1">Action</th>
+
+            <th align="left" colspan="1" rowspan="1">Reason</th>
+
+            <th align="left" colspan="1" rowspan="1">Cause</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Update</td>
+
+            <td align="left" colspan="1" rowspan="1">Imported</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Update</td>
+
+            <td align="left" colspan="1" rowspan="1">Received</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Received</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Peer Down</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Suppressed</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Stale</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Route Policy
+            Filtered</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Maximum Number of
+            Prefixes Reached</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Established</td>
+
+            <td align="left" colspan="1" rowspan="1">Peer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Established</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Peer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Peer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Administrative</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Administrative</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Maximum Number of
+            Prefixes Reached</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Maximum Number of
+            Prefixes Reached</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Transport Connection
+            Failed</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Transport Connection
+            Failed</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <t><xref target="symptom_management_plane_actions_table"/> consolidates
+      for the management plane a list of common Symptoms with their Actions,
+      Reasons and Causes.</t>
+
+      <table align="center" anchor="symptom_management_plane_actions_table">
+        <name slugifiedName="symptom_management_plane_actions">Describing
+        Symptoms and their Actions, Reason and Cause for Management
+        Plane</name>
+
+        <thead>
+          <tr>
+            <th align="left" colspan="1" rowspan="1">Action</th>
+
+            <th align="left" colspan="1" rowspan="1">Reason</th>
+
+            <th align="left" colspan="1" rowspan="1">Cause</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface</td>
+
+            <td align="left" colspan="1" rowspan="1">Up</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface</td>
+
+            <td align="left" colspan="1" rowspan="1">Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface</td>
+
+            <td align="left" colspan="1" rowspan="1">Errors</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface</td>
+
+            <td align="left" colspan="1" rowspan="1">Discards</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface</td>
+
+            <td align="left" colspan="1" rowspan="1">Unknown Protocol</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section anchor="Semantic_Metadata" title="Semantic Metadata">
+      <t>Metadata adds additional context to data. For instance, in networks
+      the software version of a network node where Management Plane metrics
+      are obtained from as described in<xref
+      target="I-D.claise-opsawg-collected-data-manifest"/>. Where in Semantic
+      Metadata the meaning or ontology of the annotated data is being
+      described. In this section a YANG model is defined in order to provide a
+      structure for the metadata related to anomalies happening in the
+      network. The module is intended to describe the metadata used to
+      "annotate" the operational data collected from the network nodes, which
+      can include time series data and logs, as well as other forms of data
+      that is "time-bounded". The aspects discussed so far in this document
+      are grouped under the concept of "anomaly" which represents a collection
+      of Symptoms. The anomaly overall has a set of parameters that describe
+      the overall behavior of the network in a given time-window including all
+      the observed Symptoms and Outliers.</t>
+
+      <section anchor="symptom-model-tree"
+               title="Overview of the Model for the Symptom Semantic Metadata">
+        <t><xref target="ietf-network-anomaly-symptom-tree"/> contains the YANG
+        tree diagram <xref target="RFC8340"/> of the <xref
+        target="ietf-relevant-state-tree"/> which augments the <xref target="I-D.netana-nmop-network-anomaly-lifecycle"/> defined
+		ietf-relevant-state.</t>
+
+        <t>For each Symptom, the following parameters have been assigned: Action,
+		Reason and Cause to describe the Symptom, a concern score indicating how
+		critical the Symptom is and with Forwarding, Control and Management to
+		which network plane the Symptom can be attributed to.</t>
+
+        <t><figure anchor="ietf-network-anomaly-symptom-tree"
+            title="YANG tree diagram for ietf-network-anomaly-symptom-cbl">
+            <artwork><![CDATA[
+module: ietf-network-anomaly-symptom-cbl
+
+  augment /rsn:relevant-state/rsn:anomalies/rsn:symptom:
+    +--rw action?             string
+    +--rw reason?             string
+    +--rw cause?              string
+    +--rw (plane)?
+       +--:(forwarding)
+       |  +--rw forwarding?   empty
+       +--:(control)
+       |  +--rw control?      empty
+       +--:(management)
+          +--rw management?   empty
+  augment /rsn:relevant-state-notification/rsn:anomalies/rsn:symptom:
+    +-- action?             string
+    +-- reason?             string
+    +-- cause?              string
+    +-- (plane)?
+       +--:(forwarding)
+       |  +-- forwarding?   empty
+       +--:(control)
+       |  +-- control?      empty
+       +--:(management)
+          +-- management?   empty
+		  ]]></artwork>
+          </figure></t>
+
+        <t>The module augments the anomaly of the relevant-state
+		container and the relevant-state-notification of
+		ietf-relevant-state defined in <xref 
+		target="I-D.netana-nmop-network-anomaly-lifecycle"/>. The 
+		relevant-state container is used for modifying the Symptom
+		data in the Postmortem system. Where the
+		relevant-state-notification is used for messaging from the
+		Alarm Aggregation to the Postmortem and the Alarm and Problem
+		Management system.</t>
+
+        <t><figure anchor="ietf-relevant-state-tree"
+            title="YANG tree diagram for ietf-relevant-state">
+            <artwork><![CDATA[
+module: ietf-relevant-state
+  +--rw relevant-state
+     +--rw id             yang:uuid
+     +--rw description?   string
+     +--rw start-time     yang:date-and-time
+     +--rw end-time?      yang:date-and-time
+     +--rw anomalies* [id version]
+        +--rw id                         yang:uuid
+        +--rw version                    yang:counter32
+        +--rw state                      identityref
+        +--rw description?               string
+        +--rw start-time                 yang:date-and-time
+        +--rw end-time?                  yang:date-and-time
+        +--rw confidence-score           score
+        +--rw (pattern)?
+        |  +--:(drop)
+        |  |  +--rw drop?                empty
+        |  +--:(spike)
+        |  |  +--rw spike?               empty
+        |  +--:(mean-shift)
+        |  |  +--rw mean-shift?          empty
+        |  +--:(seasonality-shift)
+        |  |  +--rw seasonality-shift?   empty
+        |  +--:(trend)
+        |  |  +--rw trend?               empty
+        |  +--:(other)
+        |     +--rw other?               string
+        +--rw annotator!
+        |  +--rw name               string
+        |  +--rw (annotator-type)?
+        |     +--:(human)
+        |     |  +--rw human?       empty
+        |     +--:(algorithm)
+        |        +--rw algorithm?   empty
+        +--rw symptom!
+        |  +--rw id                               yang:uuid
+        |  +--rw concern-score                    score
+        |  +--rw smcblsymptom:action?             string
+        |  +--rw smcblsymptom:reason?             string
+        |  +--rw smcblsymptom:cause?              string
+        |  +--rw (smcblsymptom:plane)?
+        |     +--:(smcblsymptom:forwarding)
+        |     |  +--rw smcblsymptom:forwarding?   empty
+        |     +--:(smcblsymptom:control)
+        |     |  +--rw smcblsymptom:control?      empty
+        |     +--:(smcblsymptom:management)
+        |        +--rw smcblsymptom:management?   empty
+        +--rw service!
+           +--rw id
+           |       yang:uuid
+           +--rw smtopology:vpn-service-container
+           |  +--rw smtopology:vpn-service* [vpn-id]
+           |     +--rw smtopology:vpn-id      string
+           |     +--rw smtopology:vpn-name?   string
+           |     +--rw smtopology:site-ids*   string
+           +--rw smtopology:vpn-node-termination-container
+              +--rw smtopology:vpn-node-termination*
+                      [hostname route-distinguisher]
+                 +--rw smtopology:hostname               inet:host
+                 +--rw smtopology:route-distinguisher    string
+                 +--rw smtopology:peer-ip*
+                 |       inet:ip-address
+                 +--rw smtopology:next-hop*
+                 |       inet:ip-address
+                 +--rw smtopology:interface-id*          int32
+
+  notifications:
+    +---n relevant-state-notification
+       +--ro id             yang:uuid
+       +--ro description?   string
+       +--ro start-time     yang:date-and-time
+       +--ro end-time?      yang:date-and-time
+       +--ro anomalies* [id version]
+          +--ro id                         yang:uuid
+          +--ro version                    yang:counter32
+          +--ro state                      identityref
+          +--ro description?               string
+          +--ro start-time                 yang:date-and-time
+          +--ro end-time?                  yang:date-and-time
+          +--ro confidence-score           score
+          +--ro (pattern)?
+          |  +--:(drop)
+          |  |  +--ro drop?                empty
+          |  +--:(spike)
+          |  |  +--ro spike?               empty
+          |  +--:(mean-shift)
+          |  |  +--ro mean-shift?          empty
+          |  +--:(seasonality-shift)
+          |  |  +--ro seasonality-shift?   empty
+          |  +--:(trend)
+          |  |  +--ro trend?               empty
+          |  +--:(other)
+          |     +--ro other?               string
+          +--ro annotator!
+          |  +--ro name               string
+          |  +--ro (annotator-type)?
+          |     +--:(human)
+          |     |  +--ro human?       empty
+          |     +--:(algorithm)
+          |        +--ro algorithm?   empty
+          +--ro symptom!
+          |  +--ro id                               yang:uuid
+          |  +--ro concern-score                    score
+          |  +--ro smcblsymptom:action?             string
+          |  +--ro smcblsymptom:reason?             string
+          |  +--ro smcblsymptom:cause?              string
+          |  +--ro (smcblsymptom:plane)?
+          |     +--:(smcblsymptom:forwarding)
+          |     |  +--ro smcblsymptom:forwarding?   empty
+          |     +--:(smcblsymptom:control)
+          |     |  +--ro smcblsymptom:control?      empty
+          |     +--:(smcblsymptom:management)
+          |        +--ro smcblsymptom:management?   empty
+          +--ro service!
+             +--ro id
+             |       yang:uuid
+             +--ro smtopology:vpn-service-container
+             |  +--ro smtopology:vpn-service* [vpn-id]
+             |     +--ro smtopology:vpn-id      string
+             |     +--ro smtopology:vpn-name?   string
+             |     +--ro smtopology:site-ids*   string
+             +--ro smtopology:vpn-node-termination-container
+                +--ro smtopology:vpn-node-termination*
+                        [hostname route-distinguisher]
+                   +--ro smtopology:hostname               inet:host
+                   +--ro smtopology:route-distinguisher    string
+                   +--ro smtopology:peer-ip*
+                   |       inet:ip-address
+                   +--ro smtopology:next-hop*
+                   |       inet:ip-address
+                   +--ro smtopology:interface-id*          int32
+		  ]]></artwork>
+          </figure></t>
+      </section>		
+		
+      <section anchor="YANG-Symptom-Module" title="YANG Symptom Module">
+        <t>The YANG module has one typedef defining the score and a grouping
+		defining Action, Reason and Cause and how it attributes to the
+		network planes.</t>
+
+        <t><figure anchor="ietf-network-anomaly-symptom-cbl-module"
+            title="ietf-network-anomaly-symptom-cbl YANG Module">
+            <artwork><![CDATA[
+<CODE BEGINS> file "ietf-network-anomaly-symptom-cbl@2024-10-18.yang"
+module ietf-network-anomaly-symptom-cbl {
+    yang-version 1.1;
+    namespace "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl";
+    prefix smcblsymptom;
+
+    import ietf-relevant-state {
+        prefix rsn;
+        reference
+          "RFC XXX: Relevant State and Relevant State Notification";
+    }
+
+  organization "IETF NMOP (Network Management Operations) Working Group";
+  contact
+    "WG Web:   <http:/tools.ietf.org/wg/netconf/>
+     WG List:  <mailto:nmop@ietf.org>
+
+     Authors:  Thomas Graf
+               <mailto:thomas.graf@swisscom.com>
+               Wanting Du
+               <mailto:wanting.du@swisscom.com>
+               Alex Huang Feng
+               <mailto:alex.huang-feng@insa-lyon.fr>
+               Vincenzo Riccobene
+               <mailto:vincenzo.riccobene@huawei-partners.com>
+               Antonio Roberto
+               <mailto:antonio.roberto@huawei.com>";
+    description
+        "This module defines the semantic grouping to be used by a
+		 Service Disruption Detection Systems. The defined objects is
+		 used to augment the anomaly container. Describing the
+		 symptoms action, reason and concern-score.
+		 
+         Copyright (c) 2023 IETF Trust and the persons identified as
+         authors of the code.  All rights reserved.
+
+         Redistribution and use in source and binary forms, with or
+         without modification, is permitted pursuant to, and subject
+         to the license terms contained in, the Revised BSD License
+         set forth in Section 4.c of the IETF Trust's Legal Provisions
+         Relating to IETF Documents
+         (https://trustee.ietf.org/license-info).
+
+         This version of this YANG module is part of RFC XXXX; see the RFC
+         itself for full legal notices.";
+
+    revision 2024-10-18 {
+        description
+          "Initial version";
+        reference
+          "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
+    }
+    typedef score {
+      type uint8 {
+        range "0 .. 100";
+      }
+    }
+    
+    grouping cbl-symptom {
+        leaf action {
+            type string;
+            description "action";
+        }
+        leaf reason {
+            type string;
+            description
+                "reason";
+        }
+        leaf cause {
+            type string;
+            description
+                "cause";
+        }
+        choice plane {
+            description
+                "Network Plane affected by the symptom";
+            case forwarding {
+                leaf forwarding {
+                    type empty;
+					description
+						"forwarding plane";
+                }
+            }
+            case control {
+                leaf control {
+                    type empty;
+					description
+						"control plane";
+                }
+            }
+            case management {
+                leaf management {
+                    type empty;
+					description
+						"management plane";
+                }
+            }
+        }
+    }
+
+    augment /rsn:relevant-state/rsn:anomalies/rsn:symptom {
+        uses cbl-symptom;
+    }
+
+    augment /rsn:relevant-state-notification/rsn:anomalies/rsn:symptom {
+        uses cbl-symptom;
+    }
+
+}
+<CODE ENDS>]]></artwork>
+          </figure></t>
+      </section>
+
+      <section anchor="YANG-Service-Topology-Module" title="YANG Service Topology Module">
+        <t>The YANG module has a service and a node-termination grouping
+		defining vpn-id, vpn-name and site-ids for service and hostname, 
+		BGP route-distinguisher, BGP peer ip address, BGP path next-hop and node 
+		interface-id.</t>
+
+        <t>Within the NMOP working group we discuss with the Digital Map authors
+		which existing YANG nodes instead could be used to facilitate a service
+		and network topology context view.</t>
+
+        <t><figure anchor="ietf-network-anomaly-service-topology-module"
+            title="ietf-network-anomaly-service-topology YANG Module">
+            <artwork><![CDATA[
+<CODE BEGINS> file "ietf-network-anomaly-service-topology@2024-10-18"
+module ietf-network-anomaly-service-topology {
+    yang-version 1.1;
+    namespace "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-topology";
+    prefix smtopology;
+
+    import ietf-inet-types {
+        prefix inet;
+        reference
+			"RFC 6991: Common YANG Data Types";
+    }
+    import ietf-relevant-state {
+        prefix rsn;
+        reference
+          "RFC XXX: Relevant State and Relevant State Notification";
+    }
+	
+  organization "IETF NMOP (Network Management Operations) Working Group";
+  contact
+    "WG Web:   <http:/tools.ietf.org/wg/netconf/>
+     WG List:  <mailto:nmop@ietf.org>
+
+     Authors:  Thomas Graf
+               <mailto:thomas.graf@swisscom.com>
+               Wanting Du
+               <mailto:wanting.du@swisscom.com>
+               Alex Huang Feng
+               <mailto:alex.huang-feng@insa-lyon.fr>
+               Vincenzo Riccobene
+               <mailto:vincenzo.riccobene@huawei-partners.com>
+               Antonio Roberto
+               <mailto:antonio.roberto@huawei.com>";
+    description
+        "This module defines the symptom conatiner to be used by a network
+         anomaly detection system. The defined objects can be used to
+         augment operational network collected observability data and 
+         analytical problem data equally. Describing the relevant-state
+		 of observed symptoms.
+
+         Copyright (c) 2023 IETF Trust and the persons identified as
+         authors of the code.  All rights reserved.
+
+         Redistribution and use in source and binary forms, with or
+         without modification, is permitted pursuant to, and subject
+         to the license terms contained in, the Revised BSD License
+         set forth in Section 4.c of the IETF Trust's Legal Provisions
+         Relating to IETF Documents
+         (https://trustee.ietf.org/license-info).
+
+         This version of this YANG module is part of RFC XXXX; see the RFC
+         itself for full legal notices.";
+
+    revision 2024-10-18 {
+        description
+          "Initial version";
+        reference
+          "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
+    }
+
+	grouping vpn-service-grouping {
+		container vpn-service-container {
+			list vpn-service {
+				key "vpn-id";
+				leaf vpn-id {
+					mandatory true;
+					type string;
+					description
+						"Unique ID of the VPN connectivity service";
+				}
+				leaf vpn-name {
+					type string;
+					description
+						"Name of the VPN connectivity service";
+				}
+				leaf-list site-ids {
+					type string;
+					description
+						"List of unique site ID's of the VPN connectivity service";
+				}
+			}
+		}
+	}
+
+	grouping vpn-node-termination-grouping {
+		container vpn-node-termination-container {
+			list vpn-node-termination {
+			key "hostname route-distinguisher";
+				leaf hostname {
+					mandatory true;
+					type inet:host;
+					description
+						"The hostname of the network node according to
+						[RFC1213]. This value is usually configured on
+						the node by the administrator to uniquely
+						identify the node in the network.";
+				}
+				leaf route-distinguisher {
+					mandatory true;
+					type string;
+					description
+						"The BGP route-distinguisher obtained through
+						IPFIX IE90 mplsVpnRouteDistinguisher or BMP
+						route-monitoring or peer_up message type.";
+				}		
+				leaf-list peer-ip {
+					type inet:ip-address;
+					description
+							"The BGP peering IP address learned through
+							BMP route-monitoring, peer_up or peer_down
+							message type.";
+				}
+				leaf-list next-hop {
+					type inet:ip-address;
+					description
+						"The BGP next-hop IP address learned through
+						BMP route-monitoring message type.";
+				}
+				leaf-list interface-id {
+					type int32;
+					description
+						"The interface identifier obtained through
+						IPFIX IE10 ingressInterface, IE14 
+						egressInterface or
+						ietf-interfaces:interfaces/interface/if-index.";
+				}
+			}
+		}
+	}
+
+	augment /rsn:relevant-state/rsn:anomalies/rsn:service {
+		uses vpn-service-grouping;
+    }
+
+	augment /rsn:relevant-state-notification/rsn:anomalies/rsn:service {
+		uses vpn-service-grouping;
+    }
+
+    augment /rsn:relevant-state/rsn:anomalies/rsn:service {
+		uses vpn-node-termination-grouping;
+	}
+
+	augment /rsn:relevant-state-notification/rsn:anomalies/rsn:service {
+		uses vpn-node-termination-grouping;
+	}
+}
+<CODE ENDS>]]></artwork>
+          </figure></t>
+      </section>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+      <t>The security considerations.</t>
+    </section>
+
+    <section anchor="Implementation" title="Implementation status">
+      <t>This section provides pointers to existing open source
+      implementations of this draft. Note to the RFC-editor: Please remove
+      this before publishing.</t>
+
+      <section anchor="Implementation-Antagonist" title="Antagonist">
+        <t>A tool called Antagonist has been implemented and refined during
+		the IETF 119 and 120 hackathons, in order to validate the application
+		of the YANG models defined in this draft. Antagonist provides visual
+		support for two important use cases in the scope of this document:
+		
+		<ul>
+            <li>the generation of a ground truth in relation to Symptoms and
+            Problems in timeseries data</li>
+
+            <li>the visual validation of results produced by automated network
+            anomaly detection tools.</li>
+        </ul>
+		
+		The open source code can be found here: <xref target="Antagonist"/></t>
+      </section>
+    </section>
+
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>The authors would like to thank Reshad Rahman for his review and
+      valuable comment.</t>
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include='reference.RFC.2119'?>
+
+      <?rfc include='reference.RFC.8174'?>
+
+      <?rfc include='reference.RFC.8340'?>
+
+      <?rfc include='reference.I-D.ietf-nmop-terminology'?>
+
+      <?rfc include='reference.I-D.ietf-nmop-network-anomaly-architecture'?>
+
+      <?rfc include='reference.I-D.netana-nmop-network-anomaly-lifecycle'?>
+
+      <reference anchor="Antagonist"
+                 target="https://github.com/vriccobene/antagonist">
+        <front>
+          <title>Antagonist: Anomaly tagging on historical data</title>
+
+          <author fullname="Vincenzo Riccobene" initials="V."
+                  surname="Riccobene"/>
+
+          <author fullname="Antonio Roberto" initials="A." surname="Roberto"/>
+
+          <author fullname="Wanting Du" initials="W." surname="Du"/>
+
+          <author fullname="Thomas Graf" initials="T." surname="Graf"/>
+
+          <author fullname="Alex Huang Feng" initials="H."
+                  surname="Huang Feng"/>
+        </front>
+      </reference>
+    </references>
+
+    <references title="Informative References">
+      <?rfc include='reference.I-D.claise-opsawg-collected-data-manifest'?>
+    </references>
+  </back>
+</rfc>
