@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="exp" docName="draft-ietf-nmop-network-anomaly-semantics-04"
+<rfc category="exp" docName="draft-ietf-nmop-network-anomaly-semantics-00"
      ipr="trust200902">
   <front>
     <title abbrev="Network Anomaly Semantics">Semantic Metadata Annotation for
