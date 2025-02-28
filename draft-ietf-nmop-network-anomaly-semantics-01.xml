@@ -10,7 +10,7 @@
 <?rfc inline="yes"?>
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
-<rfc category="exp" docName="draft-ietf-nmop-network-anomaly-semantics-00"
+<rfc category="exp" docName="draft-ietf-nmop-network-anomaly-semantics-01"
      ipr="trust200902">
   <front>
     <title abbrev="Network Anomaly Semantics">Semantic Metadata Annotation for
@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="08" month="December" year="2024"/>
+    <date day="28" month="February" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -729,6 +729,7 @@ module: ietf-relevant-state
      +--rw end-time?      yang:date-and-time
      +--rw anomalies* [id version]
         +--rw id                  yang:uuid
+        +--rw uri?                inet:uri
         +--rw version             yang:counter32
         +--rw state               identityref
         +--rw description?        string
@@ -757,18 +758,28 @@ module: ietf-relevant-state
         |     +--:(smcblsymptom:management)
         |        +--rw smcblsymptom:management?   empty
         +--rw service!
-           +--rw id                                           yang:uuid
+           +--rw id
+           |       yang:uuid
            +--rw smtopology:vpn-service-container
            |  +--rw smtopology:vpn-service* [vpn-id]
-           |     +--rw smtopology:vpn-id      string
-           |     +--rw smtopology:vpn-name?   string
-           |     +--rw smtopology:site-ids*   string
+           |     +--rw smtopology:uri?                 inet:uri
+           |     +--rw smtopology:vpn-id               string
+           |     +--rw smtopology:vpn-name?            string
+           |     +--rw smtopology:site-ids*            string
+           |     +--rw smtopology:change-start-time?
+           |     |       yang:date-and-time
+           |     +--rw smtopology:change-end-time?
+           |     |       yang:date-and-time
+           |     +--rw smtopology:change-id?           yang:uuid
            +--rw smtopology:vpn-node-termination-container
-              +--rw smtopology:vpn-node-termination* [hostname route-distinguisher]
+              +--rw smtopology:vpn-node-termination*
+                      [hostname route-distinguisher]
                  +--rw smtopology:hostname               inet:host
                  +--rw smtopology:route-distinguisher    string
-                 +--rw smtopology:peer-ip*               inet:ip-address
-                 +--rw smtopology:next-hop*              inet:ip-address
+                 +--rw smtopology:peer-ip*
+                 |       inet:ip-address
+                 +--rw smtopology:next-hop*
+                 |       inet:ip-address
                  +--rw smtopology:interface-id*          int32
 
   notifications:
@@ -778,6 +789,7 @@ module: ietf-relevant-state
        +--ro end-time?      yang:date-and-time
        +--ro anomalies* [id version]
           +--ro id                  yang:uuid
+          +--ro uri?                inet:uri
           +--ro version             yang:counter32
           +--ro state               identityref
           +--ro description?        string
@@ -806,18 +818,28 @@ module: ietf-relevant-state
           |     +--:(smcblsymptom:management)
           |        +--ro smcblsymptom:management?   empty
           +--ro service!
-             +--ro id                                           yang:uuid
+             +--ro id
+             |       yang:uuid
              +--ro smtopology:vpn-service-container
              |  +--ro smtopology:vpn-service* [vpn-id]
-             |     +--ro smtopology:vpn-id      string
-             |     +--ro smtopology:vpn-name?   string
-             |     +--ro smtopology:site-ids*   string
+             |     +--ro smtopology:uri?                 inet:uri
+             |     +--ro smtopology:vpn-id               string
+             |     +--ro smtopology:vpn-name?            string
+             |     +--ro smtopology:site-ids*            string
+             |     +--ro smtopology:change-start-time?
+             |     |       yang:date-and-time
+             |     +--ro smtopology:change-end-time?
+             |     |       yang:date-and-time
+             |     +--ro smtopology:change-id?           yang:uuid
              +--ro smtopology:vpn-node-termination-container
-                +--ro smtopology:vpn-node-termination* [hostname route-distinguisher]
+                +--ro smtopology:vpn-node-termination*
+                        [hostname route-distinguisher]
                    +--ro smtopology:hostname               inet:host
                    +--ro smtopology:route-distinguisher    string
-                   +--ro smtopology:peer-ip*               inet:ip-address
-                   +--ro smtopology:next-hop*              inet:ip-address
+                   +--ro smtopology:peer-ip*
+                   |       inet:ip-address
+                   +--ro smtopology:next-hop*
+                   |       inet:ip-address
                    +--ro smtopology:interface-id*          int32
 		  ]]></artwork>
           </figure></t>
@@ -1033,6 +1055,11 @@ module ietf-network-anomaly-service-topology {
 			list vpn-service {
 				key "vpn-id";
 				description "List of VPN services of interest";
+				leaf uri {
+					type inet:uri;
+					description
+						"URI to viusalize the VPN service inventory.";
+				}				
 				leaf vpn-id {
 					type string;
 					mandatory true;
@@ -1048,6 +1075,21 @@ module ietf-network-anomaly-service-topology {
 					type string;
 					description
 						"List of unique site ID's of the VPN connectivity service";
+				}
+				leaf change-start-time {
+					type yang:date-and-time;
+					description
+						"Start date and time of the VPN service maintenance window";
+				}
+				leaf change-end-time {
+					type yang:date-and-time;
+					description
+						"End date and time of the VPN service maintenance window";
+				}				
+				leaf change-id {
+					type yang:uuid;
+					description
+						"Unique identifier of VPN service maintenance window";
 				}
 			}
 		}
