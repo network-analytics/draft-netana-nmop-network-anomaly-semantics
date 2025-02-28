@@ -5,6 +5,11 @@
 
     import ietf-yang-types {
       prefix yang;
+      reference "RFC 6021: Common YANG Data Types";
+    }
+
+    import ietf-inet-types {
+      prefix inet;
       reference "RFC 6991: Common YANG Data Types";
     }
 
@@ -148,11 +153,6 @@
     grouping relevant-state-grouping {
         description "Relevant State is a state that could lead to
             problems or might be clear indications of problem already happening";
-        leaf uri {
-            type yang:uri;
-            description
-                "URI to visualize the analytical metrics of the fault.";
-        }
         leaf description {
             type string;
             description
@@ -214,7 +214,7 @@
                     "Unique ID of the anomaly";
             }
             leaf uri {
-                type yang:uri;
+                type inet:uri;
                 description
                     "URI to viusalize the analytical metrics of the anomaly.";
             }

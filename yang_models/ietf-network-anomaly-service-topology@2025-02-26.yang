@@ -66,6 +66,11 @@ module ietf-network-anomaly-service-topology {
 			list vpn-service {
 				key "vpn-id";
 				description "List of VPN services of interest";
+				leaf uri {
+					type inet:uri;
+					description
+						"URI to viusalize the VPN service inventory.";
+				}				
 				leaf vpn-id {
 					type string;
 					mandatory true;
@@ -81,6 +86,21 @@ module ietf-network-anomaly-service-topology {
 					type string;
 					description
 						"List of unique site ID's of the VPN connectivity service";
+				}
+				leaf change-start-time {
+					type yang:date-and-time;
+					description
+						"Start date and time of the VPN service maintenance window";
+				}
+				leaf change-end-time {
+					type yang:date-and-time;
+					description
+						"End date and time of the VPN service maintenance window";
+				}				
+				leaf change-id {
+					type yang:uuid;
+					description
+						"Unique identifier of VPN service maintenance window";
 				}
 			}
 		}
