@@ -13,7 +13,7 @@ Expires: 4 September 2025                                  A. Huang Feng
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
-              draft-ietf-nmop-network-anomaly-semantics-01
+              draft-ietf-nmop-network-anomaly-semantics-02
 
 Abstract
 
