@@ -350,23 +350,22 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    Table 3 consolidates for the management plane a list of common
    Symptoms with their Actions, Reasons and Causes.
 
-               +===========+==================+============+
-               | Action    | Reason           | Cause      |
-               +===========+==================+============+
-               | Interface | Up               | Link-Layer |
-               +-----------+------------------+------------+
-               | Interface | Down             | Link-Layer |
-               +-----------+------------------+------------+
-               | Interface | Errors           | -          |
-               +-----------+------------------+------------+
-               | Interface | Discards         | -          |
-               +-----------+------------------+------------+
-               | Interface | Unknown Protocol | -          |
-               +-----------+------------------+------------+
+         +======================+==================+============+
+         | Action               | Reason           | Cause      |
+         +======================+==================+============+
+         | Interface State      | Up               | Link-Layer |
+         +----------------------+------------------+------------+
+         | Interface State      | Down             | Link-Layer |
+         +----------------------+------------------+------------+
+         | Interface Statistics | Errors           | -          |
+         +----------------------+------------------+------------+
+         | Interface Statistics | Discards         | -          |
+         +----------------------+------------------+------------+
+         | Interface Statistics | Unknown Protocol | -          |
+         +----------------------+------------------+------------+
 
-                   Table 3: Describing Symptoms and their
-                  Actions, Reason and Cause for Management
-                                   Plane
+             Table 3: Describing Symptoms and their Actions,
+                  Reason and Cause for Management Plane
 
 4.  Semantic Metadata
 
@@ -385,6 +384,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    a collection of Symptoms.  The anomaly overall has a set of
    parameters that describe the overall behavior of the network in a
    given time-window including all the observed Symptoms and Outliers.
+
 
 
 

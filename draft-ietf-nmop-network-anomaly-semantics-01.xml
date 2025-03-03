@@ -607,7 +607,7 @@
 
         <tbody>
           <tr>
-            <td align="left" colspan="1" rowspan="1">Interface</td>
+            <td align="left" colspan="1" rowspan="1">Interface State</td>
 
             <td align="left" colspan="1" rowspan="1">Up</td>
 
@@ -615,7 +615,7 @@
           </tr>
 
           <tr>
-            <td align="left" colspan="1" rowspan="1">Interface</td>
+            <td align="left" colspan="1" rowspan="1">Interface State</td>
 
             <td align="left" colspan="1" rowspan="1">Down</td>
 
@@ -623,7 +623,7 @@
           </tr>
 
           <tr>
-            <td align="left" colspan="1" rowspan="1">Interface</td>
+            <td align="left" colspan="1" rowspan="1">Interface Statistics</td>
 
             <td align="left" colspan="1" rowspan="1">Errors</td>
 
@@ -631,7 +631,7 @@
           </tr>
 
           <tr>
-            <td align="left" colspan="1" rowspan="1">Interface</td>
+            <td align="left" colspan="1" rowspan="1">Interface Statistics</td>
 
             <td align="left" colspan="1" rowspan="1">Discards</td>
 
@@ -639,7 +639,7 @@
           </tr>
 
           <tr>
-            <td align="left" colspan="1" rowspan="1">Interface</td>
+            <td align="left" colspan="1" rowspan="1">Interface Statistics</td>
 
             <td align="left" colspan="1" rowspan="1">Unknown Protocol</td>
 
