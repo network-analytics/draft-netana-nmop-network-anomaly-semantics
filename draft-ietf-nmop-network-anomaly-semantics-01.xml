@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="28" month="February" year="2025"/>
+    <date day="03" month="March" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -723,7 +723,7 @@ module: ietf-network-anomaly-symptom-cbl
             <artwork><![CDATA[
 module: ietf-relevant-state
   +--rw relevant-state
-     +--ro id             yang:uuid
+     +--rw id             yang:uuid
      +--rw description?   string
      +--rw start-time     yang:date-and-time
      +--rw end-time?      yang:date-and-time
