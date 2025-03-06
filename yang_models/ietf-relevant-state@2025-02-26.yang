@@ -339,7 +339,6 @@
             happening";
         leaf id {
             type yang:uuid;
-            config false;
             mandatory true;
             description
                 "Unique ID of the relevant state
