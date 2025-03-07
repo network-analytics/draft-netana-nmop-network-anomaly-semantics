@@ -150,7 +150,7 @@ module ietf-network-anomaly-service-topology {
 						BMP route-monitoring message type.";
 				}
 				leaf-list interface-id {
-					type int32;
+					type uint32;
 					description
 						"The interface identifier obtained through
 						IPFIX IE10 ingressInterface, IE14 
