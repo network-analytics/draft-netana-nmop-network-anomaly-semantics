@@ -1,0 +1,319 @@
+{
+  "type": "record",
+  "name": "relevant-state-notification",
+  "namespace": "com.swisscom.daisy.cosmos.brightlights.relevant-state-notification",
+  "relevant-state-notification": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store"
+    },
+    {
+      "name": "description",
+      "type": {
+        "type": "string"
+      },
+      "doc": "Textual description of the fault"
+    },
+    {
+      "name": "start-time",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Date and time indicating the beginning of the fault"
+    },
+    {
+      "name": "end-time",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Date and time indicating the end of the fault"
+    },
+    {
+      "name": "concern-score",
+      "type": {
+        "type": "int",
+        "logicalType": "score"
+      },
+      "doc": "Score indicating the degree of concern in relation to the overall relevant state."
+    },
+    {
+      "name": "anomalies",
+      "doc": "List of anomalies that are part of the relevant state",
+      "type": [
+        "null",
+        {
+          "name": "anomalies",
+          "type": "record",
+          "fields": [
+            {
+              "name": "id",
+              "type": {
+                "type": "string",
+                "logicalType": "uuid"
+              },
+              "doc": "Unique ID of the anomaly"
+            },
+            {
+              "name": "uri",
+              "type": [
+                "null",
+                "string"
+              ],
+              "default": null,
+              "doc": "URI to viusalize the analytical metrics of the anomaly."
+            },
+            {
+              "name": "revision",
+              "type": {
+                "type": "int",
+                "logicalType": "counter"
+              },
+              "doc": "Revision of the anomaly metadata object. It allows multiple revisions of the metadata to be generated in order to support the definition of multiple problem objects from the same source to facilitate improvements overtime"
+            },
+            {
+              "name": "state",
+              "type": {
+                "type": "enum",
+                "name": "state",
+                "symbols": [
+                  "detection",
+                  "validation",
+                  "refinement",
+                  "problem-forecasted",
+                  "problem-potential",
+                  "discarded",
+                  "analyzed",
+                  "adjusted"
+                ],
+                "doc": "State of the anomaly"
+              }
+            },
+            {
+              "name": "description",
+              "type": {
+                "type": "string"
+              },
+              "doc": "Textual description of the anomaly"
+            },
+            {
+              "name": "start-time",
+              "type": {
+                "type": "long",
+                "logicalType": "timestamp-millis"
+              },
+              "doc": "Date and time indicating the beginning of the anomaly A detection system will alwasys set a start time, as it represents the moment in time from which the behaviour of the monitored system is considered to be anomalous with respect its expected behaviour"
+            },
+            {
+              "name": "end-time",
+              "type": {
+                "type": "long",
+                "logicalType": "timestamp-millis"
+              },
+              "doc": "Date and time indicating the end of the anomaly. This field is indicated as non mandatory, as it could be the case that the anomaly is still happening at the time of generation of the label"
+            },
+            {
+              "name": "confidence-score",
+              "type": {
+                "type": "int",
+                "logicalType": "score"
+              },
+              "doc": "Score indicating how confident was the detector while considering the given anomaly as part of the relevant event"
+            },
+            {
+              "name": "pattern",
+              "type": {
+                "type": "enum",
+                "name": "pattern",
+                "symbols": [
+                  "drop",
+                  "spike",
+                  "mean-shift",
+                  "seasonality-shift",
+                  "trend",
+                  "other"
+                ],
+                "doc": "Pattern identified by the Detector."
+              }
+            },
+            {
+              "name": "annotator",
+              "doc": "Annotator represents the entity that produced the annotation",
+              "type": {
+                "name": "annotator",
+                "type": "record",
+                "fields": [
+                  {
+                    "name": "name",
+                    "type": "string",
+                    "doc": "Name of the annotator (either user or algorithm) If it is an algorithm, the name can also include the version."
+                  },
+                  {
+                    "name": "annotator-type",
+                    "type": {
+                      "type": "enum",
+                      "name": "annotator-type",
+                      "symbols": [
+                        "human",
+                        "algorithm"
+                      ],
+                      "doc": "An annotator can be either a human user or a programmatic entity, such as an algorithm"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "symptom",
+              "doc": "Semantic definining a symptom detected for a connectivity service",
+              "type": {
+                "name": "symptom",
+                "type": "record",
+                "fields": [
+                  {
+                    "name": "action",
+                    "type": "string",
+                    "doc": "action"
+                  },
+                  {
+                    "name": "reason",
+                    "type": "string",
+                    "doc": "reason"
+                  },
+                  {
+                    "name": "cause",
+                    "type": "string",
+                    "doc": "cause"
+                  },
+                  {
+                    "name": "plane",
+                    "type": {
+                      "type": "enum",
+                      "name": "plane",
+                      "symbols": [
+                        "management",
+                        "control",
+                        "forwarding"
+                      ],
+                      "doc": "Network Plane affected by the symptom"
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "name": "vpn-node-termination",
+              "doc": "List of Node Terminations of interest",
+              "type": {
+                "name": "vpn-node-termination",
+                "type": "record",
+                "fields": [
+                  {
+                    "name": "hostname",
+                    "type": "string",
+                    "doc": "The hostname of the network node according to RFC 1213. This value is usually configured on the node by the administrator to uniquely identify the node in the network."
+                  },
+                  {
+                    "name": "route-distinguisher",
+                    "type": "string",
+                    "doc": "The BGP route-distinguisher obtained through IPFIX IE90 mplsVpnRouteDistinguisher or BMP route-monitoring or peer_up message type."
+                  },
+                  {
+                    "name": "peer-ip",
+                    "type": {
+                      "type": "string",
+                      "logicalType": "ip-address"
+                    },
+                    "doc": "The BGP peering IP address learned through BMP route-monitoring, peer_up or peer_down message type."
+                  },
+                  {
+                    "name": "next-hop",
+                    "type": {
+                      "type": "string",
+                      "logicalType": "ip-address"
+                    },
+                    "doc": "The BGP next-hop IP address learned through BMP route-monitoring message type."
+                  },
+                  {
+                    "name": "interface-id",
+                    "type": "long",
+                    "doc": "The interface identifier obtained through IPFIX IE10 ingressInterface, IE14 egressInterface or ietf-interfaces:interfaces/interface/if-index."
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "vpn-service",
+      "doc": "List of VPN services of interest",
+      "type": {
+        "name": "vpn-service",
+        "type": "record",
+        "fields": [
+          {
+            "name": "uri",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null,
+            "doc": "URI to viusalize the VPN service inventory."
+          },
+          {
+            "name": "vpn-id",
+            "type": "string",
+            "doc": "Unique ID of the VPN connectivity service."
+          },
+          {
+            "name": "vpn-name",
+            "type": "string",
+            "doc": "Name of the VPN connectivity service."
+          },
+          {
+            "name": "site-ids",
+            "type": {
+              "type": "array",
+              "items": {
+                "name": "site-id",
+                "type": "string"
+              }
+            },
+            "doc": "List of unique site ID's of the VPN connectivity service."
+          },
+          {
+            "name": "change-start-time",
+            "type": {
+              "type": "long",
+              "logicalType": "timestamp-millis"
+            },
+            "doc": "Start date and time of the VPN service maintenance window"
+          },
+          {
+            "name": "change-end-time",
+            "type": {
+              "type": "long",
+              "logicalType": "timestamp-millis"
+            },
+            "doc": "End date and time of the VPN service maintenance window"
+          },
+          {
+            "name": "change-id",
+            "type": {
+              "type": "string",
+              "logicalType": "uuid"
+            },
+            "doc": "Unique identifier of VPN service maintenance window"
+          }
+        ]
+      }
+    }
+  ]
+}
