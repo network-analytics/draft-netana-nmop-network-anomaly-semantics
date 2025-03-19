@@ -6,7 +6,7 @@ module ietf-relevant-state {
   import ietf-yang-types {
     prefix yang;
     reference
-      "RFC 6021: Common YANG Data Types";
+      "RFC 6991: Common YANG Data Types";
   }
   import ietf-inet-types {
     prefix inet;
@@ -57,12 +57,13 @@ module ietf-relevant-state {
     description
       "Initial version";
     reference
-      "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
+      "RFC XXX: Semantic Metadata Annotation for Network Anomaly
+      Detection";
   }
 
   typedef score {
     type uint8 {
-      range "0 .. 100";
+      range "0..100";
     }
     description
       "Number that indicates a score between 0 and 100.";
@@ -194,7 +195,8 @@ module ietf-relevant-state {
     leaf uri {
       type inet:uri;
       description
-        "URI to viusalize the analytical metrics of the relevant-state.";
+        "URI to viusalize the analytical metrics of the
+        relevant-state.";
     }
     leaf description {
       type string;
@@ -216,10 +218,9 @@ module ietf-relevant-state {
     }
     leaf confidence-score {
       type score;
-      mandatory false;
       description
         "Score indicating how confident were the detectors
-            in relation to the overall relevant state.";
+         in relation to the overall relevant state.";
     }
     leaf concern-score {
       type score;
@@ -242,24 +243,21 @@ module ietf-relevant-state {
          If it is an algorithm, the name can also include
          the version.";
     }
-    choice annotator-type {
-      description
-        "An annotator can be either a human user or a
-         programmatic entity, such as an algorithm.";
-      case human {
-        leaf human {
-          type empty;
+    leaf annotator-type {
+      type enumeration {
+        enum human {
           description
             "This option is used if a human provided the label.";
         }
-      }
-      case algorithm {
-        leaf algorithm {
-          type empty;
+        enum algorithm {
           description
-            "This option is used if a software provided the label.";
+            "This option is used if a algorithm or software
+            provided the label.";
         }
       }
+      description
+        "An annotator can be either a human user or a
+         programmatic entity, such as an algorithm.";
     }
   }
 
@@ -276,12 +274,7 @@ module ietf-relevant-state {
         leaf id {
           type yang:uuid;
           description
-            "Unique ID of the anomaly";
-        }
-        leaf uri {
-          type inet:uri;
-          description
-            "URI to viusalize the analytical metrics of the anomaly.";
+            "Unique identifier of the anomaly.";
         }
         leaf revision {
           type yang:counter32;
@@ -291,6 +284,12 @@ module ietf-relevant-state {
              generated in order to support the definition of
              multiple problem objects from the same source to
              facilitate improvements overtime.";
+        }
+        leaf uri {
+          type inet:uri;
+          description
+            "URI to viusalize the analytical metrics of the
+            anomaly.";
         }
         leaf state {
           type identityref {
@@ -325,11 +324,10 @@ module ietf-relevant-state {
         }
         leaf confidence-score {
           type score;
-          mandatory false;
           description
             "Score indicating how confident was the detector
-             while considering the given anomaly as part of the relevant
-             event.";
+             while considering the given anomaly as part of the
+             relevant event.";
         }
         leaf pattern {
           type identityref {
@@ -337,8 +335,8 @@ module ietf-relevant-state {
           }
           description
             "Pattern describes the type of pattern that was
-             detected by the annotator (e.g. spike, drop, mean-shift,
-             etc.).";
+             detected by the annotator (e.g. spike, drop,
+             mean-shift, etc.).";
         }
         container annotator {
           presence "It specifies an annotator for the anomaly";
@@ -350,14 +348,14 @@ module ietf-relevant-state {
         container symptom {
           presence "It specifies the symptom for the anomaly";
           description
-            "An observable Characteristic, State, Event, or Condition
-             considered as an indication of a Problem or potential
-             Problem.";
+            "An observable Characteristic, State, Event, or
+            Condition considered as an indication of a Problem
+            or potential Problem.";
           leaf id {
             type yang:uuid;
             mandatory true;
             description
-              "Unique ID of the symptom type.";
+              "Unique identifier of the symptom type.";
           }
           leaf concern-score {
             type score;
@@ -376,8 +374,8 @@ module ietf-relevant-state {
   notification relevant-state-notification {
     description
       "Notification of a relevant state that can be sent by the
-       anomaly detection system to the postmortem management system or to
-       the incident management system.";
+       anomaly detection system to the postmortem management
+       system or to the incident management system.";
     leaf publisher {
       type string;
       mandatory true;
