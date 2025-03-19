@@ -1,0 +1,9 @@
+Notes on draft-netana-nmop-network-anomaly-semantics
+- Sec 3. Introduce that we are using triplets (as said in architecture draft)
+Table 1. Time To Life expired --> Time to live?
+Sec 4.1. Diff between both yang trees? one is complete and one is only augmentation?
+
+
+Notes on draft-netana-nmop-network-anomaly-lifecycle
+- Sec 3. Intro: In [I-D.ietf-nmop-terminology] A network anomaly --> a network anomaly
+
