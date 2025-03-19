@@ -55,11 +55,11 @@ module ietf-network-anomaly-symptom-cbl {
         type uint8 {
             range "0 .. 100";
         }
-        description "Number indicating a score between 0 and 100";
+        description "Number indicating a score between 0 and 100.";
     }
     
     grouping cbl-symptom {
-        description "Semantic definining a symptom detected for a connectivity service";
+        description "Semantic definining a symptom detected for a connectivity service.";
         leaf action {
             type string;
             description "action";
@@ -76,7 +76,7 @@ module ietf-network-anomaly-symptom-cbl {
         }
         choice plane {
             description
-                "Network Plane affected by the symptom";
+                "Network Plane affected by the symptom.";
             case forwarding {
                 leaf forwarding {
                     type empty;

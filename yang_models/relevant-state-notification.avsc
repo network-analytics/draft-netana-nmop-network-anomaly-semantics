@@ -9,14 +9,23 @@
         "type": "string",
         "logicalType": "uuid"
       },
-      "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store"
+      "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store."
+    },
+    {
+      "name": "uri",
+      "type": [
+        "null",
+        "string"
+      ],
+      "default": null,
+      "doc": "URI to viusalize the analytical metrics of the relevant-state."
     },
     {
       "name": "description",
       "type": {
         "type": "string"
       },
-      "doc": "Textual description of the fault"
+      "doc": "extual description of the fault."
     },
     {
       "name": "start-time",
@@ -24,7 +33,7 @@
         "type": "long",
         "logicalType": "timestamp-millis"
       },
-      "doc": "Date and time indicating the beginning of the fault"
+      "doc": "Date and time indicating the beginning of the problem."
     },
     {
       "name": "end-time",
@@ -32,7 +41,15 @@
         "type": "long",
         "logicalType": "timestamp-millis"
       },
-      "doc": "Date and time indicating the end of the fault"
+      "doc": "Date and time indicating the end of the problem."
+    },
+    {
+      "name": "confidence-score",
+      "type": {
+        "type": "int",
+        "logicalType": "score"
+      },
+      "doc": "Score indicating how confident were the detectors in relation to the overall relevant state."
     },
     {
       "name": "concern-score",
@@ -48,7 +65,8 @@
       "type": [
         "null",
         {
-          "name": "anomalies",
+          "name": "anomaly",
+          "doc": "Container with a list of anomalies.",
           "type": "record",
           "fields": [
             {
@@ -74,7 +92,7 @@
                 "type": "int",
                 "logicalType": "counter"
               },
-              "doc": "Revision of the anomaly metadata object. It allows multiple revisions of the metadata to be generated in order to support the definition of multiple problem objects from the same source to facilitate improvements overtime"
+              "doc": "Revision of the anomaly metadata object. It allows multiple revisions of the metadata to be generated in order to support the definition of multiple problem objects from the same source to facilitate improvements overtime."
             },
             {
               "name": "state",
@@ -91,7 +109,7 @@
                   "analyzed",
                   "adjusted"
                 ],
-                "doc": "State of the anomaly"
+                "doc": "State of the anomaly."
               }
             },
             {
@@ -99,7 +117,7 @@
               "type": {
                 "type": "string"
               },
-              "doc": "Textual description of the anomaly"
+              "doc": "Textual description of the anomaly."
             },
             {
               "name": "start-time",
@@ -107,7 +125,7 @@
                 "type": "long",
                 "logicalType": "timestamp-millis"
               },
-              "doc": "Date and time indicating the beginning of the anomaly A detection system will alwasys set a start time, as it represents the moment in time from which the behaviour of the monitored system is considered to be anomalous with respect its expected behaviour"
+              "doc": "Date and time indicating the beginning of the anomaly. A detection system will alwasys set a start time, as it represents the moment in time from which the behaviour of the monitored system is considered to be anomalous with respect its expected behaviour."
             },
             {
               "name": "end-time",
@@ -115,7 +133,7 @@
                 "type": "long",
                 "logicalType": "timestamp-millis"
               },
-              "doc": "Date and time indicating the end of the anomaly. This field is indicated as non mandatory, as it could be the case that the anomaly is still happening at the time of generation of the label"
+              "doc": "Date and time indicating the end of the anomaly. This field is indicated as non mandatory, as it could be the case that the anomaly is still happening at the time of generation of the label."
             },
             {
               "name": "confidence-score",
@@ -123,7 +141,7 @@
                 "type": "int",
                 "logicalType": "score"
               },
-              "doc": "Score indicating how confident was the detector while considering the given anomaly as part of the relevant event"
+              "doc": "Score indicating how confident was the detector while considering the given anomaly as part of the relevant event."
             },
             {
               "name": "pattern",
@@ -138,12 +156,12 @@
                   "trend",
                   "other"
                 ],
-                "doc": "Pattern identified by the Detector."
+                "doc": "Pattern describes the type of pattern that was detected by the annotator (e.g. spike, drop, mean-shift, etc.)."
               }
             },
             {
               "name": "annotator",
-              "doc": "Annotator represents the entity that produced the annotation",
+              "doc": "Annotator represents the entity that produced the annotation.",
               "type": {
                 "name": "annotator",
                 "type": "record",
@@ -162,7 +180,7 @@
                         "human",
                         "algorithm"
                       ],
-                      "doc": "An annotator can be either a human user or a programmatic entity, such as an algorithm"
+                      "doc": "An annotator can be either a human user or a programmatic entity, such as an algorithm."
                     }
                   }
                 ]
@@ -170,7 +188,7 @@
             },
             {
               "name": "symptom",
-              "doc": "Semantic definining a symptom detected for a connectivity service",
+              "doc": "Semantic definining a symptom detected for a connectivity service.",
               "type": {
                 "name": "symptom",
                 "type": "record",
@@ -200,7 +218,7 @@
                         "control",
                         "forwarding"
                       ],
-                      "doc": "Network Plane affected by the symptom"
+                      "doc": "Network Plane affected by the symptom."
                     }
                   }
                 ]
@@ -208,7 +226,7 @@
             },
             {
               "name": "vpn-node-termination",
-              "doc": "List of Node Terminations of interest",
+              "doc": "List of Node Terminations of interest.",
               "type": {
                 "name": "vpn-node-termination",
                 "type": "record",
@@ -253,7 +271,7 @@
     },
     {
       "name": "vpn-service",
-      "doc": "List of VPN services of interest",
+      "doc": "List of VPN services of interest.",
       "type": {
         "name": "vpn-service",
         "type": "record",
@@ -294,7 +312,7 @@
               "type": "long",
               "logicalType": "timestamp-millis"
             },
-            "doc": "Start date and time of the VPN service maintenance window"
+            "doc": "Start date and time of the VPN service maintenance window."
           },
           {
             "name": "change-end-time",
@@ -302,7 +320,7 @@
               "type": "long",
               "logicalType": "timestamp-millis"
             },
-            "doc": "End date and time of the VPN service maintenance window"
+            "doc": "End date and time of the VPN service maintenance window."
           },
           {
             "name": "change-id",
@@ -310,7 +328,7 @@
               "type": "string",
               "logicalType": "uuid"
             },
-            "doc": "Unique identifier of VPN service maintenance window"
+            "doc": "Unique identifier of VPN service maintenance window."
           }
         ]
       }

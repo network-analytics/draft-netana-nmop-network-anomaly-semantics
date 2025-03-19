@@ -245,7 +245,7 @@
        grouping anomaly-grouping {
            description "List of anomalies that are part of the relevant state";
            container anomalies {
-               description "List of Anomaly instances.";
+               description "Container with a list of anomalies.";
                    list anomaly {
                    key "id revision";
                    description "List of Anomaly instances.";
