@@ -264,108 +264,103 @@ module ietf-relevant-state {
   grouping anomaly-grouping {
     description
       "List of anomalies that are part of the relevant state";
-    container anomalies {
+    list anomalies {
+      key "id revision";
       description
-        "Container with a list of anomalies.";
-      list anomaly {
-        key "id revision";
+        "List of Anomaly instances.";
+      leaf id {
+        type yang:uuid;
         description
-          "List of Anomaly instances.";
+          "Unique identifier of the anomaly.";
+      }
+      leaf revision {
+        type yang:counter32;
+        description
+          "Revision of the anomaly metadata object.
+            It allows multiple revisions of the metadata to be
+            generated in order to support the definition of
+            multiple problem objects from the same source to
+            facilitate improvements overtime.";
+      }
+      leaf uri {
+        type inet:uri;
+        description
+          "URI to viusalize the analytical metrics of the
+          anomaly.";
+      }
+      leaf state {
+        type identityref {
+          base network-anomaly-state;
+        }
+        mandatory true;
+        description
+          "State of the anomaly.";
+      }
+      leaf description {
+        type string;
+        description
+          "Textual description of the anomaly.";
+      }
+      leaf start-time {
+        type yang:date-and-time;
+        mandatory true;
+        description
+          "Date and time indicating the beginning of the anomaly.
+            A detection system will alwasys set a start time,
+            as it represents the moment in time from which the
+            behaviour of the monitored system is considered
+            to be anomalous with respect its expected behaviour.";
+      }
+      leaf end-time {
+        type yang:date-and-time;
+        description
+          "Date and time indicating the end of the anomaly.
+            This field is indicated as non mandatory, as it could
+            be the case that the anomaly is still happening at the
+            time of generation of the label.";
+      }
+      leaf confidence-score {
+        type score;
+        description
+          "Score indicating how confident was the detector
+            while considering the given anomaly as part of the
+            relevant event.";
+      }
+      leaf pattern {
+        type identityref {
+          base pattern;
+        }
+        description
+          "Pattern describes the type of pattern that was
+            detected by the annotator (e.g. spike, drop,
+            mean-shift, etc.).";
+      }
+      container annotator {
+        description
+          "Annotator represents the entity that produced the
+            annotation.";
+        uses annotator-grouping;
+      }
+      container symptom {
+        presence "It specifies the symptom for the anomaly";
+        description
+          "An observable Characteristic, State, Event, or
+          Condition considered as an indication of a Problem
+          or potential Problem.";
         leaf id {
           type yang:uuid;
-          description
-            "Unique identifier of the anomaly.";
-        }
-        leaf revision {
-          type yang:counter32;
-          description
-            "Revision of the anomaly metadata object.
-             It allows multiple revisions of the metadata to be
-             generated in order to support the definition of
-             multiple problem objects from the same source to
-             facilitate improvements overtime.";
-        }
-        leaf uri {
-          type inet:uri;
-          description
-            "URI to viusalize the analytical metrics of the
-            anomaly.";
-        }
-        leaf state {
-          type identityref {
-            base network-anomaly-state;
-          }
           mandatory true;
           description
-            "State of the anomaly.";
+            "Unique identifier of the symptom type.";
         }
-        leaf description {
-          type string;
-          description
-            "Textual description of the anomaly.";
-        }
-        leaf start-time {
-          type yang:date-and-time;
-          mandatory true;
-          description
-            "Date and time indicating the beginning of the anomaly.
-             A detection system will alwasys set a start time,
-             as it represents the moment in time from which the
-             behaviour of the monitored system is considered
-             to be anomalous with respect its expected behaviour.";
-        }
-        leaf end-time {
-          type yang:date-and-time;
-          description
-            "Date and time indicating the end of the anomaly.
-             This field is indicated as non mandatory, as it could
-             be the case that the anomaly is still happening at the
-             time of generation of the label.";
-        }
-        leaf confidence-score {
+        leaf concern-score {
           type score;
+          mandatory true;
           description
-            "Score indicating how confident was the detector
-             while considering the given anomaly as part of the
-             relevant event.";
-        }
-        leaf pattern {
-          type identityref {
-            base pattern;
-          }
-          description
-            "Pattern describes the type of pattern that was
-             detected by the annotator (e.g. spike, drop,
-             mean-shift, etc.).";
-        }
-        container annotator {
-          presence "It specifies an annotator for the anomaly";
-          description
-            "Annotator represents the entity that produced the
-             annotation.";
-          uses annotator-grouping;
-        }
-        container symptom {
-          presence "It specifies the symptom for the anomaly";
-          description
-            "An observable Characteristic, State, Event, or
-            Condition considered as an indication of a Problem
-            or potential Problem.";
-          leaf id {
-            type yang:uuid;
-            mandatory true;
-            description
-              "Unique identifier of the symptom type.";
-          }
-          leaf concern-score {
-            type score;
-            mandatory true;
-            description
-              "Score indicating the degree of concern in
-               relation to the specific symptom. Each
-               symptom will carry a certain degree of
-               concern that is specific to the symptom.";
-          }
+            "Score indicating the degree of concern in
+              relation to the specific symptom. Each
+              symptom will carry a certain degree of
+              concern that is specific to the symptom.";
         }
       }
     }
