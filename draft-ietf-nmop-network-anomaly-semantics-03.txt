@@ -86,18 +86,18 @@ Table of Contents
      2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Observed Symptoms . . . . . . . . . . . . . . . . . . . . . .   4
    4.  Semantic Metadata . . . . . . . . . . . . . . . . . . . . . .   7
-     4.1.  Overview of the Model for the Symptom Semantic
+     4.1.  Overview of the Models for the Symptom Semantic
            Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   8
-     4.2.  YANG Module 'ietf-network-anomaly-symptom-cbl'  . . . . .  10
-     4.3.  YANG Module 'ietf-network-anomaly-service-topology' . . .  13
+     4.2.  YANG Model 'ietf-network-anomaly-symptom-cbl' . . . . . .   8
+     4.3.  YANG Module 'ietf-network-anomaly-service-topology' . . .  11
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  17
-   6.  Implementation status . . . . . . . . . . . . . . . . . . . .  18
-     6.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  18
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  18
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  18
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  18
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  19
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  19
+   6.  Implementation status . . . . . . . . . . . . . . . . . . . .  17
+     6.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  17
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  17
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  17
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  18
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
 
 
 
@@ -394,7 +394,15 @@ Graf, et al.            Expires 20 September 2025               [Page 7]
 Internet-Draft          Network Anomaly Semantics             March 2025
 
 
-4.1.  Overview of the Model for the Symptom Semantic Metadata
+4.1.  Overview of the Models for the Symptom Semantic Metadata
+
+   This section defines two YANG models, one defining a placeholder for
+   the action reason cause defined in this document, and one defining
+   service topology information related to the anomaly.
+
+4.2.  YANG Model 'ietf-network-anomaly-symptom-cbl'
+
+4.2.1.  YANG Tree
 
    Figure 1 contains the YANG tree diagram [RFC8340] of the 'ietf-
    network-anomaly-symptom-cbl' module.  It augments the 'ietf-relevant-
@@ -429,19 +437,11 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    used for messaging from the Alarm Aggregation to the Postmortem and
    the Alarm and Problem Management system.
 
-   TBD Alex: shall we remove this yang tree?  It is not defined here.
+4.2.2.  YANG Module
 
-   module: ietf-relevant-state
-     +--rw relevant-state
-        +--rw id                         yang:uuid
-        +--rw uri?                       inet:uri
-        +--rw description?               string
-        +--rw start-time                 yang:date-and-time
-        +--rw end-time?                  yang:date-and-time
-        +--rw confidence-score?          score
-        +--rw concern-score              score
-        +--rw anomalies* [id revision]
-        |  +--rw id                                  yang:uuid
+   The YANG module has one typedef defining the score, a grouping
+   defining Action, Reason and Cause and how symptom attributes to the
+   network planes.
 
 
 
@@ -450,117 +450,12 @@ Graf, et al.            Expires 20 September 2025               [Page 8]
 Internet-Draft          Network Anomaly Semantics             March 2025
 
 
-        |  +--rw revision                            yang:counter32
-        |  +--rw uri?                                inet:uri
-        |  +--rw state                               identityref
-        |  +--rw description?                        string
-        |  +--rw start-time                          yang:date-and-time
-        |  +--rw end-time?                           yang:date-and-time
-        |  +--rw confidence-score?                   score
-        |  +--rw pattern?                            identityref
-        |  +--rw annotator
-        |  |  +--rw name              string
-        |  |  +--rw annotator-type?   enumeration
-        |  +--rw symptom!
-        |  |  +--rw id                            yang:uuid
-        |  |  +--rw concern-score                 score
-        |  |  +--rw smcblsymptom:action?          string
-        |  |  +--rw smcblsymptom:reason?          string
-        |  |  +--rw smcblsymptom:cause?           string
-        |  |  +--rw smcblsymptom:network-plane?   enumeration
-        |  +--rw smtopology:vpn-node-terminations*
-        |          [hostname route-distinguisher]
-        |     +--rw smtopology:hostname               inet:host
-        |     +--rw smtopology:route-distinguisher    string
-        |     +--rw smtopology:peer-ip*               inet:ip-address
-        |     +--rw smtopology:next-hop*              inet:ip-address
-        |     +--rw smtopology:interface-id*          uint32
-        +--rw smtopology:vpn-services* [vpn-id]
-           +--rw smtopology:vpn-id               string
-           +--rw smtopology:uri?                 inet:uri
-           +--rw smtopology:vpn-name?            string
-           +--rw smtopology:site-ids*            string
-           +--rw smtopology:change-id?           yang:uuid
-           +--rw smtopology:change-start-time?   yang:date-and-time
-           +--rw smtopology:change-end-time?     yang:date-and-time
-
-     notifications:
-       +---n relevant-state-notification
-          +--ro publisher                  string
-          +--ro id                         yang:uuid
-          +--ro uri?                       inet:uri
-          +--ro description?               string
-          +--ro start-time                 yang:date-and-time
-          +--ro end-time?                  yang:date-and-time
-          +--ro confidence-score?          score
-          +--ro concern-score              score
-          +--ro anomalies* [id revision]
-          |  +--ro id                                  yang:uuid
-          |  +--ro revision                            yang:counter32
-          |  +--ro uri?                                inet:uri
-
-
-
-Graf, et al.            Expires 20 September 2025               [Page 9]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
-          |  +--ro state                               identityref
-          |  +--ro description?                        string
-          |  +--ro start-time
-          |  |       yang:date-and-time
-          |  +--ro end-time?
-          |  |       yang:date-and-time
-          |  +--ro confidence-score?                   score
-          |  +--ro pattern?                            identityref
-          |  +--ro annotator
-          |  |  +--ro name              string
-          |  |  +--ro annotator-type?   enumeration
-          |  +--ro symptom!
-          |  |  +--ro id                            yang:uuid
-          |  |  +--ro concern-score                 score
-          |  |  +--ro smcblsymptom:action?          string
-          |  |  +--ro smcblsymptom:reason?          string
-          |  |  +--ro smcblsymptom:cause?           string
-          |  |  +--ro smcblsymptom:network-plane?   enumeration
-          |  +--ro smtopology:vpn-node-terminations*
-          |          [hostname route-distinguisher]
-          |     +--ro smtopology:hostname               inet:host
-          |     +--ro smtopology:route-distinguisher    string
-          |     +--ro smtopology:peer-ip*               inet:ip-address
-          |     +--ro smtopology:next-hop*              inet:ip-address
-          |     +--ro smtopology:interface-id*          uint32
-          +--ro smtopology:vpn-services* [vpn-id]
-             +--ro smtopology:vpn-id               string
-             +--ro smtopology:uri?                 inet:uri
-             +--ro smtopology:vpn-name?            string
-             +--ro smtopology:site-ids*            string
-             +--ro smtopology:change-id?           yang:uuid
-             +--ro smtopology:change-start-time?   yang:date-and-time
-             +--ro smtopology:change-end-time?     yang:date-and-time
-
-            Figure 2: YANG tree diagram for ietf-relevant-state
-
-4.2.  YANG Module 'ietf-network-anomaly-symptom-cbl'
-
-   The YANG module has one typedef defining the score, a grouping
-   defining Action, Reason and Cause and how symptom attributes to the
-   network planes.
-
    <CODE BEGINS> file "ietf-network-anomaly-symptom-cbl@2025-03-19.yang"
    module ietf-network-anomaly-symptom-cbl {
      yang-version 1.1;
      namespace
        "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl";
      prefix smcblsymptom;
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 10]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
 
      import ietf-relevant-state {
        prefix rsn;
@@ -603,6 +498,14 @@ Internet-Draft          Network Anomaly Semantics             March 2025
         (https://www.iana.org/assignments/yang-parameters).
 
         This version of this YANG module is part of RFC XXXX; see
+
+
+
+Graf, et al.            Expires 20 September 2025               [Page 9]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
         the RFC itself for full legal notices.";
 
      revision 2025-03-19 {
@@ -610,14 +513,6 @@ Internet-Draft          Network Anomaly Semantics             March 2025
          "Initial version";
        reference
          "RFC XXX: Semantic Metadata Annotation for Network Anomaly
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 11]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
           Detection";
      }
 
@@ -659,6 +554,14 @@ Internet-Draft          Network Anomaly Semantics             March 2025
            enum control {
              description
                "Symptom associated to the Control Plane.";
+
+
+
+Graf, et al.            Expires 20 September 2025              [Page 10]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
            }
            enum management {
              description
@@ -666,14 +569,6 @@ Internet-Draft          Network Anomaly Semantics             March 2025
            }
          }
          description
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 12]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
            "Associated network plane.";
        }
      }
@@ -700,6 +595,8 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 4.3.  YANG Module 'ietf-network-anomaly-service-topology'
 
+4.3.1.  YANG Tree
+
    The YANG module has a service and a node-termination grouping
    defining a 'vpn-id', a 'vpn-name' and 'site-ids' for service and
    hostname, BGP route-distinguisher, BGP peer ip address, BGP path
@@ -709,12 +606,74 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    which existing YANG nodes instead could be used to facilitate a
    service and network topology context view.
 
+
+
+
+
+
+
+
+Graf, et al.            Expires 20 September 2025              [Page 11]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
+   module: ietf-network-anomaly-service-topology
+
+     augment /rsn:relevant-state:
+       +--rw vpn-services* [vpn-id]
+          +--rw vpn-id               string
+          +--rw uri?                 inet:uri
+          +--rw vpn-name?            string
+          +--rw site-ids*            string
+          +--rw change-id?           yang:uuid
+          +--rw change-start-time?   yang:date-and-time
+          +--rw change-end-time?     yang:date-and-time
+     augment /rsn:relevant-state-notification:
+       +--ro vpn-services* [vpn-id]
+          +--ro vpn-id               string
+          +--ro uri?                 inet:uri
+          +--ro vpn-name?            string
+          +--ro site-ids*            string
+          +--ro change-id?           yang:uuid
+          +--ro change-start-time?   yang:date-and-time
+          +--ro change-end-time?     yang:date-and-time
+     augment /rsn:relevant-state/rsn:anomalies:
+       +--rw vpn-node-terminations* [hostname route-distinguisher]
+          +--rw hostname               inet:host
+          +--rw route-distinguisher    string
+          +--rw peer-ip*               inet:ip-address
+          +--rw next-hop*              inet:ip-address
+          +--rw interface-id*          uint32
+     augment /rsn:relevant-state-notification/rsn:anomalies:
+       +-- vpn-node-terminations* [hostname route-distinguisher]
+          +-- hostname               inet:host
+          +-- route-distinguisher    string
+          +-- peer-ip*               inet:ip-address
+          +-- next-hop*              inet:ip-address
+          +-- interface-id*          uint32
+
+4.3.2.  YANG Module
+
+   The 'ietf-network-anomaly-service-topology' module defines reusable
+   groupings for augmenting the 'relevant-state' model.  It defines
+   placeholders for defining VPN information that is associated to the
+   relevant state.
+
    <CODE BEGINS>
      file "ietf-network-anomaly-service-topology@2025-03-19.yang"
    module ietf-network-anomaly-service-topology {
      yang-version 1.1;
      namespace
        "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-topology";
+
+
+
+Graf, et al.            Expires 20 September 2025              [Page 12]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
      prefix smtopology;
 
      import ietf-inet-types {
@@ -722,14 +681,6 @@ Internet-Draft          Network Anomaly Semantics             March 2025
        reference
          "RFC 6991: Common YANG Data Types";
      }
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 13]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
      import ietf-yang-types {
        prefix yang;
        reference
@@ -772,19 +723,19 @@ Internet-Draft          Network Anomaly Semantics             March 2025
         Relating to IETF Documents
         (https://trustee.ietf.org/license-info).
 
+
+
+Graf, et al.            Expires 20 September 2025              [Page 13]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
         All revisions of IETF and IANA published modules can be found
         at the YANG Parameters registry
         (https://www.iana.org/assignments/yang-parameters).
 
         This version of this YANG module is part of RFC XXXX; see
         the RFC itself for full legal notices.";
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 14]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
 
      revision 2025-03-19 {
        description
@@ -827,6 +778,14 @@ Internet-Draft          Network Anomaly Semantics             March 2025
            description
              "Unique identifier of VPN service maintenance window.";
          }
+
+
+
+Graf, et al.            Expires 20 September 2025              [Page 14]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
          leaf change-start-time {
            type yang:date-and-time;
            description
@@ -834,14 +793,6 @@ Internet-Draft          Network Anomaly Semantics             March 2025
          }
          leaf change-end-time {
            type yang:date-and-time;
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 15]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
            description
              "End date and time of the VPN service maintenance window.";
          }
@@ -883,6 +834,14 @@ Internet-Draft          Network Anomaly Semantics             March 2025
          leaf-list next-hop {
            type inet:ip-address;
            description
+
+
+
+Graf, et al.            Expires 20 September 2025              [Page 15]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
              "The BGP next-hop IP address learned through
                BMP route-monitoring message type.";
          }
@@ -890,14 +849,6 @@ Internet-Draft          Network Anomaly Semantics             March 2025
            type uint32;
            description
              "The interface identifier obtained through
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 16]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
                IPFIX IE10 ingressInterface, IE14
                egressInterface or
                ietf-interfaces:interfaces/interface/if-index.";
@@ -939,20 +890,18 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    }
    <CODE ENDS>
 
+
+
+
+Graf, et al.            Expires 20 September 2025              [Page 16]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
 5.  Security Considerations
 
    TBD https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
    rfc8407bis-22#name-security-considerations-sect.
-
-
-
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 17]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
 
 6.  Implementation status
 
@@ -997,18 +946,17 @@ Internet-Draft          Network Anomaly Semantics             March 2025
               Graf, T., Du, W., and P. Francois, "An Architecture for a
               Network Anomaly Detection Framework", Work in Progress,
               Internet-Draft, draft-ietf-nmop-network-anomaly-
-              architecture-01, 20 October 2024,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
-              network-anomaly-architecture-01>.
 
 
 
-
-
-Graf, et al.            Expires 20 September 2025              [Page 18]
+Graf, et al.            Expires 20 September 2025              [Page 17]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
+
+              architecture-01, 20 October 2024,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
+              network-anomaly-architecture-01>.
 
    [I-D.ietf-nmop-terminology]
               Davis, N., Farrel, A., Graf, T., Wu, Q., and C. Yu, "Some
@@ -1051,19 +999,23 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 Authors' Addresses
 
+
+
+
+
+
+
+Graf, et al.            Expires 20 September 2025              [Page 18]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
    Thomas Graf
    Swisscom
    Binzring 17
    CH-8045 Zurich
    Switzerland
    Email: thomas.graf@swisscom.com
-
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 19]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
 
 
    Wanting Du
@@ -1109,12 +1061,4 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-
-
-
-
-
-
-
-
-Graf, et al.            Expires 20 September 2025              [Page 20]
+Graf, et al.            Expires 20 September 2025              [Page 19]

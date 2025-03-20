@@ -665,17 +665,27 @@
       the observed symptoms and outliers.</t>
 
       <section anchor="symptom-model-tree"
-              title="Overview of the Model for the Symptom Semantic Metadata">
-        <t><xref target="ietf-network-anomaly-symptom-tree"/> contains the YANG
-        tree diagram <xref target="RFC8340"/> of the 'ietf-network-anomaly-symptom-cbl' module.
-        It augments the 'ietf-relevant-state' module defined in <xref target="I-D.netana-nmop-network-anomaly-lifecycle"/>.</t>
+        title="Overview of the Models for the Symptom Semantic Metadata">
+        <t>This section defines two YANG models, one defining a placeholder for
+        the action reason cause defined in this document, and one defining service topology
+        information related to the anomaly.</t>
 
-        <t>For each Symptom, the following parameters can be assigned: an Action,
-        a Reason and a Cause describing the Symptom; a concern score indicating how
-        critical the Symptom is; and the associated network plane.</t>
-        <figure anchor="ietf-network-anomaly-symptom-tree"
-            title="YANG tree diagram for 'ietf-network-anomaly-symptom-cbl' module.">
-        <sourcecode type="yangtree"><![CDATA[
+      </section>		
+    
+      <section anchor="YANG-Symptom-Module" title="YANG Model 'ietf-network-anomaly-symptom-cbl'">
+
+        <section title="YANG Tree">
+          <t><xref target="ietf-network-anomaly-symptom-tree"/> contains the YANG
+          tree diagram <xref target="RFC8340"/> of the 'ietf-network-anomaly-symptom-cbl' module.
+          It augments the 'ietf-relevant-state' module defined in <xref target="I-D.netana-nmop-network-anomaly-lifecycle"/>.</t>
+
+          <t>For each Symptom, the following parameters can be assigned: an Action,
+          a Reason and a Cause describing the Symptom; a concern score indicating how
+          critical the Symptom is; and the associated network plane.</t>
+
+          <figure anchor="ietf-network-anomaly-symptom-tree"
+              title="YANG tree diagram for 'ietf-network-anomaly-symptom-cbl' module.">
+          <sourcecode type="yangtree"><![CDATA[
 module: ietf-network-anomaly-symptom-cbl
 
   augment /rsn:relevant-state/rsn:anomalies/rsn:symptom:
@@ -690,118 +700,19 @@ module: ietf-network-anomaly-symptom-cbl
     +-- network-plane?   enumeration
 ]]></sourcecode></figure>
 
-        <t>The module augments the anomaly of the 'relevant-state'
-        container and the 'relevant-state-notification' of
-        'ietf-relevant-state' module defined in <xref 
-        target="I-D.netana-nmop-network-anomaly-lifecycle"/>. The 
-        'relevant-state' container is used for modifying the Symptom
-        data in the Postmortem system, while the
-        'relevant-state-notification' is used for messaging from the
-        Alarm Aggregation to the Postmortem and the Alarm and Problem
-        Management system.</t>
+          <t>The module augments the anomaly of the 'relevant-state'
+          container and the 'relevant-state-notification' of
+          'ietf-relevant-state' module defined in <xref 
+          target="I-D.netana-nmop-network-anomaly-lifecycle"/>. The 
+          'relevant-state' container is used for modifying the Symptom
+          data in the Postmortem system, while the
+          'relevant-state-notification' is used for messaging from the
+          Alarm Aggregation to the Postmortem and the Alarm and Problem
+          Management system.</t>
+        </section>
 
-        <t>TBD Alex: shall we remove this yang tree? It is not defined here.</t>
+        <section title="YANG Module">
 
-        <t><figure anchor="ietf-relevant-state-tree"
-            title="YANG tree diagram for ietf-relevant-state">
-            <artwork><![CDATA[
-module: ietf-relevant-state
-  +--rw relevant-state
-     +--rw id                         yang:uuid
-     +--rw uri?                       inet:uri
-     +--rw description?               string
-     +--rw start-time                 yang:date-and-time
-     +--rw end-time?                  yang:date-and-time
-     +--rw confidence-score?          score
-     +--rw concern-score              score
-     +--rw anomalies* [id revision]
-     |  +--rw id                                  yang:uuid
-     |  +--rw revision                            yang:counter32
-     |  +--rw uri?                                inet:uri
-     |  +--rw state                               identityref
-     |  +--rw description?                        string
-     |  +--rw start-time                          yang:date-and-time
-     |  +--rw end-time?                           yang:date-and-time
-     |  +--rw confidence-score?                   score
-     |  +--rw pattern?                            identityref
-     |  +--rw annotator
-     |  |  +--rw name              string
-     |  |  +--rw annotator-type?   enumeration
-     |  +--rw symptom!
-     |  |  +--rw id                            yang:uuid
-     |  |  +--rw concern-score                 score
-     |  |  +--rw smcblsymptom:action?          string
-     |  |  +--rw smcblsymptom:reason?          string
-     |  |  +--rw smcblsymptom:cause?           string
-     |  |  +--rw smcblsymptom:network-plane?   enumeration
-     |  +--rw smtopology:vpn-node-terminations*
-     |          [hostname route-distinguisher]
-     |     +--rw smtopology:hostname               inet:host
-     |     +--rw smtopology:route-distinguisher    string
-     |     +--rw smtopology:peer-ip*               inet:ip-address
-     |     +--rw smtopology:next-hop*              inet:ip-address
-     |     +--rw smtopology:interface-id*          uint32
-     +--rw smtopology:vpn-services* [vpn-id]
-        +--rw smtopology:vpn-id               string
-        +--rw smtopology:uri?                 inet:uri
-        +--rw smtopology:vpn-name?            string
-        +--rw smtopology:site-ids*            string
-        +--rw smtopology:change-id?           yang:uuid
-        +--rw smtopology:change-start-time?   yang:date-and-time
-        +--rw smtopology:change-end-time?     yang:date-and-time
-
-  notifications:
-    +---n relevant-state-notification
-       +--ro publisher                  string
-       +--ro id                         yang:uuid
-       +--ro uri?                       inet:uri
-       +--ro description?               string
-       +--ro start-time                 yang:date-and-time
-       +--ro end-time?                  yang:date-and-time
-       +--ro confidence-score?          score
-       +--ro concern-score              score
-       +--ro anomalies* [id revision]
-       |  +--ro id                                  yang:uuid
-       |  +--ro revision                            yang:counter32
-       |  +--ro uri?                                inet:uri
-       |  +--ro state                               identityref
-       |  +--ro description?                        string
-       |  +--ro start-time
-       |  |       yang:date-and-time
-       |  +--ro end-time?
-       |  |       yang:date-and-time
-       |  +--ro confidence-score?                   score
-       |  +--ro pattern?                            identityref
-       |  +--ro annotator
-       |  |  +--ro name              string
-       |  |  +--ro annotator-type?   enumeration
-       |  +--ro symptom!
-       |  |  +--ro id                            yang:uuid
-       |  |  +--ro concern-score                 score
-       |  |  +--ro smcblsymptom:action?          string
-       |  |  +--ro smcblsymptom:reason?          string
-       |  |  +--ro smcblsymptom:cause?           string
-       |  |  +--ro smcblsymptom:network-plane?   enumeration
-       |  +--ro smtopology:vpn-node-terminations*
-       |          [hostname route-distinguisher]
-       |     +--ro smtopology:hostname               inet:host
-       |     +--ro smtopology:route-distinguisher    string
-       |     +--ro smtopology:peer-ip*               inet:ip-address
-       |     +--ro smtopology:next-hop*              inet:ip-address
-       |     +--ro smtopology:interface-id*          uint32
-       +--ro smtopology:vpn-services* [vpn-id]
-          +--ro smtopology:vpn-id               string
-          +--ro smtopology:uri?                 inet:uri
-          +--ro smtopology:vpn-name?            string
-          +--ro smtopology:site-ids*            string
-          +--ro smtopology:change-id?           yang:uuid
-          +--ro smtopology:change-start-time?   yang:date-and-time
-          +--ro smtopology:change-end-time?     yang:date-and-time
-      ]]></artwork>
-          </figure></t>
-      </section>		
-    
-      <section anchor="YANG-Symptom-Module" title="YANG Module 'ietf-network-anomaly-symptom-cbl'">
         <t>The YANG module has one typedef defining the score, a grouping
         defining Action, Reason and Cause and how symptom attributes to the
         network planes.</t>
@@ -932,19 +843,66 @@ module ietf-network-anomaly-symptom-cbl {
   }
 }
 ]]></sourcecode>
+        </section>
       </section>
 
       <section anchor="YANG-Service-Topology-Module" title="YANG Module 'ietf-network-anomaly-service-topology'">
-        <t>The YANG module has a service and a node-termination grouping
-        defining a 'vpn-id', a 'vpn-name' and 'site-ids' for service and hostname, 
-        BGP route-distinguisher, BGP peer ip address, BGP path next-hop and node 
-        interface-id.</t>
 
-        <t>Within the NMOP working group we discuss with the Digital Map authors
-        which existing YANG nodes instead could be used to facilitate a service
-        and network topology context view.</t>
+        <section title="YANG Tree">
+          <t>The YANG module has a service and a node-termination grouping
+          defining a 'vpn-id', a 'vpn-name' and 'site-ids' for service and hostname, 
+          BGP route-distinguisher, BGP peer ip address, BGP path next-hop and node 
+          interface-id.</t>
 
-<sourcecode name="ietf-network-anomaly-service-topology@2025-03-19.yang" type="yang" markers="true"><![CDATA[
+          <t>Within the NMOP working group we discuss with the Digital Map authors
+          which existing YANG nodes instead could be used to facilitate a service
+          and network topology context view.</t>
+
+          <sourcecode type="yangtree"><![CDATA[
+module: ietf-network-anomaly-service-topology
+
+  augment /rsn:relevant-state:
+    +--rw vpn-services* [vpn-id]
+       +--rw vpn-id               string
+       +--rw uri?                 inet:uri
+       +--rw vpn-name?            string
+       +--rw site-ids*            string
+       +--rw change-id?           yang:uuid
+       +--rw change-start-time?   yang:date-and-time
+       +--rw change-end-time?     yang:date-and-time
+  augment /rsn:relevant-state-notification:
+    +--ro vpn-services* [vpn-id]
+       +--ro vpn-id               string
+       +--ro uri?                 inet:uri
+       +--ro vpn-name?            string
+       +--ro site-ids*            string
+       +--ro change-id?           yang:uuid
+       +--ro change-start-time?   yang:date-and-time
+       +--ro change-end-time?     yang:date-and-time
+  augment /rsn:relevant-state/rsn:anomalies:
+    +--rw vpn-node-terminations* [hostname route-distinguisher]
+       +--rw hostname               inet:host
+       +--rw route-distinguisher    string
+       +--rw peer-ip*               inet:ip-address
+       +--rw next-hop*              inet:ip-address
+       +--rw interface-id*          uint32
+  augment /rsn:relevant-state-notification/rsn:anomalies:
+    +-- vpn-node-terminations* [hostname route-distinguisher]
+       +-- hostname               inet:host
+       +-- route-distinguisher    string
+       +-- peer-ip*               inet:ip-address
+       +-- next-hop*              inet:ip-address
+       +-- interface-id*          uint32
+]]></sourcecode>
+        </section>
+
+        <section title="YANG Module">
+
+          <t>The 'ietf-network-anomaly-service-topology' module defines reusable groupings
+          for augmenting the 'relevant-state' model. It defines placeholders for defining VPN information
+          that is associated to the relevant state.</t>
+
+          <sourcecode name="ietf-network-anomaly-service-topology@2025-03-19.yang" type="yang" markers="true"><![CDATA[
 module ietf-network-anomaly-service-topology {
   yang-version 1.1;
   namespace
@@ -1141,6 +1099,7 @@ module ietf-network-anomaly-service-topology {
   }
 }
 ]]></sourcecode>
+        </section>
       </section>
     </section>
 
