@@ -5,12 +5,12 @@
 NMOP                                                             T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 10 March 2025                                     A. Huang Feng
+Expires: 23 April 2025                                     A. Huang Feng
                                                                INSA-Lyon
                                                             V. Riccobene
                                                               A. Roberto
                                                                   Huawei
-                                                        6 September 2024
+                                                         20 October 2024
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 1]
+Graf, et al.              Expires 23 April 2025                 [Page 1]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
    Internet-Drafts are draft documents valid for a maximum of six months
@@ -63,7 +63,7 @@ Internet-Draft          Network Anomaly Semantics         September 2024
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 March 2025.
+   This Internet-Draft will expire on 23 April 2025.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 2]
+Graf, et al.              Expires 23 April 2025                 [Page 2]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
    network plane affects another negatively.
@@ -165,9 +165,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 3]
+Graf, et al.              Expires 23 April 2025                 [Page 3]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
    *  Relevance
@@ -221,9 +221,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 4]
+Graf, et al.              Expires 23 April 2025                 [Page 4]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
             +=========+==============+========================+
@@ -277,9 +277,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 5]
+Graf, et al.              Expires 23 April 2025                 [Page 5]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
     +--------------+-------------+------------------------------------+
@@ -333,9 +333,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 6]
+Graf, et al.              Expires 23 April 2025                 [Page 6]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
          Table 2: Describing Symptoms and their Actions, Reason and
@@ -389,9 +389,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 7]
+Graf, et al.              Expires 23 April 2025                 [Page 7]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
    For each Symptom, the following parameters have been assigned:
@@ -445,9 +445,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 8]
+Graf, et al.              Expires 23 April 2025                 [Page 8]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
            +--rw id                         yang:uuid
@@ -501,9 +501,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                 [Page 9]
+Graf, et al.              Expires 23 April 2025                 [Page 9]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
               +--rw smtopology:vpn-node-termination-container
@@ -557,9 +557,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                [Page 10]
+Graf, et al.              Expires 23 April 2025                [Page 10]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
              |  +--ro smcblsymptom:action?             string
@@ -613,9 +613,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                [Page 11]
+Graf, et al.              Expires 23 April 2025                [Page 11]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
      organization "IETF NMOP (Network Management Operations) Working Group";
@@ -669,9 +669,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                [Page 12]
+Graf, et al.              Expires 23 April 2025                [Page 12]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
                type string;
@@ -725,9 +725,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                [Page 13]
+Graf, et al.              Expires 23 April 2025                [Page 13]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
 5.  Security Considerations
@@ -781,9 +781,9 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                [Page 14]
+Graf, et al.              Expires 23 April 2025                [Page 14]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
    [I-D.netana-nmop-network-anomaly-architecture]
@@ -837,9 +837,9 @@ Authors' Addresses
 
 
 
-Graf, et al.              Expires 10 March 2025                [Page 15]
+Graf, et al.              Expires 23 April 2025                [Page 15]
 
-Internet-Draft          Network Anomaly Semantics         September 2024
+Internet-Draft          Network Anomaly Semantics           October 2024
 
 
    Wanting Du
@@ -893,4 +893,4 @@ Internet-Draft          Network Anomaly Semantics         September 2024
 
 
 
-Graf, et al.              Expires 10 March 2025                [Page 16]
+Graf, et al.              Expires 23 April 2025                [Page 16]

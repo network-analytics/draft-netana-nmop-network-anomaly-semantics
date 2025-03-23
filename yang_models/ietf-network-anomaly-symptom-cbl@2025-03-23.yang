@@ -47,7 +47,7 @@ module ietf-network-anomaly-symptom-cbl {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-03-19 {
+  revision 2025-03-23 {
     description
       "Initial version";
     reference
@@ -79,10 +79,10 @@ module ietf-network-anomaly-symptom-cbl {
         "Reason associated to the action performed by the network
          node.";
     }
-    leaf cause {
+    leaf trigger {
       type string;
       description
-        "Describes why the network node chose this action.";
+        "Describes what triggered the network node to this action.";
     }
     leaf network-plane {
       type enumeration {
