@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="19" month="March" year="2025"/>
+    <date day="23" month="March" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -194,8 +194,6 @@
 
             <t>Symptom</t>
 
-            <t>Cause</t>
-
             <t>Alarm</t>
           </list></t>
       </section>
@@ -209,18 +207,23 @@
         <dt>Action:</dt>
 
         <dd>
-          <t>Defines the operation that a network node performes when forwarding a packet
-          in the Forwarding Plane, a path or adjacency event in the Control Plane or a state
-          or statistical change in the Management Plane. For Forwarding Plane
-          we distinguish between <strong>missing</strong>, where the packet drop occurred outside the
-          measured network node, <strong>drop</strong>, where the packet drop was performed
-          by the measured network node, and <strong>delay</strong>,
-          which defines the on-path delay measured on
-          the network node. For Control Plane we distinguish between
-          <strong>reachability</strong>, which refers to a change in the routing or forwarding
-          information base (RIB/FIB) and <strong>adjacency</strong> which refers to a change in
-          a peering or link-layer resolution. For Management Plane we refer to
-          <strong>state</strong> or <strong>statistical</strong> changes on interfaces.</t>
+          <t>The action that a network node performed for a packet in
+					the Forwarding Plane, a path or adjacency in the Control
+					Plane, or the representation of resource state in the
+					Management Plane or statistical changes recorded by the
+					resources and reported in the Management Plane. For Forwarding
+					Plane we distinguish between <strong>missing</strong>, where
+					the packet drop occurred outside the measured network node,
+					<strong>drop</strong>, where the packet drop was performed by
+					the measured network node, and <strong>delay</strong>, which
+					defines the on-path delay measured on the network node. For
+					Control Plane we distinguish between
+					<strong>reachability</strong>, which refers to a change in the
+					routing or forwarding information base (RIB/FIB) and
+					<strong>adjacency</strong> which refers to a change in a
+					peering or link-layer resolution. For Management Plane we
+					refer to <strong>state</strong> or 
+					<strong>statistical</strong> change on the interface.</t>
         </dd>
       </dl>
 
@@ -245,21 +248,21 @@
       </dl>
 
       <dl>
-        <dt>Cause:</dt>
+        <dt>Trigger:</dt>
 
         <dd>
-          <t>For each reason, the cause describe why a network node 
+          <t>For each reason, the trigger describe why a network node 
           has chosen that action.</t>
         </dd>
       </dl>
 
       <t><xref target="symptom_forwarding_plane_actions_table"/> consolidates
       the list of common symptoms related to the forwarding plane, defining the triplets action,
-      reason and cause.</t>
+      reason and trigger.</t>
 
       <table align="center" anchor="symptom_forwarding_plane_actions_table">
         <name slugifiedName="symptom_forwarding_plane_actions">Description of
-        symptoms and their actions, reason and cause for Forwarding
+        symptoms and their actions, reason and trigger for Forwarding
         Plane</name>
 
         <thead>
@@ -268,7 +271,7 @@
 
             <th align="left" colspan="1" rowspan="1">Reason</th>
 
-            <th align="left" colspan="1" rowspan="1">Cause</th>
+            <th align="left" colspan="1" rowspan="1">Trigger</th>
           </tr>
         </thead>
 
@@ -399,11 +402,11 @@
 
       <t><xref target="symptom_control_plane_actions_table"/> consolidates
       the list of common symptoms related to control plane, describing their actions, reasons
-      and causes.</t>
+      and triggers.</t>
 
       <table align="center" anchor="symptom_control_plane_actions_table">
         <name slugifiedName="symptom_control_plane_actions">Description of
-        symptoms and their actions, reasons and causes related to Control Plane</name>
+        symptoms and their actions, reasons and triggers related to Control Plane</name>
 
         <thead>
           <tr>
@@ -411,7 +414,7 @@
 
             <th align="left" colspan="1" rowspan="1">Reason</th>
 
-            <th align="left" colspan="1" rowspan="1">Cause</th>
+            <th align="left" colspan="1" rowspan="1">Trigger</th>
           </tr>
         </thead>
 
@@ -586,11 +589,11 @@
 
       <t><xref target="symptom_management_plane_actions_table"/> consolidates
       the list of common symptoms related to management plane, defining the triplets action,
-      reason and cause.</t>
+      reason and trigger.</t>
 
       <table align="center" anchor="symptom_management_plane_actions_table">
         <name slugifiedName="symptom_management_plane_actions">Description of
-        symptoms and their actions, reasons and causes for Management
+        symptoms and their actions, reasons and triggers for Management
         Plane</name>
 
         <thead>
@@ -599,7 +602,7 @@
 
             <th align="left" colspan="1" rowspan="1">Reason</th>
 
-            <th align="left" colspan="1" rowspan="1">Cause</th>
+            <th align="left" colspan="1" rowspan="1">Trigger</th>
           </tr>
         </thead>
 
@@ -667,7 +670,7 @@
       <section anchor="symptom-model-tree"
         title="Overview of the Models for the Symptom Semantic Metadata">
         <t>This section defines two YANG models, one defining a placeholder for
-        the action reason cause defined in this document, and one defining service topology
+        the action reason trigger defined in this document, and one defining service topology
         information related to the anomaly.</t>
 
       </section>		
@@ -680,7 +683,7 @@
           It augments the 'ietf-relevant-state' module defined in <xref target="I-D.netana-nmop-network-anomaly-lifecycle"/>.</t>
 
           <t>For each Symptom, the following parameters can be assigned: an Action,
-          a Reason and a Cause describing the Symptom; a concern score indicating how
+          a Reason and a Trigger describing the Symptom; a concern score indicating how
           critical the Symptom is; and the associated network plane.</t>
 
           <figure anchor="ietf-network-anomaly-symptom-tree"
@@ -691,12 +694,12 @@ module: ietf-network-anomaly-symptom-cbl
   augment /rsn:relevant-state/rsn:anomalies/rsn:symptom:
     +--rw action?          string
     +--rw reason?          string
-    +--rw cause?           string
+    +--rw trigger?         string
     +--rw network-plane?   enumeration
   augment /rsn:relevant-state-notification/rsn:anomalies/rsn:symptom:
     +-- action?          string
     +-- reason?          string
-    +-- cause?           string
+    +-- trigger?         string
     +-- network-plane?   enumeration
 ]]></sourcecode></figure>
 
@@ -714,7 +717,7 @@ module: ietf-network-anomaly-symptom-cbl
         <section title="YANG Module">
 
         <t>The YANG module has one typedef defining the score, a grouping
-        defining Action, Reason and Cause and how symptom attributes to the
+        defining Action, Reason and Trigger and how symptom attributes to the
         network planes.</t>
 
 <sourcecode name="ietf-network-anomaly-symptom-cbl@2025-03-19.yang" type="yang" markers="true"><![CDATA[
@@ -799,10 +802,10 @@ module ietf-network-anomaly-symptom-cbl {
         "Reason associated to the action performed by the network
          node.";
     }
-    leaf cause {
+    leaf trigger {
       type string;
       description
-        "Describes why the network node chose this action.";
+        "Describes what triggered the network node to this action.";
     }
     leaf network-plane {
       type enumeration {
