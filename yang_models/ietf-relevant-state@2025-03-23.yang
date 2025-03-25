@@ -264,7 +264,7 @@ module ietf-relevant-state {
   grouping anomaly-grouping {
     description
       "List of anomalies that are part of the relevant state";
-    list anomalies {
+    list anomaly {
       key "id revision";
       description
         "List of Anomaly instances.";

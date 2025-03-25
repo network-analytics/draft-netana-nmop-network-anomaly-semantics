@@ -91,14 +91,14 @@ Table of Contents
      4.2.  YANG Model 'ietf-network-anomaly-symptom-cbl' . . . . . .   8
      4.3.  YANG Module 'ietf-network-anomaly-service-topology' . . .  11
      4.4.  Apache AVRO Schema  . . . . . . . . . . . . . . . . . . .  17
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  25
-   6.  Implementation status . . . . . . . . . . . . . . . . . . . .  25
-     6.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  25
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  25
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  25
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  25
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  26
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  26
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  24
+   6.  Implementation status . . . . . . . . . . . . . . . . . . . .  24
+     6.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  24
+   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  24
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  24
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  24
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  25
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  25
 
 
 
@@ -909,7 +909,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    {
      "type": "record",
      "name": "relevant-state-notification",
-     "namespace": "com.swisscom.daisy.cbl.relevant-state-notification",
+     "namespace": "com.swisscom.daisy.cosmos.brightlights.relevant-state-notification",
      "relevant-state-notification": [
        {
          "name": "id",
@@ -917,8 +917,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
            "type": "string",
            "logicalType": "uuid"
          },
-         "doc": "Unique ID of the relevant state. It is unique in the scope
-                of the Label Store."
+         "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store."
        },
        {
          "name": "uri",
@@ -927,8 +926,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
            "string"
          ],
          "default": null,
-         "doc": "URI to viusalize the analytical metrics of the
-                relevant-state."
+         "doc": "URI to viusalize the analytical metrics of the relevant-state."
        },
        {
          "name": "description",
@@ -946,6 +944,8 @@ Internet-Draft          Network Anomaly Semantics             March 2025
          "doc": "Date and time indicating the beginning of the problem."
        },
        {
+         "name": "end-time",
+         "type": {
 
 
 
@@ -954,8 +954,6 @@ Graf, et al.            Expires 24 September 2025              [Page 17]
 Internet-Draft          Network Anomaly Semantics             March 2025
 
 
-         "name": "end-time",
-         "type": {
            "type": "long",
            "logicalType": "timestamp-millis"
          },
@@ -967,8 +965,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
            "type": "int",
            "logicalType": "score"
          },
-         "doc": "Score indicating how confident were the detectors in
-                relation to the overall relevant state."
+         "doc": "Score indicating how confident were the detectors in relation to the overall relevant state."
        },
        {
          "name": "concern-score",
@@ -976,17 +973,15 @@ Internet-Draft          Network Anomaly Semantics             March 2025
            "type": "int",
            "logicalType": "score"
          },
-         "doc": "Score indicating the degree of concern in relation to the
-                overall relevant state."
+         "doc": "Score indicating the degree of concern in relation to the overall relevant state."
        },
        {
-         "name": "anomalies",
+         "name": "anomaly",
          "doc": "List of anomalies that are part of the relevant state",
          "type": [
            "null",
            {
              "name": "anomaly",
-             "doc": "Container with a list of anomalies.",
              "type": "record",
              "fields": [
                {
@@ -1002,6 +997,11 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                  "type": [
                    "null",
                    "string"
+                 ],
+                 "default": null,
+                 "doc": "URI to viusalize the analytical metrics of the anomaly."
+               },
+               {
 
 
 
@@ -1010,22 +1010,12 @@ Graf, et al.            Expires 24 September 2025              [Page 18]
 Internet-Draft          Network Anomaly Semantics             March 2025
 
 
-                 ],
-                 "default": null,
-                 "doc": "URI to viusalize the analytical metrics of the
-                        anomaly."
-               },
-               {
                  "name": "revision",
                  "type": {
                    "type": "int",
                    "logicalType": "counter"
                  },
-                 "doc": "Revision of the anomaly metadata object. It allows
-                        multiple revisions of the metadata to be generated
-                        in order to support the definition of multiple
-                        problem objects from the same source to facilitate
-                        improvements overtime."
+                 "doc": "Revision of the anomaly metadata object. It allows multiple revisions of the metadata to be generated in order to support the definition of multiple problem objects from the same source to facilitate improvements overtime."
                },
                {
                  "name": "state",
@@ -1058,6 +1048,16 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                    "type": "long",
                    "logicalType": "timestamp-millis"
                  },
+                 "doc": "Date and time indicating the beginning of the anomaly. A detection system will alwasys set a start time, as it represents the moment in time from which the behaviour of the monitored system is considered to be anomalous with respect its expected behaviour."
+               },
+               {
+                 "name": "end-time",
+                 "type": {
+                   "type": "long",
+                   "logicalType": "timestamp-millis"
+                 },
+                 "doc": "Date and time indicating the end of the anomaly. This field is indicated as non mandatory, as it could be the case that the anomaly is still happening at the time of generation of the label."
+               },
 
 
 
@@ -1066,32 +1066,13 @@ Graf, et al.            Expires 24 September 2025              [Page 19]
 Internet-Draft          Network Anomaly Semantics             March 2025
 
 
-                 "doc": "Date and time indicating the beginning of the
-                 anomaly. A detection system will alwasys set a start time,
-                 as it represents the moment in time from which the
-                 behaviour of the monitored system is considered to be
-                 anomalous with respect its expected behaviour."
-               },
-               {
-                 "name": "end-time",
-                 "type": {
-                   "type": "long",
-                   "logicalType": "timestamp-millis"
-                 },
-                 "doc": "Date and time indicating the end of the anomaly.
-                 This field is indicated as non mandatory, as it could be
-                 the case that the anomaly is still happening at the time
-                 of generation of the label."
-               },
                {
                  "name": "confidence-score",
                  "type": {
                    "type": "int",
                    "logicalType": "score"
                  },
-                 "doc": "Score indicating how confident was the detector
-                 while considering the given anomaly as part of the
-                 relevant event."
+                 "doc": "Score indicating how confident was the detector while considering the given anomaly as part of the relevant event."
                },
                {
                  "name": "pattern",
@@ -1106,23 +1087,12 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                      "trend",
                      "other"
                    ],
-                   "doc": "Pattern describes the type of pattern that was
-                   detected by the annotator (e.g. spike, drop, mean-shift,
-                   etc.)."
+                   "doc": "Pattern describes the type of pattern that was detected by the annotator (e.g. spike, drop, mean-shift, etc.)."
                  }
                },
                {
                  "name": "annotator",
-                 "doc": "Annotator represents the entity that produced the
-
-
-
-Graf, et al.            Expires 24 September 2025              [Page 20]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
-                 annotation.",
+                 "doc": "Annotator represents the entity that produced the annotation.",
                  "type": {
                    "name": "annotator",
                    "type": "record",
@@ -1130,9 +1100,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                      {
                        "name": "name",
                        "type": "string",
-                       "doc": "Name of the annotator (either user or
-                       algorithm) If it is an algorithm, the name can also
-                       include the version."
+                       "doc": "Name of the annotator (either user or algorithm) If it is an algorithm, the name can also include the version."
                      },
                      {
                        "name": "annotator-type",
@@ -1143,17 +1111,23 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                            "human",
                            "algorithm"
                          ],
-                         "doc": "An annotator can be either a human user or
-                         a programmatic entity, such as an algorithm."
+                         "doc": "An annotator can be either a human user or a programmatic entity, such as an algorithm."
                        }
                      }
+
+
+
+Graf, et al.            Expires 24 September 2025              [Page 20]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
                    ]
                  }
                },
                {
                  "name": "symptom",
-                 "doc": "Semantic definining a symptom detected for a
-                        connectivity service.",
+                 "doc": "Semantic definining a symptom detected for a connectivity service.",
                  "type": {
                    "name": "symptom",
                    "type": "record",
@@ -1170,14 +1144,6 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                      },
                      {
                        "name": "cause",
-
-
-
-Graf, et al.            Expires 24 September 2025              [Page 21]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
                        "type": "string",
                        "doc": "cause"
                      },
@@ -1204,20 +1170,23 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                    "name": "vpn-node-termination",
                    "type": "record",
                    "fields": [
+
+
+
+Graf, et al.            Expires 24 September 2025              [Page 21]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
                      {
                        "name": "hostname",
                        "type": "string",
-                       "doc": "The hostname of the network node according
-                       to RFC 1213. This value is usually configured on the
-                       node by the administrator to uniquely identify the
-                       node in the network."
+                       "doc": "The hostname of the network node according to RFC 1213. This value is usually configured on the node by the administrator to uniquely identify the node in the network."
                      },
                      {
                        "name": "route-distinguisher",
                        "type": "string",
-                       "doc": "The BGP route-distinguisher obtained through
-                       IPFIX IE90 mplsVpnRouteDistinguisher or BMP
-                       route-monitoring or peer_up message type."
+                       "doc": "The BGP route-distinguisher obtained through IPFIX IE90 mplsVpnRouteDistinguisher or BMP route-monitoring or peer_up message type."
                      },
                      {
                        "name": "peer-ip",
@@ -1225,17 +1194,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                          "type": "string",
                          "logicalType": "ip-address"
                        },
-                       "doc": "The BGP peering IP address learned through
-
-
-
-Graf, et al.            Expires 24 September 2025              [Page 22]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
-                       BMP route-monitoring, peer_up or peer_down message
-                       type."
+                       "doc": "The BGP peering IP address learned through BMP route-monitoring, peer_up or peer_down message type."
                      },
                      {
                        "name": "next-hop",
@@ -1243,15 +1202,12 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                          "type": "string",
                          "logicalType": "ip-address"
                        },
-                       "doc": "The BGP next-hop IP address learned through
-                       BMP route-monitoring message type."
+                       "doc": "The BGP next-hop IP address learned through BMP route-monitoring message type."
                      },
                      {
                        "name": "interface-id",
                        "type": "long",
-                       "doc": "The interface identifier obtained through
-                       IPFIX IE10 ingressInterface, IE14 egressInterface or
-                       ietf-interfaces:interfaces/interface/if-index."
+                       "doc": "The interface identifier obtained through IPFIX IE10 ingressInterface, IE14 egressInterface or ietf-interfaces:interfaces/interface/if-index."
                      }
                    ]
                  }
@@ -1270,6 +1226,14 @@ Internet-Draft          Network Anomaly Semantics             March 2025
              {
                "name": "uri",
                "type": [
+
+
+
+Graf, et al.            Expires 24 September 2025              [Page 22]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
                  "null",
                  "string"
                ],
@@ -1282,14 +1246,6 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                "doc": "Unique ID of the VPN connectivity service."
              },
              {
-
-
-
-Graf, et al.            Expires 24 September 2025              [Page 23]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
                "name": "vpn-name",
                "type": "string",
                "doc": "Name of the VPN connectivity service."
@@ -1303,8 +1259,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                    "type": "string"
                  }
                },
-               "doc": "List of unique site ID's of the VPN connectivity
-               service."
+               "doc": "List of unique site ID's of the VPN connectivity service."
              },
              {
                "name": "change-start-time",
@@ -1312,8 +1267,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                  "type": "long",
                  "logicalType": "timestamp-millis"
                },
-               "doc": "Start date and time of the VPN service maintenance
-               window."
+               "doc": "Start date and time of the VPN service maintenance window."
              },
              {
                "name": "change-end-time",
@@ -1321,31 +1275,29 @@ Internet-Draft          Network Anomaly Semantics             March 2025
                  "type": "long",
                  "logicalType": "timestamp-millis"
                },
-               "doc": "End date and time of the VPN service maintenance
-               window."
+               "doc": "End date and time of the VPN service maintenance window."
              },
              {
                "name": "change-id",
                "type": {
                  "type": "string",
                  "logicalType": "uuid"
+
+
+
+Graf, et al.            Expires 24 September 2025              [Page 23]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
                },
-               "doc": "Unique identifier of VPN service maintenance
-               window."
+               "doc": "Unique identifier of VPN service maintenance window."
              }
            ]
          }
        }
      ]
    }
-
-
-
-Graf, et al.            Expires 24 September 2025              [Page 24]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
-
    <CODE ENDS>
 
 5.  Security Considerations
@@ -1387,20 +1339,17 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 8.1.  Normative References
 
+
+
+Graf, et al.            Expires 24 September 2025              [Page 24]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
    [Antagonist]
               Riccobene, V., Du, W., Graf, T., and H. Huang Feng,
               "Antagonist: Anomaly tagging on historical data",
               <https://github.com/vriccobene/antagonist>.
-
-
-
-
-
-
-Graf, et al.            Expires 24 September 2025              [Page 25]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
-
 
    [I-D.ietf-nmop-network-anomaly-architecture]
               Graf, T., Du, W., and P. Francois, "An Architecture for a
@@ -1441,21 +1390,24 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 Authors' Addresses
 
+
+
+
+
+
+
+
+Graf, et al.            Expires 24 September 2025              [Page 25]
+
+Internet-Draft          Network Anomaly Semantics             March 2025
+
+
    Thomas Graf
    Swisscom
    Binzring 17
    CH-8045 Zurich
    Switzerland
    Email: thomas.graf@swisscom.com
-
-
-
-
-
-
-Graf, et al.            Expires 24 September 2025              [Page 26]
-
-Internet-Draft          Network Anomaly Semantics             March 2025
 
 
    Wanting Du
@@ -1501,12 +1453,4 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-
-
-
-
-
-
-
-
-Graf, et al.            Expires 24 September 2025              [Page 27]
+Graf, et al.            Expires 24 September 2025              [Page 26]
