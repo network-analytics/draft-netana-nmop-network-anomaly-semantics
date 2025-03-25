@@ -60,13 +60,12 @@
       "doc": "Score indicating the degree of concern in relation to the overall relevant state."
     },
     {
-      "name": "anomalies",
+      "name": "anomaly",
       "doc": "List of anomalies that are part of the relevant state",
       "type": [
         "null",
         {
           "name": "anomaly",
-          "doc": "Container with a list of anomalies.",
           "type": "record",
           "fields": [
             {
