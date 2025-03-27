@@ -177,7 +177,7 @@ module ietf-network-anomaly-service-topology {
     uses vpn-services;
   }
 
-  augment "/rsn:relevant-state/rsn:anomalies" {
+  augment "/rsn:relevant-state/rsn:anomaly" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the
@@ -185,7 +185,7 @@ module ietf-network-anomaly-service-topology {
     uses vpn-node-termination;
   }
 
-  augment "/rsn:relevant-state-notification/rsn:anomalies" {
+  augment "/rsn:relevant-state-notification/rsn:anomaly" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the

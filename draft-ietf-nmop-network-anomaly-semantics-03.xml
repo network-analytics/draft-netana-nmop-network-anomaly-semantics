@@ -720,12 +720,12 @@
           <sourcecode type="yangtree"><![CDATA[
 module: ietf-network-anomaly-symptom-cbl
 
-  augment /rsn:relevant-state/rsn:anomalies/rsn:symptom:
+  augment /rsn:relevant-state/rsn:anomaly/rsn:symptom:
     +--rw action?          string
     +--rw reason?          string
     +--rw trigger?         string
     +--rw network-plane?   enumeration
-  augment /rsn:relevant-state-notification/rsn:anomalies/rsn:symptom:
+  augment /rsn:relevant-state-notification/rsn:anomaly/rsn:symptom:
     +-- action?          string
     +-- reason?          string
     +-- trigger?         string
@@ -749,7 +749,7 @@ module: ietf-network-anomaly-symptom-cbl
 				grouping defining Action, Reason and Trigger and how symptom
 				attributes to the network planes.</t>
 
-<sourcecode name="ietf-network-anomaly-symptom-cbl@2025-03-19.yang"
+<sourcecode name="ietf-network-anomaly-symptom-cbl@2025-03-23.yang"
 type="yang" markers="true"><![CDATA[
 module ietf-network-anomaly-symptom-cbl {
   yang-version 1.1;
@@ -800,7 +800,7 @@ module ietf-network-anomaly-symptom-cbl {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-03-19 {
+  revision 2025-03-23 {
     description
       "Initial version";
     reference
@@ -857,7 +857,7 @@ module ietf-network-anomaly-symptom-cbl {
     }
   }
 
-  augment "/rsn:relevant-state/rsn:anomalies"
+  augment "/rsn:relevant-state/rsn:anomaly"
         + "/rsn:symptom" {
     description
       "Provide extension for the symptom description,
@@ -866,7 +866,7 @@ module ietf-network-anomaly-symptom-cbl {
     uses cbl-symptom;
   }
 
-  augment "/rsn:relevant-state-notification/rsn:anomalies"
+  augment "/rsn:relevant-state-notification/rsn:anomaly"
         + "/rsn:symptom" {
     description
       "Provide extension for the symptom description,
@@ -913,14 +913,14 @@ module: ietf-network-anomaly-service-topology
        +--ro change-id?           yang:uuid
        +--ro change-start-time?   yang:date-and-time
        +--ro change-end-time?     yang:date-and-time
-  augment /rsn:relevant-state/rsn:anomalies:
+  augment /rsn:relevant-state/rsn:anomaly:
     +--rw vpn-node-terminations* [hostname route-distinguisher]
        +--rw hostname               inet:host
        +--rw route-distinguisher    string
        +--rw peer-ip*               inet:ip-address
        +--rw next-hop*              inet:ip-address
        +--rw interface-id*          uint32
-  augment /rsn:relevant-state-notification/rsn:anomalies:
+  augment /rsn:relevant-state-notification/rsn:anomaly:
     +-- vpn-node-terminations* [hostname route-distinguisher]
        +-- hostname               inet:host
        +-- route-distinguisher    string
@@ -938,7 +938,7 @@ module: ietf-network-anomaly-service-topology
 					associated to the relevant state.</t>
 
           <sourcecode
-					name="ietf-network-anomaly-service-topology@2025-03-19.yang"
+					name="ietf-network-anomaly-service-topology@2025-03-23.yang"
 					type="yang" markers="true"><![CDATA[
 module ietf-network-anomaly-service-topology {
   yang-version 1.1;
@@ -1000,12 +1000,11 @@ module ietf-network-anomaly-service-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-03-19 {
+  revision 2025-03-23 {
     description
       "Initial version";
     reference
-      "RFC XXX: Semantic Metadata Annotation for Network Anomaly
-      Detection";
+      "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
   }
 
   grouping vpn-services {
@@ -1120,7 +1119,7 @@ module ietf-network-anomaly-service-topology {
     uses vpn-services;
   }
 
-  augment "/rsn:relevant-state/rsn:anomalies" {
+  augment "/rsn:relevant-state/rsn:anomaly" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the
@@ -1128,7 +1127,7 @@ module ietf-network-anomaly-service-topology {
     uses vpn-node-termination;
   }
 
-  augment "/rsn:relevant-state-notification/rsn:anomalies" {
+  augment "/rsn:relevant-state-notification/rsn:anomaly" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the

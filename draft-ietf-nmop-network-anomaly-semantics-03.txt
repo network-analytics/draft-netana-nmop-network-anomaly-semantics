@@ -415,12 +415,12 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
    module: ietf-network-anomaly-symptom-cbl
 
-     augment /rsn:relevant-state/rsn:anomalies/rsn:symptom:
+     augment /rsn:relevant-state/rsn:anomaly/rsn:symptom:
        +--rw action?          string
        +--rw reason?          string
        +--rw trigger?         string
        +--rw network-plane?   enumeration
-     augment /rsn:relevant-state-notification/rsn:anomalies/rsn:symptom:
+     augment /rsn:relevant-state-notification/rsn:anomaly/rsn:symptom:
        +-- action?          string
        +-- reason?          string
        +-- trigger?         string
@@ -450,7 +450,7 @@ Graf, et al.            Expires 24 September 2025               [Page 8]
 Internet-Draft          Network Anomaly Semantics             March 2025
 
 
-   <CODE BEGINS> file "ietf-network-anomaly-symptom-cbl@2025-03-19.yang"
+   <CODE BEGINS> file "ietf-network-anomaly-symptom-cbl@2025-03-23.yang"
    module ietf-network-anomaly-symptom-cbl {
      yang-version 1.1;
      namespace
@@ -508,7 +508,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
         the RFC itself for full legal notices.";
 
-     revision 2025-03-19 {
+     revision 2025-03-23 {
        description
          "Initial version";
        reference
@@ -573,7 +573,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
        }
      }
 
-     augment "/rsn:relevant-state/rsn:anomalies"
+     augment "/rsn:relevant-state/rsn:anomaly"
            + "/rsn:symptom" {
        description
          "Provide extension for the symptom description,
@@ -582,7 +582,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
        uses cbl-symptom;
      }
 
-     augment "/rsn:relevant-state-notification/rsn:anomalies"
+     augment "/rsn:relevant-state-notification/rsn:anomaly"
            + "/rsn:symptom" {
        description
          "Provide extension for the symptom description,
@@ -638,14 +638,14 @@ Internet-Draft          Network Anomaly Semantics             March 2025
           +--ro change-id?           yang:uuid
           +--ro change-start-time?   yang:date-and-time
           +--ro change-end-time?     yang:date-and-time
-     augment /rsn:relevant-state/rsn:anomalies:
+     augment /rsn:relevant-state/rsn:anomaly:
        +--rw vpn-node-terminations* [hostname route-distinguisher]
           +--rw hostname               inet:host
           +--rw route-distinguisher    string
           +--rw peer-ip*               inet:ip-address
           +--rw next-hop*              inet:ip-address
           +--rw interface-id*          uint32
-     augment /rsn:relevant-state-notification/rsn:anomalies:
+     augment /rsn:relevant-state-notification/rsn:anomaly:
        +-- vpn-node-terminations* [hostname route-distinguisher]
           +-- hostname               inet:host
           +-- route-distinguisher    string
@@ -661,7 +661,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    relevant state.
 
    <CODE BEGINS>
-     file "ietf-network-anomaly-service-topology@2025-03-19.yang"
+     file "ietf-network-anomaly-service-topology@2025-03-23.yang"
    module ietf-network-anomaly-service-topology {
      yang-version 1.1;
      namespace
@@ -737,12 +737,11 @@ Internet-Draft          Network Anomaly Semantics             March 2025
         This version of this YANG module is part of RFC XXXX; see
         the RFC itself for full legal notices.";
 
-     revision 2025-03-19 {
+     revision 2025-03-23 {
        description
          "Initial version";
        reference
-         "RFC XXX: Semantic Metadata Annotation for Network Anomaly
-         Detection";
+         "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
      }
 
      grouping vpn-services {
@@ -778,6 +777,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
            type yang:uuid;
            description
              "Unique identifier of VPN service maintenance window.";
+         }
 
 
 
@@ -786,7 +786,6 @@ Graf, et al.            Expires 24 September 2025              [Page 14]
 Internet-Draft          Network Anomaly Semantics             March 2025
 
 
-         }
          leaf change-start-time {
            type yang:date-and-time;
            description
@@ -834,6 +833,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
          }
          leaf-list next-hop {
            type inet:ip-address;
+           description
 
 
 
@@ -842,7 +842,6 @@ Graf, et al.            Expires 24 September 2025              [Page 15]
 Internet-Draft          Network Anomaly Semantics             March 2025
 
 
-           description
              "The BGP next-hop IP address learned through
                BMP route-monitoring message type.";
          }
@@ -873,7 +872,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
        uses vpn-services;
      }
 
-     augment "/rsn:relevant-state/rsn:anomalies" {
+     augment "/rsn:relevant-state/rsn:anomaly" {
        description
          "Provide extension for the service description,
           specifically for connectivity services to the
@@ -881,7 +880,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
        uses vpn-node-termination;
      }
 
-     augment "/rsn:relevant-state-notification/rsn:anomalies" {
+     augment "/rsn:relevant-state-notification/rsn:anomaly" {
        description
          "Provide extension for the service description,
           specifically for connectivity services to the
@@ -890,6 +889,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
      }
    }
    <CODE ENDS>
+
 
 
 

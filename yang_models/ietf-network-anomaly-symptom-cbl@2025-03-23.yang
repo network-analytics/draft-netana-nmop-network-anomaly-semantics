@@ -104,7 +104,7 @@ module ietf-network-anomaly-symptom-cbl {
     }
   }
 
-  augment "/rsn:relevant-state/rsn:anomalies"
+  augment "/rsn:relevant-state/rsn:anomaly"
         + "/rsn:symptom" {
     description
       "Provide extension for the symptom description,
@@ -113,7 +113,7 @@ module ietf-network-anomaly-symptom-cbl {
     uses cbl-symptom;
   }
 
-  augment "/rsn:relevant-state-notification/rsn:anomalies"
+  augment "/rsn:relevant-state-notification/rsn:anomaly"
         + "/rsn:symptom" {
     description
       "Provide extension for the symptom description,
