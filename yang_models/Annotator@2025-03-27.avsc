@@ -1,0 +1,26 @@
+{
+  "type": "record",
+  "name": "Annotator",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Name of the annotator (either user or algorithm)."
+    },
+    {
+      "name": "annotatorType",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "AnnotatorType",
+          "symbols": ["human", "algorithm"],
+          "doc": "An annotator can be either a human user or a programmatic entity, such as an algorithm."
+        }
+      ],
+      "default": null,
+      "doc": "AnnotatorType specifies the type of the annotator."
+    }
+  ]
+}
