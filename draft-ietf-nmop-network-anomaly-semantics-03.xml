@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="23" month="March" year="2025"/>
+    <date day="29" month="March" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -1141,6 +1141,15 @@ module ietf-network-anomaly-service-topology {
 			
 			<section anchor="Apache-AVRO-Schema" title="Apache AVRO Schema">
 
+          <t>Depending on implementation, a network operator might
+					chose defined YANG models as data models or uses the YANG
+					models as information data models and transform them 
+					to another schema format such as <xref
+					target="Apache AVRO"/> to use
+					as data model for <xref
+					target="I-D.ietf-nmop-yang-message-broker-integration"/>
+					integration.</t>
+
           <t>Shows the entire notification schema of 
 					'ietf-relevant-state.yang' from <xref
 					target="I-D.ietf-nmop-network-anomaly-lifecycle"/>, 
@@ -1149,39 +1158,64 @@ module ietf-network-anomaly-service-topology {
 					'ietf-network-anomaly-symptom-cbl.yang' from <xref
 					target="YANG-Symptom-Module"/> as an Apache AVRO schema.</t>
 
-          <sourcecode name="relevant-state-notification@2025-03-23.avsc"
+          <t>The Apache AVRO schema is decomposed based on
+					YANG groupings as following:</t>
+
+          <t><list style="symbols">
+              <t>RelevantStateNotification.avsc is based on
+							'relevant-state-grouping' defined in
+							'ietf-relevant-state.yang' with
+							'ietf.relevant.state.Anomaly',
+							'ietf.relevant.state.VpnNodeTermination' and
+							'ietf.relevant.state.VpnService' AVRO schema imports.</t>
+    
+              <t>Anomaly.avsc is based on 'anomaly-grouping' defined in
+							'ietf-relevant-state.yang' with
+							'ietf.relevant.state.Annotator' and
+							'ietf.relevant.state.Symptom' AVRO schema imports.</t>
+    
+              <t>Annotator.avsc is based on 'anotator-grouping' defined
+							in 'ietf-relevant-state.yang'.</t>
+    
+              <t>Symptom.avsc is based on 'cbl-symptom' defined
+							in 'ietf-network-anomaly-symptom-cbl.yang'.</t>
+    
+              <t>VpnService.avsc is based on 'vpn-services' defined
+							in 'ietf-network-anomaly-service-topology.yang'.</t>
+
+              <t>VpnNodeTermination.avsc is based on
+							'vpn-node-termination' defined in
+							'ietf-network-anomaly-service-topology.yang'.</t>
+            </list></t>
+
+          <sourcecode name="RelevantStateNotification@2025-03-27.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
-  "name": "relevant-state-notification",
-  "namespace": "com.swisscom.daisy.cosmos.brightlights.relevant-state-notification",
-  "relevant-state-notification": [
+  "name": "RelevantStateNotification",
+  "namespace": "ietf.relevant.state",
+  "fields": [
     {
       "name": "id",
-      "type": {
-        "type": "string",
-        "logicalType": "uuid"
-      },
-      "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store."
+      "type": "string",
+      "doc": "Unique ID of the relevant state. It is unique in the scope
+			of the Label Store."
     },
     {
       "name": "uri",
-      "type": [
-        "null",
-        "string"
-      ],
+      "type": ["null", "string"],
       "default": null,
-      "doc": "URI to viusalize the analytical metrics of the relevant-state."
+      "doc": "URI to visualize the analytical metrics of the
+			relevant-state."
     },
     {
       "name": "description",
-      "type": {
-        "type": "string"
-      },
-      "doc": "extual description of the fault."
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Textual description of the fault."
     },
     {
-      "name": "start-time",
+      "name": "startTime",
       "type": {
         "type": "long",
         "logicalType": "timestamp-millis"
@@ -1189,305 +1223,296 @@ module ietf-network-anomaly-service-topology {
       "doc": "Date and time indicating the beginning of the problem."
     },
     {
-      "name": "end-time",
-      "type": {
-        "type": "long",
-        "logicalType": "timestamp-millis"
-      },
+      "name": "endTime",
+      "type": ["null", { "type": "long", "logicalType": "timestamp-millis" }],
+      "default": null,
       "doc": "Date and time indicating the end of the problem."
     },
     {
-      "name": "confidence-score",
-      "type": {
-        "type": "int",
-        "logicalType": "score"
-      },
-      "doc": "Score indicating how confident were the detectors in relation to the overall relevant state."
+      "name": "confidenceScore",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "Score between 0 and 100 indicating how confident were the
+			detectors in relation to the overall relevant state."
     },
     {
-      "name": "concern-score",
-      "type": {
-        "type": "int",
-        "logicalType": "score"
-      },
-      "doc": "Score indicating the degree of concern in relation to the overall relevant state."
+      "name": "concernScore",
+      "type": "int",
+      "doc": "Score between 0 and 100 indicating the degree of concern
+			in relation to the overall relevant state."
     },
     {
       "name": "anomaly",
-      "doc": "List of anomalies that are part of the relevant state",
-      "type": [
-        "null",
-        {
-          "name": "anomaly",
-          "type": "record",
-          "fields": [
-            {
-              "name": "id",
-              "type": {
-                "type": "string",
-                "logicalType": "uuid"
-              },
-              "doc": "Unique ID of the anomaly"
-            },
-            {
-              "name": "uri",
-              "type": [
-                "null",
-                "string"
-              ],
-              "default": null,
-              "doc": "URI to viusalize the analytical metrics of the anomaly."
-            },
-            {
-              "name": "revision",
-              "type": {
-                "type": "int",
-                "logicalType": "counter"
-              },
-              "doc": "Revision of the anomaly metadata object. It allows multiple revisions of the metadata to be generated in order to support the definition of multiple problem objects from the same source to facilitate improvements overtime."
-            },
-            {
-              "name": "state",
-              "type": {
-                "type": "enum",
-                "name": "state",
-                "symbols": [
-                  "detection",
-                  "validation",
-                  "refinement",
-                  "problem-forecasted",
-                  "problem-potential",
-                  "discarded",
-                  "analyzed",
-                  "adjusted"
-                ],
-                "doc": "State of the anomaly."
-              }
-            },
-            {
-              "name": "description",
-              "type": {
-                "type": "string"
-              },
-              "doc": "Textual description of the anomaly."
-            },
-            {
-              "name": "start-time",
-              "type": {
-                "type": "long",
-                "logicalType": "timestamp-millis"
-              },
-              "doc": "Date and time indicating the beginning of the anomaly. A detection system will alwasys set a start time, as it represents the moment in time from which the behaviour of the monitored system is considered to be anomalous with respect its expected behaviour."
-            },
-            {
-              "name": "end-time",
-              "type": {
-                "type": "long",
-                "logicalType": "timestamp-millis"
-              },
-              "doc": "Date and time indicating the end of the anomaly. This field is indicated as non mandatory, as it could be the case that the anomaly is still happening at the time of generation of the label."
-            },
-            {
-              "name": "confidence-score",
-              "type": {
-                "type": "int",
-                "logicalType": "score"
-              },
-              "doc": "Score indicating how confident was the detector while considering the given anomaly as part of the relevant event."
-            },
-            {
-              "name": "pattern",
-              "type": {
-                "type": "enum",
-                "name": "pattern",
-                "symbols": [
-                  "drop",
-                  "spike",
-                  "mean-shift",
-                  "seasonality-shift",
-                  "trend",
-                  "other"
-                ],
-                "doc": "Pattern describes the type of pattern that was detected by the annotator (e.g. spike, drop, mean-shift, etc.)."
-              }
-            },
-            {
-              "name": "annotator",
-              "doc": "Annotator represents the entity that produced the annotation.",
-              "type": {
-                "name": "annotator",
-                "type": "record",
-                "fields": [
-                  {
-                    "name": "name",
-                    "type": "string",
-                    "doc": "Name of the annotator (either user or algorithm) If it is an algorithm, the name can also include the version."
-                  },
-                  {
-                    "name": "annotator-type",
-                    "type": {
-                      "type": "enum",
-                      "name": "annotator-type",
-                      "symbols": [
-                        "human",
-                        "algorithm"
-                      ],
-                      "doc": "An annotator can be either a human user or a programmatic entity, such as an algorithm."
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "name": "symptom",
-              "doc": "Semantic definining a symptom detected for a connectivity service.",
-              "type": {
-                "name": "symptom",
-                "type": "record",
-                "fields": [
-                  {
-                    "name": "action",
-                    "type": "string",
-                    "doc": "action"
-                  },
-                  {
-                    "name": "reason",
-                    "type": "string",
-                    "doc": "reason"
-                  },
-                  {
-                    "name": "cause",
-                    "type": "string",
-                    "doc": "cause"
-                  },
-                  {
-                    "name": "plane",
-                    "type": {
-                      "type": "enum",
-                      "name": "plane",
-                      "symbols": [
-                        "management",
-                        "control",
-                        "forwarding"
-                      ],
-                      "doc": "Network Plane affected by the symptom."
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "name": "vpn-node-termination",
-              "doc": "List of Node Terminations of interest.",
-              "type": {
-                "name": "vpn-node-termination",
-                "type": "record",
-                "fields": [
-                  {
-                    "name": "hostname",
-                    "type": "string",
-                    "doc": "The hostname of the network node according to RFC 1213. This value is usually configured on the node by the administrator to uniquely identify the node in the network."
-                  },
-                  {
-                    "name": "route-distinguisher",
-                    "type": "string",
-                    "doc": "The BGP route-distinguisher obtained through IPFIX IE90 mplsVpnRouteDistinguisher or BMP route-monitoring or peer_up message type."
-                  },
-                  {
-                    "name": "peer-ip",
-                    "type": {
-                      "type": "string",
-                      "logicalType": "ip-address"
-                    },
-                    "doc": "The BGP peering IP address learned through BMP route-monitoring, peer_up or peer_down message type."
-                  },
-                  {
-                    "name": "next-hop",
-                    "type": {
-                      "type": "string",
-                      "logicalType": "ip-address"
-                    },
-                    "doc": "The BGP next-hop IP address learned through BMP route-monitoring message type."
-                  },
-                  {
-                    "name": "interface-id",
-                    "type": "long",
-                    "doc": "The interface identifier obtained through IPFIX IE10 ingressInterface, IE14 egressInterface or ietf-interfaces:interfaces/interface/if-index."
-                  }
-                ]
-              }
-            }
-          ]
-        }
-      ]
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.Anomaly"
+      },
+      "doc": "List of anomalies that are part of the relevant state."
     },
     {
-      "name": "vpn-service",
-      "doc": "List of VPN services of interest.",
+      "name": "vpnNodeTerminations",
       "type": {
-        "name": "vpn-service",
-        "type": "record",
-        "fields": [
-          {
-            "name": "uri",
-            "type": [
-              "null",
-              "string"
-            ],
-            "default": null,
-            "doc": "URI to viusalize the VPN service inventory."
-          },
-          {
-            "name": "vpn-id",
-            "type": "string",
-            "doc": "Unique ID of the VPN connectivity service."
-          },
-          {
-            "name": "vpn-name",
-            "type": "string",
-            "doc": "Name of the VPN connectivity service."
-          },
-          {
-            "name": "site-ids",
-            "type": {
-              "type": "array",
-              "items": {
-                "name": "site-id",
-                "type": "string"
-              }
-            },
-            "doc": "List of unique site ID's of the VPN connectivity service."
-          },
-          {
-            "name": "change-start-time",
-            "type": {
-              "type": "long",
-              "logicalType": "timestamp-millis"
-            },
-            "doc": "Start date and time of the VPN service maintenance window."
-          },
-          {
-            "name": "change-end-time",
-            "type": {
-              "type": "long",
-              "logicalType": "timestamp-millis"
-            },
-            "doc": "End date and time of the VPN service maintenance window."
-          },
-          {
-            "name": "change-id",
-            "type": {
-              "type": "string",
-              "logicalType": "uuid"
-            },
-            "doc": "Unique identifier of VPN service maintenance window."
-          }
-        ]
-      }
+        "type": "array",
+        "items": "ietf.relevant.state.VpnNodeTermination"
+      },
+      "doc": "List of Node Terminations of interest."
+    },
+    {
+      "name": "vpnServices",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.VpnService"
+      },
+      "doc": "List of VPN services of interest."
+    },
+    {
+      "name": "publisher",
+      "type": "string",
+      "doc": "Name of the system which published the relevant-state
+			notification."
     }
   ]
 }
-]]></sourcecode>			
+]]></sourcecode>
+
+          <sourcecode name="Anomaly@2025-03-27.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "Anomaly",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "doc": "Unique identifier of the anomaly."
+    },
+    {
+      "name": "revision",
+      "type": "int",
+      "doc": "Revision of the anomaly metadata object."
+    },
+    {
+      "name": "uri",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URI to visualize the analytical metrics of the anomaly."
+    },
+    {
+      "name": "state",
+      "type": "string",
+      "doc": "State of the anomaly."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Textual description of the anomaly."
+    },
+    {
+      "name": "startTime",
+      "type": { "type": "long", "logicalType": "timestamp-millis" },
+      "doc": "Date and time indicating the beginning of the anomaly."
+    },
+    {
+      "name": "endTime",
+      "type": ["null", { "type": "long", "logicalType": "timestamp-millis" }],
+      "default": null,
+      "doc": "Date and time indicating the end of the anomaly."
+    },
+    {
+      "name": "confidenceScore",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "Score between 0 and 100 indicating how confident was the detector while considering the given anomaly as part of the relevant event."
+    },
+    {
+      "name": "pattern",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Pattern describes the type of pattern that was detected by the annotator."
+    },
+    {
+      "name": "annotator",
+      "type": "ietf.relevant.state.Annotator",
+      "doc": "Annotator represents the entity that produced the annotation."
+    },
+    {
+      "name": "symptom",
+      "type": ["null", "ietf.relevant.state.Symptom"],
+      "default": null,
+      "doc": "It specifies the symptom for the anomaly."
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="Annotator@2025-03-27.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "Annotator",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Name of the annotator (either user or algorithm)."
+    },
+    {
+      "name": "annotatorType",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "AnnotatorType",
+          "symbols": ["human", "algorithm"],
+          "doc": "An annotator can be either a human user or a programmatic entity, such as an algorithm."
+        }
+      ],
+      "default": null,
+      "doc": "AnnotatorType specifies the type of the annotator."
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="Symptom@2025-03-27.avsc"
+					type="json" markers="true"><![CDATA[
+{
+    "type": "record",
+    "name": "Symptom",
+    "namespace": "ietf.relevant.state",
+    "fields": [
+      {
+        "name": "id",
+        "type": "string",
+        "doc": "Unique identifier of the symptom type."
+      },
+      {
+        "name": "concernScore",
+        "type": "int",
+        "doc": "Score between 0 and 100 indicating the degree of concern in relation to the specific symptom."
+      },
+      {
+        "name": "action",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Action associated with the symptom."
+      },
+      {
+        "name": "reason",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Reason associated with the symptom."
+      },
+      {
+        "name": "trigger",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Trigger associated with the symptom."
+      },
+      {
+        "name": "networkPlane",
+        "type": ["null", {
+          "type": "enum",
+          "name": "NetworkPlane",
+          "symbols": ["management", "control", "forwarding"],
+          "doc": "Network Plane affected by the symptom."
+        }],
+        "default": null,
+        "doc": "Network Plane affected by the symptom."
+      }
+    ]
+}
+]]></sourcecode>
+
+          <sourcecode name="VpnService@2025-03-27.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "VpnService",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "vpnId",
+      "type": "string",
+      "doc": "Unique ID of the VPN connectivity service."
+    },
+    {
+      "name": "uri",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URI to visualize the VPN service inventory."
+    },
+    {
+      "name": "vpnName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the VPN connectivity service."
+    },
+    {
+      "name": "siteIds",
+      "type": {"type": "array", "items": "string"},
+      "doc": "List of unique site IDs of the VPN connectivity service."
+    },
+    {
+      "name": "changeId",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "Unique identifier of VPN service maintenance window."
+    },
+    {
+      "name": "changeStartTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "Start date and time of the VPN service maintenance window."
+    },
+    {
+      "name": "changeEndTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "End date and time of the VPN service maintenance window."
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="VpnNodeTermination@2025-03-27.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "VpnNodeTermination",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "hostname",
+      "type": "string",
+      "doc": "The hostname of the network node according to RFC 1213."
+    },
+    {
+      "name": "routeDistinguisher",
+      "type": "string",
+      "doc": "The BGP route-distinguisher obtained through IPFIX or BMP."
+    },
+    {
+      "name": "peerIp",
+      "type": {"type": "array", "items": "string"},
+      "doc": "The BGP peering IP address."
+    },
+    {
+      "name": "nextHop",
+      "type": {"type": "array", "items": "string"},
+      "doc": "The BGP next-hop IP address."
+    },
+    {
+      "name": "interfaceId",
+      "type": {"type": "array", "items": "long"},
+      "doc": "The interface identifier."
+    }
+  ]
+}
+]]></sourcecode>
 			</section>
 			
     </section>
@@ -1562,6 +1587,19 @@ module ietf-network-anomaly-service-topology {
 
     <references title="Informative References">
       <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-opsawg-collected-data-manifest.xml'?>
+			
+			<?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-yang-message-broker-integration.xml'?>
+
+      <reference anchor="Apache AVRO"
+                 target="https://avro.apache.org/">
+        <front>
+          <title>Apache AVRO</title>
+
+          <author/>
+        </front>
+        <refcontent>Apache Software Foundation</refcontent>
+      </reference>
+
     </references>
   </back>
 </rfc>
