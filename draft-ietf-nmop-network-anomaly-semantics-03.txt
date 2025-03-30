@@ -5,11 +5,11 @@
 NMOP                                                             T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 30 September 2025                                 A. Huang Feng
+Expires: 1 October 2025                                    A. Huang Feng
                                                                INSA-Lyon
                                                             V. Riccobene
                                                                   Huawei
-                                                           29 March 2025
+                                                           30 March 2025
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf, et al.            Expires 30 September 2025               [Page 1]
+Graf, et al.             Expires 1 October 2025                 [Page 1]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -63,7 +63,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 30 September 2025.
+   This Internet-Draft will expire on 1 October 2025.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf, et al.            Expires 30 September 2025               [Page 2]
+Graf, et al.             Expires 1 October 2025                 [Page 2]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -165,7 +165,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025               [Page 3]
+Graf, et al.             Expires 1 October 2025                 [Page 3]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -221,7 +221,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025               [Page 4]
+Graf, et al.             Expires 1 October 2025                 [Page 4]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -277,7 +277,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025               [Page 5]
+Graf, et al.             Expires 1 October 2025                 [Page 5]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -333,7 +333,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025               [Page 6]
+Graf, et al.             Expires 1 October 2025                 [Page 6]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -389,7 +389,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025               [Page 7]
+Graf, et al.             Expires 1 October 2025                 [Page 7]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -445,7 +445,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025               [Page 8]
+Graf, et al.             Expires 1 October 2025                 [Page 8]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -501,7 +501,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025               [Page 9]
+Graf, et al.             Expires 1 October 2025                 [Page 9]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -557,7 +557,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 10]
+Graf, et al.             Expires 1 October 2025                [Page 10]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -613,7 +613,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 11]
+Graf, et al.             Expires 1 October 2025                [Page 11]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -621,7 +621,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    module: ietf-network-anomaly-service-topology
 
      augment /rsn:relevant-state:
-       +--rw vpn-services* [vpn-id]
+       +--rw vpn-service* [vpn-id]
           +--rw vpn-id               string
           +--rw uri?                 inet:uri
           +--rw vpn-name?            string
@@ -630,7 +630,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
           +--rw change-start-time?   yang:date-and-time
           +--rw change-end-time?     yang:date-and-time
      augment /rsn:relevant-state-notification:
-       +--ro vpn-services* [vpn-id]
+       +--ro vpn-service* [vpn-id]
           +--ro vpn-id               string
           +--ro uri?                 inet:uri
           +--ro vpn-name?            string
@@ -669,7 +669,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 12]
+Graf, et al.             Expires 1 October 2025                [Page 12]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -725,7 +725,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 13]
+Graf, et al.             Expires 1 October 2025                [Page 13]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -744,11 +744,11 @@ Internet-Draft          Network Anomaly Semantics             March 2025
          "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
      }
 
-     grouping vpn-services {
+     grouping vpn-service {
        description
          "Connectivity service of type VPN. This grouping is
           used to augment the relevant-state container.";
-       list vpn-services {
+       list vpn-service {
          key "vpn-id";
          description
            "List of VPN services of interest.";
@@ -781,7 +781,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 14]
+Graf, et al.             Expires 1 October 2025                [Page 14]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -837,7 +837,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 15]
+Graf, et al.             Expires 1 October 2025                [Page 15]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -861,7 +861,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
          "Provide extension for the service description,
           specifically for connectivity services to the
           relevant state container.";
-       uses vpn-services;
+       uses vpn-service;
      }
 
      augment "/rsn:relevant-state-notification" {
@@ -869,7 +869,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
          "Provide extension for the service description,
           specifically for connectivity services to the
           relevant state notification.";
-       uses vpn-services;
+       uses vpn-service;
      }
 
      augment "/rsn:relevant-state/rsn:anomaly" {
@@ -893,7 +893,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 16]
+Graf, et al.             Expires 1 October 2025                [Page 16]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -930,7 +930,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
    *  Symptom.avsc is based on 'cbl-symptom' defined in 'ietf-network-
       anomaly-symptom-cbl.yang'.
 
-   *  VpnService.avsc is based on 'vpn-services' defined in 'ietf-
+   *  VpnService.avsc is based on 'vpn-service' defined in 'ietf-
       network-anomaly-service-topology.yang'.
 
    *  VpnNodeTermination.avsc is based on 'vpn-node-termination' defined
@@ -949,7 +949,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 17]
+Graf, et al.             Expires 1 October 2025                [Page 17]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 18]
+Graf, et al.             Expires 1 October 2025                [Page 18]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1061,7 +1061,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 19]
+Graf, et al.             Expires 1 October 2025                [Page 19]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1117,7 +1117,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 20]
+Graf, et al.             Expires 1 October 2025                [Page 20]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1173,7 +1173,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 21]
+Graf, et al.             Expires 1 October 2025                [Page 21]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1229,7 +1229,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 22]
+Graf, et al.             Expires 1 October 2025                [Page 22]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1285,7 +1285,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 23]
+Graf, et al.             Expires 1 October 2025                [Page 23]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1341,7 +1341,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 24]
+Graf, et al.             Expires 1 October 2025                [Page 24]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1397,7 +1397,7 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 25]
+Graf, et al.             Expires 1 October 2025                [Page 25]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1453,7 +1453,7 @@ Authors' Addresses
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 26]
+Graf, et al.             Expires 1 October 2025                [Page 26]
 
 Internet-Draft          Network Anomaly Semantics             March 2025
 
@@ -1509,4 +1509,4 @@ Internet-Draft          Network Anomaly Semantics             March 2025
 
 
 
-Graf, et al.            Expires 30 September 2025              [Page 27]
+Graf, et al.             Expires 1 October 2025                [Page 27]

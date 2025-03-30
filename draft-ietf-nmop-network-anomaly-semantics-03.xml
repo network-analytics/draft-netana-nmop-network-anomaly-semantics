@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="29" month="March" year="2025"/>
+    <date day="30" month="March" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -896,7 +896,7 @@ module ietf-network-anomaly-symptom-cbl {
 module: ietf-network-anomaly-service-topology
 
   augment /rsn:relevant-state:
-    +--rw vpn-services* [vpn-id]
+    +--rw vpn-service* [vpn-id]
        +--rw vpn-id               string
        +--rw uri?                 inet:uri
        +--rw vpn-name?            string
@@ -905,7 +905,7 @@ module: ietf-network-anomaly-service-topology
        +--rw change-start-time?   yang:date-and-time
        +--rw change-end-time?     yang:date-and-time
   augment /rsn:relevant-state-notification:
-    +--ro vpn-services* [vpn-id]
+    +--ro vpn-service* [vpn-id]
        +--ro vpn-id               string
        +--ro uri?                 inet:uri
        +--ro vpn-name?            string
@@ -1007,11 +1007,11 @@ module ietf-network-anomaly-service-topology {
       "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
   }
 
-  grouping vpn-services {
+  grouping vpn-service {
     description
       "Connectivity service of type VPN. This grouping is
        used to augment the relevant-state container.";
-    list vpn-services {
+    list vpn-service {
       key "vpn-id";
       description
         "List of VPN services of interest.";
@@ -1108,7 +1108,7 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state container.";
-    uses vpn-services;
+    uses vpn-service;
   }
 
   augment "/rsn:relevant-state-notification" {
@@ -1116,7 +1116,7 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state notification.";
-    uses vpn-services;
+    uses vpn-service;
   }
 
   augment "/rsn:relevant-state/rsn:anomaly" {
@@ -1180,7 +1180,7 @@ module ietf-network-anomaly-service-topology {
               <t>Symptom.avsc is based on 'cbl-symptom' defined
 							in 'ietf-network-anomaly-symptom-cbl.yang'.</t>
     
-              <t>VpnService.avsc is based on 'vpn-services' defined
+              <t>VpnService.avsc is based on 'vpn-service' defined
 							in 'ietf-network-anomaly-service-topology.yang'.</t>
 
               <t>VpnNodeTermination.avsc is based on

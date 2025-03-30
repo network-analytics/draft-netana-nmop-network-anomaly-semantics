@@ -65,11 +65,11 @@ module ietf-network-anomaly-service-topology {
       "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
   }
 
-  grouping vpn-services {
+  grouping vpn-service {
     description
       "Connectivity service of type VPN. This grouping is
        used to augment the relevant-state container.";
-    list vpn-services {
+    list vpn-service {
       key "vpn-id";
       description
         "List of VPN services of interest.";
@@ -166,7 +166,7 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state container.";
-    uses vpn-services;
+    uses vpn-service;
   }
 
   augment "/rsn:relevant-state-notification" {
@@ -174,7 +174,7 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state notification.";
-    uses vpn-services;
+    uses vpn-service;
   }
 
   augment "/rsn:relevant-state/rsn:anomaly" {
