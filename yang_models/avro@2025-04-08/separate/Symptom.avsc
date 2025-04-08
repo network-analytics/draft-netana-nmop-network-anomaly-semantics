@@ -1,0 +1,46 @@
+{
+    "type": "record",
+    "name": "Symptom",
+    "namespace": "ietf.relevant.state",
+    "fields": [
+      {
+        "name": "id",
+        "type": "string",
+        "doc": "Unique identifier of the symptom type."
+      },
+      {
+        "name": "concernScore",
+        "type": "int",
+        "doc": "Score between 0 and 100 indicating the degree of concern in relation to the specific symptom."
+      },
+      {
+        "name": "action",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Action associated with the symptom."
+      },
+      {
+        "name": "reason",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Reason associated with the symptom."
+      },
+      {
+        "name": "trigger",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Trigger associated with the symptom."
+      },
+      {
+        "name": "networkPlane",
+        "type": ["null", {
+          "type": "enum",
+          "name": "NetworkPlane",
+          "symbols": ["management", "control", "forwarding"],
+          "doc": "Network Plane affected by the symptom."
+        }],
+        "default": null,
+        "doc": "Network Plane affected by the symptom."
+      }
+    ]
+  }
