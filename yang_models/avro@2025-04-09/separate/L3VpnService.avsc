@@ -1,0 +1,47 @@
+{
+  "type": "record",
+  "name": "L3VpnService",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "vpnId",
+      "type": "string",
+      "doc": "Unique ID of the VPN connectivity service."
+    },
+    {
+      "name": "uri",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URI to visualize the VPN service inventory."
+    },
+    {
+      "name": "vpnName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the VPN connectivity service."
+    },
+    {
+      "name": "siteIds",
+      "type": {"type": "array", "items": "string"},
+      "doc": "List of unique site IDs of the VPN connectivity service."
+    },
+    {
+      "name": "changeId",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "Unique identifier of VPN service maintenance window."
+    },
+    {
+      "name": "changeStartTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "Start date and time of the VPN service maintenance window."
+    },
+    {
+      "name": "changeEndTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "End date and time of the VPN service maintenance window."
+    }
+  ]
+}
