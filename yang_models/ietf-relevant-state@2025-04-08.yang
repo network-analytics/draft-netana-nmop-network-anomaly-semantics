@@ -229,15 +229,19 @@ module ietf-relevant-state {
         "Score indicating the degree of concern in
          relation to the overall relevant state.";
     }
-    container service {
+    choice service {
       description
         "Indication of the service that is affected 
         (or potentially affected) by the relevant state";
-      leaf id {
-        type yang:uuid;
-        mandatory true;
+      case l2vpn {
         description
-          "Unique ID of the connectivity service. 
+          "Unique ID of the L2 VPN connectivity service. 
+          It is unique in the scope of the service 
+          inventory.";
+      }
+      case l3vpn {
+        description
+          "Unique ID of the L3 VPN connectivity service. 
           It is unique in the scope of the service 
           inventory.";
       }

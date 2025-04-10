@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="08" month="April" year="2025"/>
+    <date day="10" month="April" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -749,7 +749,7 @@ module: ietf-network-anomaly-symptom-cbl
 				grouping defining Action, Reason and Trigger and how symptom
 				attributes to the network planes.</t>
 
-<sourcecode name="ietf-network-anomaly-symptom-cbl@2025-03-23.yang"
+<sourcecode name="ietf-network-anomaly-symptom-cbl@2025-04-08.yang"
 type="yang" markers="true"><![CDATA[
 module ietf-network-anomaly-symptom-cbl {
   yang-version 1.1;
@@ -895,7 +895,7 @@ module ietf-network-anomaly-symptom-cbl {
           <sourcecode type="yangtree"><![CDATA[
 module: ietf-network-anomaly-service-topology
 
-  augment /rsn:relevant-state:
+  augment /rsn:relevant-state/rsn:service/rsn:l2vpn:
     +--rw vpn-service* [vpn-id]
        +--rw vpn-id               string
        +--rw uri?                 inet:uri
@@ -904,15 +904,33 @@ module: ietf-network-anomaly-service-topology
        +--rw change-id?           yang:uuid
        +--rw change-start-time?   yang:date-and-time
        +--rw change-end-time?     yang:date-and-time
-  augment /rsn:relevant-state-notification:
-    +--ro vpn-service* [vpn-id]
-       +--ro vpn-id               string
-       +--ro uri?                 inet:uri
-       +--ro vpn-name?            string
-       +--ro site-ids*            string
-       +--ro change-id?           yang:uuid
-       +--ro change-start-time?   yang:date-and-time
-       +--ro change-end-time?     yang:date-and-time
+  augment /rsn:relevant-state/rsn:service/rsn:l3vpn:
+    +--rw vpn-service* [vpn-id]
+       +--rw vpn-id               string
+       +--rw uri?                 inet:uri
+       +--rw vpn-name?            string
+       +--rw site-ids*            string
+       +--rw change-id?           yang:uuid
+       +--rw change-start-time?   yang:date-and-time
+       +--rw change-end-time?     yang:date-and-time
+  augment /rsn:relevant-state-notification/rsn:service/rsn:l2vpn:
+    +-- vpn-service* [vpn-id]
+       +-- vpn-id               string
+       +-- uri?                 inet:uri
+       +-- vpn-name?            string
+       +-- site-ids*            string
+       +-- change-id?           yang:uuid
+       +-- change-start-time?   yang:date-and-time
+       +-- change-end-time?     yang:date-and-time
+  augment /rsn:relevant-state-notification/rsn:service/rsn:l3vpn:
+    +-- vpn-service* [vpn-id]
+       +-- vpn-id               string
+       +-- uri?                 inet:uri
+       +-- vpn-name?            string
+       +-- site-ids*            string
+       +-- change-id?           yang:uuid
+       +-- change-start-time?   yang:date-and-time
+       +-- change-end-time?     yang:date-and-time
   augment /rsn:relevant-state/rsn:anomaly:
     +--rw vpn-node-terminations* [hostname route-distinguisher]
        +--rw hostname               inet:host
@@ -938,7 +956,7 @@ module: ietf-network-anomaly-service-topology
 					associated to the relevant state.</t>
 
           <sourcecode
-					name="ietf-network-anomaly-service-topology@2025-03-23.yang"
+					name="ietf-network-anomaly-service-topology@2025-04-08.yang"
 					type="yang" markers="true"><![CDATA[
 module ietf-network-anomaly-service-topology {
   yang-version 1.1;
@@ -1000,7 +1018,7 @@ module ietf-network-anomaly-service-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-03-23 {
+  revision 2025-04-08 {
     description
       "Initial version";
     reference
@@ -1103,7 +1121,7 @@ module ietf-network-anomaly-service-topology {
     }
   }
 
-  augment "/rsn:relevant-state" {
+  augment "/rsn:relevant-state/rsn:service/rsn:l2vpn" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the
@@ -1111,7 +1129,23 @@ module ietf-network-anomaly-service-topology {
     uses vpn-service;
   }
 
-  augment "/rsn:relevant-state-notification" {
+  augment "/rsn:relevant-state/rsn:service/rsn:l3vpn" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state container.";
+    uses vpn-service;
+  }
+
+  augment "/rsn:relevant-state-notification/rsn:service/rsn:l2vpn" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state notification.";
+    uses vpn-service;
+  }
+
+  augment "/rsn:relevant-state-notification/rsn:service/rsn:l3vpn" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the
@@ -1180,15 +1214,17 @@ module ietf-network-anomaly-service-topology {
               <t>Symptom.avsc is based on 'cbl-symptom' defined
 							in 'ietf-network-anomaly-symptom-cbl.yang'.</t>
     
-              <t>VpnService.avsc is based on 'vpn-service' defined
-							in 'ietf-network-anomaly-service-topology.yang'.</t>
+              <t>L2VpnService.avsc, L2VpnServiceContainer.avsc, 
+							L3VpnService.avsc and L3VpnServiceContainer.avsc is based
+							on 'vpn-service' defined in 
+							'ietf-network-anomaly-service-topology.yang'.</t>
 
               <t>VpnNodeTermination.avsc is based on
 							'vpn-node-termination' defined in
 							'ietf-network-anomaly-service-topology.yang'.</t>
             </list></t>
 
-          <sourcecode name="RelevantStateNotification@2025-04-08.avsc"
+          <sourcecode name="RelevantStateNotification@2025-04-09.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1222,7 +1258,7 @@ module ietf-network-anomaly-service-topology {
     },
     {
       "name": "endTime",
-      "type": ["null", { "type": "long", "logicalType": "timestamp-millis" }],
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
       "default": null,
       "doc": "Date and time indicating the end of the problem."
     },
@@ -1254,12 +1290,14 @@ module ietf-network-anomaly-service-topology {
       "doc": "List of Node Terminations of interest."
     },
     {
-      "name": "vpnServices",
-      "type": {
-        "type": "array",
-        "items": "ietf.relevant.state.VpnService"
-      },
-      "doc": "List of VPN services of interest."
+      "name": "service",
+      "type": [
+        "null",
+        "ietf.relevant.state.L2VpnServiceContainer",
+        "ietf.relevant.state.L3VpnServiceContainer"
+      ],
+      "default": null,
+      "doc": "List of services of interest. The type of the service can be extended in the future."
     },
     {
       "name": "publisher",
@@ -1270,7 +1308,7 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="Anomaly@2025-04-08.avsc"
+          <sourcecode name="Anomaly@2025-04-09.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1357,7 +1395,7 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="Annotator@2025-04-08.avsc"
+          <sourcecode name="Annotator@2025-04-09.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1387,61 +1425,31 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="Symptom@2025-04-08.avsc"
-					type="json" markers="true"><![CDATA[
-{
-    "type": "record",
-    "name": "Symptom",
-    "namespace": "ietf.relevant.state",
-    "fields": [
-      {
-        "name": "id",
-        "type": "string",
-        "doc": "Unique identifier of the symptom type."
-      },
-      {
-        "name": "concernScore",
-        "type": "int",
-        "doc": "Score between 0 and 100 indicating the degree of concern in relation to the specific symptom."
-      },
-      {
-        "name": "action",
-        "type": ["null", "string"],
-        "default": null,
-        "doc": "Action associated with the symptom."
-      },
-      {
-        "name": "reason",
-        "type": ["null", "string"],
-        "default": null,
-        "doc": "Reason associated with the symptom."
-      },
-      {
-        "name": "trigger",
-        "type": ["null", "string"],
-        "default": null,
-        "doc": "Trigger associated with the symptom."
-      },
-      {
-        "name": "networkPlane",
-        "type": ["null", {
-          "type": "enum",
-          "name": "NetworkPlane",
-          "symbols": ["management", "control", "forwarding"],
-          "doc": "Network Plane affected by the symptom."
-        }],
-        "default": null,
-        "doc": "Network Plane affected by the symptom."
-      }
-    ]
-}
-]]></sourcecode>
-
-          <sourcecode name="VpnService@2025-04-08.avsc"
+          <sourcecode name="L2VpnServiceContainer.avsc@2025-04-09.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
-  "name": "VpnService",
+  "name": "L2VpnServiceContainer",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "l2VpnService",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.L2VpnService"
+      },
+      "doc": "List of the Layer 2 VPN connectivity services."
+    }
+  ],
+  "doc": "Container for Layer 2 VPN service list."
+}
+]]></sourcecode>
+
+          <sourcecode name="L2VpnService.avsc@2025-04-09.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "L2VpnService",
   "namespace": "ietf.relevant.state",
   "fields": [
     {
@@ -1488,7 +1496,78 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="VpnNodeTermination@2025-04-08.avsc"
+          <sourcecode name="L3VpnServiceContainer.avsc@2025-04-09.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "L3VpnServiceContainer",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "l3VpnService",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.L3VpnService"
+      },
+      "doc": "List of the Layer 3 VPN connectivity services."
+    }
+  ],
+  "doc": "Container for Layer 3 VPN service list."
+}
+]]></sourcecode>
+
+          <sourcecode name="L3VpnService.avsc@2025-04-09.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "L3VpnService",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "vpnId",
+      "type": "string",
+      "doc": "Unique ID of the VPN connectivity service."
+    },
+    {
+      "name": "uri",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URI to visualize the VPN service inventory."
+    },
+    {
+      "name": "vpnName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the VPN connectivity service."
+    },
+    {
+      "name": "siteIds",
+      "type": {"type": "array", "items": "string"},
+      "doc": "List of unique site IDs of the VPN connectivity service."
+    },
+    {
+      "name": "changeId",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "Unique identifier of VPN service maintenance window."
+    },
+    {
+      "name": "changeStartTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "Start date and time of the VPN service maintenance window."
+    },
+    {
+      "name": "changeEndTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "End date and time of the VPN service maintenance window."
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="VpnNodeTermination@2025-04-09.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",

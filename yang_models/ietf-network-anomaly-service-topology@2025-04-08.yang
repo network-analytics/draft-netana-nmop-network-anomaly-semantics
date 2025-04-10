@@ -161,7 +161,7 @@ module ietf-network-anomaly-service-topology {
     }
   }
 
-  augment "/rsn:relevant-state/rsn:service" {
+  augment "/rsn:relevant-state/rsn:service/rsn:l2vpn" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the
@@ -169,7 +169,23 @@ module ietf-network-anomaly-service-topology {
     uses vpn-service;
   }
 
-  augment "/rsn:relevant-state-notification/rsn:service" {
+  augment "/rsn:relevant-state/rsn:service/rsn:l3vpn" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state container.";
+    uses vpn-service;
+  }
+
+  augment "/rsn:relevant-state-notification/rsn:service/rsn:l2vpn" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state notification.";
+    uses vpn-service;
+  }
+
+  augment "/rsn:relevant-state-notification/rsn:service/rsn:l3vpn" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the
