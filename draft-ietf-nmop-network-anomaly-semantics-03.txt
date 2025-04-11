@@ -88,7 +88,7 @@ Table of Contents
    4.  Semantic Metadata . . . . . . . . . . . . . . . . . . . . . .   7
      4.1.  Overview of the Models for the Symptom Semantic
            Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   8
-     4.2.  YANG Model 'ietf-network-anomaly-symptom-cbl' . . . . . .   8
+     4.2.  YANG Module 'ietf-network-anomaly-symptom-cbl'  . . . . .   8
      4.3.  YANG Module 'ietf-network-anomaly-service-topology' . . .  11
      4.4.  Apache AVRO Schema  . . . . . . . . . . . . . . . . . . .  18
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  26
@@ -400,7 +400,7 @@ Internet-Draft          Network Anomaly Semantics             April 2025
    the action reason trigger defined in this document, and one defining
    service topology information related to the anomaly.
 
-4.2.  YANG Model 'ietf-network-anomaly-symptom-cbl'
+4.2.  YANG Module 'ietf-network-anomaly-symptom-cbl'
 
 4.2.1.  YANG Tree
 
