@@ -53,7 +53,7 @@ module ietf-relevant-state {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-04-08 {
+  revision 2025-04-11 {
     description
       "Initial version";
     reference
@@ -233,18 +233,6 @@ module ietf-relevant-state {
       description
         "Indication of the service that is affected 
         (or potentially affected) by the relevant state";
-      case l2vpn {
-        description
-          "Unique ID of the L2 VPN connectivity service. 
-          It is unique in the scope of the service 
-          inventory.";
-      }
-      case l3vpn {
-        description
-          "Unique ID of the L3 VPN connectivity service. 
-          It is unique in the scope of the service 
-          inventory.";
-      }
     }
   }
 
@@ -252,6 +240,11 @@ module ietf-relevant-state {
     description
       "Annotator represents the entity that produced the
        annotation (it is either a human or an algorithm).";
+    leaf id {
+      type yang:uuid;
+      description
+        "Unique ID of the annotator (either user or algorithm)";
+    }
     leaf name {
       type string;
       mandatory true;

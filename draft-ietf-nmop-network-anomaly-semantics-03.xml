@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="10" month="April" year="2025"/>
+    <date day="11" month="April" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -749,7 +749,7 @@ module: ietf-network-anomaly-symptom-cbl
 				grouping defining Action, Reason and Trigger and how symptom
 				attributes to the network planes.</t>
 
-<sourcecode name="ietf-network-anomaly-symptom-cbl@2025-04-08.yang"
+<sourcecode name="ietf-network-anomaly-symptom-cbl@2025-04-11.yang"
 type="yang" markers="true"><![CDATA[
 module ietf-network-anomaly-symptom-cbl {
   yang-version 1.1;
@@ -800,7 +800,7 @@ module ietf-network-anomaly-symptom-cbl {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-03-23 {
+  revision 2025-04-11 {
     description
       "Initial version";
     reference
@@ -895,42 +895,44 @@ module ietf-network-anomaly-symptom-cbl {
           <sourcecode type="yangtree"><![CDATA[
 module: ietf-network-anomaly-service-topology
 
-  augment /rsn:relevant-state/rsn:service/rsn:l2vpn:
-    +--rw vpn-service* [vpn-id]
-       +--rw vpn-id               string
-       +--rw uri?                 inet:uri
-       +--rw vpn-name?            string
-       +--rw site-ids*            string
-       +--rw change-id?           yang:uuid
-       +--rw change-start-time?   yang:date-and-time
-       +--rw change-end-time?     yang:date-and-time
-  augment /rsn:relevant-state/rsn:service/rsn:l3vpn:
-    +--rw vpn-service* [vpn-id]
-       +--rw vpn-id               string
-       +--rw uri?                 inet:uri
-       +--rw vpn-name?            string
-       +--rw site-ids*            string
-       +--rw change-id?           yang:uuid
-       +--rw change-start-time?   yang:date-and-time
-       +--rw change-end-time?     yang:date-and-time
-  augment /rsn:relevant-state-notification/rsn:service/rsn:l2vpn:
-    +-- vpn-service* [vpn-id]
-       +-- vpn-id               string
-       +-- uri?                 inet:uri
-       +-- vpn-name?            string
-       +-- site-ids*            string
-       +-- change-id?           yang:uuid
-       +-- change-start-time?   yang:date-and-time
-       +-- change-end-time?     yang:date-and-time
-  augment /rsn:relevant-state-notification/rsn:service/rsn:l3vpn:
-    +-- vpn-service* [vpn-id]
-       +-- vpn-id               string
-       +-- uri?                 inet:uri
-       +-- vpn-name?            string
-       +-- site-ids*            string
-       +-- change-id?           yang:uuid
-       +-- change-start-time?   yang:date-and-time
-       +-- change-end-time?     yang:date-and-time
+  augment /rsn:relevant-state/rsn:service:
+    +--:(l2vpn)
+    |  +--rw vpn-service* [vpn-id]
+    |     +--rw vpn-id               string
+    |     +--rw uri?                 inet:uri
+    |     +--rw vpn-name?            string
+    |     +--rw site-ids*            string
+    |     +--rw change-id?           yang:uuid
+    |     +--rw change-start-time?   yang:date-and-time
+    |     +--rw change-end-time?     yang:date-and-time
+    +--:(l3vpn)
+       +--rw vpn-service* [vpn-id]
+          +--rw vpn-id               string
+          +--rw uri?                 inet:uri
+          +--rw vpn-name?            string
+          +--rw site-ids*            string
+          +--rw change-id?           yang:uuid
+          +--rw change-start-time?   yang:date-and-time
+          +--rw change-end-time?     yang:date-and-time
+  augment /rsn:relevant-state-notification/rsn:service:
+    +--:(l2vpn)
+    |  +-- vpn-service* [vpn-id]
+    |     +-- vpn-id               string
+    |     +-- uri?                 inet:uri
+    |     +-- vpn-name?            string
+    |     +-- site-ids*            string
+    |     +-- change-id?           yang:uuid
+    |     +-- change-start-time?   yang:date-and-time
+    |     +-- change-end-time?     yang:date-and-time
+    +--:(l3vpn)
+       +-- vpn-service* [vpn-id]
+          +-- vpn-id               string
+          +-- uri?                 inet:uri
+          +-- vpn-name?            string
+          +-- site-ids*            string
+          +-- change-id?           yang:uuid
+          +-- change-start-time?   yang:date-and-time
+          +-- change-end-time?     yang:date-and-time
   augment /rsn:relevant-state/rsn:anomaly:
     +--rw vpn-node-terminations* [hostname route-distinguisher]
        +--rw hostname               inet:host
@@ -956,7 +958,7 @@ module: ietf-network-anomaly-service-topology
 					associated to the relevant state.</t>
 
           <sourcecode
-					name="ietf-network-anomaly-service-topology@2025-04-08.yang"
+					name="ietf-network-anomaly-service-topology@2025-04-11.yang"
 					type="yang" markers="true"><![CDATA[
 module ietf-network-anomaly-service-topology {
   yang-version 1.1;
@@ -1018,7 +1020,7 @@ module ietf-network-anomaly-service-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-04-08 {
+  revision 2025-04-11 {
     description
       "Initial version";
     reference
@@ -1121,36 +1123,46 @@ module ietf-network-anomaly-service-topology {
     }
   }
 
-  augment "/rsn:relevant-state/rsn:service/rsn:l2vpn" {
+  augment "/rsn:relevant-state/rsn:service" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state container.";
-    uses vpn-service;
+    case l2vpn {
+      description
+        "Unique ID of the L2 VPN connectivity service.
+         It is unique in the scope of the service
+         inventory.";
+      uses vpn-service;
+    }
+    case l3vpn {
+      description
+        "Unique ID of the L3 VPN connectivity service.
+         It is unique in the scope of the service
+         inventory.";
+      uses vpn-service;
+    }
   }
 
-  augment "/rsn:relevant-state/rsn:service/rsn:l3vpn" {
-    description
-      "Provide extension for the service description,
-       specifically for connectivity services to the
-       relevant state container.";
-    uses vpn-service;
-  }
-
-  augment "/rsn:relevant-state-notification/rsn:service/rsn:l2vpn" {
+  augment "/rsn:relevant-state-notification/rsn:service" {
     description
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state notification.";
-    uses vpn-service;
-  }
-
-  augment "/rsn:relevant-state-notification/rsn:service/rsn:l3vpn" {
-    description
-      "Provide extension for the service description,
-       specifically for connectivity services to the
-       relevant state notification.";
-    uses vpn-service;
+    case l2vpn {
+      description
+        "Unique ID of the L2 VPN connectivity service.
+         It is unique in the scope of the service
+         inventory.";
+      uses vpn-service;
+    }
+    case l3vpn {
+      description
+        "Unique ID of the L3 VPN connectivity service.
+         It is unique in the scope of the service
+         inventory.";
+      uses vpn-service;
+    }
   }
 
   augment "/rsn:relevant-state/rsn:anomaly" {
