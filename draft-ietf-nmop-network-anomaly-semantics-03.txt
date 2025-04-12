@@ -91,15 +91,15 @@ Table of Contents
      4.2.  YANG Module 'ietf-network-anomaly-symptom-cbl'  . . . . .   8
      4.3.  YANG Module 'ietf-network-anomaly-service-topology' . . .  11
      4.4.  Apache AVRO Schema  . . . . . . . . . . . . . . . . . . .  18
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  26
-   6.  Implementation status . . . . . . . . . . . . . . . . . . . .  26
-     6.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  27
-   7.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  27
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  27
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  27
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .  28
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  28
-
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  26
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  27
+   7.  Implementation status . . . . . . . . . . . . . . . . . . . .  27
+     7.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  27
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  28
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  28
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  29
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  29
 
 
 
@@ -1437,19 +1437,19 @@ Internet-Draft          Network Anomaly Semantics             April 2025
    }
    <CODE ENDS>
 
-5.  Security Considerations
+5.  IANA Considerations
 
-   TBD https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-   rfc8407bis-22#name-security-considerations-sect.
+   This document registers the following two namespace URIs in the IETF
+   XML Registry [RFC3688]:
 
-6.  Implementation status
+      URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl
 
-   This section provides pointers to existing open source
-   implementations of this draft.  Note to the RFC-editor: Please remove
-   this before publishing.
+      Registrant Contact: The IESG.
 
+      XML: N/A; the requested URI is an XML namespace.
 
-
+      URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-
+      topology
 
 
 
@@ -1458,7 +1458,45 @@ Graf, et al.             Expires 14 October 2025               [Page 26]
 Internet-Draft          Network Anomaly Semantics             April 2025
 
 
-6.1.  Antagonist
+      Registrant Contact: The IESG.
+
+      XML: N/A; the requested URI is an XML namespace.
+
+   This document registers the following two YANG modules in the YANG
+   Module Names registry [RFC3688]:
+
+      Name: ietf-network-anomaly-symptom-cbl
+
+      Namespace: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-
+      symptom-cbl
+
+      Prefix: smcblsymptom
+
+      Reference: RFC XXXX
+
+      Name: ietf-network-anomaly-service-topology
+
+      Namespace: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-
+      service-topology
+
+      Prefix: smtopology
+
+      Reference: RFC XXXX
+
+6.  Security Considerations
+
+   The document defines an information YANG data module Section 3 of
+   [RFC3444].  As such, this document does not define data nodes.
+   Following the guidance in Section 3.7 of
+   [I-D.ietf-netmod-rfc8407bis], the YANG security template is not used.
+
+7.  Implementation status
+
+   This section provides pointers to existing open source
+   implementations of this draft.  Note to the RFC-editor: Please remove
+   this before publishing.
+
+7.1.  Antagonist
 
    A tool called Antagonist has been implemented and refined during the
    IETF 119 and 120 hackathons, in order to validate the application of
@@ -1468,12 +1506,20 @@ Internet-Draft          Network Anomaly Semantics             April 2025
    *  the generation of a ground truth in relation to Symptoms and
       Problems in timeseries data
 
+
+
+
+Graf, et al.             Expires 14 October 2025               [Page 27]
+
+Internet-Draft          Network Anomaly Semantics             April 2025
+
+
    *  the visual validation of results produced by automated network
       anomaly detection tools.
 
    The open source code can be found here: [Antagonist]
 
-7.  Acknowledgements
+8.  Acknowledgements
 
    The authors would like to thank , for his review and valuable
    comment.
@@ -1482,9 +1528,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
    to the ideas in this draft and Reshad Rahman and Mohamed Boucadair
    for his review and valuable comments.
 
-8.  References
+9.  References
 
-8.1.  Normative References
+9.1.  Normative References
 
    [Antagonist]
               Riccobene, V., Du, W., Graf, T., and H. Huang Feng,
@@ -1506,14 +1552,6 @@ Internet-Draft          Network Anomaly Semantics             April 2025
               02, 3 March 2025, <https://datatracker.ietf.org/doc/html/
               draft-ietf-nmop-network-anomaly-lifecycle-02>.
 
-
-
-
-Graf, et al.             Expires 14 October 2025               [Page 27]
-
-Internet-Draft          Network Anomaly Semantics             April 2025
-
-
    [I-D.ietf-nmop-terminology]
               Davis, N., Farrel, A., Graf, T., Wu, Q., and C. Yu, "Some
               Key Terms for Network Fault and Problem Management", Work
@@ -1521,15 +1559,34 @@ Internet-Draft          Network Anomaly Semantics             April 2025
               15, 30 March 2025, <https://datatracker.ietf.org/doc/html/
               draft-ietf-nmop-terminology-15>.
 
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/info/rfc3688>.
+
+
+
+Graf, et al.             Expires 14 October 2025               [Page 28]
+
+Internet-Draft          Network Anomaly Semantics             April 2025
+
+
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
 
-8.2.  Informative References
+9.2.  Informative References
 
    [Apache_AVRO]
               "Apache AVRO", Apache Software Foundation,
               <https://avro.apache.org/>.
+
+   [I-D.ietf-netmod-rfc8407bis]
+              Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
+              Authors and Reviewers of Documents Containing YANG Data
+              Models", Work in Progress, Internet-Draft, draft-ietf-
+              netmod-rfc8407bis-22, 14 January 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
+              rfc8407bis-22>.
 
    [I-D.ietf-nmop-yang-message-broker-integration]
               Graf, T. and A. Elhassany, "An Architecture for YANG-Push
@@ -1547,6 +1604,11 @@ Internet-Draft          Network Anomaly Semantics             April 2025
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
               collected-data-manifest-06>.
 
+   [RFC3444]  Pras, A. and J. Schoenwaelder, "On the Difference between
+              Information Models and Data Models", RFC 3444,
+              DOI 10.17487/RFC3444, January 2003,
+              <https://www.rfc-editor.org/info/rfc3444>.
+
 Authors' Addresses
 
    Thomas Graf
@@ -1557,19 +1619,18 @@ Authors' Addresses
    Email: thomas.graf@swisscom.com
 
 
+
+
+Graf, et al.             Expires 14 October 2025               [Page 29]
+
+Internet-Draft          Network Anomaly Semantics             April 2025
+
+
    Wanting Du
    Swisscom
    Binzring 17
    CH-8045 Zurich
    Switzerland
-
-
-
-Graf, et al.             Expires 14 October 2025               [Page 28]
-
-Internet-Draft          Network Anomaly Semantics             April 2025
-
-
    Email: wanting.du@swisscom.com
 
 
@@ -1616,9 +1677,4 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-
-
-
-
-
-Graf, et al.             Expires 14 October 2025               [Page 29]
+Graf, et al.             Expires 14 October 2025               [Page 30]
