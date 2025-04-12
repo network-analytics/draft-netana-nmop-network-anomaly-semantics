@@ -806,19 +806,19 @@ Internet-Draft          Network Anomaly Semantics             April 2025
            type yang:uuid;
            description
              "Unique identifier of VPN connectivity service maintenance
-                   \t\t\twindow.";
+             window within the relevant-state window.";
          }
          leaf change-start-time {
            type yang:date-and-time;
            description
              "Start date and time of the VPN connectivity service
-                   \t\t\tmaintenance window.";
+             window within the relevant-state window.";
          }
          leaf change-end-time {
            type yang:date-and-time;
            description
              "End date and time of the VPN connectivity service
-                   \t\t\tmaintenance window.";
+             window within the relevant-state window.";
          }
        }
      }

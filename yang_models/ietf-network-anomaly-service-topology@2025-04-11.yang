@@ -98,19 +98,19 @@ module ietf-network-anomaly-service-topology {
         type yang:uuid;
         description
           "Unique identifier of VPN connectivity service maintenance
-					window.";
+          window within the relevant-state window.";
       }
       leaf change-start-time {
         type yang:date-and-time;
         description
           "Start date and time of the VPN connectivity service
-					maintenance window.";
+          maintenance window within the relevant-state window.";
       }
       leaf change-end-time {
         type yang:date-and-time;
         description
           "End date and time of the VPN connectivity service
-					maintenance window.";
+          maintenance window within the relevant-state window.";
       }
     }
   }
