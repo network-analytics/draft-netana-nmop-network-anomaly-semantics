@@ -72,7 +72,7 @@ module ietf-network-anomaly-service-topology {
     list vpn-service {
       key "vpn-id";
       description
-        "List of VPN services of interest.";
+        "List of VPN connectivity services of interest.";
       leaf vpn-id {
         type string;
         mandatory true;
@@ -82,7 +82,7 @@ module ietf-network-anomaly-service-topology {
       leaf uri {
         type inet:uri;
         description
-          "URI to viusalize the VPN service inventory.";
+          "URI to viusalize the VPN connectivity service inventory.";
       }
       leaf vpn-name {
         type string;
@@ -97,17 +97,20 @@ module ietf-network-anomaly-service-topology {
       leaf change-id {
         type yang:uuid;
         description
-          "Unique identifier of VPN service maintenance window.";
+          "Unique identifier of VPN connectivity service maintenance
+					window.";
       }
       leaf change-start-time {
         type yang:date-and-time;
         description
-          "Start date and time of the VPN service maintenance window.";
+          "Start date and time of the VPN connectivity service
+					maintenance window.";
       }
       leaf change-end-time {
         type yang:date-and-time;
         description
-          "End date and time of the VPN service maintenance window.";
+          "End date and time of the VPN connectivity service
+					maintenance window.";
       }
     }
   }
@@ -168,16 +171,12 @@ module ietf-network-anomaly-service-topology {
        relevant state container.";
     case l2vpn {
       description
-        "Unique ID of the L2 VPN connectivity service.
-        It is unique in the scope of the service
-        inventory.";
+        "Layer 2 VPN connectivity service.";
       uses vpn-service;
     }
     case l3vpn {
       description
-        "Unique ID of the L3 VPN connectivity service.
-        It is unique in the scope of the service
-        inventory.";
+        "Layer 3 VPN connectivity service.";
       uses vpn-service;
     }
   }
@@ -189,16 +188,12 @@ module ietf-network-anomaly-service-topology {
        relevant state notification.";
     case l2vpn {
       description
-        "Unique ID of the L2 VPN connectivity service.
-        It is unique in the scope of the service
-        inventory.";
+        "Layer 2 VPN connectivity service.";
       uses vpn-service;
     }
     case l3vpn {
       description
-        "Unique ID of the L3 VPN connectivity service.
-        It is unique in the scope of the service
-        inventory.";
+        "Layer 3 VPN connectivity service.";
       uses vpn-service;
     }
   }
