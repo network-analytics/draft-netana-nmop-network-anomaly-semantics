@@ -1623,6 +1623,8 @@ module ietf-network-anomaly-service-topology {
           <t>XML: N/A; the requested URI is an XML namespace.</t>
         </list></t>
 
+      <t/>
+
       <t><list style="empty">
           <t>URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-topology</t>
           <t>Registrant Contact: The IESG.</t>
@@ -1639,6 +1641,8 @@ module ietf-network-anomaly-service-topology {
           <t>Prefix: smcblsymptom</t>
           <t>Reference: RFC XXXX</t>
         </list></t>
+
+      <t/>
  
       <t><list style="empty">
           <t>Name: ietf-network-anomaly-service-topology</t>

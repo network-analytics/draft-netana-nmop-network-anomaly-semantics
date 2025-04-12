@@ -1448,8 +1448,8 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
       XML: N/A; the requested URI is an XML namespace.
 
-      URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-
-      topology
+
+
 
 
 
@@ -1457,6 +1457,9 @@ Graf, et al.             Expires 14 October 2025               [Page 26]
 
 Internet-Draft          Network Anomaly Semantics             April 2025
 
+
+      URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-
+      topology
 
       Registrant Contact: The IESG.
 
@@ -1473,6 +1476,7 @@ Internet-Draft          Network Anomaly Semantics             April 2025
       Prefix: smcblsymptom
 
       Reference: RFC XXXX
+
 
       Name: ietf-network-anomaly-service-topology
 
@@ -1503,16 +1507,15 @@ Internet-Draft          Network Anomaly Semantics             April 2025
    the YANG models defined in this draft.  Antagonist provides visual
    support for two important use cases in the scope of this document:
 
-   *  the generation of a ground truth in relation to Symptoms and
-      Problems in timeseries data
-
-
 
 
 Graf, et al.             Expires 14 October 2025               [Page 27]
 
 Internet-Draft          Network Anomaly Semantics             April 2025
 
+
+   *  the generation of a ground truth in relation to Symptoms and
+      Problems in timeseries data
 
    *  the visual validation of results produced by automated network
       anomaly detection tools.
@@ -1559,9 +1562,6 @@ Internet-Draft          Network Anomaly Semantics             April 2025
               15, 30 March 2025, <https://datatracker.ietf.org/doc/html/
               draft-ietf-nmop-terminology-15>.
 
-   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
-              DOI 10.17487/RFC3688, January 2004,
-              <https://www.rfc-editor.org/info/rfc3688>.
 
 
 
@@ -1569,6 +1569,10 @@ Graf, et al.             Expires 14 October 2025               [Page 28]
 
 Internet-Draft          Network Anomaly Semantics             April 2025
 
+
+   [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
+              DOI 10.17487/RFC3688, January 2004,
+              <https://www.rfc-editor.org/info/rfc3688>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
@@ -1611,12 +1615,8 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 Authors' Addresses
 
-   Thomas Graf
-   Swisscom
-   Binzring 17
-   CH-8045 Zurich
-   Switzerland
-   Email: thomas.graf@swisscom.com
+
+
 
 
 
@@ -1624,6 +1624,14 @@ Authors' Addresses
 Graf, et al.             Expires 14 October 2025               [Page 29]
 
 Internet-Draft          Network Anomaly Semantics             April 2025
+
+
+   Thomas Graf
+   Swisscom
+   Binzring 17
+   CH-8045 Zurich
+   Switzerland
+   Email: thomas.graf@swisscom.com
 
 
    Wanting Du
@@ -1646,14 +1654,6 @@ Internet-Draft          Network Anomaly Semantics             April 2025
    Dublin
    Ireland
    Email: vincenzo.riccobene@huawei-partners.com
-
-
-
-
-
-
-
-
 
 
 
