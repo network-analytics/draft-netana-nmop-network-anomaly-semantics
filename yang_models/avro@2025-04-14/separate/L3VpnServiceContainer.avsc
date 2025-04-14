@@ -1,0 +1,16 @@
+{
+  "type": "record",
+  "name": "L3VpnServiceContainer",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "l3VpnService",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.L3VpnService"
+      },
+      "doc": "List of the Layer 3 VPN connectivity services."
+    }
+  ],
+  "doc": "Container for Layer 3 VPN service list."
+}

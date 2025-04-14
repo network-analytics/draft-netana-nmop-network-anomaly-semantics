@@ -1,0 +1,16 @@
+{
+  "type": "record",
+  "name": "L2VpnServiceContainer",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "l2VpnService",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.L2VpnService"
+      },
+      "doc": "List of the Layer 2 VPN connectivity services."
+    }
+  ],
+  "doc": "Container for Layer 2 VPN service list."
+}
