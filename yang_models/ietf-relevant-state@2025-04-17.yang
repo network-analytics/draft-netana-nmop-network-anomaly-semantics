@@ -53,7 +53,7 @@ module ietf-relevant-state {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-04-11 {
+  revision 2025-04-17 {
     description
       "Initial version";
     reference
@@ -243,15 +243,19 @@ module ietf-relevant-state {
     leaf id {
       type yang:uuid;
       description
-        "Unique ID of the annotator (either user or algorithm)";
+        "Unique ID of the annotator (either user or algorithm).";
     }
     leaf name {
       type string;
       mandatory true;
       description
-        "Name of the annotator (either user or algorithm)
-         If it is an algorithm, the name can also include
-         the version.";
+        "Name of the annotator (either user or algorithm).";
+    }
+    leaf version {
+      type string;
+      mandatory false;
+      description
+        "Version of the annotator.";
     }
     leaf annotator-type {
       type enumeration {
@@ -381,13 +385,28 @@ module ietf-relevant-state {
       "Notification of a relevant state that can be sent by the
        anomaly detection system to the postmortem management
        system or to the incident management system.";
-    leaf publisher {
-      type string;
-      mandatory true;
-      description
-        "Name of the system which published the relevant-state
-         notification.";
-    }
+      container publisher {
+        description
+          "Publisher represents the entity that produced the
+            relevant-state.";
+          leaf id {
+            type yang:uuid;
+            description
+              "Unique ID of the publisher.";
+          }
+          leaf name {
+            type string;
+            mandatory true;
+            description
+              "Name of the publisher.";
+          }
+          leaf version {
+            type string;
+            mandatory false;
+            description
+              "Version of the publisher.";
+          }
+      }
     uses relevant-state-grouping;
     uses anomaly-grouping;
   }
