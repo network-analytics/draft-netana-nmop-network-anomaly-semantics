@@ -5,6 +5,7 @@ module: ietf-relevant-state
      +--rw description?                    string
      +--rw start-time                      yang:date-and-time
      +--rw end-time?                       yang:date-and-time
+     +--rw strategy?                       string
      +--rw confidence-score?               score
      +--rw concern-score                   score
      +--rw (service)?
@@ -44,6 +45,7 @@ module: ietf-relevant-state
         |  +--rw id?               yang:uuid
         |  +--rw name              string
         |  +--rw version?          string
+        |  +--rw template?         string
         |  +--rw annotator-type?   enumeration
         +--rw symptom!
         |  +--rw id                            yang:uuid
@@ -71,6 +73,7 @@ module: ietf-relevant-state
        +--ro description?                    string
        +--ro start-time                      yang:date-and-time
        +--ro end-time?                       yang:date-and-time
+       +--ro strategy?                       string
        +--ro confidence-score?               score
        +--ro concern-score                   score
        +--ro (service)?
@@ -112,6 +115,7 @@ module: ietf-relevant-state
           |  +--ro id?               yang:uuid
           |  +--ro name              string
           |  +--ro version?          string
+          |  +--ro template?         string
           |  +--ro annotator-type?   enumeration
           +--ro symptom!
           |  +--ro id                            yang:uuid
