@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="12" month="April" year="2025"/>
+    <date day="21" month="April" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -162,13 +162,14 @@
 			systematically, setting the baselines for supervised machine
 			learning algorithms that require labeled operational data.</t>
 
-      <t>This document proposes two YANG information models, a service
-			topology model in <xref target="YANG-Service-Topology-Module"/> to
-			describe the topology context and a YANG symptom model in <xref
+      <t>This document proposes two YANG Service Delivery Models, a
+			service topology model in <xref
+			target="YANG-Service-Topology-Module"/> to describe the topology
+			context and a YANG symptom model in <xref
 			target="YANG-Symptom-Module"/> to describe the symptoms defined In
 			<xref target="Observed_Symptoms"/>. <xref
-			target="Apache-AVRO-Schema"/> examples above YANG information 
-			models in an Apache AVRO data model based on
+			target="Apache-AVRO-Schema"/> examples above Service Delivery
+			Models in an Apache AVRO data model based on
 			'ietf-relevant-state.yang' data model defined in <xref
 			target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
     </section>
@@ -177,8 +178,9 @@
              title="Conventions and Definitions">
       <section anchor="Terminology" title="Terminology">
         <t>This document makes use of the terms defined in <xref
-        target="I-D.ietf-nmop-network-anomaly-architecture"/> and <xref
-        target="I-D.ietf-nmop-terminology"/>.</t>
+        target="I-D.ietf-nmop-network-anomaly-architecture"/>, <xref
+        target="I-D.ietf-nmop-terminology"/> and
+				<xref target="RFC8309"/>.</t>
 
         <t>The following terms are used as defined in <xref
         target="I-D.ietf-nmop-network-anomaly-architecture"/>:</t>
@@ -204,6 +206,13 @@
             <t>Symptom</t>
 
             <t>Alarm</t>
+          </list></t>
+					
+        <t>The following terms are used as defined in <xref
+				target="RFC8309"/> :</t>
+
+        <t><list style="symbols">
+            <t>Service Delivery Model</t>
           </list></t>
       </section>
     </section>
@@ -1655,13 +1664,45 @@ module ietf-network-anomaly-service-topology {
 
     <section anchor="Security" title="Security Considerations">
 
-      <t>The document defines an information YANG data module <xref
-			section="3" sectionFormat="of"  target="RFC3444"/>. As such, this
-			document does not define data nodes. Following the guidance in
+      <t>This section is modeled after the template described in
 			<xref section="3.7" sectionFormat="of"
-			target="I-D.ietf-netmod-rfc8407bis"/>, the YANG security
-			template is not used.</t>
+			target="I-D.ietf-netmod-rfc8407bis"/>.</t>
 
+      <t>The "ietf-network-anomaly-symptom-cbl" and 
+			"ietf-network-anomaly-service-topology" YANG modules defines two
+			data models that are designed to be accessed via YANG-based
+			management protocols, such as NETCONF <xref target="RFC6141"/> and
+			RESTCONF <xref target="RFC8040"/>. These protocols have to use a
+			secure transport layer (e.g., SSH <xref target="RFC4252"/>, TLS
+			<xref target="RFC8446"/>, and QUIC <xref target="RFC9000"/>) and
+			have to use mutual authentication.</t>
+
+      <t>The Network Configuration Access Control Model (NACM) <xref
+			target="RFC8341"/> provides the means to restrict access for
+			particular NETCONF or RESTCONF users to a preconfigured subset of
+			all available NETCONF or RESTCONF protocol operations and content.
+			</t>
+
+      <t>There are a number of data nodes defined in this YANG module
+			that are writable/creatable/deletable (i.e., "config true", which
+			is the default).  All writable data nodes are likely to be
+			reasonably sensitive or vulnerable in some network environments. 
+			Write operations (e.g., edit-config) and delete operations to
+			these data nodes without proper protection or authentication can
+			have a negative effect on network operations.  The following
+			subtrees and data nodes have particular
+			sensitivities/vulnerabilities:</t>
+
+      <t>"There are no particularly sensitive writable data nodes."</t>
+
+      <t>Some of the readable data nodes in this YANG module may be
+			considered sensitive or vulnerable in some network environments.
+			It is thus important to control read access (e.g., via get,
+			get-config, or notification) to these data nodes. Specifically,
+			the following subtrees and data nodes have particular
+			sensitivities/ vulnerabilities:</t>
+
+      <t>"There are no particularly sensitive readable data nodes."</t>
     </section>
 
     <section anchor="Implementation" title="Implementation status">
@@ -1704,8 +1745,22 @@ module ietf-network-anomaly-service-topology {
     <references title="Normative References">
       <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'?>
 
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml'?>
+			
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.6141.xml'?>			
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8309.xml'?>
+
       <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml'?>
 
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.9000.xml'?>
+			
       <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-terminology.xml'?>
 
       <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-network-anomaly-architecture.xml'?>
@@ -1731,8 +1786,6 @@ module ietf-network-anomaly-service-topology {
     </references>
 
     <references title="Informative References">
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.3444.xml'?>
-
       <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-opsawg-collected-data-manifest.xml'?>
 
       <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml'?>
