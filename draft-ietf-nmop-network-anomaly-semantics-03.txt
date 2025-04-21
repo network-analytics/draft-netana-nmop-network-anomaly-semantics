@@ -95,12 +95,12 @@ Table of Contents
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  28
    7.  Implementation status . . . . . . . . . . . . . . . . . . . .  29
      7.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  29
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  29
+     7.2.  Cosmos Bright Lights  . . . . . . . . . . . . . . . . . .  30
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  30
    9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  30
      9.1.  Normative References  . . . . . . . . . . . . . . . . . .  30
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  31
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  32
-
 
 
 
@@ -1611,10 +1611,10 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
    The open source code can be found here: [Antagonist]
 
-8.  Acknowledgements
 
-   The authors would like to thank , for his review and valuable
-   comment.
+
+
+
 
 
 
@@ -1625,6 +1625,20 @@ Graf, et al.             Expires 23 October 2025               [Page 29]
 
 Internet-Draft          Network Anomaly Semantics             April 2025
 
+
+7.2.  Cosmos Bright Lights
+
+   A real-time streaming based Service Disruption Detection System has
+   been deployed in Swisscom production as a proof of concept in June
+   2024 monitoring approximate >13'000 L3 VPN's concurrently.  The
+   Apache AVRO schema described in Section 4.4 is being implemented in
+   April 2025 in the development enviroment and considered to be
+   deployed in June 2025 in production.
+
+8.  Acknowledgements
+
+   The authors would like to thank , for his review and valuable
+   comment.
 
    The authors would like to thank Antonio Roberto for his contribution
    to the ideas in this draft and Reshad Rahman and Mohamed Boucadair
@@ -1661,6 +1675,13 @@ Internet-Draft          Network Anomaly Semantics             April 2025
               15, 30 March 2025, <https://datatracker.ietf.org/doc/html/
               draft-ietf-nmop-terminology-15>.
 
+
+
+Graf, et al.             Expires 23 October 2025               [Page 30]
+
+Internet-Draft          Network Anomaly Semantics             April 2025
+
+
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
               DOI 10.17487/RFC3688, January 2004,
               <https://www.rfc-editor.org/info/rfc3688>.
@@ -1674,13 +1695,6 @@ Internet-Draft          Network Anomaly Semantics             April 2025
               Initiation Protocol (SIP)", RFC 6141,
               DOI 10.17487/RFC6141, March 2011,
               <https://www.rfc-editor.org/info/rfc6141>.
-
-
-
-Graf, et al.             Expires 23 October 2025               [Page 30]
-
-Internet-Draft          Network Anomaly Semantics             April 2025
-
 
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
@@ -1714,6 +1728,16 @@ Internet-Draft          Network Anomaly Semantics             April 2025
               "Apache AVRO", Apache Software Foundation,
               <https://avro.apache.org/>.
 
+
+
+
+
+
+Graf, et al.             Expires 23 October 2025               [Page 31]
+
+Internet-Draft          Network Anomaly Semantics             April 2025
+
+
    [I-D.ietf-netmod-rfc8407bis]
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
@@ -1729,14 +1753,6 @@ Internet-Draft          Network Anomaly Semantics             April 2025
               integration-07, 3 March 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
               yang-message-broker-integration-07>.
-
-
-
-
-Graf, et al.             Expires 23 October 2025               [Page 31]
-
-Internet-Draft          Network Anomaly Semantics             April 2025
-
 
    [I-D.ietf-opsawg-collected-data-manifest]
               Claise, B., Quilbeuf, J., Lopez, D., Martinez-Casanueva,
@@ -1771,6 +1787,13 @@ Authors' Addresses
    Email: alex.huang-feng@insa-lyon.fr
 
 
+
+
+Graf, et al.             Expires 23 October 2025               [Page 32]
+
+Internet-Draft          Network Anomaly Semantics             April 2025
+
+
    Vincenzo Riccobene
    Huawei
    Dublin
@@ -1789,4 +1812,37 @@ Authors' Addresses
 
 
 
-Graf, et al.             Expires 23 October 2025               [Page 32]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf, et al.             Expires 23 October 2025               [Page 33]

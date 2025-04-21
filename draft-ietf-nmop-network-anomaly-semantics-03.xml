@@ -1728,6 +1728,17 @@ module ietf-network-anomaly-service-topology {
         <t>The open source code can be found here: <xref
 				target="Antagonist"/></t>
       </section>
+
+      <section anchor="Cosmos_Bright_Lights" title="Cosmos Bright
+			Lights">
+        <t>A real-time streaming based Service Disruption Detection
+				System has been deployed in Swisscom production as a proof of
+				concept in June 2024 monitoring approximate &gt;13'000 L3 VPN's
+				concurrently. The Apache AVRO schema described in <xref
+				target="Apache-AVRO-Schema"/> is being implemented in April
+				2025 in the development enviroment and considered to be deployed
+				in June 2025 in production.</t>
+      </section>
     </section>
 
     <section anchor="Acknowledgements" title="Acknowledgements">
