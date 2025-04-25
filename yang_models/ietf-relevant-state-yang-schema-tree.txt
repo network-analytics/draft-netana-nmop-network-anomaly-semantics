@@ -5,7 +5,6 @@ module: ietf-relevant-state
      +--rw description?                    string
      +--rw start-time                      yang:date-and-time
      +--rw end-time?                       yang:date-and-time
-     +--rw strategy?                       string
      +--rw confidence-score?               score
      +--rw concern-score                   score
      +--rw (service)?
@@ -45,7 +44,6 @@ module: ietf-relevant-state
         |  +--rw id?               yang:uuid
         |  +--rw name              string
         |  +--rw version?          string
-        |  +--rw template?         string
         |  +--rw annotator-type?   enumeration
         +--rw symptom!
         |  +--rw id                            yang:uuid
@@ -54,6 +52,9 @@ module: ietf-relevant-state
         |  +--rw smcblsymptom:reason?          string
         |  +--rw smcblsymptom:trigger?         string
         |  +--rw smcblsymptom:network-plane?   enumeration
+        |  +--rw smcblsymptom:strategy?        string
+        |  +--rw smcblsymptom:template?        string
+        |  +--rw smcblsymptom:season?          enumeration
         +--rw smtopology:vpn-node-terminations*
                 [hostname route-distinguisher]
            +--rw smtopology:hostname               inet:host
@@ -73,7 +74,6 @@ module: ietf-relevant-state
        +--ro description?                    string
        +--ro start-time                      yang:date-and-time
        +--ro end-time?                       yang:date-and-time
-       +--ro strategy?                       string
        +--ro confidence-score?               score
        +--ro concern-score                   score
        +--ro (service)?
@@ -115,7 +115,6 @@ module: ietf-relevant-state
           |  +--ro id?               yang:uuid
           |  +--ro name              string
           |  +--ro version?          string
-          |  +--ro template?         string
           |  +--ro annotator-type?   enumeration
           +--ro symptom!
           |  +--ro id                            yang:uuid
@@ -124,6 +123,9 @@ module: ietf-relevant-state
           |  +--ro smcblsymptom:reason?          string
           |  +--ro smcblsymptom:trigger?         string
           |  +--ro smcblsymptom:network-plane?   enumeration
+          |  +--ro smcblsymptom:strategy?        string
+          |  +--ro smcblsymptom:template?        string
+          |  +--ro smcblsymptom:season?          enumeration
           +--ro smtopology:vpn-node-terminations*
                   [hostname route-distinguisher]
              +--ro smtopology:hostname               inet:host
