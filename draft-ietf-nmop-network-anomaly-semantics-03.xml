@@ -727,11 +727,10 @@
 					
 					<t>Where the season enumeration declares wherever a workday or
 					a holiday hase been taken into consideration for Contextual
-					Outliers and strategy and template which strategy and
-					parameters have been used in the Service Disruption Detection
-					as described in Section 3.2 and 3.5.1 of <xref
-					target="I-D.ietf-nmop-network-anomaly-architecture"/>
-					</t>
+					Outliers. The template describes which set of approaches
+					and parameters have been used in the Service Disruption
+					Detection as described in Section 3.2 of <xref
+					target="I-D.ietf-nmop-network-anomaly-architecture"/></t>
 
           <figure anchor="ietf-network-anomaly-symptom-tree"
               title="YANG tree diagram for
@@ -744,7 +743,6 @@ module: ietf-network-anomaly-symptom-cbl
     +--rw reason?          string
     +--rw trigger?         string
     +--rw network-plane?   enumeration
-    +--rw strategy?        string
     +--rw template?        string
     +--rw season?          enumeration
   augment /rsn:relevant-state-notification/rsn:anomaly/rsn:symptom:
@@ -752,7 +750,6 @@ module: ietf-network-anomaly-symptom-cbl
     +-- reason?          string
     +-- trigger?         string
     +-- network-plane?   enumeration
-    +-- strategy?        string
     +-- template?        string
     +-- season?          enumeration
 ]]></sourcecode></figure>
@@ -879,16 +876,6 @@ module ietf-network-anomaly-symptom-cbl {
       }
       description
         "Associated network plane.";
-    }
-    leaf strategy {
-      type string;
-      mandatory false;
-      description
-        "Captures one approach to look at the data (as a human operator
-         does) to observe if an abnormal situation is arising.";
-      reference
-        "Section 3.5.3 in
-                \t\tdraft-ietf-nmop-network-anomaly-architecture.";
     }
     leaf template {
       type string;

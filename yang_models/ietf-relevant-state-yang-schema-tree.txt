@@ -5,6 +5,7 @@ module: ietf-relevant-state
      +--rw description?                    string
      +--rw start-time                      yang:date-and-time
      +--rw end-time?                       yang:date-and-time
+     +--rw strategy?                       string
      +--rw confidence-score?               score
      +--rw concern-score                   score
      +--rw (service)?
@@ -52,7 +53,6 @@ module: ietf-relevant-state
         |  +--rw smcblsymptom:reason?          string
         |  +--rw smcblsymptom:trigger?         string
         |  +--rw smcblsymptom:network-plane?   enumeration
-        |  +--rw smcblsymptom:strategy?        string
         |  +--rw smcblsymptom:template?        string
         |  +--rw smcblsymptom:season?          enumeration
         +--rw smtopology:vpn-node-terminations*
@@ -74,6 +74,7 @@ module: ietf-relevant-state
        +--ro description?                    string
        +--ro start-time                      yang:date-and-time
        +--ro end-time?                       yang:date-and-time
+       +--ro strategy?                       string
        +--ro confidence-score?               score
        +--ro concern-score                   score
        +--ro (service)?
@@ -123,7 +124,6 @@ module: ietf-relevant-state
           |  +--ro smcblsymptom:reason?          string
           |  +--ro smcblsymptom:trigger?         string
           |  +--ro smcblsymptom:network-plane?   enumeration
-          |  +--ro smcblsymptom:strategy?        string
           |  +--ro smcblsymptom:template?        string
           |  +--ro smcblsymptom:season?          enumeration
           +--ro smtopology:vpn-node-terminations*

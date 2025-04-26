@@ -102,16 +102,6 @@ module ietf-network-anomaly-symptom-cbl {
       description
         "Associated network plane.";
     }
-    leaf strategy {
-      type string;
-      mandatory false;
-      description
-        "Captures one approach to look at the data (as a human operator
-        does) to observe if an abnormal situation is arising.";
-      reference
-        "Section 3.5.3 in
-				draft-ietf-nmop-network-anomaly-architecture.";				
-    }
     leaf template {
       type string;
       mandatory false;
