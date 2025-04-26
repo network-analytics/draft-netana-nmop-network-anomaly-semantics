@@ -471,9 +471,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
    Where the season enumeration declares wherever a workday or a holiday
    hase been taken into consideration for Contextual Outliers.  The
-   template describes which set of approaches and parameters have been
-   used in the Service Disruption Detection as described in Section 3.2
-   of [I-D.ietf-nmop-network-anomaly-architecture]
+   template describes which approach and parameters have been used in
+   the Service Disruption Detection as described in Section 3.2 of
+   [I-D.ietf-nmop-network-anomaly-architecture]
 
    module: ietf-network-anomaly-symptom-cbl
 
