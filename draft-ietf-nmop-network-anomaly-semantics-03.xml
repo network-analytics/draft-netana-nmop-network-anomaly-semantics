@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="25" month="April" year="2025"/>
+    <date day="06" month="May" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -162,13 +162,13 @@
 			systematically, setting the baselines for supervised machine
 			learning algorithms that require labeled operational data.</t>
 
-      <t>This document proposes two YANG Service Delivery Models, a
+      <t>This document proposes two YANG Service Models, a
 			service topology model in <xref
 			target="YANG-Service-Topology-Module"/> to describe the topology
 			context and a YANG symptom model in <xref
 			target="YANG-Symptom-Module"/> to describe the symptoms defined In
 			<xref target="Observed_Symptoms"/>. <xref
-			target="Apache-AVRO-Schema"/> examples above Service Delivery
+			target="Apache-AVRO-Schema"/> examples above Service
 			Models in an Apache AVRO data model based on
 			'ietf-relevant-state.yang' data model defined in <xref
 			target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
@@ -180,7 +180,7 @@
         <t>This document makes use of the terms defined in <xref
         target="I-D.ietf-nmop-network-anomaly-architecture"/>, <xref
         target="I-D.ietf-nmop-terminology"/> and
-				<xref target="RFC8309"/>.</t>
+				<xref target="RFC8969"/>.</t>
 
         <t>The following terms are used as defined in <xref
         target="I-D.ietf-nmop-network-anomaly-architecture"/>:</t>
@@ -211,10 +211,10 @@
           </list></t>
 					
         <t>The following terms are used as defined in <xref
-				target="RFC8309"/> :</t>
+				target="RFC8969"/> :</t>
 
         <t><list style="symbols">
-            <t>Service Delivery Model</t>
+            <t>Service Model</t>
           </list></t>
       </section>
     </section>
@@ -1798,7 +1798,7 @@ module ietf-network-anomaly-service-topology {
 
       <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'?>
 
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8309.xml'?>
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8969.xml'?>
 
       <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml'?>
 

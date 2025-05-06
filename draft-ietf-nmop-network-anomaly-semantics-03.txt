@@ -5,11 +5,11 @@
 NMOP                                                             T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 27 October 2025                                   A. Huang Feng
+Expires: 7 November 2025                                   A. Huang Feng
                                                                INSA-Lyon
                                                             V. Riccobene
                                                                   Huawei
-                                                           25 April 2025
+                                                              6 May 2025
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Graf, et al.             Expires 27 October 2025                [Page 1]
+Graf, et al.             Expires 7 November 2025                [Page 1]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    Internet-Drafts are draft documents valid for a maximum of six months
@@ -63,7 +63,7 @@ Internet-Draft          Network Anomaly Semantics             April 2025
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 27 October 2025.
+   This Internet-Draft will expire on 7 November 2025.
 
 Copyright Notice
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Graf, et al.             Expires 27 October 2025                [Page 2]
+Graf, et al.             Expires 7 November 2025                [Page 2]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
 1.  Introduction
@@ -139,11 +139,11 @@ Internet-Draft          Network Anomaly Semantics             April 2025
    supervised machine learning algorithms that require labeled
    operational data.
 
-   This document proposes two YANG Service Delivery Models, a service
-   topology model in Section 4.3 to describe the topology context and a
-   YANG symptom model in Section 4.2 to describe the symptoms defined In
-   Section 3.  Section 4.4 examples above Service Delivery Models in an
-   Apache AVRO data model based on 'ietf-relevant-state.yang' data model
+   This document proposes two YANG Service Models, a service topology
+   model in Section 4.3 to describe the topology context and a YANG
+   symptom model in Section 4.2 to describe the symptoms defined In
+   Section 3.  Section 4.4 examples above Service Models in an Apache
+   AVRO data model based on 'ietf-relevant-state.yang' data model
    defined in [I-D.ietf-nmop-network-anomaly-lifecycle].
 
 2.  Conventions and Definitions
@@ -152,7 +152,7 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
    This document makes use of the terms defined in
    [I-D.ietf-nmop-network-anomaly-architecture],
-   [I-D.ietf-nmop-terminology] and [RFC8309].
+   [I-D.ietf-nmop-terminology] and [RFC8969].
 
    The following terms are used as defined in
    [I-D.ietf-nmop-network-anomaly-architecture]:
@@ -165,9 +165,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025                [Page 3]
+Graf, et al.             Expires 7 November 2025                [Page 3]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    *  Service Disruption Detection System
@@ -185,9 +185,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
    *  Alarm
 
-   The following terms are used as defined in [RFC8309] :
+   The following terms are used as defined in [RFC8969] :
 
-   *  Service Delivery Model
+   *  Service Model
 
 3.  Observed Symptoms
 
@@ -221,9 +221,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025                [Page 4]
+Graf, et al.             Expires 7 November 2025                [Page 4]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
       reachability action was due to path *updates* or *withdraws* or
@@ -277,9 +277,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025                [Page 5]
+Graf, et al.             Expires 7 November 2025                [Page 5]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
             +=========+==============+========================+
@@ -333,9 +333,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025                [Page 6]
+Graf, et al.             Expires 7 November 2025                [Page 6]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
     +==============+=============+====================================+
@@ -389,9 +389,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025                [Page 7]
+Graf, et al.             Expires 7 November 2025                [Page 7]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
     |              | Teared Down |                                    |
@@ -445,9 +445,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025                [Page 8]
+Graf, et al.             Expires 7 November 2025                [Page 8]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
 4.1.  Overview of the Models for the Symptom Semantic Metadata
@@ -501,9 +501,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025                [Page 9]
+Graf, et al.             Expires 7 November 2025                [Page 9]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    state' container is used for modifying the Symptom data in the
@@ -557,9 +557,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 10]
+Graf, et al.             Expires 7 November 2025               [Page 10]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
         without modification, is permitted pursuant to, and subject
@@ -613,9 +613,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 11]
+Graf, et al.             Expires 7 November 2025               [Page 11]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
            "Describes what triggered the network node to this action.";
@@ -669,9 +669,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 12]
+Graf, et al.             Expires 7 November 2025               [Page 12]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
          "Provide extension for the symptom description,
@@ -725,9 +725,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 13]
+Graf, et al.             Expires 7 November 2025               [Page 13]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
              +--rw change-id?           yang:uuid
@@ -781,9 +781,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 14]
+Graf, et al.             Expires 7 November 2025               [Page 14]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    <CODE BEGINS>
@@ -837,9 +837,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 15]
+Graf, et al.             Expires 7 November 2025               [Page 15]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
         Redistribution and use in source and binary forms, with or
@@ -893,9 +893,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 16]
+Graf, et al.             Expires 7 November 2025               [Page 16]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
              "List of unique site ID's of the VPN connectivity service.";
@@ -949,9 +949,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 17]
+Graf, et al.             Expires 7 November 2025               [Page 17]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
          leaf-list peer-ip {
@@ -1005,9 +1005,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 18]
+Graf, et al.             Expires 7 November 2025               [Page 18]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
            "Layer 2 VPN connectivity service.";
@@ -1061,9 +1061,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 19]
+Graf, et al.             Expires 7 November 2025               [Page 19]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    *  RelevantStateNotification.avsc is based on 'relevant-state-
@@ -1117,9 +1117,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 20]
+Graf, et al.             Expires 7 November 2025               [Page 20]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
          "type": {
@@ -1173,9 +1173,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 21]
+Graf, et al.             Expires 7 November 2025               [Page 21]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
        },
@@ -1229,9 +1229,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 22]
+Graf, et al.             Expires 7 November 2025               [Page 22]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
        {
@@ -1285,9 +1285,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 23]
+Graf, et al.             Expires 7 November 2025               [Page 23]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    <CODE BEGINS> file "Annotator@2025-04-09.avsc"
@@ -1341,9 +1341,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 24]
+Graf, et al.             Expires 7 November 2025               [Page 24]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    <CODE BEGINS> file "L2VpnService.avsc@2025-04-09.avsc"
@@ -1397,9 +1397,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 25]
+Graf, et al.             Expires 7 November 2025               [Page 25]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    <CODE ENDS>
@@ -1453,9 +1453,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 26]
+Graf, et al.             Expires 7 November 2025               [Page 26]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
        },
@@ -1509,9 +1509,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 27]
+Graf, et al.             Expires 7 November 2025               [Page 27]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    <CODE BEGINS> file "VpnNodeTermination@2025-04-09.avsc"
@@ -1565,9 +1565,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 28]
+Graf, et al.             Expires 7 November 2025               [Page 28]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
       URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-
@@ -1621,9 +1621,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 29]
+Graf, et al.             Expires 7 November 2025               [Page 29]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    There are a number of data nodes defined in this YANG module that are
@@ -1677,9 +1677,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 30]
+Graf, et al.             Expires 7 November 2025               [Page 30]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
 7.2.  Cosmos Bright Lights
@@ -1733,9 +1733,9 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 31]
+Graf, et al.             Expires 7 November 2025               [Page 31]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    [RFC3688]  Mealling, M., "The IETF XML Registry", BCP 81, RFC 3688,
@@ -1756,10 +1756,6 @@ Internet-Draft          Network Anomaly Semantics             April 2025
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
 
-   [RFC8309]  Wu, Q., Liu, W., and A. Farrel, "Service Models
-              Explained", RFC 8309, DOI 10.17487/RFC8309, January 2018,
-              <https://www.rfc-editor.org/info/rfc8309>.
-
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
@@ -1772,6 +1768,11 @@ Internet-Draft          Network Anomaly Semantics             April 2025
    [RFC8446]  Rescorla, E., "The Transport Layer Security (TLS) Protocol
               Version 1.3", RFC 8446, DOI 10.17487/RFC8446, August 2018,
               <https://www.rfc-editor.org/info/rfc8446>.
+
+   [RFC8969]  Wu, Q., Ed., Boucadair, M., Ed., Lopez, D., Xie, C., and
+              L. Geng, "A Framework for Automating Service and Network
+              Management with YANG", RFC 8969, DOI 10.17487/RFC8969,
+              January 2021, <https://www.rfc-editor.org/info/rfc8969>.
 
    [RFC9000]  Iyengar, J., Ed. and M. Thomson, Ed., "QUIC: A UDP-Based
               Multiplexed and Secure Transport", RFC 9000,
@@ -1788,19 +1789,18 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-
-Graf, et al.             Expires 27 October 2025               [Page 32]
+Graf, et al.             Expires 7 November 2025               [Page 32]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    [I-D.ietf-netmod-rfc8407bis]
               Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
               Authors and Reviewers of Documents Containing YANG Data
               Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-24, 18 April 2025,
+              netmod-rfc8407bis-25, 6 May 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-24>.
+              rfc8407bis-25>.
 
    [I-D.ietf-nmop-yang-message-broker-integration]
               Graf, T. and A. Elhassany, "An Architecture for YANG-Push
@@ -1845,9 +1845,9 @@ Authors' Addresses
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 33]
+Graf, et al.             Expires 7 November 2025               [Page 33]
 
-Internet-Draft          Network Anomaly Semantics             April 2025
+Internet-Draft          Network Anomaly Semantics               May 2025
 
 
    Vincenzo Riccobene
@@ -1901,4 +1901,4 @@ Internet-Draft          Network Anomaly Semantics             April 2025
 
 
 
-Graf, et al.             Expires 27 October 2025               [Page 34]
+Graf, et al.             Expires 7 November 2025               [Page 34]
