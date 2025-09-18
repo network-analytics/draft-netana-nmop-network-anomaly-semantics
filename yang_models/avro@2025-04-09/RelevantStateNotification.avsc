@@ -206,7 +206,7 @@
         "doc": "List of the Layer 2 VPN connectivity services."
       }
     ],
-    "doc": "Container for Layer 32VPN service list."
+    "doc": "Container for Layer 2VPN service list."
   },
   {
     "type": "record",

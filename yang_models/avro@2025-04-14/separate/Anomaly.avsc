@@ -81,6 +81,14 @@
       "type": ["null", "ietf.relevant.state.Symptom"],
       "default": null,
       "doc": "It specifies the symptom for the anomaly."
+    },
+    {
+      "name": "vpnNodeTerminations",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.VpnNodeTermination"
+      },
+      "doc": "List of Node Terminations of interest."
     }
   ]
 }

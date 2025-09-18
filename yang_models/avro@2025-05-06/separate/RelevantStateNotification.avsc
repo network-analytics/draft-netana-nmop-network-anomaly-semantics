@@ -63,14 +63,6 @@
       "doc": "List of anomalies that are part of the relevant state."
     },
     {
-      "name": "vpnNodeTerminations",
-      "type": {
-        "type": "array",
-        "items": "ietf.relevant.state.VpnNodeTermination"
-      },
-      "doc": "List of Node Terminations of interest."
-    },
-    {
       "name": "service",
       "type": [
         "null",
