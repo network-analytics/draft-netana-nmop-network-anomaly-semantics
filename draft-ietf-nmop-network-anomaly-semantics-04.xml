@@ -1344,12 +1344,12 @@ module ietf-network-anomaly-service-topology {
 							on 'vpn-service' defined in 
 							'ietf-network-anomaly-service-topology.yang'.</t>
 
-              <t>VpnNodeTermination.avsc is based on
-							'vpn-node-termination' defined in
+              <t>VpnTermination.avsc is based on
+							'vpn-termination' defined in
 							'ietf-network-anomaly-service-topology.yang'.</t>
             </list></t>
 
-          <sourcecode name="RelevantStateNotification@2025-05-06.avsc"
+          <sourcecode name="RelevantStateNotification@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1442,7 +1442,7 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="Anomaly@2025-05-06.avsc"
+          <sourcecode name="Anomaly@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1540,7 +1540,7 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="Publisher@2025-05-06.avsc"
+          <sourcecode name="Publisher@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1575,7 +1575,7 @@ module ietf-network-anomaly-service-topology {
 }					
 ]]></sourcecode>
 
-          <sourcecode name="Annotator@2025-05-06.avsc"
+          <sourcecode name="Annotator@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1628,7 +1628,7 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="Symptom@2025-05-06.avsc"
+          <sourcecode name="Symptom@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1703,7 +1703,7 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="L2VpnServiceContainer.avsc@2025-05-06.avsc"
+          <sourcecode name="L2VpnServiceContainer.avsc@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1723,7 +1723,7 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="L2VpnService.avsc@2025-05-06.avsc"
+          <sourcecode name="L2VpnService.avsc@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1775,7 +1775,7 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="L3VpnServiceContainer.avsc@2025-05-06.avsc"
+          <sourcecode name="L3VpnServiceContainer.avsc@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1795,7 +1795,7 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="L3VpnService.avsc@2025-05-06.avsc"
+          <sourcecode name="L3VpnService.avsc@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1847,11 +1847,11 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-          <sourcecode name="VpnNodeTermination@2025-05-06.avsc"
+          <sourcecode name="VpnTermination@2025-09-20.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
-  "name": "VpnNodeTermination",
+  "name": "VpnTermination",
   "namespace": "ietf.relevant.state",
   "fields": [
     {
@@ -1875,9 +1875,24 @@ module ietf-network-anomaly-service-topology {
       "doc": "The BGP next-hop IP address."
     },
     {
+      "name": "VrfId",
+      "type": {"type": "array", "items": "long"},
+      "doc": "The VRF identifier."
+    },
+    {
+      "name": "VrfName",
+      "type": {"type": "array", "items": "long"},
+      "doc": "The VRF name."
+    },
+    {
       "name": "interfaceId",
       "type": {"type": "array", "items": "long"},
       "doc": "The interface identifier."
+    },
+    {
+      "name": "interfaceName",
+      "type": {"type": "array", "items": "long"},
+      "doc": "The interface name."
     }
   ]
 }

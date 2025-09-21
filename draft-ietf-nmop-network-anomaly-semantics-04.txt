@@ -95,11 +95,11 @@ Table of Contents
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  34
    7.  Implementation status . . . . . . . . . . . . . . . . . . . .  35
      7.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  35
-     7.2.  Cosmos Bright Lights  . . . . . . . . . . . . . . . . . .  36
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  36
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  36
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  38
+     7.2.  Cosmos Bright Lights  . . . . . . . . . . . . . . . . . .  35
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  35
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  35
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  37
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
 
 
@@ -1161,10 +1161,10 @@ Internet-Draft          Network Anomaly Semantics         September 2025
       and L3VpnServiceContainer.avsc is based on 'vpn-service' defined
       in 'ietf-network-anomaly-service-topology.yang'.
 
-   *  VpnNodeTermination.avsc is based on 'vpn-node-termination' defined
-      in 'ietf-network-anomaly-service-topology.yang'.
+   *  VpnTermination.avsc is based on 'vpn-termination' defined in
+      'ietf-network-anomaly-service-topology.yang'.
 
-   <CODE BEGINS> file "RelevantStateNotification@2025-05-06.avsc"
+   <CODE BEGINS> file "RelevantStateNotification@2025-09-20.avsc"
    {
      "type": "record",
      "name": "RelevantStateNotification",
@@ -1272,7 +1272,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "Anomaly@2025-05-06.avsc"
+   <CODE BEGINS> file "Anomaly@2025-09-20.avsc"
    {
      "type": "record",
      "name": "Anomaly",
@@ -1402,7 +1402,7 @@ Graf, et al.              Expires 24 March 2026                [Page 25]
 Internet-Draft          Network Anomaly Semantics         September 2025
 
 
-   <CODE BEGINS> file "Publisher@2025-05-06.avsc"
+   <CODE BEGINS> file "Publisher@2025-09-20.avsc"
    {
      "type": "record",
      "name": "Publisher",
@@ -1436,7 +1436,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "Annotator@2025-05-06.avsc"
+   <CODE BEGINS> file "Annotator@2025-09-20.avsc"
    {
      "type": "record",
      "name": "Annotator",
@@ -1496,7 +1496,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "Symptom@2025-05-06.avsc"
+   <CODE BEGINS> file "Symptom@2025-09-20.avsc"
    {
      "type": "record",
      "name": "Symptom",
@@ -1586,7 +1586,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "L2VpnServiceContainer.avsc@2025-05-06.avsc"
+   <CODE BEGINS> file "L2VpnServiceContainer.avsc@2025-09-20.avsc"
    {
      "type": "record",
      "name": "L2VpnServiceContainer",
@@ -1605,7 +1605,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "L2VpnService.avsc@2025-05-06.avsc"
+   <CODE BEGINS> file "L2VpnService.avsc@2025-09-20.avsc"
    {
      "type": "record",
      "name": "L2VpnService",
@@ -1682,7 +1682,7 @@ Graf, et al.              Expires 24 March 2026                [Page 30]
 Internet-Draft          Network Anomaly Semantics         September 2025
 
 
-   <CODE BEGINS> file "L3VpnServiceContainer.avsc@2025-05-06.avsc"
+   <CODE BEGINS> file "L3VpnServiceContainer.avsc@2025-09-20.avsc"
    {
      "type": "record",
      "name": "L2VpnServiceContainer",
@@ -1701,7 +1701,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "L3VpnService.avsc@2025-05-06.avsc"
+   <CODE BEGINS> file "L3VpnService.avsc@2025-09-20.avsc"
    {
      "type": "record",
      "name": "L3VpnService",
@@ -1760,44 +1760,10 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 24 March 2026                [Page 32]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
-   <CODE BEGINS> file "VpnNodeTermination@2025-05-06.avsc"
+   <CODE BEGINS> file "VpnTermination@2025-09-20.avsc"
    {
      "type": "record",
-     "name": "VpnNodeTermination",
+     "name": "VpnTermination",
      "namespace": "ietf.relevant.state",
      "fields": [
        {
@@ -1820,10 +1786,33 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          "type": {"type": "array", "items": "string"},
          "doc": "The BGP next-hop IP address."
        },
+
+
+
+Graf, et al.              Expires 24 March 2026                [Page 32]
+
+Internet-Draft          Network Anomaly Semantics         September 2025
+
+
+       {
+         "name": "VrfId",
+         "type": {"type": "array", "items": "long"},
+         "doc": "The VRF identifier."
+       },
+       {
+         "name": "VrfName",
+         "type": {"type": "array", "items": "long"},
+         "doc": "The VRF name."
+       },
        {
          "name": "interfaceId",
          "type": {"type": "array", "items": "long"},
          "doc": "The interface identifier."
+       },
+       {
+         "name": "interfaceName",
+         "type": {"type": "array", "items": "long"},
+         "doc": "The interface name."
        }
      ]
    }
@@ -1841,15 +1830,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
       XML: N/A; the requested URI is an XML namespace.
 
 
-
-
-
-
-Graf, et al.              Expires 24 March 2026                [Page 33]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
       URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-
       topology
 
@@ -1861,6 +1841,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    Module Names registry [RFC3688]:
 
       Name: ietf-network-anomaly-symptom-cbl
+
+
+
+
+Graf, et al.              Expires 24 March 2026                [Page 33]
+
+Internet-Draft          Network Anomaly Semantics         September 2025
+
 
       Namespace: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-
       symptom-cbl
@@ -1896,16 +1884,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    RESTCONF users to a preconfigured subset of all available NETCONF or
    RESTCONF protocol operations and content.
 
-
-
-
-
-
-Graf, et al.              Expires 24 March 2026                [Page 34]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
    There are a number of data nodes defined in this YANG module that are
    writable/creatable/deletable (i.e., "config true", which is the
    default).  All writable data nodes are likely to be reasonably
@@ -1920,6 +1898,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    Some of the readable data nodes in this YANG module may be considered
    sensitive or vulnerable in some network environments.  It is thus
    important to control read access (e.g., via get, get-config, or
+
+
+
+Graf, et al.              Expires 24 March 2026                [Page 34]
+
+Internet-Draft          Network Anomaly Semantics         September 2025
+
+
    notification) to these data nodes.  Specifically, the following
    subtrees and data nodes have particular sensitivities/
    vulnerabilities:
@@ -1947,21 +1933,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
    The open source code can be found here: [Antagonist]
 
-
-
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 24 March 2026                [Page 35]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
 7.2.  Cosmos Bright Lights
 
    A real-time streaming based Service Disruption Detection System has
@@ -1984,6 +1955,13 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 9.1.  Normative References
 
+
+
+Graf, et al.              Expires 24 March 2026                [Page 35]
+
+Internet-Draft          Network Anomaly Semantics         September 2025
+
+
    [Antagonist]
               Riccobene, V., Du, W., Graf, T., and H. Huang Feng,
               "Antagonist: Anomaly tagging on historical data",
@@ -2003,20 +1981,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
               Internet-Draft, draft-ietf-nmop-network-anomaly-lifecycle-
               03, 8 May 2025, <https://datatracker.ietf.org/doc/html/
               draft-ietf-nmop-network-anomaly-lifecycle-03>.
-
-
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 24 March 2026                [Page 36]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
 
    [I-D.ietf-nmop-terminology]
               Davis, N., Farrel, A., Graf, T., Wu, Q., and C. Yu, "Some
@@ -2044,6 +2008,16 @@ Internet-Draft          Network Anomaly Semantics         September 2025
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
               <https://www.rfc-editor.org/info/rfc8040>.
 
+
+
+
+
+
+Graf, et al.              Expires 24 March 2026                [Page 36]
+
+Internet-Draft          Network Anomaly Semantics         September 2025
+
+
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
@@ -2066,13 +2040,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
               Multiplexed and Secure Transport", RFC 9000,
               DOI 10.17487/RFC9000, May 2021,
               <https://www.rfc-editor.org/info/rfc9000>.
-
-
-
-Graf, et al.              Expires 24 March 2026                [Page 37]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
 
 9.2.  Informative References
 
@@ -2099,6 +2066,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    [I-D.ietf-opsawg-collected-data-manifest]
               Claise, B., Quilbeuf, J., Lopez, D., Martinez-Casanueva,
               I. D., and T. Graf, "A Data Manifest for Contextualized
+
+
+
+Graf, et al.              Expires 24 March 2026                [Page 37]
+
+Internet-Draft          Network Anomaly Semantics         September 2025
+
+
               Telemetry Data", Work in Progress, Internet-Draft, draft-
               ietf-opsawg-collected-data-manifest-09, 21 July 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
@@ -2120,14 +2095,6 @@ Authors' Addresses
    CH-8045 Zurich
    Switzerland
    Email: wanting.du@swisscom.com
-
-
-
-
-
-Graf, et al.              Expires 24 March 2026                [Page 38]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
 
 
    Alex Huang Feng
@@ -2158,27 +2125,4 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 24 March 2026                [Page 39]
+Graf, et al.              Expires 24 March 2026                [Page 38]

@@ -1,0 +1,81 @@
+{
+  "type": "record",
+  "name": "RelevantStateNotification",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store."
+    },
+    {
+      "name": "uri",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URI to visualize the analytical metrics of the relevant-state."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Textual description of the fault."
+    },
+    {
+      "name": "startTime",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Date and time indicating the beginning of the problem."
+    },
+    {
+      "name": "endTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "Date and time indicating the end of the problem."
+    },
+    {
+      "name": "strategy",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the strategy that detected the relevant state."
+    },
+    {
+      "name": "confidenceScore",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "Score between 0 and 100 indicating how confident were the detectors in relation to the overall relevant state."
+    },
+    {
+      "name": "concernScore",
+      "type": "int",
+      "doc": "Score between 0 and 100 indicating the degree of concern in relation to the overall relevant state."
+    },
+    {
+      "name": "anomaly",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.Anomaly"
+      },
+      "doc": "List of anomalies that are part of the relevant state."
+    },
+    {
+      "name": "service",
+      "type": [
+        "null",
+        "ietf.relevant.state.L2VpnServiceContainer",
+        "ietf.relevant.state.L3VpnServiceContainer"
+      ],
+      "default": null,
+      "doc": "List of services of interest. The type of the service can be extended in the future."
+    },
+    {
+      "name": "publisher",
+      "type": "ietf.relevant.state.Publisher",
+      "doc": "Name of the system which published the relevant-state notification."
+    }
+  ]
+}
