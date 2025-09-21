@@ -1875,12 +1875,12 @@ module ietf-network-anomaly-service-topology {
       "doc": "The BGP next-hop IP address."
     },
     {
-      "name": "VrfId",
+      "name": "vrfId",
       "type": {"type": "array", "items": "long"},
       "doc": "The VRF identifier."
     },
     {
-      "name": "VrfName",
+      "name": "vrfName",
       "type": {"type": "array", "items": "long"},
       "doc": "The VRF name."
     },
