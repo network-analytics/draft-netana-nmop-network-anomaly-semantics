@@ -115,9 +115,9 @@ module ietf-network-anomaly-service-topology {
     }
   }
 
-  grouping vpn-termination {
+  grouping vpn-node-termination {
     description
-      "Node and Network Termination for the VPN Service instance.
+      "Node Termination for the VPN Service instance.
        This grouping is used to augment the relevant-state container.";
     list vpn-node-terminations {
       key "hostname";
@@ -177,6 +177,12 @@ module ietf-network-anomaly-service-topology {
             ietf-interfaces:interfaces/interface/name.";
       }
     }
+  }
+
+  grouping vpn-network-termination {
+    description
+      "Network Termination for the VPN Service instance.
+       This grouping is used to augment the relevant-state container.";
     list vpn-network-terminations {
       key "route-distinguisher";
       description
@@ -252,7 +258,8 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state container.";
-    uses vpn-termination;
+    uses vpn-node-termination;
+    uses vpn-network-termination;
   }
 
   augment "/rsn:relevant-state-notification/rsn:anomaly" {
@@ -260,6 +267,7 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state notification.";
-    uses vpn-termination;
+    uses vpn-node-termination;
+    uses vpn-network-termination;
   }
 }

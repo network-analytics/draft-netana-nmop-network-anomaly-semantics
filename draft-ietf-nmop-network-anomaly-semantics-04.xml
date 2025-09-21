@@ -928,14 +928,15 @@ module ietf-network-anomaly-symptom-cbl {
 			'ietf-network-anomaly-service-topology'">
 
         <section title="YANG Tree">
-          <t>The YANG module has a service, a node-termination and
-					network-termination grouping defining a 'vpn-id', a 'vpn-name'
-					'site-ids' and a change-id with start and end time for
-					service and hostname, VRF ID, VRF name, BGP
-					route-distinguisher, BGP peer ip address, BGP path next-hop,
-					node interface-id and node interface-name for node-termination
-					and hostname, BGP route-distinguisher, BGP path next-hop and
-					BGP peer ip address for network-termination.
+          <t>The YANG module has a service and a vpn-termination
+					grouping defining a 'vpn-id', a 'vpn-name' 'site-ids' and a
+					'change-id' with 'start' and 'end time' for 'service' and 
+					'hostname', 'VRF ID', 'VRF Name', 'BGP route-distinguisher',
+					'BGP peer ip address', 'BGP path next-hop',
+					'node interface-id' and 'node interface-name' for 
+					'node-termination' list and 'hostname',
+					'BGP route-distinguisher', 'BGP path next-hop' and
+					'BGP peer ip address' for 'network-termination' list.
 					</t>
 
           <t>Within the NMOP working group we discuss with the SIMAP
@@ -1141,9 +1142,9 @@ module ietf-network-anomaly-service-topology {
     }
   }
 
-  grouping vpn-node-termination {
+  grouping vpn-termination {
     description
-      "Node Termination for the VPN Service instance.
+      "Node and Network Termination for the VPN Service instance.
        This grouping is used to augment the relevant-state container.";
     list vpn-node-terminations {
       key "hostname";
@@ -1203,12 +1204,6 @@ module ietf-network-anomaly-service-topology {
             ietf-interfaces:interfaces/interface/name.";
       }
     }
-  }
-
-  grouping vpn-network-termination {
-    description
-      "Network Termination for the VPN Service instance.
-       This grouping is used to augment the relevant-state container.";
     list vpn-network-terminations {
       key "route-distinguisher";
       description
@@ -1284,8 +1279,7 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state container.";
-    uses vpn-node-termination;
-    uses vpn-network-termination;
+    uses vpn-termination;
   }
 
   augment "/rsn:relevant-state-notification/rsn:anomaly" {
@@ -1293,8 +1287,7 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state notification.";
-    uses vpn-node-termination;
-    uses vpn-network-termination;
+    uses vpn-termination;
   }
 }
 ]]></sourcecode>
