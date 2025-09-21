@@ -132,13 +132,19 @@ module ietf-network-anomaly-service-topology {
             the node by the administrator to uniquely
             identify the node in the network.";
       }
-      leaf vrf {
+      leaf vrf-id {
         type string;
         mandatory true;
         description
-          "The VRF name obtained through
-            IPFIX IE236 VRFname or BMP peer_up VRF Table
-            Name TLV.";
+          "The VRF id obtained through IPFIX IE234
+            ingressVRFID or IE235 egressVRFID.";
+      }
+      leaf vrf-name {
+        type string;
+        mandatory true;
+        description
+          "The VRF name obtained through IPFIX IE236
+            VRFname or BMP peer_up VRF Table Name TLV.";
       }
       leaf route-distinguisher {
         type string;
@@ -162,6 +168,13 @@ module ietf-network-anomaly-service-topology {
             IPFIX IE10 ingressInterface, IE14
             egressInterface or
             ietf-interfaces:interfaces/interface/if-index.";
+      }
+      leaf-list interface-name {
+        type uint32;
+        description
+          "The interface name obtained through
+            IPFIX IE82 interfaceName or
+            ietf-interfaces:interfaces/interface/name.";
       }
     }
   }

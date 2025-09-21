@@ -59,10 +59,12 @@ module: ietf-relevant-state
         |  +--rw smcblsymptom:season?          enumeration
         +--rw smtopology:vpn-node-terminations* [hostname]
         |  +--rw smtopology:hostname               inet:host
-        |  +--rw smtopology:vrf                    string
+        |  +--rw smtopology:vrf-id                 string
+        |  +--rw smtopology:vrf-name               string
         |  +--rw smtopology:route-distinguisher    string
         |  +--rw smtopology:peer-ip*               inet:ip-address
         |  +--rw smtopology:interface-id*          uint32
+        |  +--rw smtopology:interface-name*        uint32
         +--rw smtopology:vpn-network-terminations*
                 [route-distinguisher]
            +--rw smtopology:route-distinguisher    string
@@ -135,10 +137,12 @@ module: ietf-relevant-state
           |  +--ro smcblsymptom:season?          enumeration
           +--ro smtopology:vpn-node-terminations* [hostname]
           |  +--ro smtopology:hostname               inet:host
-          |  +--ro smtopology:vrf                    string
+          |  +--ro smtopology:vrf-id                 string
+          |  +--ro smtopology:vrf-name               string
           |  +--ro smtopology:route-distinguisher    string
           |  +--ro smtopology:peer-ip*               inet:ip-address
           |  +--ro smtopology:interface-id*          uint32
+          |  +--ro smtopology:interface-name*        uint32
           +--ro smtopology:vpn-network-terminations*
                   [route-distinguisher]
              +--ro smtopology:route-distinguisher    string

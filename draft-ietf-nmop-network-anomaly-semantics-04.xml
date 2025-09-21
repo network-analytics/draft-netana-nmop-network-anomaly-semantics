@@ -931,10 +931,11 @@ module ietf-network-anomaly-symptom-cbl {
           <t>The YANG module has a service, a node-termination and
 					network-termination grouping defining a 'vpn-id', a 'vpn-name'
 					'site-ids' and a change-id with start and end time for
-					service and hostname, VRF, BGP route-distinguisher, BGP peer
-					ip address, BGP path next-hop and node interface-id for
-					node-termination and hostname, BGP route-distinguisher, BGP
-					path next-hop and BGP peer ip address for network-termination.
+					service and hostname, VRF ID, VRF name, BGP
+					route-distinguisher, BGP peer ip address, BGP path next-hop,
+					node interface-id and node interface-name for node-termination
+					and hostname, BGP route-distinguisher, BGP path next-hop and
+					BGP peer ip address for network-termination.
 					</t>
 
           <t>Within the NMOP working group we discuss with the SIMAP
@@ -985,10 +986,12 @@ module: ietf-network-anomaly-service-topology
   augment /rsn:relevant-state/rsn:anomaly:
     +--rw vpn-node-terminations* [hostname]
     |  +--rw hostname               inet:host
-    |  +--rw vrf                    string
+    |  +--rw vrf-id                 string
+    |  +--rw vrf-name               string
     |  +--rw route-distinguisher    string
     |  +--rw peer-ip*               inet:ip-address
     |  +--rw interface-id*          uint32
+    |  +--rw interface-name*        uint32
     +--rw vpn-network-terminations* [route-distinguisher]
        +--rw route-distinguisher    string
        +--rw next-hop*              inet:ip-address
@@ -997,10 +1000,12 @@ module: ietf-network-anomaly-service-topology
   augment /rsn:relevant-state-notification/rsn:anomaly:
     +-- vpn-node-terminations* [hostname]
     |  +-- hostname               inet:host
-    |  +-- vrf                    string
+    |  +-- vrf-id                 string
+    |  +-- vrf-name               string
     |  +-- route-distinguisher    string
     |  +-- peer-ip*               inet:ip-address
     |  +-- interface-id*          uint32
+    |  +-- interface-name*        uint32
     +-- vpn-network-terminations* [route-distinguisher]
        +-- route-distinguisher    string
        +-- next-hop*              inet:ip-address
@@ -1153,13 +1158,19 @@ module ietf-network-anomaly-service-topology {
             the node by the administrator to uniquely
             identify the node in the network.";
       }
-      leaf vrf {
+      leaf vrf-id {
         type string;
         mandatory true;
         description
-          "The VRF name obtained through
-            IPFIX IE236 VRFname or BMP peer_up VRF Table
-            Name TLV.";
+          "The VRF id obtained through IPFIX IE234
+            ingressVRFID or IE235 egressVRFID.";
+      }
+      leaf vrf-name {
+        type string;
+        mandatory true;
+        description
+          "The VRF name obtained through IPFIX IE236
+            VRFname or BMP peer_up VRF Table Name TLV.";
       }
       leaf route-distinguisher {
         type string;
@@ -1183,6 +1194,13 @@ module ietf-network-anomaly-service-topology {
             IPFIX IE10 ingressInterface, IE14
             egressInterface or
             ietf-interfaces:interfaces/interface/if-index.";
+      }
+      leaf-list interface-name {
+        type uint32;
+        description
+          "The interface name obtained through
+            IPFIX IE82 interfaceName or
+            ietf-interfaces:interfaces/interface/name.";
       }
     }
   }
