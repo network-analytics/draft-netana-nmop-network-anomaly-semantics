@@ -1,0 +1,2071 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rfc>
+<?rfc toc="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc tocdepth="2"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc compact="yes"?>
+<?rfc subcompact="no"?>
+<rfc category="exp" docName="draft-ietf-nmop-network-anomaly-semantics-04"
+     ipr="trust200902" submissionType="IETF">
+  <front>
+    <title abbrev="Network Anomaly Semantics">Semantic Metadata
+		Annotation for Network Anomaly Detection</title>
+
+    <author fullname="Thomas Graf" initials="T" surname="Graf">
+      <organization>Swisscom</organization>
+
+      <address>
+        <postal>
+          <street>Binzring 17</street>
+
+          <city>Zurich</city>
+
+          <code>8045</code>
+
+          <country>Switzerland</country>
+        </postal>
+
+        <email>thomas.graf@swisscom.com</email>
+      </address>
+    </author>
+
+    <author fullname="Wanting Du" initials="W" surname="Du">
+      <organization>Swisscom</organization>
+
+      <address>
+        <postal>
+          <street>Binzring 17</street>
+
+          <city>Zurich</city>
+
+          <code>8045</code>
+
+          <country>Switzerland</country>
+        </postal>
+
+        <email>wanting.du@swisscom.com</email>
+      </address>
+    </author>
+
+    <author fullname="Alex Huang Feng" initials="A." surname="Huang Feng">
+      <organization>INSA-Lyon</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Lyon</city>
+
+          <region/>
+
+          <code/>
+
+          <country>France</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>alex.huang-feng@insa-lyon.fr</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <author fullname="Vincenzo Riccobene" initials="V." surname="Riccobene">
+      <organization>Huawei</organization>
+
+      <address>
+        <postal>
+          <street/>
+
+          <city>Dublin</city>
+
+          <region/>
+
+          <code/>
+
+          <country>Ireland</country>
+        </postal>
+
+        <phone/>
+
+        <facsimile/>
+
+        <email>vincenzo.riccobene@huawei-partners.com</email>
+
+        <uri/>
+      </address>
+    </author>
+
+    <date day="20" month="September" year="2025"/>
+
+    <area>Operations and Management</area>
+
+    <workgroup>NMOP</workgroup>
+
+    <abstract>
+      <t>This document explains the motivation for defining semantic
+      metadata annotations to help testing, validating and comparing
+			Outlier and Symptom detection systems. These semantic annotations
+			can be supported by supervised and semi-supervised machine
+			learning algorithms and enable data exchange among network
+			operators, vendors and academia, making anomalies apprehensible
+			for humans. The proposed semantics uniforms the network anomaly
+			data exchange between operators and vendors to improve their
+			Service Disruption Detection Systems.</t>
+    </abstract>
+
+    <note removeInRFC="true">
+      <name>Discussion Venues</name>
+
+      <t>Discussion of this document takes place on the Operations and
+      Management Area Working Group Working Group mailing list
+      (nmop@ietf.org), which is archived at <eref
+      target="https://mailarchive.ietf.org/arch/browse/nmop/"/>.</t>
+
+      <t>Source for this draft and an issue tracker can be found at <eref
+      target="https://github.com/network-analytics/draft-netana-nmop-network-anomaly-semantics/"/>.</t>
+    </note>
+  </front>
+
+  <middle>
+    <section anchor="Introduction" title="Introduction">
+      <t><xref target="I-D.ietf-nmop-network-anomaly-architecture"/>
+      provides an overall introduction into how anomaly detection is
+      applied to the IP network domain and which operational data are
+			needed. It approaches the problem space by automating what a
+			network engineer would normally do when verifying a network
+			connectivity service, monitoring the different network planes to
+			understand wherever one network plane affects another
+			negatively.</t>
+
+      <t>As a Service Disruption Detection Systems may need to be fine
+			tuned to effectively maintain good anomaly detection rates, the
+			system need to generate analytical data that is reviewed by a
+			network engineer. This process is defined in <xref
+			target="I-D.ietf-nmop-network-anomaly-lifecycle"/>, where the
+			human engineer can be kept out of the monitoring process but needs
+			to be involved in the alarm verification process.</t>
+
+      <t>This document describes what information is needed to
+			understand the analytical results produced by the Service
+			Disruption Detection System. The document proposes a set of
+			semantically structured terms that can be used by a Service
+			Disruption Detection System for comparing the results
+			systematically, setting the baselines for supervised machine
+			learning algorithms that require labeled operational data.</t>
+
+      <t>This document proposes two YANG Service Models, a
+			service topology model in <xref
+			target="YANG-Service-Topology-Module"/> to describe the topology
+			context and a YANG symptom model in <xref
+			target="YANG-Symptom-Module"/> to describe the symptoms defined In
+			<xref target="Observed_Symptoms"/>. <xref
+			target="Apache-AVRO-Schema"/> examples above Service
+			Models in an Apache AVRO data model based on
+			'ietf-relevant-state.yang' data model defined in <xref
+			target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
+    </section>
+
+    <section anchor="Conventions_and_Definitions"
+             title="Conventions and Definitions">
+      <section anchor="Terminology" title="Terminology">
+        <t>This document makes use of the terms defined in <xref
+        target="I-D.ietf-nmop-network-anomaly-architecture"/>, <xref
+        target="I-D.ietf-nmop-terminology"/> and
+				<xref target="RFC8969"/>.</t>
+
+        <t>The following terms are used as defined in <xref
+        target="I-D.ietf-nmop-network-anomaly-architecture"/>:</t>
+
+        <t><list style="symbols">
+            <t>Outlier Detection</t>
+
+            <t>Contextual Outlier</t>
+
+            <t>Service Disruption Detection</t>
+      
+            <t>Service Disruption Detection System</t>
+          </list></t>
+
+        <t>The following terms are used as defined in <xref
+        target="I-D.ietf-nmop-terminology"/>:</t>
+
+        <t><list style="symbols">
+            <t>System</t>
+
+            <t>State</t>
+
+            <t>Problem</t>
+
+            <t>Symptom</t>
+
+            <t>Alarm</t>
+          </list></t>
+					
+        <t>The following terms are used as defined in <xref
+				target="RFC8969"/> :</t>
+
+        <t><list style="symbols">
+            <t>Service Model</t>
+          </list></t>
+      </section>
+    </section>
+
+    <section anchor="Observed_Symptoms" title="Observed Symptoms">
+      <t>Observed network Symptoms are specified and
+      categorized according to the following scheme:</t>
+
+      <dl>
+        <dt>Action:</dt>
+
+        <dd>
+          <t>The action that a network node performed for a packet in
+					the Forwarding Plane, a path or adjacency in the Control
+					Plane, or the representation of resource state in the
+					Management Plane or statistical changes recorded by the
+					resources and reported in the Management Plane. For Forwarding
+					Plane we distinguish between <strong>missing</strong>, where
+					the packet drop occurred outside the measured network node,
+					<strong>drop</strong>, where the packet drop was performed by
+					the measured network node, and <strong>delay</strong>, which
+					defines the on-path delay measured on the network node. For
+					Control Plane we distinguish between
+					<strong>reachability</strong>, which refers to a change in the
+					routing or forwarding information base (RIB/FIB) and
+					<strong>adjacency</strong> which refers to a change in a
+					peering or link-layer resolution. For Management Plane we
+					refer to <strong>state</strong> or 
+					<strong>statistical</strong> change on the interface.</t>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt>Reason:</dt>
+
+        <dd>
+          <t>For each action, the reason describe why this action was
+          performed. For drops in Forwarding Plane we distinguish
+					between <strong>Unreachable</strong>, because network layer
+					reachability information was missing, 
+					<strong>Administered</strong>, because an administrator
+					configured a rule preventing the forwarding of this packet,
+					and <strong>Corrupt</strong>, where the network node was
+					unable to determine the forwarding path due to a packet,
+					software or hardware error. For on-path delay we distinguish
+          between <strong>Minimum</strong>, <strong>Average</strong> and
+					<strong>Maximum</strong> delay for a given flow. For Control
+					Plane, we distinguish wherever a the reachability action was
+					due to path <strong>updates</strong> or 
+					<strong>withdraws</strong> or the adjacency was 
+					<strong>established</strong> or <strong>teared down</strong>.
+					For Management Plane, we distinguish between interfaces states
+					that are shown as <strong>up</strong> and 
+					<strong>down</strong>, and statistical counters that refer to
+					<strong>errors</strong>, packet <strong>discards</strong> or
+					<strong>unknown protocol</strong> counters.</t>
+        </dd>
+      </dl>
+
+      <dl>
+        <dt>Trigger:</dt>
+
+        <dd>
+          <t>For each reason, the trigger describe why a network node 
+          has chosen that action.</t>
+        </dd>
+      </dl>
+
+      <t><xref target="symptom_forwarding_plane_actions_table"/>
+			consolidates the list of common symptoms related to the forwarding
+			plane, defining the triplets action, reason and trigger.</t>
+
+      <table align="center"
+			anchor="symptom_forwarding_plane_actions_table">
+        <name slugifiedName="symptom_forwarding_plane_actions">
+				Description of symptoms and their actions, reason and trigger
+				for Forwarding Plane.</name>
+
+        <thead>
+          <tr>
+            <th align="left" colspan="1" rowspan="1">Action</th>
+
+            <th align="left" colspan="1" rowspan="1">Reason</th>
+
+            <th align="left" colspan="1" rowspan="1">Trigger</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Missing</td>
+
+            <td align="left" colspan="1" rowspan="1">Previous</td>
+
+            <td align="left" colspan="1" rowspan="1">Time</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+            <td align="left" colspan="1" rowspan="1">next-hop</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+            <td align="left" colspan="1" rowspan="1">link-layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+            <td align="left" colspan="1" rowspan="1">Time To Life expired</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Unreachable</td>
+
+            <td align="left" colspan="1" rowspan="1">Fragmentation needed and
+            Don't Fragment set</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Access-List</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Unicast Reverse Path
+            Forwarding</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Discard Route</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Policed</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Administered</td>
+
+            <td align="left" colspan="1" rowspan="1">Shaped</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Corrupt</td>
+
+            <td align="left" colspan="1" rowspan="1">Bad Packet</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
+
+            <td align="left" colspan="1" rowspan="1">Corrupt</td>
+
+            <td align="left" colspan="1" rowspan="1">Bad Egress Interface</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Delay</td>
+
+            <td align="left" colspan="1" rowspan="1">Min</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Delay</td>
+
+            <td align="left" colspan="1" rowspan="1">Mean</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Delay</td>
+
+            <td align="left" colspan="1" rowspan="1">Max</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <t><xref target="symptom_control_plane_actions_table"/>
+			consolidates the list of common symptoms related to control plane,
+			describing their actions, reasons and triggers.</t>
+
+      <table align="center"
+			anchor="symptom_control_plane_actions_table">
+        <name slugifiedName="symptom_control_plane_actions">Description
+				of symptoms and their actions, reasons and triggers related to
+				Control Plane.</name>
+
+        <thead>
+          <tr>
+            <th align="left" colspan="1" rowspan="1">Action</th>
+
+            <th align="left" colspan="1" rowspan="1">Reason</th>
+
+            <th align="left" colspan="1" rowspan="1">Trigger</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Update</td>
+
+            <td align="left" colspan="1" rowspan="1">Imported</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Update</td>
+
+            <td align="left" colspan="1" rowspan="1">Received</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Received</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Peer Down</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Suppressed</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Stale</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Route Policy
+            Filtered</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Reachability</td>
+
+            <td align="left" colspan="1" rowspan="1">Withdraw</td>
+
+            <td align="left" colspan="1" rowspan="1">Maximum Number of
+            Prefixes Reached</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Established</td>
+
+            <td align="left" colspan="1" rowspan="1">Peer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Established</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Peer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Peer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Administrative</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Administrative</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Maximum Number of
+            Prefixes Reached</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Maximum Number of
+            Prefixes Reached</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Locally Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Transport Connection
+            Failed</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Adjacency</td>
+
+            <td align="left" colspan="1" rowspan="1">Remotely Teared Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Transport Connection
+            Failed</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <t><xref target="symptom_management_plane_actions_table"/>
+			consolidates the list of common symptoms related to management
+			plane, defining the triplets action, reason and trigger.</t>
+
+      <table align="center"
+			anchor="symptom_management_plane_actions_table">
+        <name slugifiedName="symptom_management_plane_actions">
+				Description of symptoms and their actions, reasons and triggers
+				for Management Plane.</name>
+
+        <thead>
+          <tr>
+            <th align="left" colspan="1" rowspan="1">Action</th>
+
+            <th align="left" colspan="1" rowspan="1">Reason</th>
+
+            <th align="left" colspan="1" rowspan="1">Trigger</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface State</td>
+
+            <td align="left" colspan="1" rowspan="1">Up</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface State</td>
+
+            <td align="left" colspan="1" rowspan="1">Down</td>
+
+            <td align="left" colspan="1" rowspan="1">Link-Layer</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface Statistics</td>
+
+            <td align="left" colspan="1" rowspan="1">Errors</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface Statistics</td>
+
+            <td align="left" colspan="1" rowspan="1">Discards</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+
+          <tr>
+            <td align="left" colspan="1" rowspan="1">Interface Statistics</td>
+
+            <td align="left" colspan="1" rowspan="1">Unknown Protocol</td>
+
+            <td align="left" colspan="1" rowspan="1">-</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section anchor="Semantic_Metadata" title="Semantic Metadata">
+      <t>Operational Metadata adds additional context to collected
+			metrics. For instance, in a network, the software version of the
+			network node defines the version of the software release that
+      generated Management Plane metrics <xref
+      target="I-D.ietf-opsawg-collected-data-manifest"/>. Semantic
+      Metadata, on the other hand, defines the meaning or ontology of
+			the annotated data. In this section a YANG model is defined in
+			order to provide a structure for the metadata related to anomalies
+			occurred in a network. The module is intended to describe the
+			metadata used for "annotating" the operational data collected from
+			the network nodes, which include time series data, logs, as well
+			as other forms of data that is "time-bounded". The aspects
+			discussed in this document are grouped under the concept of
+			"anomaly" which represents a collection of symptoms. The anomaly
+			overall has a set of parameters that describe the overall behavior
+			of the network in a given time-window including all the observed
+			symptoms and outliers.</t>
+
+      <section anchor="symptom-model-tree"
+        title="Overview of the Models for the Symptom Semantic
+				Metadata">
+        <t>This section defines two YANG models, one defining a
+				placeholder for the action reason trigger defined in this
+				document, and one defining service topology
+        information related to the anomaly.</t>
+
+      </section>		
+    
+      <section anchor="YANG-Symptom-Module" title="YANG Module
+			'ietf-network-anomaly-symptom-cbl'">
+
+        <section title="YANG Tree">
+          <t><xref target="ietf-network-anomaly-symptom-tree"/> contains
+					the YANG tree diagram <xref target="RFC8340"/> of the 
+					'ietf-network-anomaly-symptom-cbl' module. It augments the 
+					'ietf-relevant-state' module defined in <xref
+					target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
+
+          <t>For each Symptom, the following parameters can be assigned:
+					an Action, a Reason and a Trigger describing the Symptom; a
+					concern score indicating how critical the Symptom is; and the
+					associated network plane.</t>
+					
+					<t>Where the season enumeration declares wherever a workday or
+					a holiday hase been taken into consideration for Contextual
+					Outliers. The template describes which approach and parameters
+					have been used in the Service Disruption Detection as
+					described in Section 3.2 of <xref
+					target="I-D.ietf-nmop-network-anomaly-architecture"/></t>
+
+          <figure anchor="ietf-network-anomaly-symptom-tree"
+              title="YANG tree diagram for
+							'ietf-network-anomaly-symptom-cbl' module.">
+          <sourcecode type="yangtree"><![CDATA[
+module: ietf-network-anomaly-symptom-cbl
+
+  augment /rsn:relevant-state/rsn:anomaly/rsn:symptom:
+    +--rw action?          string
+    +--rw reason?          string
+    +--rw trigger?         string
+    +--rw network-plane?   enumeration
+    +--rw template?        string
+    +--rw season?          enumeration
+  augment /rsn:relevant-state-notification/rsn:anomaly/rsn:symptom:
+    +-- action?          string
+    +-- reason?          string
+    +-- trigger?         string
+    +-- network-plane?   enumeration
+    +-- template?        string
+    +-- season?          enumeration
+]]></sourcecode></figure>
+
+          <t>The module augments the anomaly of the 'relevant-state'
+          container and the 'relevant-state-notification' of
+          'ietf-relevant-state' module defined in <xref 
+          target="I-D.ietf-nmop-network-anomaly-lifecycle"/>. The 
+          'relevant-state' container is used for modifying the Symptom
+          data in the Postmortem system, while the
+          'relevant-state-notification' is used for messaging from the
+          Alarm Aggregation to the Postmortem and the Alarm and Problem
+          Management system.</t>
+        </section>
+
+        <section title="YANG Module">
+
+        <t>The YANG module has one typedef defining the score, a
+				grouping defining Action, Reason and Trigger and how symptom
+				attributes to the network planes.</t>
+
+<sourcecode name="ietf-network-anomaly-symptom-cbl@2025-04-25.yang"
+type="yang" markers="true"><![CDATA[
+module ietf-network-anomaly-symptom-cbl {
+  yang-version 1.1;
+  namespace
+    "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl";
+  prefix smcblsymptom;
+
+  import ietf-relevant-state {
+    prefix rsn;
+    reference
+      "RFC XXX: Relevant State and Relevant State Notification";
+  }
+
+  organization
+    "IETF NMOP (Network Management Operations) Working Group";
+  contact
+    "WG Web:   <http:/tools.ietf.org/wg/netconf/>
+     WG List:  <mailto:nmop@ietf.org>
+
+     Editor:   Thomas Graf
+               <mailto:thomas.graf@swisscom.com>
+               Wanting Du
+               <mailto:wanting.du@swisscom.com>
+               Alex Huang Feng
+               <mailto:alex.huang-feng@insa-lyon.fr>
+               Vincenzo Riccobene
+               <mailto:vincenzo.riccobene@huawei-partners.com>";
+  description
+    "This module defines the semantic grouping to be used by a
+     Service Disruption Detection Systems. The defined objects is
+     used to augment the anomaly container. Describing the
+     symptoms action, reason and concern-score.
+
+     Copyright (c) 2025 IETF Trust and the persons
+     identified as authors of the code.  All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Revised BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
+
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry
+     (https://www.iana.org/assignments/yang-parameters).
+
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
+
+  revision 2025-04-25 {
+    description
+      "Initial version";
+    reference
+      "RFC XXX: Semantic Metadata Annotation for Network Anomaly
+       Detection";
+  }
+
+  typedef score {
+    type uint8 {
+      range "0..100";
+    }
+    description
+      "Number indicating a score between 0 and 100.";
+  }
+
+  grouping cbl-symptom {
+    description
+      "Semantic metadata assocaited to a symptom for a detected
+       connectivity service anomaly.";
+    leaf action {
+      type string;
+      description
+        "Operation performed by a network node when forwarding a
+         packet.";
+    }
+    leaf reason {
+      type string;
+      description
+        "Reason associated to the action performed by the network
+         node.";
+    }
+    leaf trigger {
+      type string;
+      description
+        "Describes what triggered the network node to this action.";
+    }
+    leaf network-plane {
+      type enumeration {
+        enum forwarding {
+          description
+            "Symptom associated to the Forwarding Plane.";
+        }
+        enum control {
+          description
+            "Symptom associated to the Control Plane.";
+        }
+        enum management {
+          description
+            "Symptom associated to the Management Plane.";
+        }
+      }
+      description
+        "Associated network plane.";
+    }
+    leaf template {
+      type string;
+      mandatory false;
+      description
+        "A group of configuration parameters contributing to the symptom
+         detection computation";
+      reference
+        "Section 3.2 in draft-ietf-nmop-network-anomaly-architecture.";
+    }
+    leaf season {
+      type enumeration {
+        enum workday {
+          description
+            "Contextual outlier associated to workday.";
+        }
+        enum holiday {
+          description
+            "Contextual outlier associated to holiday.";
+        }
+      }
+      description
+        "Associated season.";
+    }
+  }
+
+  augment "/rsn:relevant-state/rsn:anomaly"
+        + "/rsn:symptom" {
+    description
+      "Provide extension for the symptom description,
+       specifically for connectivity services to the
+       relevant state container";
+    uses cbl-symptom;
+  }
+
+  augment "/rsn:relevant-state-notification/rsn:anomaly"
+        + "/rsn:symptom" {
+    description
+      "Provide extension for the symptom description,
+       specifically for connectivity services to the
+       relevant state notification";
+    uses cbl-symptom;
+  }
+}
+]]></sourcecode>
+        </section>
+      </section>
+
+      <section anchor="YANG-Service-Topology-Module" title="YANG Module
+			'ietf-network-anomaly-service-topology'">
+
+        <section title="YANG Tree">
+          <t>The YANG module has a service, a node-termination and
+					network-termination grouping defining a 'vpn-id', a 'vpn-name'
+					'site-ids' and a change-id with start and end time for
+					service and hostname, VRF, BGP route-distinguisher, BGP peer
+					ip address, BGP path next-hop and node interface-id for
+					node-termination and hostname, BGP route-distinguisher, BGP
+					path next-hop and BGP peer ip address for network-termination.
+					</t>
+
+          <t>Within the NMOP working group we discuss with the SIMAP
+					authors which existing YANG nodes instead could be used to
+					facilitate a service and network topology context view.</t>
+
+          <sourcecode type="yangtree"><![CDATA[
+module: ietf-network-anomaly-service-topology
+
+  augment /rsn:relevant-state/rsn:service:
+    +--:(l2vpn)
+    |  +--rw vpn-service* [vpn-id]
+    |     +--rw vpn-id               string
+    |     +--rw uri?                 inet:uri
+    |     +--rw vpn-name?            string
+    |     +--rw site-ids*            string
+    |     +--rw change-id?           yang:uuid
+    |     +--rw change-start-time?   yang:date-and-time
+    |     +--rw change-end-time?     yang:date-and-time
+    +--:(l3vpn)
+       +--rw vpn-service* [vpn-id]
+          +--rw vpn-id               string
+          +--rw uri?                 inet:uri
+          +--rw vpn-name?            string
+          +--rw site-ids*            string
+          +--rw change-id?           yang:uuid
+          +--rw change-start-time?   yang:date-and-time
+          +--rw change-end-time?     yang:date-and-time
+  augment /rsn:relevant-state-notification/rsn:service:
+    +--:(l2vpn)
+    |  +-- vpn-service* [vpn-id]
+    |     +-- vpn-id               string
+    |     +-- uri?                 inet:uri
+    |     +-- vpn-name?            string
+    |     +-- site-ids*            string
+    |     +-- change-id?           yang:uuid
+    |     +-- change-start-time?   yang:date-and-time
+    |     +-- change-end-time?     yang:date-and-time
+    +--:(l3vpn)
+       +-- vpn-service* [vpn-id]
+          +-- vpn-id               string
+          +-- uri?                 inet:uri
+          +-- vpn-name?            string
+          +-- site-ids*            string
+          +-- change-id?           yang:uuid
+          +-- change-start-time?   yang:date-and-time
+          +-- change-end-time?     yang:date-and-time
+  augment /rsn:relevant-state/rsn:anomaly:
+    +--rw vpn-node-terminations* [hostname]
+    |  +--rw hostname               inet:host
+    |  +--rw vrf                    string
+    |  +--rw route-distinguisher    string
+    |  +--rw peer-ip*               inet:ip-address
+    |  +--rw interface-id*          uint32
+    +--rw vpn-network-terminations* [route-distinguisher]
+       +--rw route-distinguisher    string
+       +--rw next-hop*              inet:ip-address
+       +--rw hostname               inet:host
+       +--rw peer-ip*               inet:ip-address
+  augment /rsn:relevant-state-notification/rsn:anomaly:
+    +-- vpn-node-terminations* [hostname]
+    |  +-- hostname               inet:host
+    |  +-- vrf                    string
+    |  +-- route-distinguisher    string
+    |  +-- peer-ip*               inet:ip-address
+    |  +-- interface-id*          uint32
+    +-- vpn-network-terminations* [route-distinguisher]
+       +-- route-distinguisher    string
+       +-- next-hop*              inet:ip-address
+       +-- hostname               inet:host
+       +-- peer-ip*               inet:ip-address
+]]></sourcecode>
+        </section>
+
+        <section title="YANG Module">
+
+          <t>The 'ietf-network-anomaly-service-topology' module defines
+					reusable groupings for augmenting the 'relevant-state' model.
+					It defines placeholders for defining VPN information that is
+					associated to the relevant state.</t>
+
+          <sourcecode
+					name="ietf-network-anomaly-service-topology@2025-09-20.yang"
+					type="yang" markers="true"><![CDATA[
+module ietf-network-anomaly-service-topology {
+  yang-version 1.1;
+  namespace
+    "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-topology";
+  prefix smtopology;
+
+  import ietf-inet-types {
+    prefix inet;
+    reference
+      "RFC 6991: Common YANG Data Types";
+  }
+  import ietf-yang-types {
+    prefix yang;
+    reference
+      "RFC 6991: Common YANG Data Types";
+  }
+  import ietf-relevant-state {
+    prefix rsn;
+    reference
+      "RFC XXX: An Experiment: Network Anomaly Lifecycle";
+  }
+
+  organization
+    "IETF NMOP (Network Management Operations) Working Group";
+  contact
+    "WG Web:   <http:/tools.ietf.org/wg/netconf/>
+     WG List:  <mailto:nmop@ietf.org>
+
+     Editor:   Thomas Graf
+               <mailto:thomas.graf@swisscom.com>
+               Wanting Du
+               <mailto:wanting.du@swisscom.com>
+               Alex Huang Feng
+               <mailto:alex.huang-feng@insa-lyon.fr>
+               Vincenzo Riccobene
+               <mailto:vincenzo.riccobene@huawei-partners.com>";
+  description
+    "This module defines the symptom container to be used by a network
+     anomaly detection system. The defined objects can be used to
+     augment operational network collected observability data and
+     analytical problem data equally. Describing the relevant-state
+     of observed symptoms.
+
+     Copyright (c) 2025 IETF Trust and the persons
+     identified as authors of the code.  All rights reserved.
+
+     Redistribution and use in source and binary forms, with or
+     without modification, is permitted pursuant to, and subject
+     to the license terms contained in, the Revised BSD License
+     set forth in Section 4.c of the IETF Trust's Legal Provisions
+     Relating to IETF Documents
+     (https://trustee.ietf.org/license-info).
+
+     All revisions of IETF and IANA published modules can be found
+     at the YANG Parameters registry
+     (https://www.iana.org/assignments/yang-parameters).
+
+     This version of this YANG module is part of RFC XXXX; see
+     the RFC itself for full legal notices.";
+
+  revision 2025-09-20 {
+    description
+      "Initial version";
+    reference
+      "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
+  }
+
+  grouping vpn-service {
+    description
+      "Connectivity service of type VPN. This grouping is
+       used to augment the relevant-state container.";
+    list vpn-service {
+      key "vpn-id";
+      description
+        "List of VPN connectivity services of interest.";
+      leaf vpn-id {
+        type string;
+        mandatory true;
+        description
+          "Unique ID of the VPN connectivity service.";
+      }
+      leaf uri {
+        type inet:uri;
+        description
+          "URI to viusalize the VPN connectivity service inventory.";
+      }
+      leaf vpn-name {
+        type string;
+        description
+          "Name of the VPN connectivity service.";
+      }
+      leaf-list site-ids {
+        type string;
+        description
+          "List of unique site ID's of the VPN connectivity service.";
+      }
+      leaf change-id {
+        type yang:uuid;
+        description
+          "Unique identifier of VPN connectivity service maintenance
+           window within the relevant-state window.";
+      }
+      leaf change-start-time {
+        type yang:date-and-time;
+        description
+          "Start date and time of the VPN connectivity service
+           maintenance window within the relevant-state window.";
+      }
+      leaf change-end-time {
+        type yang:date-and-time;
+        description
+          "End date and time of the VPN connectivity service
+           maintenance window within the relevant-state window.";
+      }
+    }
+  }
+
+  grouping vpn-node-termination {
+    description
+      "Node Termination for the VPN Service instance.
+       This grouping is used to augment the relevant-state container.";
+    list vpn-node-terminations {
+      key "hostname";
+      description
+        "List of Node Terminations of interest.";
+      leaf hostname {
+        type inet:host;
+        mandatory true;
+        description
+          "The hostname of the network node according to
+            [RFC1213]. This value is usually configured on
+            the node by the administrator to uniquely
+            identify the node in the network.";
+      }
+      leaf vrf {
+        type string;
+        mandatory true;
+        description
+          "The VRF name obtained through
+            IPFIX IE236 VRFname or BMP peer_up VRF Table
+            Name TLV.";
+      }
+      leaf route-distinguisher {
+        type string;
+        mandatory true;
+        description
+          "The BGP route-distinguisher obtained through
+            IPFIX IE90 mplsVpnRouteDistinguisher or BMP
+            route-monitoring or peer_up message type.";
+      }
+      leaf-list peer-ip {
+        type inet:ip-address;
+        description
+          "The BGP peering IP address learned through
+            BMP route-monitoring, peer_up or peer_down
+            message type.";
+      }
+      leaf-list interface-id {
+        type uint32;
+        description
+          "The interface identifier obtained through
+            IPFIX IE10 ingressInterface, IE14
+            egressInterface or
+            ietf-interfaces:interfaces/interface/if-index.";
+      }
+    }
+  }
+
+  grouping vpn-network-termination {
+    description
+      "Network Termination for the VPN Service instance.
+       This grouping is used to augment the relevant-state container.";
+    list vpn-network-terminations {
+      key "route-distinguisher";
+      description
+        "List of Network Terminations of interest.";
+      leaf route-distinguisher {
+        type string;
+        mandatory true;
+        description
+          "The BGP route-distinguisher obtained through
+            BMP route-monitoring or peer_up message type.";
+      }
+      leaf-list next-hop {
+        type inet:ip-address;
+        description
+          "The BGP next-hop IP address learned through
+            BMP route-monitoring message type.";
+      }
+      leaf hostname {
+        type inet:host;
+        mandatory true;
+        description
+          "The hostname of the network node according to
+            [RFC1213]. This value is usually configured on
+            the node by the administrator to uniquely
+            identify the node in the network.";
+      }
+      leaf-list peer-ip {
+        type inet:ip-address;
+        description
+          "The BGP peering IP address learned through
+            BMP route-monitoring, peer_up or peer_down
+            message type.";
+      }
+    }
+  }
+
+  augment "/rsn:relevant-state/rsn:service" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state container.";
+    case l2vpn {
+      description
+        "Layer 2 VPN connectivity service.";
+      uses vpn-service;
+    }
+    case l3vpn {
+      description
+        "Layer 3 VPN connectivity service.";
+      uses vpn-service;
+    }
+  }
+
+  augment "/rsn:relevant-state-notification/rsn:service" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state notification.";
+    case l2vpn {
+      description
+        "Layer 2 VPN connectivity service.";
+      uses vpn-service;
+    }
+    case l3vpn {
+      description
+        "Layer 3 VPN connectivity service.";
+      uses vpn-service;
+    }
+  }
+
+  augment "/rsn:relevant-state/rsn:anomaly" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state container.";
+    uses vpn-node-termination;
+    uses vpn-network-termination;
+  }
+
+  augment "/rsn:relevant-state-notification/rsn:anomaly" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state notification.";
+    uses vpn-node-termination;
+    uses vpn-network-termination;
+  }
+}
+]]></sourcecode>
+        </section>
+      </section>
+			
+			<section anchor="Apache-AVRO-Schema" title="Apache AVRO Schema">
+
+          <t>Depending on implementation, a network operator might
+					chose defined YANG models as data models or uses the YANG
+					models as information data models and transform them 
+					to another schema format such as <xref
+					target="Apache AVRO"/> to use
+					as data model for <xref
+					target="I-D.ietf-nmop-yang-message-broker-integration"/>
+					integration.</t>
+
+          <t>Shows the entire notification schema of 
+					'ietf-relevant-state.yang' from <xref
+					target="I-D.ietf-nmop-network-anomaly-lifecycle"/>, 
+					'ietf-network-anomaly-service-topology.yang' from
+					<xref target="YANG-Service-Topology-Module"/> and 
+					'ietf-network-anomaly-symptom-cbl.yang' from <xref
+					target="YANG-Symptom-Module"/> as an Apache AVRO schema.</t>
+
+          <t>The Apache AVRO schema is decomposed based on
+					YANG groupings as following:</t>
+
+          <t><list style="symbols">
+              <t>RelevantStateNotification.avsc is based on
+							'relevant-state-grouping' defined in
+							'ietf-relevant-state.yang' with
+							'ietf.relevant.state.Publisher',
+							'ietf.relevant.state.Anomaly',
+							'ietf.relevant.state.VpnNodeTermination' and
+							'ietf.relevant.state.VpnService' AVRO schema imports.</t>
+
+              <t>Publisher.avsc is based on 'publisher' container
+							defined in 'ietf-relevant-state.yang'.</t>
+    
+              <t>Anomaly.avsc is based on 'anomaly-grouping' defined in
+							'ietf-relevant-state.yang' with
+							'ietf.relevant.state.Annotator' and
+							'ietf.relevant.state.Symptom' AVRO schema imports.</t>
+    
+              <t>Annotator.avsc is based on 'anotator-grouping' defined
+							in 'ietf-relevant-state.yang'.</t>
+    
+              <t>Symptom.avsc is based on 'cbl-symptom' defined
+							in 'ietf-network-anomaly-symptom-cbl.yang'.</t>
+    
+              <t>L2VpnService.avsc, L2VpnServiceContainer.avsc, 
+							L3VpnService.avsc and L3VpnServiceContainer.avsc is based
+							on 'vpn-service' defined in 
+							'ietf-network-anomaly-service-topology.yang'.</t>
+
+              <t>VpnNodeTermination.avsc is based on
+							'vpn-node-termination' defined in
+							'ietf-network-anomaly-service-topology.yang'.</t>
+            </list></t>
+
+          <sourcecode name="RelevantStateNotification@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "RelevantStateNotification",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store."
+    },
+    {
+      "name": "uri",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URI to visualize the analytical metrics of the relevant-state."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Textual description of the fault."
+    },
+    {
+      "name": "startTime",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      },
+      "doc": "Date and time indicating the beginning of the problem."
+    },
+    {
+      "name": "endTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "Date and time indicating the end of the problem."
+    },
+    {
+      "name": "strategy",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the strategy that detected the relevant state."
+    },
+    {
+      "name": "confidenceScore",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "Score between 0 and 100 indicating how confident were the detectors in relation to the overall relevant state."
+    },
+    {
+      "name": "concernScore",
+      "type": "int",
+      "doc": "Score between 0 and 100 indicating the degree of concern in relation to the overall relevant state."
+    },
+    {
+      "name": "anomaly",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.Anomaly"
+      },
+      "doc": "List of anomalies that are part of the relevant state."
+    },
+    {
+      "name": "vpnNodeTerminations",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.VpnNodeTermination"
+      },
+      "doc": "List of Node Terminations of interest."
+    },
+    {
+      "name": "service",
+      "type": [
+        "null",
+        "ietf.relevant.state.L2VpnServiceContainer",
+        "ietf.relevant.state.L3VpnServiceContainer"
+      ],
+      "default": null,
+      "doc": "List of services of interest. The type of the service can be extended in the future."
+    },
+    {
+      "name": "publisher",
+      "type": "ietf.relevant.state.Publisher",
+      "doc": "Name of the system which published the relevant-state notification."
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="Anomaly@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "Anomaly",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "Unique identifier of the anomaly."
+    },
+    {
+      "name": "revision",
+      "type": "int",
+      "doc": "Revision of the anomaly metadata object."
+    },
+    {
+      "name": "uri",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URI to visualize the analytical metrics of the anomaly."
+    },
+    {
+      "name": "state",
+      "type":  {
+          "type": "enum",
+          "name": "State",
+          "symbols": [
+            "detection",
+            "validation",
+            "refinement"
+          ]
+        },
+      "doc": "State of the anomaly."
+    },
+    {
+      "name": "description",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Textual description of the anomaly."
+    },
+    {
+      "name": "startTime",
+      "type": {"type": "long", "logicalType": "timestamp-millis"},
+      "doc": "Date and time indicating the beginning of the anomaly."
+    },
+    {
+      "name": "endTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "Date and time indicating the end of the anomaly."
+    },
+    {
+      "name": "confidenceScore",
+      "type": ["null", "int"],
+      "default": null,
+      "doc": "Score between 0 and 100 indicating how confident was the detector while considering the given anomaly as part of the relevant event."
+    },
+    {
+      "name": "pattern",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "Pattern",
+          "symbols": [
+            "drop",
+            "spike",
+            "mean_shift",
+            "seasonality_shift",
+            "trend",
+            "other"
+          ],
+          "doc": "Pattern describes the type of pattern that was detected by the annotator (e.g. spike, drop, mean_shift, etc.)."
+        }
+      ],
+      "default": null,
+      "doc": "Pattern describes the type of pattern that was detected by the annotator. This field is optional."
+    },
+    {
+      "name": "annotator",
+      "type": "ietf.relevant.state.Annotator",
+      "doc": "Annotator represents the entity that produced the annotation."
+    },
+    {
+      "name": "symptom",
+      "type": ["null", "ietf.relevant.state.Symptom"],
+      "default": null,
+      "doc": "It specifies the symptom for the anomaly."
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="Publisher@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "Publisher",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "Unique ID of the system which published the relevant-state notification."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Name of the system which published the relevant-state notification."
+    },
+    {
+      "name": "version",
+      "type": [
+        "null",
+        {
+          "type": "string"
+        }
+      ],
+      "default": null,
+      "doc": "Version of the system which published the relevant-state notification.."
+    }
+  ]
+}					
+]]></sourcecode>
+
+          <sourcecode name="Annotator@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "Annotator",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "id",
+      "type": [
+        "null",
+        {
+          "type": "string",
+          "logicalType": "uuid"
+        }
+      ],
+      "default": null,
+      "doc": "Unique ID of the annotator (either user or algorithm)."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Name of the annotator (either user or algorithm)."
+    },
+    {
+      "name": "annotatorType",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "AnnotatorType",
+          "symbols": ["human", "algorithm"],
+          "doc": "An annotator can be either a human user or a programmatic entity, such as an algorithm."
+        }
+      ],
+      "default": null,
+      "doc": "AnnotatorType specifies the type of the annotator."
+    },
+    {
+      "name": "version",
+      "type": [
+        "null",
+        {
+          "type": "string"
+        }
+      ],
+      "default": null,
+      "doc": "Version of the annotator."
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="Symptom@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "Symptom",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "Unique identifier of the symptom type."
+    },
+    {
+      "name": "concernScore",
+      "type": "int",
+      "doc": "Score between 0 and 100 indicating the degree of concern in relation to the specific symptom."
+    },
+    {
+      "name": "action",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Action associated with the symptom."
+    },
+    {
+      "name": "reason",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Reason associated with the symptom."
+    },
+    {
+      "name": "trigger",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Trigger associated with the symptom."
+    },
+    {
+      "name": "networkPlane",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "NetworkPlane",
+          "symbols": ["management", "control", "forwarding"],
+          "doc": "Network Plane affected by the symptom."
+        }
+      ],
+      "default": null,
+      "doc": "Network Plane affected by the symptom."
+    },
+    {
+      "name": "template",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the template that detected the symptom."
+    },
+    {
+      "name": "season",
+      "type": [
+        "null",
+        {
+          "type": "enum",
+          "name": "Season",
+          "symbols": ["workday", "holiday"]
+        }
+      ],
+      "default": null,
+      "doc": "Associated season. [Note: Other seasons may be added in the future, such as weekend.]"
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="L2VpnServiceContainer.avsc@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "L2VpnServiceContainer",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "l2VpnService",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.L2VpnService"
+      },
+      "doc": "List of the Layer 2 VPN connectivity services."
+    }
+  ],
+  "doc": "Container for Layer 2 VPN service list."
+}
+]]></sourcecode>
+
+          <sourcecode name="L2VpnService.avsc@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "L2VpnService",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "vpnId",
+      "type": "string",
+      "doc": "Unique ID of the VPN connectivity service."
+    },
+    {
+      "name": "uri",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URI to visualize the VPN service inventory."
+    },
+    {
+      "name": "vpnName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the VPN connectivity service."
+    },
+    {
+      "name": "siteIds",
+      "type": ["null", {"type": "array", "items": "string"}],
+      "default": null,
+      "doc": "List of unique site IDs of the VPN connectivity service."
+    },
+    {
+      "name": "changeId",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "Unique identifier of VPN connectivity service maintenance window within the relevant-state window."
+    },
+    {
+      "name": "changeStartTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "Start date and time of the VPN connectivity service window within the relevant-state window."
+    },
+    {
+      "name": "changeEndTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "End date and time of the VPN connectivity service window within the relevant-state window."
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="L3VpnServiceContainer.avsc@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "L2VpnServiceContainer",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "l2VpnService",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.L2VpnService"
+      },
+      "doc": "List of the Layer 2 VPN connectivity services."
+    }
+  ],
+  "doc": "Container for Layer 2 VPN service list."
+}
+]]></sourcecode>
+
+          <sourcecode name="L3VpnService.avsc@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "L3VpnService",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "vpnId",
+      "type": "string",
+      "doc": "Unique ID of the VPN connectivity service."
+    },
+    {
+      "name": "uri",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "URI to visualize the VPN service inventory."
+    },
+    {
+      "name": "vpnName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "Name of the VPN connectivity service."
+    },
+    {
+      "name": "siteIds",
+      "type": ["null", {"type": "array", "items": "string"}],
+      "default": null,
+      "doc": "List of unique site IDs of the VPN connectivity service."
+    },
+    {
+      "name": "changeId",
+      "type": ["null", {"type": "string", "logicalType": "uuid"}],
+      "default": null,
+      "doc": "Unique identifier of VPN connectivity service maintenance window within the relevant-state window."
+    },
+    {
+      "name": "changeStartTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "Start date and time of the VPN connectivity service window within the relevant-state window."
+    },
+    {
+      "name": "changeEndTime",
+      "type": ["null", {"type": "long", "logicalType": "timestamp-millis"}],
+      "default": null,
+      "doc": "End date and time of the VPN connectivity service window within the relevant-state window."
+    }
+  ]
+}
+]]></sourcecode>
+
+          <sourcecode name="VpnNodeTermination@2025-05-06.avsc"
+					type="json" markers="true"><![CDATA[
+{
+  "type": "record",
+  "name": "VpnNodeTermination",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "hostname",
+      "type": "string",
+      "doc": "The hostname of the network node according to RFC 1213."
+    },
+    {
+      "name": "routeDistinguisher",
+      "type": "string",
+      "doc": "The BGP route-distinguisher obtained through IPFIX or BMP."
+    },
+    {
+      "name": "peerIp",
+      "type": {"type": "array", "items": "string"},
+      "doc": "The BGP peering IP address."
+    },
+    {
+      "name": "nextHop",
+      "type": {"type": "array", "items": "string"},
+      "doc": "The BGP next-hop IP address."
+    },
+    {
+      "name": "interfaceId",
+      "type": {"type": "array", "items": "long"},
+      "doc": "The interface identifier."
+    }
+  ]
+}
+]]></sourcecode>
+			</section>
+			
+    </section>
+
+    <section anchor="IANA" title="IANA Considerations">
+      <t>This document registers the following two namespace URIs in the
+	  <xref target="RFC3688">IETF XML Registry</xref>:</t>
+
+      <t><list style="empty">
+          <t>URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl</t>
+          <t>Registrant Contact: The IESG.</t>
+          <t>XML: N/A; the requested URI is an XML namespace.</t>
+        </list></t>
+
+      <t/>
+
+      <t><list style="empty">
+          <t>URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-topology</t>
+          <t>Registrant Contact: The IESG.</t>
+          <t>XML: N/A; the requested URI is an XML namespace.</t>
+        </list></t>
+				
+			<t>This document registers the following two YANG modules in the
+		<xref target="RFC3688">YANG Module Names registry</xref>:</t>
+
+      <t><list style="empty">
+          <t>Name: ietf-network-anomaly-symptom-cbl</t>
+          <t>Namespace:
+		  urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl</t>
+          <t>Prefix: smcblsymptom</t>
+          <t>Reference: RFC XXXX</t>
+        </list></t>
+
+      <t/>
+ 
+      <t><list style="empty">
+          <t>Name: ietf-network-anomaly-service-topology</t>
+          <t>Namespace:
+		  urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-topology</t>
+          <t>Prefix: smtopology</t>
+          <t>Reference: RFC XXXX</t>
+        </list></t>
+    </section>
+
+    <section anchor="Security" title="Security Considerations">
+
+      <t>This section is modeled after the template described in
+			<xref section="3.7" sectionFormat="of"
+			target="I-D.ietf-netmod-rfc8407bis"/>.</t>
+
+      <t>The "ietf-network-anomaly-symptom-cbl" and 
+			"ietf-network-anomaly-service-topology" YANG modules defines two
+			data models that are designed to be accessed via YANG-based
+			management protocols, such as NETCONF <xref target="RFC6141"/> and
+			RESTCONF <xref target="RFC8040"/>. These protocols have to use a
+			secure transport layer (e.g., SSH <xref target="RFC4252"/>, TLS
+			<xref target="RFC8446"/>, and QUIC <xref target="RFC9000"/>) and
+			have to use mutual authentication.</t>
+
+      <t>The Network Configuration Access Control Model (NACM) <xref
+			target="RFC8341"/> provides the means to restrict access for
+			particular NETCONF or RESTCONF users to a preconfigured subset of
+			all available NETCONF or RESTCONF protocol operations and content.
+			</t>
+
+      <t>There are a number of data nodes defined in this YANG module
+			that are writable/creatable/deletable (i.e., "config true", which
+			is the default).  All writable data nodes are likely to be
+			reasonably sensitive or vulnerable in some network environments. 
+			Write operations (e.g., edit-config) and delete operations to
+			these data nodes without proper protection or authentication can
+			have a negative effect on network operations.  The following
+			subtrees and data nodes have particular
+			sensitivities/vulnerabilities:</t>
+
+      <t>"There are no particularly sensitive writable data nodes."</t>
+
+      <t>Some of the readable data nodes in this YANG module may be
+			considered sensitive or vulnerable in some network environments.
+			It is thus important to control read access (e.g., via get,
+			get-config, or notification) to these data nodes. Specifically,
+			the following subtrees and data nodes have particular
+			sensitivities/ vulnerabilities:</t>
+
+      <t>"There are no particularly sensitive readable data nodes."</t>
+    </section>
+
+    <section anchor="Implementation" title="Implementation status">
+      <t>This section provides pointers to existing open source
+      implementations of this draft. Note to the RFC-editor: Please
+			remove this before publishing.</t>
+
+      <section anchor="Implementation-Antagonist" title="Antagonist">
+        <t>A tool called Antagonist has been implemented and refined
+				during the IETF 119 and 120 hackathons, in order to validate the
+				application of the YANG models defined in this draft. Antagonist
+				provides visual support for two important use cases in the scope
+				of this document:</t>
+    
+        <ul>
+          <li>the generation of a ground truth in relation to Symptoms
+					and Problems in timeseries data</li>
+
+          <li>the visual validation of results produced by automated
+					network anomaly detection tools.</li>
+        </ul>
+    
+        <t>The open source code can be found here: <xref
+				target="Antagonist"/></t>
+      </section>
+
+      <section anchor="Cosmos_Bright_Lights" title="Cosmos Bright
+			Lights">
+        <t>A real-time streaming based Service Disruption Detection
+				System has been deployed in Swisscom production as a proof of
+				concept in June 2024 monitoring approximate &gt;13'000 L3 VPN's
+				concurrently. The Apache AVRO schema described in <xref
+				target="Apache-AVRO-Schema"/> is being implemented in April
+				2025 in the development enviroment and considered to be deployed
+				in June 2025 in production.</t>
+      </section>
+    </section>
+
+    <section anchor="Acknowledgements" title="Acknowledgements">
+      <t>The authors would like to thank ,  for his review and
+      valuable comment.</t>
+
+      <t>The authors would like to thank Antonio Roberto for his
+			contribution to the ideas in this draft and Reshad Rahman and
+			Mohamed Boucadair for his review and valuable comments.</t>
+
+    </section>
+  </middle>
+
+  <back>
+    <references title="Normative References">
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml'?>
+			
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.6141.xml'?>			
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8969.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.9000.xml'?>
+			
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-terminology.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-network-anomaly-architecture.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-network-anomaly-lifecycle.xml'?>
+
+      <reference anchor="Antagonist"
+                 target="https://github.com/vriccobene/antagonist">
+        <front>
+          <title>Antagonist: Anomaly tagging on historical data</title>
+
+          <author fullname="Vincenzo Riccobene" initials="V."
+                  surname="Riccobene"/>
+
+          <author fullname="Wanting Du" initials="W." surname="Du"/>
+
+          <author fullname="Thomas Graf" initials="T." surname="Graf"/>
+
+          <author fullname="Alex Huang Feng" initials="H."
+                  surname="Huang Feng"/>
+        </front>
+      </reference>
+    </references>
+
+    <references title="Informative References">
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-opsawg-collected-data-manifest.xml'?>
+
+      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml'?>
+			
+			<?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-yang-message-broker-integration.xml'?>
+
+      <reference anchor="Apache AVRO"
+                 target="https://avro.apache.org/">
+        <front>
+          <title>Apache AVRO</title>
+
+          <author/>
+        </front>
+        <refcontent>Apache Software Foundation</refcontent>
+      </reference>
+
+    </references>
+  </back>
+</rfc>

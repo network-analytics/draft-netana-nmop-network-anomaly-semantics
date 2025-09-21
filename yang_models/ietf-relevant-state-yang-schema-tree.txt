@@ -32,15 +32,17 @@ module: ietf-relevant-state
      |        +--rw smtopology:change-end-time?
      |                yang:date-and-time
      +--rw anomaly* [id revision]
-        +--rw id                                  yang:uuid
-        +--rw revision                            yang:counter32
-        +--rw uri?                                inet:uri
-        +--rw state                               identityref
-        +--rw description?                        string
-        +--rw start-time                          yang:date-and-time
-        +--rw end-time?                           yang:date-and-time
-        +--rw confidence-score?                   score
-        +--rw pattern?                            identityref
+        +--rw id                                     yang:uuid
+        +--rw revision                               yang:counter32
+        +--rw uri?                                   inet:uri
+        +--rw state                                  identityref
+        +--rw description?                           string
+        +--rw start-time
+        |       yang:date-and-time
+        +--rw end-time?
+        |       yang:date-and-time
+        +--rw confidence-score?                      score
+        +--rw pattern?                               identityref
         +--rw annotator
         |  +--rw id?               yang:uuid
         |  +--rw name              string
@@ -55,13 +57,18 @@ module: ietf-relevant-state
         |  +--rw smcblsymptom:network-plane?   enumeration
         |  +--rw smcblsymptom:template?        string
         |  +--rw smcblsymptom:season?          enumeration
-        +--rw smtopology:vpn-node-terminations*
-                [hostname route-distinguisher]
-           +--rw smtopology:hostname               inet:host
+        +--rw smtopology:vpn-node-terminations* [hostname]
+        |  +--rw smtopology:hostname               inet:host
+        |  +--rw smtopology:vrf                    string
+        |  +--rw smtopology:route-distinguisher    string
+        |  +--rw smtopology:peer-ip*               inet:ip-address
+        |  +--rw smtopology:interface-id*          uint32
+        +--rw smtopology:vpn-network-terminations*
+                [route-distinguisher]
            +--rw smtopology:route-distinguisher    string
-           +--rw smtopology:peer-ip*               inet:ip-address
            +--rw smtopology:next-hop*              inet:ip-address
-           +--rw smtopology:interface-id*          uint32
+           +--rw smtopology:hostname               inet:host
+           +--rw smtopology:peer-ip*               inet:ip-address
 
   notifications:
     +---n relevant-state-notification
@@ -101,17 +108,17 @@ module: ietf-relevant-state
        |        +--ro smtopology:change-end-time?
        |                yang:date-and-time
        +--ro anomaly* [id revision]
-          +--ro id                                  yang:uuid
-          +--ro revision                            yang:counter32
-          +--ro uri?                                inet:uri
-          +--ro state                               identityref
-          +--ro description?                        string
+          +--ro id                                     yang:uuid
+          +--ro revision                               yang:counter32
+          +--ro uri?                                   inet:uri
+          +--ro state                                  identityref
+          +--ro description?                           string
           +--ro start-time
           |       yang:date-and-time
           +--ro end-time?
           |       yang:date-and-time
-          +--ro confidence-score?                   score
-          +--ro pattern?                            identityref
+          +--ro confidence-score?                      score
+          +--ro pattern?                               identityref
           +--ro annotator
           |  +--ro id?               yang:uuid
           |  +--ro name              string
@@ -126,10 +133,15 @@ module: ietf-relevant-state
           |  +--ro smcblsymptom:network-plane?   enumeration
           |  +--ro smcblsymptom:template?        string
           |  +--ro smcblsymptom:season?          enumeration
-          +--ro smtopology:vpn-node-terminations*
-                  [hostname route-distinguisher]
-             +--ro smtopology:hostname               inet:host
+          +--ro smtopology:vpn-node-terminations* [hostname]
+          |  +--ro smtopology:hostname               inet:host
+          |  +--ro smtopology:vrf                    string
+          |  +--ro smtopology:route-distinguisher    string
+          |  +--ro smtopology:peer-ip*               inet:ip-address
+          |  +--ro smtopology:interface-id*          uint32
+          +--ro smtopology:vpn-network-terminations*
+                  [route-distinguisher]
              +--ro smtopology:route-distinguisher    string
-             +--ro smtopology:peer-ip*               inet:ip-address
              +--ro smtopology:next-hop*              inet:ip-address
-             +--ro smtopology:interface-id*          uint32
+             +--ro smtopology:hostname               inet:host
+             +--ro smtopology:peer-ip*               inet:ip-address
