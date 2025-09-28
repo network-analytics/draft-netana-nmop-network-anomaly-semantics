@@ -58,7 +58,7 @@ module ietf-network-anomaly-service-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-09-20 {
+  revision 2025-09-28 {
     description
       "Initial version";
     reference
@@ -120,35 +120,31 @@ module ietf-network-anomaly-service-topology {
       "Node and Network Termination for the VPN Service instance.
        This grouping is used to augment the relevant-state container.";
     list vpn-node-terminations {
-      key "hostname";
+      key "hostname vrf-id";
       description
         "List of Node Terminations of interest.";
       leaf hostname {
         type inet:host;
-        mandatory true;
         description
-          "The hostname of the network node according to
-            [RFC1213]. This value is usually configured on
-            the node by the administrator to uniquely
-            identify the node in the network.";
+          "The hostname of the network node. This value
+            is usually configured on the node by the
+            administrator to uniquely identify the node
+            in the network.";
       }
       leaf vrf-id {
         type string;
-        mandatory true;
         description
           "The VRF id obtained through IPFIX IE234
             ingressVRFID or IE235 egressVRFID.";
       }
       leaf vrf-name {
         type string;
-        mandatory true;
         description
           "The VRF name obtained through IPFIX IE236
             VRFname or BMP peer_up VRF Table Name TLV.";
       }
       leaf route-distinguisher {
         type string;
-        mandatory true;
         description
           "The BGP route-distinguisher obtained through
             IPFIX IE90 mplsVpnRouteDistinguisher or BMP
@@ -178,15 +174,14 @@ module ietf-network-anomaly-service-topology {
       }
     }
     list vpn-network-terminations {
-      key "route-distinguisher";
+      key "route-distinguisher next-hop";
       description
         "List of Network Terminations of interest.";
       leaf route-distinguisher {
         type string;
-        mandatory true;
         description
           "The BGP route-distinguisher obtained through
-            BMP route-monitoring or peer_up message type.";
+           BMP route-monitoring or peer_up message type.";
       }
       leaf-list next-hop {
         type inet:ip-address;
@@ -194,14 +189,13 @@ module ietf-network-anomaly-service-topology {
           "The BGP next-hop IP address learned through
             BMP route-monitoring message type.";
       }
-      leaf hostname {
+      leaf-list hostname {
         type inet:host;
-        mandatory true;
         description
-          "The hostname of the network node according to
-            [RFC1213]. This value is usually configured on
-            the node by the administrator to uniquely
-            identify the node in the network.";
+          "The hostname of the network node. This value is
+            usually configured on the node by the
+            administrator to uniquely identify the node in
+            the network.";
       }
       leaf-list peer-ip {
         type inet:ip-address;

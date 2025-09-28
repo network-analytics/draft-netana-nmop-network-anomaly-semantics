@@ -6,7 +6,7 @@
     {
       "name": "hostname",
       "type": "string",
-      "doc": "The hostname of the network node according to RFC 1213."
+      "doc": "The hostname of the network node."
     },
     {
       "name": "routeDistinguisher",
