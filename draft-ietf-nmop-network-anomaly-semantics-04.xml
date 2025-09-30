@@ -993,7 +993,7 @@ module: ietf-network-anomaly-service-topology
     |  +--rw peer-ip*               inet:ip-address
     |  +--rw interface-id*          uint32
     |  +--rw interface-name*        uint32
-    +--rw vpn-network-terminations* [route-distinguisher next-hop]
+    +--rw vpn-network-terminations* [route-distinguisher]
        +--rw route-distinguisher    string
        +--rw next-hop*              inet:ip-address
        +--rw hostname*              inet:host
@@ -1007,7 +1007,7 @@ module: ietf-network-anomaly-service-topology
     |  +-- peer-ip*               inet:ip-address
     |  +-- interface-id*          uint32
     |  +-- interface-name*        uint32
-    +-- vpn-network-terminations* [route-distinguisher next-hop]
+    +-- vpn-network-terminations* [route-distinguisher]
        +-- route-distinguisher    string
        +-- next-hop*              inet:ip-address
        +-- hostname*              inet:host
@@ -1200,7 +1200,7 @@ module ietf-network-anomaly-service-topology {
       }
     }
     list vpn-network-terminations {
-      key "route-distinguisher next-hop";
+      key "route-distinguisher";
       description
         "List of Network Terminations of interest.";
       leaf route-distinguisher {

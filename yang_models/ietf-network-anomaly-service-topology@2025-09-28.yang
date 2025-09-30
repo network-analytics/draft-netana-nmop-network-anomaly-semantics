@@ -174,7 +174,7 @@ module ietf-network-anomaly-service-topology {
       }
     }
     list vpn-network-terminations {
-      key "route-distinguisher next-hop";
+      key "route-distinguisher";
       description
         "List of Network Terminations of interest.";
       leaf route-distinguisher {
