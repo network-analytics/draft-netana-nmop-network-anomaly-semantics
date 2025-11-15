@@ -723,16 +723,6 @@
 					an Action, a Reason and a Trigger describing the Symptom; a
 					Concern Score indicating how critical the Symptom is; and the
 					associated network plane.</t>
-					
-					<t>Where the season enumeration declares wherever a workday or
-					a holiday hase been taken into consideration for Contextual
-					Outliers. The template describes which approach and parameters
-					have been used in the Service Disruption Detection as
-					described in Section 3.2 of <xref
-					target="I-D.ietf-nmop-network-anomaly-architecture"/>
-          an Action, a Reason and a Trigger describing the Symptom; a
-          concern score indicating how critical the Symptom is; and the
-          associated network plane.</t>
           
           <t>Where the season enumeration declares wherever a workday or
           a holiday hase been taken into consideration for Contextual
@@ -1017,8 +1007,6 @@ module: ietf-network-anomaly-service-topology
           <sourcecode
 					name="ietf-network-anomaly-service-topology@2025-11-15.yang"
 					type="yang" markers="true"><![CDATA[
-          <sourcecode name="ietf-network-anomaly-service-topology@2025-11-15.yang"
-            type="yang" markers="true"><![CDATA[
 module ietf-network-anomaly-service-topology {
   yang-version 1.1;
   namespace
