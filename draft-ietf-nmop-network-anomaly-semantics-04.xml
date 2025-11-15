@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="28" month="September" year="2025"/>
+    <date day="15" month="November" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -193,6 +193,13 @@
             <t>Service Disruption Detection</t>
       
             <t>Service Disruption Detection System</t>
+          </list></t>
+
+        <t>The following terms are used as defined in <xref
+        target="I-D.ietf-nmop-network-anomaly-lifecycle"/> :</t>
+
+        <t><list style="symbols">
+            <t>Concern Score</t>
           </list></t>
 
         <t>The following terms are used as defined in <xref
@@ -304,14 +311,6 @@
         </thead>
 
         <tbody>
-          <tr>
-            <td align="left" colspan="1" rowspan="1">Missing</td>
-
-            <td align="left" colspan="1" rowspan="1">Previous</td>
-
-            <td align="left" colspan="1" rowspan="1">Time</td>
-          </tr>
-
           <tr>
             <td align="left" colspan="1" rowspan="1">Drop</td>
 
@@ -722,7 +721,7 @@
 
           <t>For each Symptom, the following parameters can be assigned:
 					an Action, a Reason and a Trigger describing the Symptom; a
-					concern score indicating how critical the Symptom is; and the
+					Concern Score indicating how critical the Symptom is; and the
 					associated network plane.</t>
 					
 					<t>Where the season enumeration declares wherever a workday or
@@ -767,11 +766,10 @@ module: ietf-network-anomaly-symptom-cbl
 
         <section title="YANG Module">
 
-        <t>The YANG module has one typedef defining the score, a
-				grouping defining Action, Reason and Trigger and how symptom
-				attributes to the network planes.</t>
+        <t>The YANG module has a grouping defining Action, Reason and
+				Trigger and how symptom attributes to the network planes.</t>
 
-<sourcecode name="ietf-network-anomaly-symptom-cbl@2025-04-25.yang"
+<sourcecode name="ietf-network-anomaly-symptom-cbl@2025-11-15.yang"
 type="yang" markers="true"><![CDATA[
 module ietf-network-anomaly-symptom-cbl {
   yang-version 1.1;
@@ -803,7 +801,7 @@ module ietf-network-anomaly-symptom-cbl {
     "This module defines the semantic grouping to be used by a
      Service Disruption Detection Systems. The defined objects is
      used to augment the anomaly container. Describing the
-     symptoms action, reason and concern-score.
+     symptoms action and reason.
 
      Copyright (c) 2025 IETF Trust and the persons
      identified as authors of the code.  All rights reserved.
@@ -822,20 +820,12 @@ module ietf-network-anomaly-symptom-cbl {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-04-25 {
+  revision 2025-11-15 {
     description
       "Initial version";
     reference
       "RFC XXX: Semantic Metadata Annotation for Network Anomaly
        Detection";
-  }
-
-  typedef score {
-    type uint8 {
-      range "0..100";
-    }
-    description
-      "Number indicating a score between 0 and 100.";
   }
 
   grouping cbl-symptom {
@@ -948,70 +938,62 @@ module: ietf-network-anomaly-service-topology
 
   augment /rsn:relevant-state/rsn:service:
     +--:(l2vpn)
-    |  +--rw vpn-service* [vpn-id]
-    |     +--rw vpn-id               string
-    |     +--rw uri?                 inet:uri
-    |     +--rw vpn-name?            string
-    |     +--rw site-ids*            string
-    |     +--rw change-id?           yang:uuid
-    |     +--rw change-start-time?   yang:date-and-time
-    |     +--rw change-end-time?     yang:date-and-time
+    |  +--ro l2vpn-service* [vpn-id]
+    |     +--ro vpn-id               string
+    |     +--ro uri?                 inet:uri
+    |     +--ro vpn-name?            string
+    |     +--ro site-ids*            string
+    |     +--ro change-id?           yang:uuid
+    |     +--ro change-start-time?   yang:date-and-time
+    |     +--ro change-end-time?     yang:date-and-time
     +--:(l3vpn)
-       +--rw vpn-service* [vpn-id]
-          +--rw vpn-id               string
-          +--rw uri?                 inet:uri
-          +--rw vpn-name?            string
-          +--rw site-ids*            string
-          +--rw change-id?           yang:uuid
-          +--rw change-start-time?   yang:date-and-time
-          +--rw change-end-time?     yang:date-and-time
+       +--ro l3vpn-service* [vpn-id]
+          +--ro vpn-id               string
+          +--ro uri?                 inet:uri
+          +--ro vpn-name?            string
+          +--ro site-ids*            string
+          +--ro change-id?           yang:uuid
+          +--ro change-start-time?   yang:date-and-time
+          +--ro change-end-time?     yang:date-and-time
   augment /rsn:relevant-state-notification/rsn:service:
     +--:(l2vpn)
-    |  +-- vpn-service* [vpn-id]
-    |     +-- vpn-id               string
-    |     +-- uri?                 inet:uri
-    |     +-- vpn-name?            string
-    |     +-- site-ids*            string
-    |     +-- change-id?           yang:uuid
-    |     +-- change-start-time?   yang:date-and-time
-    |     +-- change-end-time?     yang:date-and-time
+    |  +--ro l2vpn-service* [vpn-id]
+    |     +--ro vpn-id               string
+    |     +--ro uri?                 inet:uri
+    |     +--ro vpn-name?            string
+    |     +--ro site-ids*            string
+    |     +--ro change-id?           yang:uuid
+    |     +--ro change-start-time?   yang:date-and-time
+    |     +--ro change-end-time?     yang:date-and-time
     +--:(l3vpn)
-       +-- vpn-service* [vpn-id]
-          +-- vpn-id               string
-          +-- uri?                 inet:uri
-          +-- vpn-name?            string
-          +-- site-ids*            string
-          +-- change-id?           yang:uuid
-          +-- change-start-time?   yang:date-and-time
-          +-- change-end-time?     yang:date-and-time
+       +--ro l3vpn-service* [vpn-id]
+          +--ro vpn-id               string
+          +--ro uri?                 inet:uri
+          +--ro vpn-name?            string
+          +--ro site-ids*            string
+          +--ro change-id?           yang:uuid
+          +--ro change-start-time?   yang:date-and-time
+          +--ro change-end-time?     yang:date-and-time
   augment /rsn:relevant-state/rsn:anomaly:
-    +--rw vpn-node-terminations* [hostname vrf-id]
-    |  +--rw hostname               inet:host
-    |  +--rw vrf-id                 string
-    |  +--rw vrf-name?              string
-    |  +--rw route-distinguisher?   string
-    |  +--rw peer-ip*               inet:ip-address
-    |  +--rw interface-id*          uint32
-    |  +--rw interface-name*        uint32
-    +--rw vpn-network-terminations* [route-distinguisher next-hop]
-       +--rw route-distinguisher    string
-       +--rw next-hop*              inet:ip-address
-       +--rw hostname*              inet:host
-       +--rw peer-ip*               inet:ip-address
+    +--ro vpn-node-terminations* []
+       +--ro hostname?              inet:host
+       +--ro vrf-id?                string
+       +--ro vrf-name?              string
+       +--ro route-distinguisher?   string
+       +--ro interface-id*          uint32
+       +--ro interface-name*        uint32
+       +--ro peer-ip*               inet:ip-address
+       +--ro next-hop*              inet:ip-address
   augment /rsn:relevant-state-notification/rsn:anomaly:
-    +-- vpn-node-terminations* [hostname vrf-id]
-    |  +-- hostname               inet:host
-    |  +-- vrf-id                 string
-    |  +-- vrf-name?              string
-    |  +-- route-distinguisher?   string
-    |  +-- peer-ip*               inet:ip-address
-    |  +-- interface-id*          uint32
-    |  +-- interface-name*        uint32
-    +-- vpn-network-terminations* [route-distinguisher next-hop]
-       +-- route-distinguisher    string
-       +-- next-hop*              inet:ip-address
-       +-- hostname*              inet:host
-       +-- peer-ip*               inet:ip-address
+    +--ro vpn-node-terminations* []
+       +--ro hostname?              inet:host
+       +--ro vrf-id?                string
+       +--ro vrf-name?              string
+       +--ro route-distinguisher?   string
+       +--ro interface-id*          uint32
+       +--ro interface-name*        uint32
+       +--ro peer-ip*               inet:ip-address
+       +--ro next-hop*              inet:ip-address
 ]]></sourcecode>
         </section>
 
@@ -1023,18 +1005,28 @@ module: ietf-network-anomaly-service-topology
 					associated to the relevant state.</t>
 
           <sourcecode
-					name="ietf-network-anomaly-service-topology@2025-09-28.yang"
+					name="ietf-network-anomaly-service-topology@2025-11-15.yang"
 					type="yang" markers="true"><![CDATA[
-module ietf-network-anomaly-symptom-cbl {
+module ietf-network-anomaly-service-topology {
   yang-version 1.1;
   namespace
-    "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl";
-  prefix smcblsymptom;
+    "urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-topology";
+  prefix smtopology;
 
+  import ietf-inet-types {
+    prefix inet;
+    reference
+      "RFC 6991: Common YANG Data Types";
+  }
+  import ietf-yang-types {
+    prefix yang;
+    reference
+      "RFC 6991: Common YANG Data Types";
+  }
   import ietf-relevant-state {
     prefix rsn;
     reference
-      "RFC XXX: Relevant State and Relevant State Notification";
+      "RFC XXX: An Experiment: Network Anomaly Lifecycle";
   }
 
   organization
@@ -1052,10 +1044,11 @@ module ietf-network-anomaly-symptom-cbl {
                Vincenzo Riccobene
                <mailto:vincenzo.riccobene@huawei-partners.com>";
   description
-    "This module defines the semantic grouping to be used by a
-     Service Disruption Detection Systems. The defined objects is
-     used to augment the anomaly container. Describing the
-     symptoms action, reason and concern-score.
+    "This module defines the symptom container to be used by a network
+     anomaly detection system. The defined objects can be used to
+     augment operational network collected observability data and
+     analytical problem data equally. Describing the relevant-state
+     of observed symptoms.
 
      Copyright (c) 2025 IETF Trust and the persons
      identified as authors of the code.  All rights reserved.
@@ -1074,102 +1067,229 @@ module ietf-network-anomaly-symptom-cbl {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-04-25 {
+  revision 2025-11-15 {
     description
       "Initial version";
     reference
-      "RFC XXX: Semantic Metadata Annotation for Network Anomaly
-       Detection";
+      "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
   }
 
-  typedef score {
-    type uint8 {
-      range "0..100";
-    }
+  grouping l2vpn-service {
     description
-      "Number indicating a score between 0 and 100.";
-  }
-
-  grouping cbl-symptom {
-    description
-      "Semantic metadata assocaited to a symptom for a detected
-       connectivity service anomaly.";
-    leaf action {
-      type string;
+      "Connectivity service of type VPN. This grouping is
+       used to augment the relevant-state container.";
+    list l2vpn-service {
+      key "vpn-id";
+      config false;
       description
-        "Operation performed by a network node when forwarding a
-         packet.";
-    }
-    leaf reason {
-      type string;
-      description
-        "Reason associated to the action performed by the network
-         node.";
-    }
-    leaf trigger {
-      type string;
-      description
-        "Describes what triggered the network node to this action.";
-    }
-    leaf network-plane {
-      type enumeration {
-        enum forwarding {
-          description
-            "Symptom associated to the Forwarding Plane.";
-        }
-        enum control {
-          description
-            "Symptom associated to the Control Plane.";
-        }
-        enum management {
-          description
-            "Symptom associated to the Management Plane.";
-        }
+        "List of VPN connectivity services of interest.";
+      leaf vpn-id {
+        type string;
+        mandatory true;
+        description
+          "Unique ID of the VPN connectivity service.";
       }
-      description
-        "Associated network plane.";
-    }
-    leaf template {
-      type string;
-      mandatory false;
-      description
-        "A group of configuration parameters contributing to the symptom
-         detection computation";
-      reference
-        "Section 3.2 in draft-ietf-nmop-network-anomaly-architecture.";
-    }
-    leaf season {
-      type enumeration {
-        enum workday {
-          description
-            "Contextual outlier associated to workday.";
-        }
-        enum holiday {
-          description
-            "Contextual outlier associated to holiday.";
-        }
+      leaf uri {
+        type inet:uri;
+        description
+          "URI to viusalize the VPN connectivity service inventory.";
       }
-      description
-        "Associated season.";
+      leaf vpn-name {
+        type string;
+        description
+          "Name of the VPN connectivity service.";
+      }
+      leaf-list site-ids {
+        type string;
+        description
+          "List of unique site ID's of the VPN connectivity service.";
+      }
+      leaf change-id {
+        type yang:uuid;
+        description
+          "Unique identifier of VPN connectivity service maintenance
+           window within the relevant-state window.";
+      }
+      leaf change-start-time {
+        type yang:date-and-time;
+        description
+          "Start date and time of the VPN connectivity service
+           maintenance window within the relevant-state window.";
+      }
+      leaf change-end-time {
+        type yang:date-and-time;
+        description
+          "End date and time of the VPN connectivity service
+           maintenance window within the relevant-state window.";
+      }
     }
   }
 
-  augment "/rsn:relevant-state/rsn:anomaly"
-        + "/rsn:symptom" {
+  grouping l3vpn-service {
     description
-      "Provide extension for the symptom description,
-       specifically for connectivity services to the
-       relevant state container";
-    uses cbl-symptom;
+      "Connectivity service of type VPN. This grouping is
+       used to augment the relevant-state container.";
+    list l3vpn-service {
+      key "vpn-id";
+      config false;
+      description
+        "List of VPN connectivity services of interest.";
+      leaf vpn-id {
+        type string;
+        mandatory true;
+        description
+          "Unique ID of the VPN connectivity service.";
+      }
+      leaf uri {
+        type inet:uri;
+        description
+          "URI to viusalize the VPN connectivity service inventory.";
+      }
+      leaf vpn-name {
+        type string;
+        description
+          "Name of the VPN connectivity service.";
+      }
+      leaf-list site-ids {
+        type string;
+        description
+          "List of unique site ID's of the VPN connectivity service.";
+      }
+      leaf change-id {
+        type yang:uuid;
+        description
+          "Unique identifier of VPN connectivity service maintenance
+           window within the relevant-state window.";
+      }
+      leaf change-start-time {
+        type yang:date-and-time;
+        description
+          "Start date and time of the VPN connectivity service
+           maintenance window within the relevant-state window.";
+      }
+      leaf change-end-time {
+        type yang:date-and-time;
+        description
+          "End date and time of the VPN connectivity service
+           maintenance window within the relevant-state window.";
+      }
+    }
   }
 
-  augment "/rsn:relevant-state-notification/rsn:anomaly"
-        + "/rsn:symptom" {
+  grouping vpn-node-termination {
     description
-      "Provide extension for the symptom description,
+      "Node and Network Termination for the VPN Service instance.
+       This grouping is used to augment the relevant-state container.";
+    list vpn-node-terminations {
+      config false;
+      description
+        "List of Node Terminations of interest.";
+      leaf hostname {
+        type inet:host;
+        description
+          "The hostname of the network node. This value
+            is usually configured on the node by the
+            administrator to uniquely identify the node
+            in the network.";
+      }
+      leaf vrf-id {
+        type string;
+        description
+          "The VRF id obtained through IPFIX IE234
+            ingressVRFID or IE235 egressVRFID.";
+      }
+      leaf vrf-name {
+        type string;
+        description
+          "The VRF name obtained through IPFIX IE236
+            VRFname or BMP peer_up VRF Table Name TLV.";
+      }
+      leaf route-distinguisher {
+        type string;
+        description
+          "The BGP route-distinguisher obtained through
+            IPFIX IE90 mplsVpnRouteDistinguisher or BMP
+            route-monitoring or peer_up message type.";
+      }
+      leaf-list interface-id {
+        type uint32;
+        description
+          "The interface identifier obtained through
+            IPFIX IE10 ingressInterface, IE14
+            egressInterface or
+            ietf-interfaces:interfaces/interface/if-index.";
+      }
+      leaf-list interface-name {
+        type uint32;
+        description
+          "The interface name obtained through
+            IPFIX IE82 interfaceName or
+            ietf-interfaces:interfaces/interface/name.";
+      }
+      leaf-list peer-ip {
+        type inet:ip-address;
+        description
+          "The BGP peering IP address learned through
+            BMP route-monitoring, peer_up or peer_down
+            message type.";
+      }
+      leaf-list next-hop {
+        type inet:ip-address;
+        description
+          "The BGP next-hop IP address learned through
+            BMP route-monitoring message type.";
+      }
+    }
+  }
+
+  augment "/rsn:relevant-state/rsn:service" {
+    description
+      "Provide extension for the service description,
        specifically for connectivity services to the
-       relevant state notification";
-    uses cbl-symptom;
+       relevant state container.";
+    case l2vpn {
+      description
+        "Layer 2 VPN connectivity service.";
+      uses l2vpn-service;
+    }
+    case l3vpn {
+      description
+        "Layer 3 VPN connectivity service.";
+      uses l3vpn-service;
+    }
+  }
+
+  augment "/rsn:relevant-state-notification/rsn:service" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state notification.";
+    case l2vpn {
+      description
+        "Layer 2 VPN connectivity service.";
+      uses l2vpn-service;
+    }
+    case l3vpn {
+      description
+        "Layer 3 VPN connectivity service.";
+      uses l3vpn-service;
+    }
+  }
+
+  augment "/rsn:relevant-state/rsn:anomaly" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state container.";
+    uses vpn-node-termination;
+  }
+
+  augment "/rsn:relevant-state-notification/rsn:anomaly" {
+    description
+      "Provide extension for the service description,
+       specifically for connectivity services to the
+       relevant state notification.";
+    uses vpn-node-termination;
   }
 }
 ]]></sourcecode>
@@ -1231,7 +1351,7 @@ module ietf-network-anomaly-symptom-cbl {
 							'ietf-network-anomaly-service-topology.yang'.</t>
             </list></t>
 
-          <sourcecode name="RelevantStateNotification@2025-09-20.avsc"
+          <sourcecode name="RelevantStateNotification@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1324,7 +1444,7 @@ module ietf-network-anomaly-symptom-cbl {
 }
 ]]></sourcecode>
 
-          <sourcecode name="Anomaly@2025-09-20.avsc"
+          <sourcecode name="Anomaly@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1422,7 +1542,7 @@ module ietf-network-anomaly-symptom-cbl {
 }
 ]]></sourcecode>
 
-          <sourcecode name="Publisher@2025-09-20.avsc"
+          <sourcecode name="Publisher@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1457,7 +1577,7 @@ module ietf-network-anomaly-symptom-cbl {
 }					
 ]]></sourcecode>
 
-          <sourcecode name="Annotator@2025-09-20.avsc"
+          <sourcecode name="Annotator@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1510,7 +1630,7 @@ module ietf-network-anomaly-symptom-cbl {
 }
 ]]></sourcecode>
 
-          <sourcecode name="Symptom@2025-09-20.avsc"
+          <sourcecode name="Symptom@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1585,7 +1705,7 @@ module ietf-network-anomaly-symptom-cbl {
 }
 ]]></sourcecode>
 
-          <sourcecode name="L2VpnServiceContainer.avsc@2025-09-20.avsc"
+          <sourcecode name="L2VpnServiceContainer.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1605,7 +1725,7 @@ module ietf-network-anomaly-symptom-cbl {
 }
 ]]></sourcecode>
 
-          <sourcecode name="L2VpnService.avsc@2025-09-20.avsc"
+          <sourcecode name="L2VpnService.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1657,7 +1777,7 @@ module ietf-network-anomaly-symptom-cbl {
 }
 ]]></sourcecode>
 
-          <sourcecode name="L3VpnServiceContainer.avsc@2025-09-20.avsc"
+          <sourcecode name="L3VpnServiceContainer.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1677,7 +1797,7 @@ module ietf-network-anomaly-symptom-cbl {
 }
 ]]></sourcecode>
 
-          <sourcecode name="L3VpnService.avsc@2025-09-20.avsc"
+          <sourcecode name="L3VpnService.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
@@ -1729,11 +1849,11 @@ module ietf-network-anomaly-symptom-cbl {
 }
 ]]></sourcecode>
 
-          <sourcecode name="VpnTermination@2025-09-20.avsc"
+          <sourcecode name="VpnNodeTermination@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
-  "name": "VpnTermination",
+  "name": "VpnNodeTermination",
   "namespace": "ietf.relevant.state",
   "fields": [
     {
@@ -1907,9 +2027,9 @@ module ietf-network-anomaly-symptom-cbl {
       valuable comment.</t>
 
       <t>The authors would like to thank Antonio Roberto for his
-			contribution to the ideas in this draft and Reshad Rahman and
-			Mohamed Boucadair for his review and valuable comments.</t>
-
+			contribution to the ideas in this draft and Reshad Rahman, 
+			Mohamed Boucadair and Ruediger Geib for his review and valuable
+			comments.</t>
     </section>
   </middle>
 

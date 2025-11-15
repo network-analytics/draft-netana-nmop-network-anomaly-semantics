@@ -1,48 +1,46 @@
 module: ietf-relevant-state
   +--rw relevant-state
-     +--rw id                              yang:uuid
-     +--rw uri?                            inet:uri
-     +--rw description?                    string
-     +--rw start-time                      yang:date-and-time
-     +--rw end-time?                       yang:date-and-time
-     +--rw strategy?                       string
-     +--rw confidence-score?               score
-     +--rw concern-score                   score
+     +--rw id                  yang:uuid
+     +--rw uri?                inet:uri
+     +--rw description?        string
+     +--rw start-time          yang:date-and-time
+     +--rw end-time?           yang:date-and-time
+     +--rw strategy?           string
+     +--rw confidence-score?   score
+     +--rw concern-score       score
      +--rw (service)?
      |  +--:(smtopology:l2vpn)
-     |  |  +--rw smtopology:vpn-service* [vpn-id]
-     |  |     +--rw smtopology:vpn-id               string
-     |  |     +--rw smtopology:uri?                 inet:uri
-     |  |     +--rw smtopology:vpn-name?            string
-     |  |     +--rw smtopology:site-ids*            string
-     |  |     +--rw smtopology:change-id?           yang:uuid
-     |  |     +--rw smtopology:change-start-time?
+     |  |  +--ro smtopology:l2vpn-service* [vpn-id]
+     |  |     +--ro smtopology:vpn-id               string
+     |  |     +--ro smtopology:uri?                 inet:uri
+     |  |     +--ro smtopology:vpn-name?            string
+     |  |     +--ro smtopology:site-ids*            string
+     |  |     +--ro smtopology:change-id?           yang:uuid
+     |  |     +--ro smtopology:change-start-time?
      |  |     |       yang:date-and-time
-     |  |     +--rw smtopology:change-end-time?
+     |  |     +--ro smtopology:change-end-time?
      |  |             yang:date-and-time
      |  +--:(smtopology:l3vpn)
-     |     +--rw smtopology:vpn-service* [vpn-id]
-     |        +--rw smtopology:vpn-id               string
-     |        +--rw smtopology:uri?                 inet:uri
-     |        +--rw smtopology:vpn-name?            string
-     |        +--rw smtopology:site-ids*            string
-     |        +--rw smtopology:change-id?           yang:uuid
-     |        +--rw smtopology:change-start-time?
+     |     +--ro smtopology:l3vpn-service* [vpn-id]
+     |        +--ro smtopology:vpn-id               string
+     |        +--ro smtopology:uri?                 inet:uri
+     |        +--ro smtopology:vpn-name?            string
+     |        +--ro smtopology:site-ids*            string
+     |        +--ro smtopology:change-id?           yang:uuid
+     |        +--ro smtopology:change-start-time?
      |        |       yang:date-and-time
-     |        +--rw smtopology:change-end-time?
+     |        +--ro smtopology:change-end-time?
      |                yang:date-and-time
      +--rw anomaly* [id revision]
-        +--rw id                                     yang:uuid
-        +--rw revision                               yang:counter32
-        +--rw uri?                                   inet:uri
-        +--rw state                                  identityref
-        +--rw description?                           string
-        +--rw start-time
-        |       yang:date-and-time
-        +--rw end-time?
-        |       yang:date-and-time
-        +--rw confidence-score?                      score
-        +--rw pattern?                               identityref
+        +--rw id                                  yang:uuid
+        +--rw revision                            yang:counter32
+        +--rw uri?                                inet:uri
+        +--rw phase                               identityref
+        +--rw description?                        string
+        +--rw start-time                          yang:date-and-time
+        +--rw end-time?                           yang:date-and-time
+        +--rw confidence-score?                   score
+        +--rw pattern?                            identityref
         +--rw annotator
         |  +--rw id?               yang:uuid
         |  +--rw name              string
@@ -57,95 +55,109 @@ module: ietf-relevant-state
         |  +--rw smcblsymptom:network-plane?   enumeration
         |  +--rw smcblsymptom:template?        string
         |  +--rw smcblsymptom:season?          enumeration
-        +--rw smtopology:vpn-node-terminations* [hostname]
-        |  +--rw smtopology:hostname               inet:host
-        |  +--rw smtopology:vrf-id                 string
-        |  +--rw smtopology:vrf-name               string
-        |  +--rw smtopology:route-distinguisher    string
-        |  +--rw smtopology:peer-ip*               inet:ip-address
-        |  +--rw smtopology:interface-id*          uint32
-        |  +--rw smtopology:interface-name*        uint32
-        +--rw smtopology:vpn-network-terminations*
-                [route-distinguisher]
-           +--rw smtopology:route-distinguisher    string
-           +--rw smtopology:next-hop*              inet:ip-address
-           +--rw smtopology:hostname               inet:host
-           +--rw smtopology:peer-ip*               inet:ip-address
+        +--ro smtopology:vpn-node-terminations*
+           +--ro smtopology:hostname?              inet:host
+           +--ro smtopology:vrf-id?                string
+           +--ro smtopology:vrf-name?              string
+           +--ro smtopology:route-distinguisher?   string
+           +--ro smtopology:interface-id*          uint32
+           +--ro smtopology:interface-name*        uint32
+           +--ro smtopology:peer-ip*               inet:ip-address
+           +--ro smtopology:next-hop*              inet:ip-address
 
   notifications:
     +---n relevant-state-notification
-       +--ro publisher
-       |  +--ro id?        yang:uuid
-       |  +--ro name       string
-       |  +--ro version?   string
-       +--ro id                              yang:uuid
-       +--ro uri?                            inet:uri
-       +--ro description?                    string
-       +--ro start-time                      yang:date-and-time
-       +--ro end-time?                       yang:date-and-time
-       +--ro strategy?                       string
-       +--ro confidence-score?               score
-       +--ro concern-score                   score
-       +--ro (service)?
+       +---- publisher
+       |  +---- id?        yang:uuid
+       |  +---- name       string
+       |  +---- version?   string
+       +---- id                  yang:uuid
+       +---- uri?                inet:uri
+       +---- description?        string
+       +---- start-time          yang:date-and-time
+       +---- end-time?           yang:date-and-time
+       +---- strategy?           string
+       +---- confidence-score?   score
+       +---- concern-score       score
+       +---- (service)?
        |  +--:(smtopology:l2vpn)
-       |  |  +--ro smtopology:vpn-service* [vpn-id]
-       |  |     +--ro smtopology:vpn-id               string
-       |  |     +--ro smtopology:uri?                 inet:uri
-       |  |     +--ro smtopology:vpn-name?            string
-       |  |     +--ro smtopology:site-ids*            string
-       |  |     +--ro smtopology:change-id?           yang:uuid
-       |  |     +--ro smtopology:change-start-time?
+       |  |  +---- smtopology:l2vpn-service* [vpn-id]
+       |  |     +---- smtopology:vpn-id               string
+       |  |     +---- smtopology:uri?                 inet:uri
+       |  |     +---- smtopology:vpn-name?            string
+       |  |     +---- smtopology:site-ids*            string
+       |  |     +---- smtopology:change-id?           yang:uuid
+       |  |     +---- smtopology:change-start-time?
        |  |     |       yang:date-and-time
-       |  |     +--ro smtopology:change-end-time?
+       |  |     +---- smtopology:change-end-time?
        |  |             yang:date-and-time
        |  +--:(smtopology:l3vpn)
-       |     +--ro smtopology:vpn-service* [vpn-id]
-       |        +--ro smtopology:vpn-id               string
-       |        +--ro smtopology:uri?                 inet:uri
-       |        +--ro smtopology:vpn-name?            string
-       |        +--ro smtopology:site-ids*            string
-       |        +--ro smtopology:change-id?           yang:uuid
-       |        +--ro smtopology:change-start-time?
+       |     +---- smtopology:l3vpn-service* [vpn-id]
+       |        +---- smtopology:vpn-id               string
+       |        +---- smtopology:uri?                 inet:uri
+       |        +---- smtopology:vpn-name?            string
+       |        +---- smtopology:site-ids*            string
+       |        +---- smtopology:change-id?           yang:uuid
+       |        +---- smtopology:change-start-time?
        |        |       yang:date-and-time
-       |        +--ro smtopology:change-end-time?
+       |        +---- smtopology:change-end-time?
        |                yang:date-and-time
-       +--ro anomaly* [id revision]
-          +--ro id                                     yang:uuid
-          +--ro revision                               yang:counter32
-          +--ro uri?                                   inet:uri
-          +--ro state                                  identityref
-          +--ro description?                           string
-          +--ro start-time
+       +---- anomaly* [id revision]
+          +---- id                                  yang:uuid
+          +---- revision                            yang:counter32
+          +---- uri?                                inet:uri
+          +---- phase                               identityref
+          +---- description?                        string
+          +---- start-time
           |       yang:date-and-time
-          +--ro end-time?
+          +---- end-time?
           |       yang:date-and-time
-          +--ro confidence-score?                      score
-          +--ro pattern?                               identityref
-          +--ro annotator
-          |  +--ro id?               yang:uuid
-          |  +--ro name              string
-          |  +--ro version?          string
-          |  +--ro annotator-type?   enumeration
-          +--ro symptom!
-          |  +--ro id                            yang:uuid
-          |  +--ro concern-score                 score
-          |  +--ro smcblsymptom:action?          string
-          |  +--ro smcblsymptom:reason?          string
-          |  +--ro smcblsymptom:trigger?         string
-          |  +--ro smcblsymptom:network-plane?   enumeration
-          |  +--ro smcblsymptom:template?        string
-          |  +--ro smcblsymptom:season?          enumeration
-          +--ro smtopology:vpn-node-terminations* [hostname]
-          |  +--ro smtopology:hostname               inet:host
-          |  +--ro smtopology:vrf-id                 string
-          |  +--ro smtopology:vrf-name               string
-          |  +--ro smtopology:route-distinguisher    string
-          |  +--ro smtopology:peer-ip*               inet:ip-address
-          |  +--ro smtopology:interface-id*          uint32
-          |  +--ro smtopology:interface-name*        uint32
-          +--ro smtopology:vpn-network-terminations*
-                  [route-distinguisher]
-             +--ro smtopology:route-distinguisher    string
-             +--ro smtopology:next-hop*              inet:ip-address
-             +--ro smtopology:hostname               inet:host
-             +--ro smtopology:peer-ip*               inet:ip-address
+          +---- confidence-score?                   score
+          +---- pattern?                            identityref
+          +---- annotator
+          |  +---- id?               yang:uuid
+          |  +---- name              string
+          |  +---- version?          string
+          |  +---- annotator-type?   enumeration
+          +---- symptom!
+          |  +---- id                            yang:uuid
+          |  +---- concern-score                 score
+          |  +---- smcblsymptom:action?          string
+          |  +---- smcblsymptom:reason?          string
+          |  +---- smcblsymptom:trigger?         string
+          |  +---- smcblsymptom:network-plane?   enumeration
+          |  +---- smcblsymptom:template?        string
+          |  +---- smcblsymptom:season?          enumeration
+          +---- smtopology:vpn-node-terminations*
+             +---- smtopology:hostname?              inet:host
+             +---- smtopology:vrf-id?                string
+             +---- smtopology:vrf-name?              string
+             +---- smtopology:route-distinguisher?   string
+             +---- smtopology:interface-id*          uint32
+             +---- smtopology:interface-name*        uint32
+             +---- smtopology:peer-ip*               inet:ip-address
+             +---- smtopology:next-hop*              inet:ip-address
+
+module: ietf-network-anomaly-symptom-cbl
+
+  augment /rsn:relevant-state/rsn:anomaly/rsn:symptom:
+    +---u cbl-symptom
+  augment /rsn:relevant-state-notification/rsn:anomaly/rsn:symptom:
+    +---u cbl-symptom
+
+module: ietf-network-anomaly-service-topology
+
+  augment /rsn:relevant-state/rsn:service:
+    +--:(l2vpn)
+    |  +---u l2vpn-service
+    +--:(l3vpn)
+       +---u l3vpn-service
+  augment /rsn:relevant-state-notification/rsn:service:
+    +--:(l2vpn)
+    |  +---u l2vpn-service
+    +--:(l3vpn)
+       +---u l3vpn-service
+  augment /rsn:relevant-state/rsn:anomaly:
+    +---u vpn-node-termination
+  augment /rsn:relevant-state-notification/rsn:anomaly:
+    +---u vpn-node-termination

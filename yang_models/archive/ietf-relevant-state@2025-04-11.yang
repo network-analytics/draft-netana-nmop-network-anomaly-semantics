@@ -53,7 +53,7 @@ module ietf-relevant-state {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-  revision 2025-04-25 {
+  revision 2025-04-11 {
     description
       "Initial version";
     reference
@@ -73,32 +73,24 @@ module ietf-relevant-state {
     description
       "Base identity for representing the state of the network
        anomaly.";
-    reference
-      "Section 6 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity detection {
     base network-anomaly-state;
     description
       "A problem reached detection state.";
-    reference
-      "Section 6.1 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity validation {
     base network-anomaly-state;
     description
       "A problem reached validation state.";
-    reference
-      "Section 6.2 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity refinement {
     base network-anomaly-state;
     description
       "A problem reached refinement state.";
-    reference
-      "Section 6.3 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity problem-forecasted {
@@ -193,8 +185,6 @@ module ietf-relevant-state {
       "Relevant State is a state that could lead to
        problems or might be clear indications of problem
        already happening.";
-    reference
-      "Figure 4 in draft-ietf-nmop-terminology.";
     leaf id {
       type yang:uuid;
       mandatory true;
@@ -217,22 +207,14 @@ module ietf-relevant-state {
       type yang:date-and-time;
       mandatory true;
       description
-        "Date and time indicating the beginning of the problem.";
+        "Date and time indicating the beginning of the
+         problem.";
     }
     leaf end-time {
       type yang:date-and-time;
       description
-        "Date and time indicating the end of the problem.";
-    }
-    leaf strategy {
-      type string;
-      mandatory false;
-      description
-        "Captures one approach to look at the data (as a human operator
-        does) to observe if an abnormal situation is arising.";
-      reference
-        "Section 3.5.3 in
-				draft-ietf-nmop-network-anomaly-architecture.";				
+        "Date and time indicating the end of the
+         problem.";
     }
     leaf confidence-score {
       type score;
@@ -261,19 +243,15 @@ module ietf-relevant-state {
     leaf id {
       type yang:uuid;
       description
-        "Unique ID of the annotator (either user or algorithm).";
+        "Unique ID of the annotator (either user or algorithm)";
     }
     leaf name {
       type string;
       mandatory true;
       description
-        "Name of the annotator (either user or algorithm).";
-    }
-    leaf version {
-      type string;
-      mandatory false;
-      description
-        "Version of the annotator.";
+        "Name of the annotator (either user or algorithm)
+         If it is an algorithm, the name can also include
+         the version.";
     }
     leaf annotator-type {
       type enumeration {
@@ -403,28 +381,13 @@ module ietf-relevant-state {
       "Notification of a relevant state that can be sent by the
        anomaly detection system to the postmortem management
        system or to the incident management system.";
-      container publisher {
-        description
-          "Publisher represents the entity that produced the
-            relevant-state.";
-          leaf id {
-            type yang:uuid;
-            description
-              "Unique ID of the publisher.";
-          }
-          leaf name {
-            type string;
-            mandatory true;
-            description
-              "Name of the publisher.";
-          }
-          leaf version {
-            type string;
-            mandatory false;
-            description
-              "Version of the publisher.";
-          }
-      }
+    leaf publisher {
+      type string;
+      mandatory true;
+      description
+        "Name of the system which published the relevant-state
+         notification.";
+    }
     uses relevant-state-grouping;
     uses anomaly-grouping;
   }
