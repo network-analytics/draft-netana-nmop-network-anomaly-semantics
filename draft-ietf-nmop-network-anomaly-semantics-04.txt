@@ -5,11 +5,11 @@
 NMOP                                                             T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 1 April 2026                                      A. Huang Feng
+Expires: 19 May 2026                                       A. Huang Feng
                                                                INSA-Lyon
                                                             V. Riccobene
                                                                   Huawei
-                                                       28 September 2025
+                                                        15 November 2025
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -53,9 +53,9 @@ Status of This Memo
 
 
 
-Graf, et al.              Expires 1 April 2026                  [Page 1]
+Graf, et al.               Expires 19 May 2026                  [Page 1]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
    Internet-Drafts are draft documents valid for a maximum of six months
@@ -63,7 +63,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 April 2026.
+   This Internet-Draft will expire on 19 May 2026.
 
 Copyright Notice
 
@@ -87,10 +87,10 @@ Table of Contents
    3.  Observed Symptoms . . . . . . . . . . . . . . . . . . . . . .   4
    4.  Semantic Metadata . . . . . . . . . . . . . . . . . . . . . .   8
      4.1.  Overview of the Models for the Symptom Semantic
-           Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   9
-     4.2.  YANG Module 'ietf-network-anomaly-symptom-cbl'  . . . . .   9
+           Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   8
+     4.2.  YANG Module 'ietf-network-anomaly-symptom-cbl'  . . . . .   8
      4.3.  YANG Module 'ietf-network-anomaly-service-topology' . . .  13
-     4.4.  Apache AVRO Schema  . . . . . . . . . . . . . . . . . . .  20
+     4.4.  Apache AVRO Schema  . . . . . . . . . . . . . . . . . . .  21
    5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  33
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  34
    7.  Implementation status . . . . . . . . . . . . . . . . . . . .  35
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Graf, et al.              Expires 1 April 2026                  [Page 2]
+Graf, et al.               Expires 19 May 2026                  [Page 2]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 1.  Introduction
@@ -165,12 +165,17 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                  [Page 3]
+Graf, et al.               Expires 19 May 2026                  [Page 3]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
    *  Service Disruption Detection System
+
+   The following terms are used as defined in
+   [I-D.ietf-nmop-network-anomaly-lifecycle] :
+
+   *  Concern Score
 
    The following terms are used as defined in
    [I-D.ietf-nmop-terminology]:
@@ -213,19 +218,19 @@ Internet-Draft          Network Anomaly Semantics         September 2025
       performed.  For drops in Forwarding Plane we distinguish between
       *Unreachable*, because network layer reachability information was
       missing, *Administered*, because an administrator configured a
+
+
+
+Graf, et al.               Expires 19 May 2026                  [Page 4]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
       rule preventing the forwarding of this packet, and *Corrupt*,
       where the network node was unable to determine the forwarding path
       due to a packet, software or hardware error.  For on-path delay we
       distinguish between *Minimum*, *Average* and *Maximum* delay for a
       given flow.  For Control Plane, we distinguish wherever a the
-
-
-
-Graf, et al.              Expires 1 April 2026                  [Page 4]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
       reachability action was due to path *updates* or *withdraws* or
       the adjacency was *established* or *teared down*.  For Management
       Plane, we distinguish between interfaces states that are shown as
@@ -272,71 +277,51 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-
-
-
-
-
-Graf, et al.              Expires 1 April 2026                  [Page 5]
+Graf, et al.               Expires 19 May 2026                  [Page 5]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
-            +=========+==============+========================+
-            | Action  | Reason       | Trigger                |
-            +=========+==============+========================+
-            | Missing | Previous     | Time                   |
-            +---------+--------------+------------------------+
-            | Drop    | Unreachable  | next-hop               |
-            +---------+--------------+------------------------+
-            | Drop    | Unreachable  | link-layer             |
-            +---------+--------------+------------------------+
-            | Drop    | Unreachable  | Time To Life expired   |
-            +---------+--------------+------------------------+
-            | Drop    | Unreachable  | Fragmentation needed   |
-            |         |              | and Don't Fragment set |
-            +---------+--------------+------------------------+
-            | Drop    | Administered | Access-List            |
-            +---------+--------------+------------------------+
-            | Drop    | Administered | Unicast Reverse Path   |
-            |         |              | Forwarding             |
-            +---------+--------------+------------------------+
-            | Drop    | Administered | Discard Route          |
-            +---------+--------------+------------------------+
-            | Drop    | Administered | Policed                |
-            +---------+--------------+------------------------+
-            | Drop    | Administered | Shaped                 |
-            +---------+--------------+------------------------+
-            | Drop    | Corrupt      | Bad Packet             |
-            +---------+--------------+------------------------+
-            | Drop    | Corrupt      | Bad Egress Interface   |
-            +---------+--------------+------------------------+
-            | Delay   | Min          | -                      |
-            +---------+--------------+------------------------+
-            | Delay   | Mean         | -                      |
-            +---------+--------------+------------------------+
-            | Delay   | Max          | -                      |
-            +---------+--------------+------------------------+
+            +========+==============+========================+
+            | Action | Reason       | Trigger                |
+            +========+==============+========================+
+            | Drop   | Unreachable  | next-hop               |
+            +--------+--------------+------------------------+
+            | Drop   | Unreachable  | link-layer             |
+            +--------+--------------+------------------------+
+            | Drop   | Unreachable  | Time To Life expired   |
+            +--------+--------------+------------------------+
+            | Drop   | Unreachable  | Fragmentation needed   |
+            |        |              | and Don't Fragment set |
+            +--------+--------------+------------------------+
+            | Drop   | Administered | Access-List            |
+            +--------+--------------+------------------------+
+            | Drop   | Administered | Unicast Reverse Path   |
+            |        |              | Forwarding             |
+            +--------+--------------+------------------------+
+            | Drop   | Administered | Discard Route          |
+            +--------+--------------+------------------------+
+            | Drop   | Administered | Policed                |
+            +--------+--------------+------------------------+
+            | Drop   | Administered | Shaped                 |
+            +--------+--------------+------------------------+
+            | Drop   | Corrupt      | Bad Packet             |
+            +--------+--------------+------------------------+
+            | Drop   | Corrupt      | Bad Egress Interface   |
+            +--------+--------------+------------------------+
+            | Delay  | Min          | -                      |
+            +--------+--------------+------------------------+
+            | Delay  | Mean         | -                      |
+            +--------+--------------+------------------------+
+            | Delay  | Max          | -                      |
+            +--------+--------------+------------------------+
 
-                 Table 1: Description of symptoms and their
-                 actions, reason and trigger for Forwarding
-                                   Plane.
+                Table 1: Description of symptoms and their
+                actions, reason and trigger for Forwarding
+                                  Plane.
 
    Table 2 consolidates the list of common symptoms related to control
    plane, describing their actions, reasons and triggers.
-
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 1 April 2026                  [Page 6]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
 
     +==============+=============+====================================+
     | Action       | Reason      | Trigger                            |
@@ -345,6 +330,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
     +--------------+-------------+------------------------------------+
     | Reachability | Update      | Received                           |
     +--------------+-------------+------------------------------------+
+
+
+
+Graf, et al.               Expires 19 May 2026                  [Page 6]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
     | Reachability | Withdraw    | Received                           |
     +--------------+-------------+------------------------------------+
     | Reachability | Withdraw    | Peer Down                          |
@@ -386,14 +379,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
     |              | Teared Down |                                    |
     +--------------+-------------+------------------------------------+
     | Adjacency    | Locally     | Transport Connection Failed        |
-
-
-
-Graf, et al.              Expires 1 April 2026                  [Page 7]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
     |              | Teared Down |                                    |
     +--------------+-------------+------------------------------------+
     | Adjacency    | Remotely    | Transport Connection Failed        |
@@ -401,6 +386,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
     +--------------+-------------+------------------------------------+
 
       Table 2: Description of symptoms and their actions, reasons and
+
+
+
+Graf, et al.               Expires 19 May 2026                  [Page 7]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
                      triggers related to Control Plane.
 
    Table 3 consolidates the list of common symptoms related to
@@ -441,15 +434,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    describe the overall behavior of the network in a given time-window
    including all the observed symptoms and outliers.
 
-
-
-
-
-Graf, et al.              Expires 1 April 2026                  [Page 8]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
 4.1.  Overview of the Models for the Symptom Semantic Metadata
 
    This section defines two YANG models, one defining a placeholder for
@@ -458,6 +442,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 4.2.  YANG Module 'ietf-network-anomaly-symptom-cbl'
 
+
+
+
+Graf, et al.               Expires 19 May 2026                  [Page 8]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
 4.2.1.  YANG Tree
 
    Figure 1 contains the YANG tree diagram [RFC8340] of the 'ietf-
@@ -465,9 +457,17 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    state' module defined in [I-D.ietf-nmop-network-anomaly-lifecycle].
 
    For each Symptom, the following parameters can be assigned: an
-   Action, a Reason and a Trigger describing the Symptom; a concern
-   score indicating how critical the Symptom is; and the associated
+   Action, a Reason and a Trigger describing the Symptom; a Concern
+   Score indicating how critical the Symptom is; and the associated
    network plane.
+
+   Where the season enumeration declares wherever a workday or a holiday
+   hase been taken into consideration for Contextual Outliers.  The
+   template describes which approach and parameters have been used in
+   the Service Disruption Detection as described in Section 3.2 of
+   [I-D.ietf-nmop-network-anomaly-architecture] an Action, a Reason and
+   a Trigger describing the Symptom; a concern score indicating how
+   critical the Symptom is; and the associated network plane.
 
    Where the season enumeration declares wherever a workday or a holiday
    hase been taken into consideration for Contextual Outliers.  The
@@ -501,9 +501,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                  [Page 9]
+Graf, et al.               Expires 19 May 2026                  [Page 9]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
    state' container is used for modifying the Symptom data in the
@@ -513,11 +513,10 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 4.2.2.  YANG Module
 
-   The YANG module has one typedef defining the score, a grouping
-   defining Action, Reason and Trigger and how symptom attributes to the
-   network planes.
+   The YANG module has a grouping defining Action, Reason and Trigger
+   and how symptom attributes to the network planes.
 
-   <CODE BEGINS> file "ietf-network-anomaly-symptom-cbl@2025-04-25.yang"
+   <CODE BEGINS> file "ietf-network-anomaly-symptom-cbl@2025-11-15.yang"
    module ietf-network-anomaly-symptom-cbl {
      yang-version 1.1;
      namespace
@@ -548,21 +547,21 @@ Internet-Draft          Network Anomaly Semantics         September 2025
        "This module defines the semantic grouping to be used by a
         Service Disruption Detection Systems. The defined objects is
         used to augment the anomaly container. Describing the
-        symptoms action, reason and concern-score.
+        symptoms action and reason.
 
         Copyright (c) 2025 IETF Trust and the persons
         identified as authors of the code.  All rights reserved.
 
         Redistribution and use in source and binary forms, with or
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 10]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
         without modification, is permitted pursuant to, and subject
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 10]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
         to the license terms contained in, the Revised BSD License
         set forth in Section 4.c of the IETF Trust's Legal Provisions
         Relating to IETF Documents
@@ -575,20 +574,12 @@ Internet-Draft          Network Anomaly Semantics         September 2025
         This version of this YANG module is part of RFC XXXX; see
         the RFC itself for full legal notices.";
 
-     revision 2025-04-25 {
+     revision 2025-11-15 {
        description
          "Initial version";
        reference
          "RFC XXX: Semantic Metadata Annotation for Network Anomaly
           Detection";
-     }
-
-     typedef score {
-       type uint8 {
-         range "0..100";
-       }
-       description
-         "Number indicating a score between 0 and 100.";
      }
 
      grouping cbl-symptom {
@@ -610,14 +601,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
        leaf trigger {
          type string;
          description
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 11]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
            "Describes what triggered the network node to this action.";
        }
        leaf network-plane {
@@ -627,6 +610,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
                "Symptom associated to the Forwarding Plane.";
            }
            enum control {
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 11]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
              description
                "Symptom associated to the Control Plane.";
            }
@@ -666,14 +657,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
      augment "/rsn:relevant-state/rsn:anomaly"
            + "/rsn:symptom" {
        description
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 12]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
          "Provide extension for the symptom description,
           specifically for connectivity services to the
           relevant state container";
@@ -683,6 +666,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
      augment "/rsn:relevant-state-notification/rsn:anomaly"
            + "/rsn:symptom" {
        description
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 12]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
          "Provide extension for the symptom description,
           specifically for connectivity services to the
           relevant state notification";
@@ -712,86 +703,70 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
      augment /rsn:relevant-state/rsn:service:
        +--:(l2vpn)
-       |  +--rw vpn-service* [vpn-id]
-       |     +--rw vpn-id               string
-       |     +--rw uri?                 inet:uri
-       |     +--rw vpn-name?            string
-       |     +--rw site-ids*            string
-       |     +--rw change-id?           yang:uuid
-       |     +--rw change-start-time?   yang:date-and-time
-       |     +--rw change-end-time?     yang:date-and-time
+       |  +--ro l2vpn-service* [vpn-id]
+       |     +--ro vpn-id               string
+       |     +--ro uri?                 inet:uri
+       |     +--ro vpn-name?            string
+       |     +--ro site-ids*            string
+       |     +--ro change-id?           yang:uuid
+       |     +--ro change-start-time?   yang:date-and-time
+       |     +--ro change-end-time?     yang:date-and-time
        +--:(l3vpn)
-          +--rw vpn-service* [vpn-id]
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 13]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
-             +--rw vpn-id               string
-             +--rw uri?                 inet:uri
-             +--rw vpn-name?            string
-             +--rw site-ids*            string
-             +--rw change-id?           yang:uuid
-             +--rw change-start-time?   yang:date-and-time
-             +--rw change-end-time?     yang:date-and-time
+          +--ro l3vpn-service* [vpn-id]
+             +--ro vpn-id               string
+             +--ro uri?                 inet:uri
+             +--ro vpn-name?            string
+             +--ro site-ids*            string
+             +--ro change-id?           yang:uuid
+             +--ro change-start-time?   yang:date-and-time
+             +--ro change-end-time?     yang:date-and-time
      augment /rsn:relevant-state-notification/rsn:service:
        +--:(l2vpn)
-       |  +-- vpn-service* [vpn-id]
-       |     +-- vpn-id               string
-       |     +-- uri?                 inet:uri
-       |     +-- vpn-name?            string
-       |     +-- site-ids*            string
-       |     +-- change-id?           yang:uuid
-       |     +-- change-start-time?   yang:date-and-time
-       |     +-- change-end-time?     yang:date-and-time
-       +--:(l3vpn)
-          +-- vpn-service* [vpn-id]
-             +-- vpn-id               string
-             +-- uri?                 inet:uri
-             +-- vpn-name?            string
-             +-- site-ids*            string
-             +-- change-id?           yang:uuid
-             +-- change-start-time?   yang:date-and-time
-             +-- change-end-time?     yang:date-and-time
-     augment /rsn:relevant-state/rsn:anomaly:
-       +--rw vpn-node-terminations* [hostname vrf-id]
-       |  +--rw hostname               inet:host
-       |  +--rw vrf-id                 string
-       |  +--rw vrf-name?              string
-       |  +--rw route-distinguisher?   string
-       |  +--rw peer-ip*               inet:ip-address
-       |  +--rw interface-id*          uint32
-       |  +--rw interface-name*        uint32
-       +--rw vpn-network-terminations* [route-distinguisher next-hop]
-          +--rw route-distinguisher    string
-          +--rw next-hop*              inet:ip-address
-          +--rw hostname*              inet:host
-          +--rw peer-ip*               inet:ip-address
-     augment /rsn:relevant-state-notification/rsn:anomaly:
-       +-- vpn-node-terminations* [hostname vrf-id]
-       |  +-- hostname               inet:host
-       |  +-- vrf-id                 string
-       |  +-- vrf-name?              string
-       |  +-- route-distinguisher?   string
-       |  +-- peer-ip*               inet:ip-address
-       |  +-- interface-id*          uint32
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 14]
+Graf, et al.               Expires 19 May 2026                 [Page 13]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
-       |  +-- interface-name*        uint32
-       +-- vpn-network-terminations* [route-distinguisher next-hop]
-          +-- route-distinguisher    string
-          +-- next-hop*              inet:ip-address
-          +-- hostname*              inet:host
-          +-- peer-ip*               inet:ip-address
+       |  +--ro l2vpn-service* [vpn-id]
+       |     +--ro vpn-id               string
+       |     +--ro uri?                 inet:uri
+       |     +--ro vpn-name?            string
+       |     +--ro site-ids*            string
+       |     +--ro change-id?           yang:uuid
+       |     +--ro change-start-time?   yang:date-and-time
+       |     +--ro change-end-time?     yang:date-and-time
+       +--:(l3vpn)
+          +--ro l3vpn-service* [vpn-id]
+             +--ro vpn-id               string
+             +--ro uri?                 inet:uri
+             +--ro vpn-name?            string
+             +--ro site-ids*            string
+             +--ro change-id?           yang:uuid
+             +--ro change-start-time?   yang:date-and-time
+             +--ro change-end-time?     yang:date-and-time
+     augment /rsn:relevant-state/rsn:anomaly:
+       +--ro vpn-node-terminations* []
+          +--ro hostname?              inet:host
+          +--ro vrf-id?                string
+          +--ro vrf-name?              string
+          +--ro route-distinguisher?   string
+          +--ro interface-id*          uint32
+          +--ro interface-name*        uint32
+          +--ro peer-ip*               inet:ip-address
+          +--ro next-hop*              inet:ip-address
+     augment /rsn:relevant-state-notification/rsn:anomaly:
+       +--ro vpn-node-terminations* []
+          +--ro hostname?              inet:host
+          +--ro vrf-id?                string
+          +--ro vrf-name?              string
+          +--ro route-distinguisher?   string
+          +--ro interface-id*          uint32
+          +--ro interface-name*        uint32
+          +--ro peer-ip*               inet:ip-address
+          +--ro next-hop*              inet:ip-address
 
 4.3.2.  YANG Module
 
@@ -800,8 +775,21 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    placeholders for defining VPN information that is associated to the
    relevant state.
 
+
+
+
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 14]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
    <CODE BEGINS>
-     file "ietf-network-anomaly-service-topology@2025-09-28.yang"
+     file "ietf-network-anomaly-service-topology@2025-11-15.yang"
+             <sourcecode name="ietf-network-anomaly-service-topology@2025-11-15.yang"
+               type="yang" markers="true"><![CDATA[
    module ietf-network-anomaly-service-topology {
      yang-version 1.1;
      namespace
@@ -834,14 +822,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
                   <mailto:thomas.graf@swisscom.com>
                   Wanting Du
                   <mailto:wanting.du@swisscom.com>
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 15]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
                   Alex Huang Feng
                   <mailto:alex.huang-feng@insa-lyon.fr>
                   Vincenzo Riccobene
@@ -854,6 +834,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
         of observed symptoms.
 
         Copyright (c) 2025 IETF Trust and the persons
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 15]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
         identified as authors of the code.  All rights reserved.
 
         Redistribution and use in source and binary forms, with or
@@ -870,19 +858,20 @@ Internet-Draft          Network Anomaly Semantics         September 2025
         This version of this YANG module is part of RFC XXXX; see
         the RFC itself for full legal notices.";
 
-     revision 2025-09-28 {
+     revision 2025-11-15 {
        description
          "Initial version";
        reference
          "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
      }
 
-     grouping vpn-service {
+     grouping l2vpn-service {
        description
          "Connectivity service of type VPN. This grouping is
           used to augment the relevant-state container.";
-       list vpn-service {
+       list l2vpn-service {
          key "vpn-id";
+         config false;
          description
            "List of VPN connectivity services of interest.";
          leaf vpn-id {
@@ -890,14 +879,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
            mandatory true;
            description
              "Unique ID of the VPN connectivity service.";
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 16]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
          }
          leaf uri {
            type inet:uri;
@@ -906,6 +887,73 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          }
          leaf vpn-name {
            type string;
+           description
+             "Name of the VPN connectivity service.";
+         }
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 16]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
+         leaf-list site-ids {
+           type string;
+           description
+             "List of unique site ID's of the VPN connectivity service.";
+         }
+         leaf change-id {
+           type yang:uuid;
+           description
+             "Unique identifier of VPN connectivity service maintenance
+              window within the relevant-state window.";
+         }
+         leaf change-start-time {
+           type yang:date-and-time;
+           description
+             "Start date and time of the VPN connectivity service
+              maintenance window within the relevant-state window.";
+         }
+         leaf change-end-time {
+           type yang:date-and-time;
+           description
+             "End date and time of the VPN connectivity service
+              maintenance window within the relevant-state window.";
+         }
+       }
+     }
+
+     grouping l3vpn-service {
+       description
+         "Connectivity service of type VPN. This grouping is
+          used to augment the relevant-state container.";
+       list l3vpn-service {
+         key "vpn-id";
+         config false;
+         description
+           "List of VPN connectivity services of interest.";
+         leaf vpn-id {
+           type string;
+           mandatory true;
+           description
+             "Unique ID of the VPN connectivity service.";
+         }
+         leaf uri {
+           type inet:uri;
+           description
+             "URI to viusalize the VPN connectivity service inventory.";
+         }
+         leaf vpn-name {
+           type string;
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 17]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
            description
              "Name of the VPN connectivity service.";
          }
@@ -918,42 +966,34 @@ Internet-Draft          Network Anomaly Semantics         September 2025
            type yang:uuid;
            description
              "Unique identifier of VPN connectivity service maintenance
-             window within the relevant-state window.";
+              window within the relevant-state window.";
          }
          leaf change-start-time {
            type yang:date-and-time;
            description
              "Start date and time of the VPN connectivity service
-             maintenance window within the relevant-state window.";
+              maintenance window within the relevant-state window.";
          }
          leaf change-end-time {
            type yang:date-and-time;
            description
              "End date and time of the VPN connectivity service
-             maintenance window within the relevant-state window.";
+              maintenance window within the relevant-state window.";
          }
        }
      }
 
-     grouping vpn-termination {
+     grouping vpn-node-termination {
        description
          "Node and Network Termination for the VPN Service instance.
           This grouping is used to augment the relevant-state container.";
        list vpn-node-terminations {
-         key "hostname vrf-id";
+         config false;
          description
            "List of Node Terminations of interest.";
          leaf hostname {
            type inet:host;
            description
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 17]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
              "The hostname of the network node. This value
                is usually configured on the node by the
                administrator to uniquely identify the node
@@ -962,6 +1002,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          leaf vrf-id {
            type string;
            description
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 18]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
              "The VRF id obtained through IPFIX IE234
                ingressVRFID or IE235 egressVRFID.";
          }
@@ -978,13 +1026,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
                IPFIX IE90 mplsVpnRouteDistinguisher or BMP
                route-monitoring or peer_up message type.";
          }
-         leaf-list peer-ip {
-           type inet:ip-address;
-           description
-             "The BGP peering IP address learned through
-               BMP route-monitoring, peer_up or peer_down
-               message type.";
-         }
          leaf-list interface-id {
            type uint32;
            description
@@ -1000,39 +1041,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
                IPFIX IE82 interfaceName or
                ietf-interfaces:interfaces/interface/name.";
          }
-       }
-       list vpn-network-terminations {
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 18]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
-         key "route-distinguisher next-hop";
-         description
-           "List of Network Terminations of interest.";
-         leaf route-distinguisher {
-           type string;
-           description
-             "The BGP route-distinguisher obtained through
-              BMP route-monitoring or peer_up message type.";
-         }
-         leaf-list next-hop {
-           type inet:ip-address;
-           description
-             "The BGP next-hop IP address learned through
-               BMP route-monitoring message type.";
-         }
-         leaf-list hostname {
-           type inet:host;
-           description
-             "The hostname of the network node. This value is
-               usually configured on the node by the
-               administrator to uniquely identify the node in
-               the network.";
-         }
          leaf-list peer-ip {
            type inet:ip-address;
            description
@@ -1040,10 +1048,24 @@ Internet-Draft          Network Anomaly Semantics         September 2025
                BMP route-monitoring, peer_up or peer_down
                message type.";
          }
+         leaf-list next-hop {
+           type inet:ip-address;
+           description
+             "The BGP next-hop IP address learned through
+               BMP route-monitoring message type.";
+         }
        }
      }
 
      augment "/rsn:relevant-state/rsn:service" {
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 19]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
        description
          "Provide extension for the service description,
           specifically for connectivity services to the
@@ -1051,21 +1073,13 @@ Internet-Draft          Network Anomaly Semantics         September 2025
        case l2vpn {
          description
            "Layer 2 VPN connectivity service.";
-         uses vpn-service;
+         uses l2vpn-service;
        }
        case l3vpn {
          description
            "Layer 3 VPN connectivity service.";
-         uses vpn-service;
+         uses l3vpn-service;
        }
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 19]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
      }
 
      augment "/rsn:relevant-state-notification/rsn:service" {
@@ -1076,12 +1090,12 @@ Internet-Draft          Network Anomaly Semantics         September 2025
        case l2vpn {
          description
            "Layer 2 VPN connectivity service.";
-         uses vpn-service;
+         uses l2vpn-service;
        }
        case l3vpn {
          description
            "Layer 3 VPN connectivity service.";
-         uses vpn-service;
+         uses l3vpn-service;
        }
      }
 
@@ -1090,7 +1104,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          "Provide extension for the service description,
           specifically for connectivity services to the
           relevant state container.";
-       uses vpn-termination;
+       uses vpn-node-termination;
      }
 
      augment "/rsn:relevant-state-notification/rsn:anomaly" {
@@ -1098,8 +1112,16 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          "Provide extension for the service description,
           specifically for connectivity services to the
           relevant state notification.";
-       uses vpn-termination;
+       uses vpn-node-termination;
      }
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 20]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
    }
    <CODE ENDS>
 
@@ -1110,17 +1132,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    data models and transform them to another schema format such as
    [Apache_AVRO] to use as data model for
    [I-D.ietf-nmop-yang-message-broker-integration] integration.
-
-
-
-
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 20]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
 
    Shows the entire notification schema of 'ietf-relevant-state.yang'
    from [I-D.ietf-nmop-network-anomaly-lifecycle], 'ietf-network-
@@ -1156,7 +1167,18 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    *  VpnTermination.avsc is based on 'vpn-termination' defined in
       'ietf-network-anomaly-service-topology.yang'.
 
-   <CODE BEGINS> file "RelevantStateNotification@2025-09-20.avsc"
+
+
+
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 21]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
+   <CODE BEGINS> file "RelevantStateNotification@2025-11-15.avsc"
    {
      "type": "record",
      "name": "RelevantStateNotification",
@@ -1170,14 +1192,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          },
          "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store."
        },
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 21]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
        {
          "name": "uri",
          "type": ["null", "string"],
@@ -1212,6 +1226,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
        },
        {
          "name": "confidenceScore",
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 22]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
          "type": ["null", "int"],
          "default": null,
          "doc": "Score between 0 and 100 indicating how confident were the detectors in relation to the overall relevant state."
@@ -1226,14 +1248,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          "type": {
            "type": "array",
            "items": "ietf.relevant.state.Anomaly"
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 22]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
          },
          "doc": "List of anomalies that are part of the relevant state."
        },
@@ -1264,7 +1278,19 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "Anomaly@2025-09-20.avsc"
+
+
+
+
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 23]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
+   <CODE BEGINS> file "Anomaly@2025-11-15.avsc"
    {
      "type": "record",
      "name": "Anomaly",
@@ -1282,14 +1308,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          "name": "revision",
          "type": "int",
          "doc": "Revision of the anomaly metadata object."
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 23]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
        },
        {
          "name": "uri",
@@ -1320,6 +1338,14 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          "name": "startTime",
          "type": {"type": "long", "logicalType": "timestamp-millis"},
          "doc": "Date and time indicating the beginning of the anomaly."
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 24]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
        },
        {
          "name": "endTime",
@@ -1338,14 +1364,6 @@ Internet-Draft          Network Anomaly Semantics         September 2025
          "type": [
            "null",
            {
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 24]
-
-Internet-Draft          Network Anomaly Semantics         September 2025
-
-
              "type": "enum",
              "name": "Pattern",
              "symbols": [
@@ -1379,30 +1397,12 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Graf, et al.              Expires 1 April 2026                 [Page 25]
+Graf, et al.               Expires 19 May 2026                 [Page 25]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
-   <CODE BEGINS> file "Publisher@2025-09-20.avsc"
+   <CODE BEGINS> file "Publisher@2025-11-15.avsc"
    {
      "type": "record",
      "name": "Publisher",
@@ -1436,7 +1436,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "Annotator@2025-09-20.avsc"
+   <CODE BEGINS> file "Annotator@2025-11-15.avsc"
    {
      "type": "record",
      "name": "Annotator",
@@ -1453,9 +1453,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 26]
+Graf, et al.               Expires 19 May 2026                 [Page 26]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
          ],
@@ -1496,7 +1496,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "Symptom@2025-09-20.avsc"
+   <CODE BEGINS> file "Symptom@2025-11-15.avsc"
    {
      "type": "record",
      "name": "Symptom",
@@ -1509,9 +1509,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 27]
+Graf, et al.               Expires 19 May 2026                 [Page 27]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
            "logicalType": "uuid"
@@ -1565,9 +1565,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 28]
+Graf, et al.               Expires 19 May 2026                 [Page 28]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
          "name": "season",
@@ -1586,7 +1586,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "L2VpnServiceContainer.avsc@2025-09-20.avsc"
+   <CODE BEGINS> file "L2VpnServiceContainer.avsc@2025-11-15.avsc"
    {
      "type": "record",
      "name": "L2VpnServiceContainer",
@@ -1605,7 +1605,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "L2VpnService.avsc@2025-09-20.avsc"
+   <CODE BEGINS> file "L2VpnService.avsc@2025-11-15.avsc"
    {
      "type": "record",
      "name": "L2VpnService",
@@ -1621,9 +1621,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 29]
+Graf, et al.               Expires 19 May 2026                 [Page 29]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
          "type": ["null", "string"],
@@ -1677,12 +1677,12 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 30]
+Graf, et al.               Expires 19 May 2026                 [Page 30]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
-   <CODE BEGINS> file "L3VpnServiceContainer.avsc@2025-09-20.avsc"
+   <CODE BEGINS> file "L3VpnServiceContainer.avsc@2025-11-15.avsc"
    {
      "type": "record",
      "name": "L2VpnServiceContainer",
@@ -1701,7 +1701,7 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "L3VpnService.avsc@2025-09-20.avsc"
+   <CODE BEGINS> file "L3VpnService.avsc@2025-11-15.avsc"
    {
      "type": "record",
      "name": "L3VpnService",
@@ -1733,9 +1733,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 31]
+Graf, et al.               Expires 19 May 2026                 [Page 31]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
        {
@@ -1760,10 +1760,10 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    }
    <CODE ENDS>
 
-   <CODE BEGINS> file "VpnTermination@2025-09-20.avsc"
+   <CODE BEGINS> file "VpnNodeTermination@2025-11-15.avsc"
    {
      "type": "record",
-     "name": "VpnTermination",
+     "name": "VpnNodeTermination",
      "namespace": "ietf.relevant.state",
      "fields": [
        {
@@ -1789,9 +1789,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 32]
+Graf, et al.               Expires 19 May 2026                 [Page 32]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
        {
@@ -1845,9 +1845,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 33]
+Graf, et al.               Expires 19 May 2026                 [Page 33]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
       Namespace: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-
@@ -1901,9 +1901,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 34]
+Graf, et al.               Expires 19 May 2026                 [Page 34]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
    notification) to these data nodes.  Specifically, the following
@@ -1948,8 +1948,8 @@ Internet-Draft          Network Anomaly Semantics         September 2025
    comment.
 
    The authors would like to thank Antonio Roberto for his contribution
-   to the ideas in this draft and Reshad Rahman and Mohamed Boucadair
-   for his review and valuable comments.
+   to the ideas in this draft and Reshad Rahman, Mohamed Boucadair and
+   Ruediger Geib for his review and valuable comments.
 
 9.  References
 
@@ -1957,9 +1957,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 35]
+Graf, et al.               Expires 19 May 2026                 [Page 35]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
    [Antagonist]
@@ -2013,9 +2013,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 36]
+Graf, et al.               Expires 19 May 2026                 [Page 36]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
@@ -2059,9 +2059,9 @@ Internet-Draft          Network Anomaly Semantics         September 2025
               Graf, T. and A. Elhassany, "An Architecture for YANG-Push
               to Message Broker Integration", Work in Progress,
               Internet-Draft, draft-ietf-nmop-yang-message-broker-
-              integration-08, 7 July 2025,
+              integration-09, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-nmop-
-              yang-message-broker-integration-08>.
+              yang-message-broker-integration-09>.
 
    [I-D.ietf-opsawg-collected-data-manifest]
               Claise, B., Quilbeuf, J., Lopez, D., Martinez-Casanueva,
@@ -2069,15 +2069,15 @@ Internet-Draft          Network Anomaly Semantics         September 2025
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 37]
+Graf, et al.               Expires 19 May 2026                 [Page 37]
 
-Internet-Draft          Network Anomaly Semantics         September 2025
+Internet-Draft          Network Anomaly Semantics          November 2025
 
 
               Telemetry Data", Work in Progress, Internet-Draft, draft-
-              ietf-opsawg-collected-data-manifest-09, 21 July 2025,
+              ietf-opsawg-collected-data-manifest-10, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
-              collected-data-manifest-09>.
+              collected-data-manifest-10>.
 
 Authors' Addresses
 
@@ -2125,4 +2125,4 @@ Authors' Addresses
 
 
 
-Graf, et al.              Expires 1 April 2026                 [Page 38]
+Graf, et al.               Expires 19 May 2026                 [Page 38]

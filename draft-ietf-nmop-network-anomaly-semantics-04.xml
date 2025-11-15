@@ -720,7 +720,6 @@
           target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
 
           <t>For each Symptom, the following parameters can be assigned:
-<<<<<<< HEAD
 					an Action, a Reason and a Trigger describing the Symptom; a
 					Concern Score indicating how critical the Symptom is; and the
 					associated network plane.</t>
@@ -730,8 +729,7 @@
 					Outliers. The template describes which approach and parameters
 					have been used in the Service Disruption Detection as
 					described in Section 3.2 of <xref
-					target="I-D.ietf-nmop-network-anomaly-architecture"/></t>
-=======
+					target="I-D.ietf-nmop-network-anomaly-architecture"/>
           an Action, a Reason and a Trigger describing the Symptom; a
           concern score indicating how critical the Symptom is; and the
           associated network plane.</t>
@@ -742,7 +740,6 @@
           have been used in the Service Disruption Detection as
           described in Section 3.2 of <xref
           target="I-D.ietf-nmop-network-anomaly-architecture"/></t>
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 
           <figure anchor="ietf-network-anomaly-symptom-tree"
               title="YANG tree diagram for
@@ -779,14 +776,8 @@ module: ietf-network-anomaly-symptom-cbl
 
         <section title="YANG Module">
 
-<<<<<<< HEAD
         <t>The YANG module has a grouping defining Action, Reason and
 				Trigger and how symptom attributes to the network planes.</t>
-=======
-        <t>The YANG module has one typedef defining the score, a
-        grouping defining Action, Reason and Trigger and how symptom
-        attributes to the network planes.</t>
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 
 <sourcecode name="ietf-network-anomaly-symptom-cbl@2025-11-15.yang"
 type="yang" markers="true"><![CDATA[
@@ -994,7 +985,6 @@ module: ietf-network-anomaly-service-topology
           +--ro change-start-time?   yang:date-and-time
           +--ro change-end-time?     yang:date-and-time
   augment /rsn:relevant-state/rsn:anomaly:
-<<<<<<< HEAD
     +--ro vpn-node-terminations* []
        +--ro hostname?              inet:host
        +--ro vrf-id?                string
@@ -1014,35 +1004,6 @@ module: ietf-network-anomaly-service-topology
        +--ro interface-name*        uint32
        +--ro peer-ip*               inet:ip-address
        +--ro next-hop*              inet:ip-address
-=======
-    +--rw vpn-node-terminations* [hostname vrf-id]
-    |  +--rw hostname               inet:host
-    |  +--rw vrf-id                 string
-    |  +--rw vrf-name?              string
-    |  +--rw route-distinguisher?   string
-    |  +--rw peer-ip*               inet:ip-address
-    |  +--rw interface-id*          uint32
-    |  +--rw interface-name*        uint32
-    +--rw vpn-network-terminations* [route-distinguisher]
-       +--rw route-distinguisher    string
-       +--rw next-hop*              inet:ip-address
-       +--rw hostname*              inet:host
-       +--rw peer-ip*               inet:ip-address
-  augment /rsn:relevant-state-notification/rsn:anomaly:
-    +-- vpn-node-terminations* [hostname vrf-id]
-    |  +-- hostname               inet:host
-    |  +-- vrf-id                 string
-    |  +-- vrf-name?              string
-    |  +-- route-distinguisher?   string
-    |  +-- peer-ip*               inet:ip-address
-    |  +-- interface-id*          uint32
-    |  +-- interface-name*        uint32
-    +-- vpn-network-terminations* [route-distinguisher]
-       +-- route-distinguisher    string
-       +-- next-hop*              inet:ip-address
-       +-- hostname*              inet:host
-       +-- peer-ip*               inet:ip-address
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 ]]></sourcecode>
         </section>
 
@@ -1053,14 +1014,11 @@ module: ietf-network-anomaly-service-topology
           It defines placeholders for defining VPN information that is
           associated to the relevant state.</t>
 
-<<<<<<< HEAD
           <sourcecode
 					name="ietf-network-anomaly-service-topology@2025-11-15.yang"
 					type="yang" markers="true"><![CDATA[
-=======
-          <sourcecode name="ietf-network-anomaly-service-topology@2025-09-28.yang"
+          <sourcecode name="ietf-network-anomaly-service-topology@2025-11-15.yang"
             type="yang" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 module ietf-network-anomaly-service-topology {
   yang-version 1.1;
   namespace
@@ -1121,18 +1079,13 @@ module ietf-network-anomaly-service-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
-<<<<<<< HEAD
   revision 2025-11-15 {
-=======
-  revision 2025-09-28 {
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     description
       "Initial version";
     reference
       "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
   }
 
-<<<<<<< HEAD
   grouping l2vpn-service {
     description
       "Connectivity service of type VPN. This grouping is
@@ -1140,14 +1093,6 @@ module ietf-network-anomaly-service-topology {
     list l2vpn-service {
       key "vpn-id";
       config false;
-=======
-  grouping vpn-service {
-    description
-      "Connectivity service of type VPN. This grouping is
-       used to augment the relevant-state container.";
-    list vpn-service {
-      key "vpn-id";
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       description
         "List of VPN connectivity services of interest.";
       leaf vpn-id {
@@ -1175,36 +1120,23 @@ module ietf-network-anomaly-service-topology {
         type yang:uuid;
         description
           "Unique identifier of VPN connectivity service maintenance
-<<<<<<< HEAD
            window within the relevant-state window.";
-=======
-          window within the relevant-state window.";
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       }
       leaf change-start-time {
         type yang:date-and-time;
         description
           "Start date and time of the VPN connectivity service
-<<<<<<< HEAD
            maintenance window within the relevant-state window.";
-=======
-          maintenance window within the relevant-state window.";
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       }
       leaf change-end-time {
         type yang:date-and-time;
         description
           "End date and time of the VPN connectivity service
-<<<<<<< HEAD
            maintenance window within the relevant-state window.";
-=======
-          maintenance window within the relevant-state window.";
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       }
     }
   }
 
-<<<<<<< HEAD
   grouping l3vpn-service {
     description
       "Connectivity service of type VPN. This grouping is
@@ -1252,101 +1184,10 @@ module ietf-network-anomaly-service-topology {
         description
           "End date and time of the VPN connectivity service
            maintenance window within the relevant-state window.";
-=======
-  grouping vpn-termination {
-    description
-      "Node and Network Termination for the VPN Service instance.
-       This grouping is used to augment the relevant-state container.";
-    list vpn-node-terminations {
-      key "hostname vrf-id";
-      description
-        "List of Node Terminations of interest.";
-      leaf hostname {
-        type inet:host;
-        description
-          "The hostname of the network node. This value
-            is usually configured on the node by the
-            administrator to uniquely identify the node
-            in the network.";
-      }
-      leaf vrf-id {
-        type string;
-        description
-          "The VRF id obtained through IPFIX IE234
-            ingressVRFID or IE235 egressVRFID.";
-      }
-      leaf vrf-name {
-        type string;
-        description
-          "The VRF name obtained through IPFIX IE236
-            VRFname or BMP peer_up VRF Table Name TLV.";
-      }
-      leaf route-distinguisher {
-        type string;
-        description
-          "The BGP route-distinguisher obtained through
-            IPFIX IE90 mplsVpnRouteDistinguisher or BMP
-            route-monitoring or peer_up message type.";
-      }
-      leaf-list peer-ip {
-        type inet:ip-address;
-        description
-          "The BGP peering IP address learned through
-            BMP route-monitoring, peer_up or peer_down
-            message type.";
-      }
-      leaf-list interface-id {
-        type uint32;
-        description
-          "The interface identifier obtained through
-            IPFIX IE10 ingressInterface, IE14
-            egressInterface or
-            ietf-interfaces:interfaces/interface/if-index.";
-      }
-      leaf-list interface-name {
-        type uint32;
-        description
-          "The interface name obtained through
-            IPFIX IE82 interfaceName or
-            ietf-interfaces:interfaces/interface/name.";
-      }
-    }
-    list vpn-network-terminations {
-      key "route-distinguisher";
-      description
-        "List of Network Terminations of interest.";
-      leaf route-distinguisher {
-        type string;
-        description
-          "The BGP route-distinguisher obtained through
-           BMP route-monitoring or peer_up message type.";
-      }
-      leaf-list next-hop {
-        type inet:ip-address;
-        description
-          "The BGP next-hop IP address learned through
-            BMP route-monitoring message type.";
-      }
-      leaf-list hostname {
-        type inet:host;
-        description
-          "The hostname of the network node. This value is
-            usually configured on the node by the
-            administrator to uniquely identify the node in
-            the network.";
-      }
-      leaf-list peer-ip {
-        type inet:ip-address;
-        description
-          "The BGP peering IP address learned through
-            BMP route-monitoring, peer_up or peer_down
-            message type.";
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       }
     }
   }
 
-<<<<<<< HEAD
   grouping vpn-node-termination {
     description
       "Node and Network Termination for the VPN Service instance.
@@ -1415,30 +1256,18 @@ module ietf-network-anomaly-service-topology {
 
   augment "/rsn:relevant-state/rsn:service" {
     description
-=======
-  augment "/rsn:relevant-state/rsn:service" {
-    description
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state container.";
     case l2vpn {
       description
         "Layer 2 VPN connectivity service.";
-<<<<<<< HEAD
       uses l2vpn-service;
-=======
-      uses vpn-service;
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     }
     case l3vpn {
       description
         "Layer 3 VPN connectivity service.";
-<<<<<<< HEAD
       uses l3vpn-service;
-=======
-      uses vpn-service;
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     }
   }
 
@@ -1450,20 +1279,12 @@ module ietf-network-anomaly-service-topology {
     case l2vpn {
       description
         "Layer 2 VPN connectivity service.";
-<<<<<<< HEAD
       uses l2vpn-service;
-=======
-      uses vpn-service;
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     }
     case l3vpn {
       description
         "Layer 3 VPN connectivity service.";
-<<<<<<< HEAD
       uses l3vpn-service;
-=======
-      uses vpn-service;
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     }
   }
 
@@ -1472,11 +1293,7 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state container.";
-<<<<<<< HEAD
     uses vpn-node-termination;
-=======
-    uses vpn-termination;
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
   }
 
   augment "/rsn:relevant-state-notification/rsn:anomaly" {
@@ -1484,11 +1301,7 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state notification.";
-<<<<<<< HEAD
     uses vpn-node-termination;
-=======
-    uses vpn-termination;
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
   }
 }
 ]]></sourcecode>
@@ -1550,13 +1363,9 @@ module ietf-network-anomaly-service-topology {
               'ietf-network-anomaly-service-topology.yang'.</t>
             </list></t>
 
-<<<<<<< HEAD
+
           <sourcecode name="RelevantStateNotification@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="RelevantStateNotification@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "RelevantStateNotification",
@@ -1648,13 +1457,8 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-<<<<<<< HEAD
           <sourcecode name="Anomaly@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="Anomaly@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "Anomaly",
@@ -1751,13 +1555,8 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-<<<<<<< HEAD
           <sourcecode name="Publisher@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="Publisher@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "Publisher",
@@ -1791,13 +1590,8 @@ module ietf-network-anomaly-service-topology {
 }					
 ]]></sourcecode>
 
-<<<<<<< HEAD
           <sourcecode name="Annotator@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="Annotator@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "Annotator",
@@ -1849,13 +1643,8 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-<<<<<<< HEAD
           <sourcecode name="Symptom@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="Symptom@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "Symptom",
@@ -1929,13 +1718,8 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-<<<<<<< HEAD
           <sourcecode name="L2VpnServiceContainer.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="L2VpnServiceContainer.avsc@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "L2VpnServiceContainer",
@@ -1954,13 +1738,8 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-<<<<<<< HEAD
           <sourcecode name="L2VpnService.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="L2VpnService.avsc@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "L2VpnService",
@@ -2011,13 +1790,8 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-<<<<<<< HEAD
           <sourcecode name="L3VpnServiceContainer.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="L3VpnServiceContainer.avsc@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "L2VpnServiceContainer",
@@ -2036,13 +1810,8 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-<<<<<<< HEAD
           <sourcecode name="L3VpnService.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="L3VpnService.avsc@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "L3VpnService",
@@ -2093,13 +1862,8 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
-<<<<<<< HEAD
           <sourcecode name="VpnNodeTermination@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
-=======
-          <sourcecode name="VpnTermination@2025-09-20.avsc"
-          type="json" markers="true"><![CDATA[
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "VpnNodeTermination",
@@ -2276,15 +2040,9 @@ module ietf-network-anomaly-service-topology {
       valuable comment.</t>
 
       <t>The authors would like to thank Antonio Roberto for his
-<<<<<<< HEAD
 			contribution to the ideas in this draft and Reshad Rahman, 
 			Mohamed Boucadair and Ruediger Geib for his review and valuable
 			comments.</t>
-=======
-      contribution to the ideas in this draft and Reshad Rahman and
-      Mohamed Boucadair for his review and valuable comments.</t>
-
->>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     </section>
   </middle>
 
