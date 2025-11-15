@@ -11,10 +11,10 @@
 <?rfc compact="yes"?>
 <?rfc subcompact="no"?>
 <rfc category="exp" docName="draft-ietf-nmop-network-anomaly-semantics-04"
-     ipr="trust200902" submissionType="IETF">
+     ipr="trust200902" submissionType="IETF" xmlns:xi="http://www.w3.org/2001/XInclude">
   <front>
     <title abbrev="Network Anomaly Semantics">Semantic Metadata
-		Annotation for Network Anomaly Detection</title>
+    Annotation for Network Anomaly Detection</title>
 
     <author fullname="Thomas Graf" initials="T" surname="Graf">
       <organization>Swisscom</organization>
@@ -113,13 +113,13 @@
     <abstract>
       <t>This document explains the motivation for defining semantic
       metadata annotations to help testing, validating and comparing
-			Outlier and Symptom detection systems. These semantic annotations
-			can be supported by supervised and semi-supervised machine
-			learning algorithms and enable data exchange among network
-			operators, vendors and academia, making anomalies apprehensible
-			for humans. The proposed semantics uniforms the network anomaly
-			data exchange between operators and vendors to improve their
-			Service Disruption Detection Systems.</t>
+      Outlier and Symptom detection systems. These semantic annotations
+      can be supported by supervised and semi-supervised machine
+      learning algorithms and enable data exchange among network
+      operators, vendors and academia, making anomalies apprehensible
+      for humans. The proposed semantics uniforms the network anomaly
+      data exchange between operators and vendors to improve their
+      Service Disruption Detection Systems.</t>
     </abstract>
 
     <note removeInRFC="true">
@@ -140,38 +140,38 @@
       <t><xref target="I-D.ietf-nmop-network-anomaly-architecture"/>
       provides an overall introduction into how anomaly detection is
       applied to the IP network domain and which operational data are
-			needed. It approaches the problem space by automating what a
-			network engineer would normally do when verifying a network
-			connectivity service, monitoring the different network planes to
-			understand wherever one network plane affects another
-			negatively.</t>
+      needed. It approaches the problem space by automating what a
+      network engineer would normally do when verifying a network
+      connectivity service, monitoring the different network planes to
+      understand wherever one network plane affects another
+      negatively.</t>
 
       <t>As a Service Disruption Detection Systems may need to be fine
-			tuned to effectively maintain good anomaly detection rates, the
-			system need to generate analytical data that is reviewed by a
-			network engineer. This process is defined in <xref
-			target="I-D.ietf-nmop-network-anomaly-lifecycle"/>, where the
-			human engineer can be kept out of the monitoring process but needs
-			to be involved in the alarm verification process.</t>
+      tuned to effectively maintain good anomaly detection rates, the
+      system need to generate analytical data that is reviewed by a
+      network engineer. This process is defined in <xref
+      target="I-D.ietf-nmop-network-anomaly-lifecycle"/>, where the
+      human engineer can be kept out of the monitoring process but needs
+      to be involved in the alarm verification process.</t>
 
       <t>This document describes what information is needed to
-			understand the analytical results produced by the Service
-			Disruption Detection System. The document proposes a set of
-			semantically structured terms that can be used by a Service
-			Disruption Detection System for comparing the results
-			systematically, setting the baselines for supervised machine
-			learning algorithms that require labeled operational data.</t>
+      understand the analytical results produced by the Service
+      Disruption Detection System. The document proposes a set of
+      semantically structured terms that can be used by a Service
+      Disruption Detection System for comparing the results
+      systematically, setting the baselines for supervised machine
+      learning algorithms that require labeled operational data.</t>
 
       <t>This document proposes two YANG Service Models, a
-			service topology model in <xref
-			target="YANG-Service-Topology-Module"/> to describe the topology
-			context and a YANG symptom model in <xref
-			target="YANG-Symptom-Module"/> to describe the symptoms defined In
-			<xref target="Observed_Symptoms"/>. <xref
-			target="Apache-AVRO-Schema"/> examples above Service
-			Models in an Apache AVRO data model based on
-			'ietf-relevant-state.yang' data model defined in <xref
-			target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
+      service topology model in <xref
+      target="YANG-Service-Topology-Module"/> to describe the topology
+      context and a YANG symptom model in <xref
+      target="YANG-Symptom-Module"/> to describe the symptoms defined In
+      <xref target="Observed_Symptoms"/>. <xref
+      target="Apache-AVRO-Schema"/> examples above Service
+      Models in an Apache AVRO data model based on
+      'ietf-relevant-state.yang' data model defined in <xref
+      target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
     </section>
 
     <section anchor="Conventions_and_Definitions"
@@ -180,7 +180,7 @@
         <t>This document makes use of the terms defined in <xref
         target="I-D.ietf-nmop-network-anomaly-architecture"/>, <xref
         target="I-D.ietf-nmop-terminology"/> and
-				<xref target="RFC8969"/>.</t>
+        <xref target="RFC8969"/>.</t>
 
         <t>The following terms are used as defined in <xref
         target="I-D.ietf-nmop-network-anomaly-architecture"/>:</t>
@@ -216,9 +216,9 @@
 
             <t>Alarm</t>
           </list></t>
-					
+          
         <t>The following terms are used as defined in <xref
-				target="RFC8969"/> :</t>
+        target="RFC8969"/> :</t>
 
         <t><list style="symbols">
             <t>Service Model</t>
@@ -235,22 +235,22 @@
 
         <dd>
           <t>The action that a network node performed for a packet in
-					the Forwarding Plane, a path or adjacency in the Control
-					Plane, or the representation of resource state in the
-					Management Plane or statistical changes recorded by the
-					resources and reported in the Management Plane. For Forwarding
-					Plane we distinguish between <strong>missing</strong>, where
-					the packet drop occurred outside the measured network node,
-					<strong>drop</strong>, where the packet drop was performed by
-					the measured network node, and <strong>delay</strong>, which
-					defines the on-path delay measured on the network node. For
-					Control Plane we distinguish between
-					<strong>reachability</strong>, which refers to a change in the
-					routing or forwarding information base (RIB/FIB) and
-					<strong>adjacency</strong> which refers to a change in a
-					peering or link-layer resolution. For Management Plane we
-					refer to <strong>state</strong> or 
-					<strong>statistical</strong> change on the interface.</t>
+          the Forwarding Plane, a path or adjacency in the Control
+          Plane, or the representation of resource state in the
+          Management Plane or statistical changes recorded by the
+          resources and reported in the Management Plane. For Forwarding
+          Plane we distinguish between <strong>missing</strong>, where
+          the packet drop occurred outside the measured network node,
+          <strong>drop</strong>, where the packet drop was performed by
+          the measured network node, and <strong>delay</strong>, which
+          defines the on-path delay measured on the network node. For
+          Control Plane we distinguish between
+          <strong>reachability</strong>, which refers to a change in the
+          routing or forwarding information base (RIB/FIB) and
+          <strong>adjacency</strong> which refers to a change in a
+          peering or link-layer resolution. For Management Plane we
+          refer to <strong>state</strong> or 
+          <strong>statistical</strong> change on the interface.</t>
         </dd>
       </dl>
 
@@ -260,24 +260,24 @@
         <dd>
           <t>For each action, the reason describe why this action was
           performed. For drops in Forwarding Plane we distinguish
-					between <strong>Unreachable</strong>, because network layer
-					reachability information was missing, 
-					<strong>Administered</strong>, because an administrator
-					configured a rule preventing the forwarding of this packet,
-					and <strong>Corrupt</strong>, where the network node was
-					unable to determine the forwarding path due to a packet,
-					software or hardware error. For on-path delay we distinguish
+          between <strong>Unreachable</strong>, because network layer
+          reachability information was missing, 
+          <strong>Administered</strong>, because an administrator
+          configured a rule preventing the forwarding of this packet,
+          and <strong>Corrupt</strong>, where the network node was
+          unable to determine the forwarding path due to a packet,
+          software or hardware error. For on-path delay we distinguish
           between <strong>Minimum</strong>, <strong>Average</strong> and
-					<strong>Maximum</strong> delay for a given flow. For Control
-					Plane, we distinguish wherever a the reachability action was
-					due to path <strong>updates</strong> or 
-					<strong>withdraws</strong> or the adjacency was 
-					<strong>established</strong> or <strong>teared down</strong>.
-					For Management Plane, we distinguish between interfaces states
-					that are shown as <strong>up</strong> and 
-					<strong>down</strong>, and statistical counters that refer to
-					<strong>errors</strong>, packet <strong>discards</strong> or
-					<strong>unknown protocol</strong> counters.</t>
+          <strong>Maximum</strong> delay for a given flow. For Control
+          Plane, we distinguish wherever a the reachability action was
+          due to path <strong>updates</strong> or 
+          <strong>withdraws</strong> or the adjacency was 
+          <strong>established</strong> or <strong>teared down</strong>.
+          For Management Plane, we distinguish between interfaces states
+          that are shown as <strong>up</strong> and 
+          <strong>down</strong>, and statistical counters that refer to
+          <strong>errors</strong>, packet <strong>discards</strong> or
+          <strong>unknown protocol</strong> counters.</t>
         </dd>
       </dl>
 
@@ -291,14 +291,14 @@
       </dl>
 
       <t><xref target="symptom_forwarding_plane_actions_table"/>
-			consolidates the list of common symptoms related to the forwarding
-			plane, defining the triplets action, reason and trigger.</t>
+      consolidates the list of common symptoms related to the forwarding
+      plane, defining the triplets action, reason and trigger.</t>
 
       <table align="center"
-			anchor="symptom_forwarding_plane_actions_table">
+      anchor="symptom_forwarding_plane_actions_table">
         <name slugifiedName="symptom_forwarding_plane_actions">
-				Description of symptoms and their actions, reason and trigger
-				for Forwarding Plane.</name>
+        Description of symptoms and their actions, reason and trigger
+        for Forwarding Plane.</name>
 
         <thead>
           <tr>
@@ -428,14 +428,14 @@
       </table>
 
       <t><xref target="symptom_control_plane_actions_table"/>
-			consolidates the list of common symptoms related to control plane,
-			describing their actions, reasons and triggers.</t>
+      consolidates the list of common symptoms related to control plane,
+      describing their actions, reasons and triggers.</t>
 
       <table align="center"
-			anchor="symptom_control_plane_actions_table">
+      anchor="symptom_control_plane_actions_table">
         <name slugifiedName="symptom_control_plane_actions">Description
-				of symptoms and their actions, reasons and triggers related to
-				Control Plane.</name>
+        of symptoms and their actions, reasons and triggers related to
+        Control Plane.</name>
 
         <thead>
           <tr>
@@ -617,14 +617,14 @@
       </table>
 
       <t><xref target="symptom_management_plane_actions_table"/>
-			consolidates the list of common symptoms related to management
-			plane, defining the triplets action, reason and trigger.</t>
+      consolidates the list of common symptoms related to management
+      plane, defining the triplets action, reason and trigger.</t>
 
       <table align="center"
-			anchor="symptom_management_plane_actions_table">
+      anchor="symptom_management_plane_actions_table">
         <name slugifiedName="symptom_management_plane_actions">
-				Description of symptoms and their actions, reasons and triggers
-				for Management Plane.</name>
+        Description of symptoms and their actions, reasons and triggers
+        for Management Plane.</name>
 
         <thead>
           <tr>
@@ -682,44 +682,45 @@
 
     <section anchor="Semantic_Metadata" title="Semantic Metadata">
       <t>Operational Metadata adds additional context to collected
-			metrics. For instance, in a network, the software version of the
-			network node defines the version of the software release that
+      metrics. For instance, in a network, the software version of the
+      network node defines the version of the software release that
       generated Management Plane metrics <xref
       target="I-D.ietf-opsawg-collected-data-manifest"/>. Semantic
       Metadata, on the other hand, defines the meaning or ontology of
-			the annotated data. In this section a YANG model is defined in
-			order to provide a structure for the metadata related to anomalies
-			occurred in a network. The module is intended to describe the
-			metadata used for "annotating" the operational data collected from
-			the network nodes, which include time series data, logs, as well
-			as other forms of data that is "time-bounded". The aspects
-			discussed in this document are grouped under the concept of
-			"anomaly" which represents a collection of symptoms. The anomaly
-			overall has a set of parameters that describe the overall behavior
-			of the network in a given time-window including all the observed
-			symptoms and outliers.</t>
+      the annotated data. In this section a YANG model is defined in
+      order to provide a structure for the metadata related to anomalies
+      occurred in a network. The module is intended to describe the
+      metadata used for "annotating" the operational data collected from
+      the network nodes, which include time series data, logs, as well
+      as other forms of data that is "time-bounded". The aspects
+      discussed in this document are grouped under the concept of
+      "anomaly" which represents a collection of symptoms. The anomaly
+      overall has a set of parameters that describe the overall behavior
+      of the network in a given time-window including all the observed
+      symptoms and outliers.</t>
 
       <section anchor="symptom-model-tree"
         title="Overview of the Models for the Symptom Semantic
-				Metadata">
+        Metadata">
         <t>This section defines two YANG models, one defining a
-				placeholder for the action reason trigger defined in this
-				document, and one defining service topology
+        placeholder for the action reason trigger defined in this
+        document, and one defining service topology
         information related to the anomaly.</t>
 
       </section>		
     
       <section anchor="YANG-Symptom-Module" title="YANG Module
-			'ietf-network-anomaly-symptom-cbl'">
+      'ietf-network-anomaly-symptom-cbl'">
 
         <section title="YANG Tree">
           <t><xref target="ietf-network-anomaly-symptom-tree"/> contains
-					the YANG tree diagram <xref target="RFC8340"/> of the 
-					'ietf-network-anomaly-symptom-cbl' module. It augments the 
-					'ietf-relevant-state' module defined in <xref
-					target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
+          the YANG tree diagram <xref target="RFC8340"/> of the 
+          'ietf-network-anomaly-symptom-cbl' module. It augments the 
+          'ietf-relevant-state' module defined in <xref
+          target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
 
           <t>For each Symptom, the following parameters can be assigned:
+<<<<<<< HEAD
 					an Action, a Reason and a Trigger describing the Symptom; a
 					Concern Score indicating how critical the Symptom is; and the
 					associated network plane.</t>
@@ -730,10 +731,22 @@
 					have been used in the Service Disruption Detection as
 					described in Section 3.2 of <xref
 					target="I-D.ietf-nmop-network-anomaly-architecture"/></t>
+=======
+          an Action, a Reason and a Trigger describing the Symptom; a
+          concern score indicating how critical the Symptom is; and the
+          associated network plane.</t>
+          
+          <t>Where the season enumeration declares wherever a workday or
+          a holiday hase been taken into consideration for Contextual
+          Outliers. The template describes which approach and parameters
+          have been used in the Service Disruption Detection as
+          described in Section 3.2 of <xref
+          target="I-D.ietf-nmop-network-anomaly-architecture"/></t>
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 
           <figure anchor="ietf-network-anomaly-symptom-tree"
               title="YANG tree diagram for
-							'ietf-network-anomaly-symptom-cbl' module.">
+              'ietf-network-anomaly-symptom-cbl' module.">
           <sourcecode type="yangtree"><![CDATA[
 module: ietf-network-anomaly-symptom-cbl
 
@@ -766,8 +779,14 @@ module: ietf-network-anomaly-symptom-cbl
 
         <section title="YANG Module">
 
+<<<<<<< HEAD
         <t>The YANG module has a grouping defining Action, Reason and
 				Trigger and how symptom attributes to the network planes.</t>
+=======
+        <t>The YANG module has one typedef defining the score, a
+        grouping defining Action, Reason and Trigger and how symptom
+        attributes to the network planes.</t>
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 
 <sourcecode name="ietf-network-anomaly-symptom-cbl@2025-11-15.yang"
 type="yang" markers="true"><![CDATA[
@@ -915,23 +934,23 @@ module ietf-network-anomaly-symptom-cbl {
       </section>
 
       <section anchor="YANG-Service-Topology-Module" title="YANG Module
-			'ietf-network-anomaly-service-topology'">
+      'ietf-network-anomaly-service-topology'">
 
         <section title="YANG Tree">
           <t>The YANG module has a service and a vpn-termination
-					grouping defining a 'vpn-id', a 'vpn-name' 'site-ids' and a
-					'change-id' with 'start' and 'end time' for 'service' and 
-					'hostname', 'VRF ID', 'VRF Name', 'BGP route-distinguisher',
-					'BGP peer ip address', 'BGP path next-hop',
-					'node interface-id' and 'node interface-name' for 
-					'node-termination' list and 'hostname',
-					'BGP route-distinguisher', 'BGP path next-hop' and
-					'BGP peer ip address' for 'network-termination' list.
-					</t>
+          grouping defining a 'vpn-id', a 'vpn-name' 'site-ids' and a
+          'change-id' with 'start' and 'end time' for 'service' and 
+          'hostname', 'VRF ID', 'VRF Name', 'BGP route-distinguisher',
+          'BGP peer ip address', 'BGP path next-hop',
+          'node interface-id' and 'node interface-name' for 
+          'node-termination' list and 'hostname',
+          'BGP route-distinguisher', 'BGP path next-hop' and
+          'BGP peer ip address' for 'network-termination' list.
+          </t>
 
           <t>Within the NMOP working group we discuss with the SIMAP
-					authors which existing YANG nodes instead could be used to
-					facilitate a service and network topology context view.</t>
+          authors which existing YANG nodes instead could be used to
+          facilitate a service and network topology context view.</t>
 
           <sourcecode type="yangtree"><![CDATA[
 module: ietf-network-anomaly-service-topology
@@ -975,6 +994,7 @@ module: ietf-network-anomaly-service-topology
           +--ro change-start-time?   yang:date-and-time
           +--ro change-end-time?     yang:date-and-time
   augment /rsn:relevant-state/rsn:anomaly:
+<<<<<<< HEAD
     +--ro vpn-node-terminations* []
        +--ro hostname?              inet:host
        +--ro vrf-id?                string
@@ -994,19 +1014,53 @@ module: ietf-network-anomaly-service-topology
        +--ro interface-name*        uint32
        +--ro peer-ip*               inet:ip-address
        +--ro next-hop*              inet:ip-address
+=======
+    +--rw vpn-node-terminations* [hostname vrf-id]
+    |  +--rw hostname               inet:host
+    |  +--rw vrf-id                 string
+    |  +--rw vrf-name?              string
+    |  +--rw route-distinguisher?   string
+    |  +--rw peer-ip*               inet:ip-address
+    |  +--rw interface-id*          uint32
+    |  +--rw interface-name*        uint32
+    +--rw vpn-network-terminations* [route-distinguisher]
+       +--rw route-distinguisher    string
+       +--rw next-hop*              inet:ip-address
+       +--rw hostname*              inet:host
+       +--rw peer-ip*               inet:ip-address
+  augment /rsn:relevant-state-notification/rsn:anomaly:
+    +-- vpn-node-terminations* [hostname vrf-id]
+    |  +-- hostname               inet:host
+    |  +-- vrf-id                 string
+    |  +-- vrf-name?              string
+    |  +-- route-distinguisher?   string
+    |  +-- peer-ip*               inet:ip-address
+    |  +-- interface-id*          uint32
+    |  +-- interface-name*        uint32
+    +-- vpn-network-terminations* [route-distinguisher]
+       +-- route-distinguisher    string
+       +-- next-hop*              inet:ip-address
+       +-- hostname*              inet:host
+       +-- peer-ip*               inet:ip-address
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 ]]></sourcecode>
         </section>
 
         <section title="YANG Module">
 
           <t>The 'ietf-network-anomaly-service-topology' module defines
-					reusable groupings for augmenting the 'relevant-state' model.
-					It defines placeholders for defining VPN information that is
-					associated to the relevant state.</t>
+          reusable groupings for augmenting the 'relevant-state' model.
+          It defines placeholders for defining VPN information that is
+          associated to the relevant state.</t>
 
+<<<<<<< HEAD
           <sourcecode
 					name="ietf-network-anomaly-service-topology@2025-11-15.yang"
 					type="yang" markers="true"><![CDATA[
+=======
+          <sourcecode name="ietf-network-anomaly-service-topology@2025-09-28.yang"
+            type="yang" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 module ietf-network-anomaly-service-topology {
   yang-version 1.1;
   namespace
@@ -1067,13 +1121,18 @@ module ietf-network-anomaly-service-topology {
      This version of this YANG module is part of RFC XXXX; see
      the RFC itself for full legal notices.";
 
+<<<<<<< HEAD
   revision 2025-11-15 {
+=======
+  revision 2025-09-28 {
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     description
       "Initial version";
     reference
       "RFC XXX: Semantic Metadata Annotation for Network Anomaly Detection";
   }
 
+<<<<<<< HEAD
   grouping l2vpn-service {
     description
       "Connectivity service of type VPN. This grouping is
@@ -1081,6 +1140,14 @@ module ietf-network-anomaly-service-topology {
     list l2vpn-service {
       key "vpn-id";
       config false;
+=======
+  grouping vpn-service {
+    description
+      "Connectivity service of type VPN. This grouping is
+       used to augment the relevant-state container.";
+    list vpn-service {
+      key "vpn-id";
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       description
         "List of VPN connectivity services of interest.";
       leaf vpn-id {
@@ -1108,23 +1175,36 @@ module ietf-network-anomaly-service-topology {
         type yang:uuid;
         description
           "Unique identifier of VPN connectivity service maintenance
+<<<<<<< HEAD
            window within the relevant-state window.";
+=======
+          window within the relevant-state window.";
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       }
       leaf change-start-time {
         type yang:date-and-time;
         description
           "Start date and time of the VPN connectivity service
+<<<<<<< HEAD
            maintenance window within the relevant-state window.";
+=======
+          maintenance window within the relevant-state window.";
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       }
       leaf change-end-time {
         type yang:date-and-time;
         description
           "End date and time of the VPN connectivity service
+<<<<<<< HEAD
            maintenance window within the relevant-state window.";
+=======
+          maintenance window within the relevant-state window.";
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       }
     }
   }
 
+<<<<<<< HEAD
   grouping l3vpn-service {
     description
       "Connectivity service of type VPN. This grouping is
@@ -1172,10 +1252,101 @@ module ietf-network-anomaly-service-topology {
         description
           "End date and time of the VPN connectivity service
            maintenance window within the relevant-state window.";
+=======
+  grouping vpn-termination {
+    description
+      "Node and Network Termination for the VPN Service instance.
+       This grouping is used to augment the relevant-state container.";
+    list vpn-node-terminations {
+      key "hostname vrf-id";
+      description
+        "List of Node Terminations of interest.";
+      leaf hostname {
+        type inet:host;
+        description
+          "The hostname of the network node. This value
+            is usually configured on the node by the
+            administrator to uniquely identify the node
+            in the network.";
+      }
+      leaf vrf-id {
+        type string;
+        description
+          "The VRF id obtained through IPFIX IE234
+            ingressVRFID or IE235 egressVRFID.";
+      }
+      leaf vrf-name {
+        type string;
+        description
+          "The VRF name obtained through IPFIX IE236
+            VRFname or BMP peer_up VRF Table Name TLV.";
+      }
+      leaf route-distinguisher {
+        type string;
+        description
+          "The BGP route-distinguisher obtained through
+            IPFIX IE90 mplsVpnRouteDistinguisher or BMP
+            route-monitoring or peer_up message type.";
+      }
+      leaf-list peer-ip {
+        type inet:ip-address;
+        description
+          "The BGP peering IP address learned through
+            BMP route-monitoring, peer_up or peer_down
+            message type.";
+      }
+      leaf-list interface-id {
+        type uint32;
+        description
+          "The interface identifier obtained through
+            IPFIX IE10 ingressInterface, IE14
+            egressInterface or
+            ietf-interfaces:interfaces/interface/if-index.";
+      }
+      leaf-list interface-name {
+        type uint32;
+        description
+          "The interface name obtained through
+            IPFIX IE82 interfaceName or
+            ietf-interfaces:interfaces/interface/name.";
+      }
+    }
+    list vpn-network-terminations {
+      key "route-distinguisher";
+      description
+        "List of Network Terminations of interest.";
+      leaf route-distinguisher {
+        type string;
+        description
+          "The BGP route-distinguisher obtained through
+           BMP route-monitoring or peer_up message type.";
+      }
+      leaf-list next-hop {
+        type inet:ip-address;
+        description
+          "The BGP next-hop IP address learned through
+            BMP route-monitoring message type.";
+      }
+      leaf-list hostname {
+        type inet:host;
+        description
+          "The hostname of the network node. This value is
+            usually configured on the node by the
+            administrator to uniquely identify the node in
+            the network.";
+      }
+      leaf-list peer-ip {
+        type inet:ip-address;
+        description
+          "The BGP peering IP address learned through
+            BMP route-monitoring, peer_up or peer_down
+            message type.";
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       }
     }
   }
 
+<<<<<<< HEAD
   grouping vpn-node-termination {
     description
       "Node and Network Termination for the VPN Service instance.
@@ -1244,18 +1415,30 @@ module ietf-network-anomaly-service-topology {
 
   augment "/rsn:relevant-state/rsn:service" {
     description
+=======
+  augment "/rsn:relevant-state/rsn:service" {
+    description
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state container.";
     case l2vpn {
       description
         "Layer 2 VPN connectivity service.";
+<<<<<<< HEAD
       uses l2vpn-service;
+=======
+      uses vpn-service;
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     }
     case l3vpn {
       description
         "Layer 3 VPN connectivity service.";
+<<<<<<< HEAD
       uses l3vpn-service;
+=======
+      uses vpn-service;
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     }
   }
 
@@ -1267,12 +1450,20 @@ module ietf-network-anomaly-service-topology {
     case l2vpn {
       description
         "Layer 2 VPN connectivity service.";
+<<<<<<< HEAD
       uses l2vpn-service;
+=======
+      uses vpn-service;
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     }
     case l3vpn {
       description
         "Layer 3 VPN connectivity service.";
+<<<<<<< HEAD
       uses l3vpn-service;
+=======
+      uses vpn-service;
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     }
   }
 
@@ -1281,7 +1472,11 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state container.";
+<<<<<<< HEAD
     uses vpn-node-termination;
+=======
+    uses vpn-termination;
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
   }
 
   augment "/rsn:relevant-state-notification/rsn:anomaly" {
@@ -1289,70 +1484,79 @@ module ietf-network-anomaly-service-topology {
       "Provide extension for the service description,
        specifically for connectivity services to the
        relevant state notification.";
+<<<<<<< HEAD
     uses vpn-node-termination;
+=======
+    uses vpn-termination;
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
   }
 }
 ]]></sourcecode>
         </section>
       </section>
-			
-			<section anchor="Apache-AVRO-Schema" title="Apache AVRO Schema">
+      
+      <section anchor="Apache-AVRO-Schema" title="Apache AVRO Schema">
 
           <t>Depending on implementation, a network operator might
-					chose defined YANG models as data models or uses the YANG
-					models as information data models and transform them 
-					to another schema format such as <xref
-					target="Apache AVRO"/> to use
-					as data model for <xref
-					target="I-D.ietf-nmop-yang-message-broker-integration"/>
-					integration.</t>
+          chose defined YANG models as data models or uses the YANG
+          models as information data models and transform them 
+          to another schema format such as <xref
+          target="Apache AVRO"/> to use
+          as data model for <xref
+          target="I-D.ietf-nmop-yang-message-broker-integration"/>
+          integration.</t>
 
           <t>Shows the entire notification schema of 
-					'ietf-relevant-state.yang' from <xref
-					target="I-D.ietf-nmop-network-anomaly-lifecycle"/>, 
-					'ietf-network-anomaly-service-topology.yang' from
-					<xref target="YANG-Service-Topology-Module"/> and 
-					'ietf-network-anomaly-symptom-cbl.yang' from <xref
-					target="YANG-Symptom-Module"/> as an Apache AVRO schema.</t>
+          'ietf-relevant-state.yang' from <xref
+          target="I-D.ietf-nmop-network-anomaly-lifecycle"/>, 
+          'ietf-network-anomaly-service-topology.yang' from
+          <xref target="YANG-Service-Topology-Module"/> and 
+          'ietf-network-anomaly-symptom-cbl.yang' from <xref
+          target="YANG-Symptom-Module"/> as an Apache AVRO schema.</t>
 
           <t>The Apache AVRO schema is decomposed based on
-					YANG groupings as following:</t>
+          YANG groupings as following:</t>
 
           <t><list style="symbols">
               <t>RelevantStateNotification.avsc is based on
-							'relevant-state-grouping' defined in
-							'ietf-relevant-state.yang' with
-							'ietf.relevant.state.Publisher',
-							'ietf.relevant.state.Anomaly',
-							'ietf.relevant.state.VpnNodeTermination' and
-							'ietf.relevant.state.VpnService' AVRO schema imports.</t>
+              'relevant-state-grouping' defined in
+              'ietf-relevant-state.yang' with
+              'ietf.relevant.state.Publisher',
+              'ietf.relevant.state.Anomaly',
+              'ietf.relevant.state.VpnNodeTermination' and
+              'ietf.relevant.state.VpnService' AVRO schema imports.</t>
 
               <t>Publisher.avsc is based on 'publisher' container
-							defined in 'ietf-relevant-state.yang'.</t>
+              defined in 'ietf-relevant-state.yang'.</t>
     
               <t>Anomaly.avsc is based on 'anomaly-grouping' defined in
-							'ietf-relevant-state.yang' with
-							'ietf.relevant.state.Annotator' and
-							'ietf.relevant.state.Symptom' AVRO schema imports.</t>
+              'ietf-relevant-state.yang' with
+              'ietf.relevant.state.Annotator' and
+              'ietf.relevant.state.Symptom' AVRO schema imports.</t>
     
               <t>Annotator.avsc is based on 'anotator-grouping' defined
-							in 'ietf-relevant-state.yang'.</t>
+              in 'ietf-relevant-state.yang'.</t>
     
               <t>Symptom.avsc is based on 'cbl-symptom' defined
-							in 'ietf-network-anomaly-symptom-cbl.yang'.</t>
+              in 'ietf-network-anomaly-symptom-cbl.yang'.</t>
     
               <t>L2VpnService.avsc, L2VpnServiceContainer.avsc, 
-							L3VpnService.avsc and L3VpnServiceContainer.avsc is based
-							on 'vpn-service' defined in 
-							'ietf-network-anomaly-service-topology.yang'.</t>
+              L3VpnService.avsc and L3VpnServiceContainer.avsc is based
+              on 'vpn-service' defined in 
+              'ietf-network-anomaly-service-topology.yang'.</t>
 
               <t>VpnTermination.avsc is based on
-							'vpn-termination' defined in
-							'ietf-network-anomaly-service-topology.yang'.</t>
+              'vpn-termination' defined in
+              'ietf-network-anomaly-service-topology.yang'.</t>
             </list></t>
 
+<<<<<<< HEAD
           <sourcecode name="RelevantStateNotification@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="RelevantStateNotification@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "RelevantStateNotification",
@@ -1444,8 +1648,13 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
+<<<<<<< HEAD
           <sourcecode name="Anomaly@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="Anomaly@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "Anomaly",
@@ -1542,8 +1751,13 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
+<<<<<<< HEAD
           <sourcecode name="Publisher@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="Publisher@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "Publisher",
@@ -1577,8 +1791,13 @@ module ietf-network-anomaly-service-topology {
 }					
 ]]></sourcecode>
 
+<<<<<<< HEAD
           <sourcecode name="Annotator@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="Annotator@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "Annotator",
@@ -1630,8 +1849,13 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
+<<<<<<< HEAD
           <sourcecode name="Symptom@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="Symptom@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "Symptom",
@@ -1705,8 +1929,13 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
+<<<<<<< HEAD
           <sourcecode name="L2VpnServiceContainer.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="L2VpnServiceContainer.avsc@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "L2VpnServiceContainer",
@@ -1725,8 +1954,13 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
+<<<<<<< HEAD
           <sourcecode name="L2VpnService.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="L2VpnService.avsc@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "L2VpnService",
@@ -1777,8 +2011,13 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
+<<<<<<< HEAD
           <sourcecode name="L3VpnServiceContainer.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="L3VpnServiceContainer.avsc@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "L2VpnServiceContainer",
@@ -1797,8 +2036,13 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
+<<<<<<< HEAD
           <sourcecode name="L3VpnService.avsc@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="L3VpnService.avsc@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "L3VpnService",
@@ -1849,8 +2093,13 @@ module ietf-network-anomaly-service-topology {
 }
 ]]></sourcecode>
 
+<<<<<<< HEAD
           <sourcecode name="VpnNodeTermination@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
+=======
+          <sourcecode name="VpnTermination@2025-09-20.avsc"
+          type="json" markers="true"><![CDATA[
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
 {
   "type": "record",
   "name": "VpnNodeTermination",
@@ -1899,13 +2148,13 @@ module ietf-network-anomaly-service-topology {
   ]
 }
 ]]></sourcecode>
-			</section>
-			
+      </section>
+      
     </section>
 
     <section anchor="IANA" title="IANA Considerations">
       <t>This document registers the following two namespace URIs in the
-	  <xref target="RFC3688">IETF XML Registry</xref>:</t>
+    <xref target="RFC3688">IETF XML Registry</xref>:</t>
 
       <t><list style="empty">
           <t>URI: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl</t>
@@ -1920,14 +2169,14 @@ module ietf-network-anomaly-service-topology {
           <t>Registrant Contact: The IESG.</t>
           <t>XML: N/A; the requested URI is an XML namespace.</t>
         </list></t>
-				
-			<t>This document registers the following two YANG modules in the
-		<xref target="RFC3688">YANG Module Names registry</xref>:</t>
+        
+      <t>This document registers the following two YANG modules in the
+    <xref target="RFC3688">YANG Module Names registry</xref>:</t>
 
       <t><list style="empty">
           <t>Name: ietf-network-anomaly-symptom-cbl</t>
           <t>Namespace:
-		  urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl</t>
+      urn:ietf:params:xml:ns:yang:ietf-network-anomaly-symptom-cbl</t>
           <t>Prefix: smcblsymptom</t>
           <t>Reference: RFC XXXX</t>
         </list></t>
@@ -1937,7 +2186,7 @@ module ietf-network-anomaly-service-topology {
       <t><list style="empty">
           <t>Name: ietf-network-anomaly-service-topology</t>
           <t>Namespace:
-		  urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-topology</t>
+      urn:ietf:params:xml:ns:yang:ietf-network-anomaly-service-topology</t>
           <t>Prefix: smtopology</t>
           <t>Reference: RFC XXXX</t>
         </list></t>
@@ -1946,42 +2195,42 @@ module ietf-network-anomaly-service-topology {
     <section anchor="Security" title="Security Considerations">
 
       <t>This section is modeled after the template described in
-			<xref section="3.7" sectionFormat="of"
-			target="I-D.ietf-netmod-rfc8407bis"/>.</t>
+      <xref section="3.7" sectionFormat="of"
+      target="I-D.ietf-netmod-rfc8407bis"/>.</t>
 
       <t>The "ietf-network-anomaly-symptom-cbl" and 
-			"ietf-network-anomaly-service-topology" YANG modules defines two
-			data models that are designed to be accessed via YANG-based
-			management protocols, such as NETCONF <xref target="RFC6141"/> and
-			RESTCONF <xref target="RFC8040"/>. These protocols have to use a
-			secure transport layer (e.g., SSH <xref target="RFC4252"/>, TLS
-			<xref target="RFC8446"/>, and QUIC <xref target="RFC9000"/>) and
-			have to use mutual authentication.</t>
+      "ietf-network-anomaly-service-topology" YANG modules defines two
+      data models that are designed to be accessed via YANG-based
+      management protocols, such as NETCONF <xref target="RFC6141"/> and
+      RESTCONF <xref target="RFC8040"/>. These protocols have to use a
+      secure transport layer (e.g., SSH <xref target="RFC4252"/>, TLS
+      <xref target="RFC8446"/>, and QUIC <xref target="RFC9000"/>) and
+      have to use mutual authentication.</t>
 
       <t>The Network Configuration Access Control Model (NACM) <xref
-			target="RFC8341"/> provides the means to restrict access for
-			particular NETCONF or RESTCONF users to a preconfigured subset of
-			all available NETCONF or RESTCONF protocol operations and content.
-			</t>
+      target="RFC8341"/> provides the means to restrict access for
+      particular NETCONF or RESTCONF users to a preconfigured subset of
+      all available NETCONF or RESTCONF protocol operations and content.
+      </t>
 
       <t>There are a number of data nodes defined in this YANG module
-			that are writable/creatable/deletable (i.e., "config true", which
-			is the default).  All writable data nodes are likely to be
-			reasonably sensitive or vulnerable in some network environments. 
-			Write operations (e.g., edit-config) and delete operations to
-			these data nodes without proper protection or authentication can
-			have a negative effect on network operations.  The following
-			subtrees and data nodes have particular
-			sensitivities/vulnerabilities:</t>
+      that are writable/creatable/deletable (i.e., "config true", which
+      is the default).  All writable data nodes are likely to be
+      reasonably sensitive or vulnerable in some network environments. 
+      Write operations (e.g., edit-config) and delete operations to
+      these data nodes without proper protection or authentication can
+      have a negative effect on network operations.  The following
+      subtrees and data nodes have particular
+      sensitivities/vulnerabilities:</t>
 
       <t>"There are no particularly sensitive writable data nodes."</t>
 
       <t>Some of the readable data nodes in this YANG module may be
-			considered sensitive or vulnerable in some network environments.
-			It is thus important to control read access (e.g., via get,
-			get-config, or notification) to these data nodes. Specifically,
-			the following subtrees and data nodes have particular
-			sensitivities/ vulnerabilities:</t>
+      considered sensitive or vulnerable in some network environments.
+      It is thus important to control read access (e.g., via get,
+      get-config, or notification) to these data nodes. Specifically,
+      the following subtrees and data nodes have particular
+      sensitivities/ vulnerabilities:</t>
 
       <t>"There are no particularly sensitive readable data nodes."</t>
     </section>
@@ -1989,36 +2238,36 @@ module ietf-network-anomaly-service-topology {
     <section anchor="Implementation" title="Implementation status">
       <t>This section provides pointers to existing open source
       implementations of this draft. Note to the RFC-editor: Please
-			remove this before publishing.</t>
+      remove this before publishing.</t>
 
       <section anchor="Implementation-Antagonist" title="Antagonist">
         <t>A tool called Antagonist has been implemented and refined
-				during the IETF 119 and 120 hackathons, in order to validate the
-				application of the YANG models defined in this draft. Antagonist
-				provides visual support for two important use cases in the scope
-				of this document:</t>
+        during the IETF 119 and 120 hackathons, in order to validate the
+        application of the YANG models defined in this draft. Antagonist
+        provides visual support for two important use cases in the scope
+        of this document:</t>
     
         <ul>
           <li>the generation of a ground truth in relation to Symptoms
-					and Problems in timeseries data</li>
+          and Problems in timeseries data</li>
 
           <li>the visual validation of results produced by automated
-					network anomaly detection tools.</li>
+          network anomaly detection tools.</li>
         </ul>
     
         <t>The open source code can be found here: <xref
-				target="Antagonist"/></t>
+        target="Antagonist"/></t>
       </section>
 
       <section anchor="Cosmos_Bright_Lights" title="Cosmos Bright
-			Lights">
+      Lights">
         <t>A real-time streaming based Service Disruption Detection
-				System has been deployed in Swisscom production as a proof of
-				concept in June 2024 monitoring approximate &gt;13'000 L3 VPN's
-				concurrently. The Apache AVRO schema described in <xref
-				target="Apache-AVRO-Schema"/> is being implemented in April
-				2025 in the development enviroment and considered to be deployed
-				in June 2025 in production.</t>
+        System has been deployed in Swisscom production as a proof of
+        concept in June 2024 monitoring approximate &gt;13'000 L3 VPN's
+        concurrently. The Apache AVRO schema described in <xref
+        target="Apache-AVRO-Schema"/> is being implemented in April
+        2025 in the development enviroment and considered to be deployed
+        in June 2025 in production.</t>
       </section>
     </section>
 
@@ -2027,37 +2276,32 @@ module ietf-network-anomaly-service-topology {
       valuable comment.</t>
 
       <t>The authors would like to thank Antonio Roberto for his
+<<<<<<< HEAD
 			contribution to the ideas in this draft and Reshad Rahman, 
 			Mohamed Boucadair and Ruediger Geib for his review and valuable
 			comments.</t>
+=======
+      contribution to the ideas in this draft and Reshad Rahman and
+      Mohamed Boucadair for his review and valuable comments.</t>
+
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33
     </section>
   </middle>
 
   <back>
     <references title="Normative References">
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'?>
-
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml'?>
-			
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.6141.xml'?>			
-
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'?>
-
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8969.xml'?>
-
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml'?>
-
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'?>
-
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml'?>
-
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml/reference.RFC.9000.xml'?>
-			
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-terminology.xml'?>
-
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-network-anomaly-architecture.xml'?>
-
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-network-anomaly-lifecycle.xml'?>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.3688.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.4252.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.6141.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8040.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8969.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8340.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8341.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.8446.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml/reference.RFC.9000.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-terminology.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-network-anomaly-architecture.xml'/>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-network-anomaly-lifecycle.xml'/>
 
       <reference anchor="Antagonist"
                  target="https://github.com/vriccobene/antagonist">
@@ -2078,11 +2322,11 @@ module ietf-network-anomaly-service-topology {
     </references>
 
     <references title="Informative References">
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-opsawg-collected-data-manifest.xml'?>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-opsawg-collected-data-manifest.xml'/>
 
-      <?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml'?>
-			
-			<?rfc include='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-yang-message-broker-integration.xml'?>
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-netmod-rfc8407bis.xml'/>
+      
+      <xi:include href='https://xml.resource.org/public/rfc/bibxml-ids/reference.I-D.ietf-nmop-yang-message-broker-integration.xml'/>
 
       <reference anchor="Apache AVRO"
                  target="https://avro.apache.org/">

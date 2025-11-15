@@ -218,6 +218,34 @@ module ietf-network-anomaly-service-topology {
             IPFIX IE82 interfaceName or
             ietf-interfaces:interfaces/interface/name.";
       }
+<<<<<<< HEAD:yang_models/ietf-network-anomaly-service-topology@2025-11-15.yang
+=======
+    }
+    list vpn-network-terminations {
+      key "route-distinguisher";
+      description
+        "List of Network Terminations of interest.";
+      leaf route-distinguisher {
+        type string;
+        description
+          "The BGP route-distinguisher obtained through
+           BMP route-monitoring or peer_up message type.";
+      }
+      leaf-list next-hop {
+        type inet:ip-address;
+        description
+          "The BGP next-hop IP address learned through
+            BMP route-monitoring message type.";
+      }
+      leaf-list hostname {
+        type inet:host;
+        description
+          "The hostname of the network node. This value is
+            usually configured on the node by the
+            administrator to uniquely identify the node in
+            the network.";
+      }
+>>>>>>> 5a66d2663192d3e6a1fbcba8b1f1ab4437435f33:yang_models/ietf-network-anomaly-service-topology@2025-09-28.yang
       leaf-list peer-ip {
         type inet:ip-address;
         description
