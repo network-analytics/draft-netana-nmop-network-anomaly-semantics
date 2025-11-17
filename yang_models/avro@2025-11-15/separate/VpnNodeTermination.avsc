@@ -1,0 +1,51 @@
+{
+  "type": "record",
+  "name": "VpnNodeTermination",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "hostname",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The hostname of the network node."
+    },
+    {
+      "name": "routeDistinguisher",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The BGP route-distinguisher obtained through IPFIX or BMP."
+    },
+    {
+      "name": "peerIp",
+      "type": {"type": "array", "items": "string"},
+      "doc": "The BGP peering IP address."
+    },
+    {
+      "name": "nextHop",
+      "type": {"type": "array", "items": "string"},
+      "doc": "The BGP next-hop IP address."
+    },
+    {
+      "name": "vrfId",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The VRF identifier."
+    },
+    {
+      "name": "vrfName",
+      "type": ["null", "string"],
+      "default": null,
+      "doc": "The VRF name."
+    },
+    {
+      "name": "interfaceId",
+      "type": {"type": "array", "items": "long"},
+      "doc": "The interface identifier."
+    },
+    {
+      "name": "interfaceName",
+      "type": {"type": "array", "items": "string"},
+      "doc": "The interface name."
+    }
+  ]
+}

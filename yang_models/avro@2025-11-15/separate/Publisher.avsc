@@ -1,0 +1,31 @@
+{
+  "type": "record",
+  "name": "Publisher",
+  "namespace": "ietf.relevant.state",
+  "fields": [
+    {
+      "name": "id",
+      "type": {
+        "type": "string",
+        "logicalType": "uuid"
+      },
+      "doc": "Unique ID of the system which published the relevant-state notification."
+    },
+    {
+      "name": "name",
+      "type": "string",
+      "doc": "Name of the system which published the relevant-state notification."
+    },
+    {
+      "name": "version",
+      "type": [
+        "null",
+        {
+          "type": "string"
+        }
+      ],
+      "default": null,
+      "doc": "Version of the system which published the relevant-state notification.."
+    }
+  ]
+}

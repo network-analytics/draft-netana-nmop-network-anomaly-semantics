@@ -1,0 +1,558 @@
+[
+  {
+    "type": "record",
+    "name": "VpnNodeTermination",
+    "namespace": "ietf.relevant.state.allinone",
+    "fields": [
+      {
+        "name": "hostname",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "The hostname of the network node."
+      },
+      {
+        "name": "routeDistinguisher",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "The BGP route-distinguisher obtained through IPFIX or BMP."
+      },
+      {
+        "name": "peerIp",
+        "type": {"type": "array", "items": "string"},
+        "doc": "The BGP peering IP address."
+      },
+      {
+        "name": "nextHop",
+        "type": {"type": "array", "items": "string"},
+        "doc": "The BGP next-hop IP address."
+      },
+      {
+        "name": "vrfId",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "The VRF identifier."
+      },
+      {
+        "name": "vrfName",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "The VRF name."
+      },
+      {
+        "name": "interfaceId",
+        "type": {"type": "array", "items": "long"},
+        "doc": "The interface identifier."
+      },
+      {
+        "name": "interfaceName",
+        "type": {"type": "array", "items": "string"},
+        "doc": "The interface name."
+      }
+    ]
+  },
+  {
+    "name": "L3VpnService",
+    "type": "record",
+    "namespace": "ietf.relevant.state.allinone",
+    "fields": [
+      {
+        "name": "vpnId",
+        "type": "string",
+        "doc": "Unique ID of the VPN connectivity service."
+      },
+      {
+        "name": "uri",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "URI to viusalize the VPN service inventory."
+      },
+      {
+        "name": "vpnName",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Name of the VPN connectivity service."
+      },
+      {
+        "name": "siteIds",
+        "type": ["null", {"type": "array", "items": "string"}],
+        "default": null,
+        "doc": "List of unique site ID's of the VPN connectivity service."
+      },
+      {
+        "name": "changeId",
+        "type": [
+          "null",
+          {
+            "type": "string",
+            "logicalType": "uuid"
+          }
+        ],
+        "default": null,
+        "doc": "Unique identifier of VPN connectivity service maintenance window within the relevant-state window."
+      },
+      {
+        "name": "changeStartTime",
+        "type": [
+          "null",
+          {
+            "type": "long",
+            "logicalType": "timestamp-millis"
+          }
+        ],
+        "default": null,
+        "doc": "Start date and time of the VPN connectivity service window within the relevant-state window."
+      },
+      {
+        "name": "changeEndTime",
+        "type": [
+          "null",
+          {
+            "type": "long",
+            "logicalType": "timestamp-millis"
+          }
+        ],
+        "default": null,
+        "doc": "End date and time of the VPN connectivity service window within the relevant-state window."
+      }
+    ]
+  },
+  {
+    "name": "L2VpnService",
+    "type": "record",
+    "namespace": "ietf.relevant.state.allinone",
+    "fields": [
+      {
+        "name": "vpnId",
+        "type": "string",
+        "doc": "Unique ID of the VPN connectivity service."
+      },
+      {
+        "name": "uri",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "URI to viusalize the VPN service inventory."
+      },
+      {
+        "name": "vpnName",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Name of the VPN connectivity service."
+      },
+      {
+        "name": "siteIds",
+        "type": ["null", {"type": "array", "items": "string"}],
+        "default": null,
+        "doc": "List of unique site ID's of the VPN connectivity service."
+      },
+      {
+        "name": "changeId",
+        "type": [
+          "null",
+          {
+            "type": "string",
+            "logicalType": "uuid"
+          }
+        ],
+        "default": null,
+        "doc": "Unique identifier of VPN connectivity service maintenance window within the relevant-state window."
+      },
+      {
+        "name": "changeStartTime",
+        "type": [
+          "null",
+          {
+            "type": "long",
+            "logicalType": "timestamp-millis"
+          }
+        ],
+        "default": null,
+        "doc": "Start date and time of the VPN connectivity service window within the relevant-state window."
+      },
+      {
+        "name": "changeEndTime",
+        "type": [
+          "null",
+          {
+            "type": "long",
+            "logicalType": "timestamp-millis"
+          }
+        ],
+        "default": null,
+        "doc": "End date and time of the VPN connectivity service window within the relevant-state window."
+      }
+    ]
+  },
+  {
+    "type": "record",
+    "name": "L3VpnServiceContainer",
+    "namespace": "ietf.relevant.state.allinone",
+    "fields": [
+      {
+        "name": "l3VpnService",
+        "type": {
+          "type": "array",
+          "items": "ietf.relevant.state.allinone.L3VpnService"
+        },
+        "doc": "List of the Layer 3 VPN connectivity services."
+      }
+    ],
+    "doc": "Container for Layer 3 VPN service list."
+  },
+  {
+    "type": "record",
+    "name": "L2VpnServiceContainer",
+    "namespace": "ietf.relevant.state.allinone",
+    "fields": [
+      {
+        "name": "l2VpnService",
+        "type": {
+          "type": "array",
+          "items": "ietf.relevant.state.allinone.L2VpnService"
+        },
+        "doc": "List of the Layer 2 VPN connectivity services."
+      }
+    ],
+    "doc": "Container for Layer 2 VPN service list."
+  },
+  {
+    "type": "record",
+    "name": "Publisher",
+    "namespace": "ietf.relevant.state.allinone",
+    "fields": [
+      {
+        "name": "id",
+        "type": {
+          "type": "string",
+          "logicalType": "uuid"
+        },
+        "doc": "Unique ID of the system which published the relevant-state notification."
+      },
+      {
+        "name": "name",
+        "type": "string",
+        "doc": "Name of the system which published the relevant-state notification."
+      },
+      {
+        "name": "version",
+        "type": [
+          "null",
+          {
+            "type": "string"
+          }
+        ],
+        "default": null,
+        "doc": "Version of the system which published the relevant-state notification.."
+      }
+    ]
+  },
+  {
+    "type": "record",
+    "name": "RelevantStateNotification",
+    "namespace": "ietf.relevant.state.allinone",
+    "fields": [
+      {
+        "name": "id",
+        "type": {
+          "type": "string",
+          "logicalType": "uuid"
+        },
+        "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store."
+      },
+      {
+        "name": "uri",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "URI to visualize the analytical metrics of the relevant-state."
+      },
+      {
+        "name": "description",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Textual description of the fault."
+      },
+      {
+        "name": "startTime",
+        "type": {
+          "type": "long",
+          "logicalType": "timestamp-millis"
+        },
+        "doc": "Date and time indicating the beginning of the problem."
+      },
+      {
+        "name": "strategy",
+        "type": ["null", "string"],
+        "default": null,
+        "doc": "Name of the strategy that detected the relevant state."
+      },
+      {
+        "name": "endTime",
+        "type": [
+          "null",
+          {
+            "type": "long",
+            "logicalType": "timestamp-millis"
+          }
+        ],
+        "default": null,
+        "doc": "Date and time indicating the end of the problem."
+      },
+      {
+        "name": "confidenceScore",
+        "type": ["null", "int"],
+        "default": null,
+        "doc": "Score between 0 and 100 indicating how confident were the detectors in relation to the overall relevant state."
+      },
+      {
+        "name": "concernScore",
+        "type": "int",
+        "doc": "Score between 0 and 100 indicating the degree of concern in relation to the overall relevant state."
+      },
+      {
+        "name": "anomaly",
+        "type": {
+          "type": "array",
+          "items": {
+            "type": "record",
+            "name": "Anomaly",
+            "fields": [
+              {
+                "name": "id",
+                "type": {
+                  "type": "string",
+                  "logicalType": "uuid"
+                },
+                "doc": "Unique identifier of the anomaly."
+              },
+              {
+                "name": "revision",
+                "type": "int",
+                "doc": "Revision of the anomaly metadata object."
+              },
+              {
+                "name": "uri",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "URI to visualize the analytical metrics of the anomaly."
+              },
+              {
+                "name": "stage",
+                "type": {
+                  "type": "enum",
+                  "name": "Stage",
+                  "symbols": ["detection", "validation", "refinement"]
+                },
+                "doc": "Stage of the anomaly."
+              },
+              {
+                "name": "description",
+                "type": ["null", "string"],
+                "default": null,
+                "doc": "Textual description of the anomaly."
+              },
+              {
+                "name": "startTime",
+                "type": {
+                  "type": "long",
+                  "logicalType": "timestamp-millis"
+                },
+                "doc": "Date and time indicating the beginning of the anomaly."
+              },
+              {
+                "name": "endTime",
+                "type": [
+                  "null",
+                  {
+                    "type": "long",
+                    "logicalType": "timestamp-millis"
+                  }
+                ],
+                "default": null,
+                "doc": "Date and time indicating the end of the anomaly."
+              },
+              {
+                "name": "confidenceScore",
+                "type": ["null", "int"],
+                "default": null,
+                "doc": "Score between 0 and 100 indicating how confident was the detector while considering the given anomaly as part of the relevant event."
+              },
+              {
+                "name": "pattern",
+                "type": [
+                  "null",
+                  {
+                    "type": "enum",
+                    "name": "Pattern",
+                    "symbols": [
+                      "drop",
+                      "spike",
+                      "mean_shift",
+                      "seasonality_shift",
+                      "trend",
+                      "other"
+                    ],
+                    "doc": "Pattern describes the type of pattern that was detected by the annotator (e.g. spike, drop, mean_shift, etc.)."
+                  }
+                ],
+                "default": null,
+                "doc": "Pattern describes the type of pattern that was detected by the annotator. This field is optional."
+              },
+              {
+                "name": "annotator",
+                "type": {
+                  "type": "record",
+                  "name": "Annotator",
+                  "fields": [
+                    {
+                      "name": "id",
+                      "type": [
+                        "null",
+                        {
+                          "type": "string",
+                          "logicalType": "uuid"
+                        }
+                      ],
+                      "default": null,
+                      "doc": "Unique ID of the annotator (either user or algorithm)."
+                    },
+                    {
+                      "name": "name",
+                      "type": "string",
+                      "doc": "Name of the annotator (either user or algorithm)."
+                    },
+                    {
+                      "name": "annotatorType",
+                      "type": [
+                        "null",
+                        {
+                          "type": "enum",
+                          "name": "AnnotatorType",
+                          "symbols": ["human", "algorithm"],
+                          "doc": "An annotator can be either a human user or a programmatic entity, such as an algorithm."
+                        }
+                      ],
+                      "default": null,
+                      "doc": "AnnotatorType specifies the type of the annotator."
+                    },
+                    {
+                      "name": "version",
+                      "type": [
+                        "null",
+                        {
+                          "type": "string"
+                        }
+                      ],
+                      "default": null,
+                      "doc": "Version of the annotator."
+                    }
+                  ]
+                },
+                "doc": "Annotator represents the entity that produced the annotation."
+              },
+              {
+                "name": "symptom",
+                "type": [
+                  "null",
+                  {
+                    "type": "record",
+                    "name": "Symptom",
+                    "fields": [
+                      {
+                        "name": "id",
+                        "type": {
+                          "type": "string",
+                          "logicalType": "uuid"
+                        },
+                        "doc": "Unique identifier of the symptom type."
+                      },
+                      {
+                        "name": "concernScore",
+                        "type": "int",
+                        "doc": "Score between 0 and 100 indicating the degree of concern in relation to the specific symptom."
+                      },
+                      {
+                        "name": "action",
+                        "type": ["null", "string"],
+                        "default": null,
+                        "doc": "action"
+                      },
+                      {
+                        "name": "reason",
+                        "type": ["null", "string"],
+                        "default": null,
+                        "doc": "reason"
+                      },
+                      {
+                        "name": "trigger",
+                        "type": ["null", "string"],
+                        "default": null,
+                        "doc": "trigger"
+                      },
+                      {
+                        "name": "networkPlane",
+                        "type": [
+                          "null",
+                          {
+                            "type": "enum",
+                            "name": "NetworkPlane",
+                            "symbols": ["management", "control", "forwarding"]
+                          }
+                        ],
+                        "default": null,
+                        "doc": "networkPlane"
+                      },
+                      {
+                        "name": "template",
+                        "type": ["null", "string"],
+                        "default": null,
+                        "doc": "Name of the template that detected the symptom."
+                      },
+                      {
+                        "name": "season",
+                        "type": [
+                          "null",
+                          {
+                            "type": "enum",
+                            "name": "Season",
+                            "symbols": ["workday", "holiday"]
+                          }
+                        ],
+                        "default": null,
+                        "doc": "Associated season. [Note: Other seasons may be added in the future, such as weekend.]"
+                      }
+                    ]
+                  }
+                ],
+                "default": null,
+                "doc": "It specifies the symptom for the anomaly."
+              },
+              {
+                "name": "vpnNodeTermination",
+                "doc": "List of Node Terminations of interest.",
+                "type": {
+                  "type": "array",
+                  "items": "ietf.relevant.state.allinone.VpnNodeTermination"
+                }
+              }
+            ]
+          }
+        },
+        "doc": "List of anomalies that are part of the relevant state."
+      },
+      {
+        "name": "service",
+        "type": [
+          "null",
+          "ietf.relevant.state.allinone.L2VpnServiceContainer",
+          "ietf.relevant.state.allinone.L3VpnServiceContainer"
+        ],
+        "default": null,
+        "doc": "List of services of interest. The type of the service can be extended in the future."
+      },
+      {
+        "name": "publisher",
+        "type": "ietf.relevant.state.allinone.Publisher",
+        "doc": "Name of the system which published the relevant-state notification."
+      }
+    ]
+  }
+]
