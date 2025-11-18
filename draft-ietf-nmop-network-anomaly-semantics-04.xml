@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="15" month="November" year="2025"/>
+    <date day="18" month="November" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -977,21 +977,21 @@ module: ietf-network-anomaly-service-topology
   augment /rsn:relevant-state/rsn:anomaly:
     +--ro vpn-node-terminations* []
        +--ro hostname?              inet:host
-       +--ro vrf-id?                string
+       +--ro vrf-id?                uint32
        +--ro vrf-name?              string
        +--ro route-distinguisher?   string
        +--ro interface-id*          uint32
-       +--ro interface-name*        uint32
+       +--ro interface-name*        string
        +--ro peer-ip*               inet:ip-address
        +--ro next-hop*              inet:ip-address
   augment /rsn:relevant-state-notification/rsn:anomaly:
     +--ro vpn-node-terminations* []
        +--ro hostname?              inet:host
-       +--ro vrf-id?                string
+       +--ro vrf-id?                uint32
        +--ro vrf-name?              string
        +--ro route-distinguisher?   string
        +--ro interface-id*          uint32
-       +--ro interface-name*        uint32
+       +--ro interface-name*        string
        +--ro peer-ip*               inet:ip-address
        +--ro next-hop*              inet:ip-address
 ]]></sourcecode>
@@ -1193,7 +1193,7 @@ module ietf-network-anomaly-service-topology {
             in the network.";
       }
       leaf vrf-id {
-        type string;
+        type uint32;
         description
           "The VRF id obtained through IPFIX IE234
             ingressVRFID or IE235 egressVRFID.";
@@ -1220,7 +1220,7 @@ module ietf-network-anomaly-service-topology {
             ietf-interfaces:interfaces/interface/if-index.";
       }
       leaf-list interface-name {
-        type uint32;
+        type string;
         description
           "The interface name obtained through
             IPFIX IE82 interfaceName or
