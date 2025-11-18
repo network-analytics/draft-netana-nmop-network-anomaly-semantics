@@ -28,7 +28,7 @@
       },
       {
         "name": "vrfId",
-        "type": ["null", "string"],
+        "type": ["null", "long"],
         "default": null,
         "doc": "The VRF identifier."
       },

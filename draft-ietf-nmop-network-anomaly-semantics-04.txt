@@ -1798,7 +1798,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
        },
        {
          "name": "vrfId",
-         "type": ["null", "string"],
+         "type": ["null", "long"],
          "default": null,
          "doc": "The VRF identifier."
        },
