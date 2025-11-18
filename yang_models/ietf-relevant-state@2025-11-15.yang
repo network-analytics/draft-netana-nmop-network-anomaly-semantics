@@ -69,34 +69,34 @@ module ietf-relevant-state {
       "Number that indicates a score between 0 and 100.";
   }
 
-  identity network-anomaly-phase {
+  identity network-anomaly-stage {
     description
       "Base identity for representing the of the network anomaly
-			 phase.";
+       stage.";
     reference
       "Section 6 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity detection {
-    base network-anomaly-phase;
+    base network-anomaly-stage;
     description
-      "A problem is int the detection phase.";
+      "A problem is int the detection stage.";
     reference
       "Section 6.1 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity validation {
-    base network-anomaly-phase;
+    base network-anomaly-stage;
     description
-      "A problem is int the validation phase.";
+      "A problem is int the validation stage.";
     reference
       "Section 6.2 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity refinement {
-    base network-anomaly-phase;
+    base network-anomaly-stage;
     description
-      "A problem is int the refinement phase.";
+      "A problem is int the refinement stage.";
     reference
       "Section 6.3 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
@@ -320,13 +320,13 @@ module ietf-relevant-state {
           "URI to viusalize the analytical metrics of the
            anomaly.";
       }
-      leaf phase {
+      leaf stage {
         type identityref {
-          base network-anomaly-phase;
+          base network-anomaly-stage;
         }
         mandatory true;
         description
-          "Phase of the anomaly.";
+          "Stage of the anomaly.";
       }
       leaf description {
         type string;

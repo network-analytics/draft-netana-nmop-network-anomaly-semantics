@@ -58,7 +58,7 @@ module ietf-relevant-state {
       "Initial version";
     reference
       "RFC XXX: Semantic Metadata Annotation for Network Anomaly
-       Detection";
+      Detection";
   }
 
   typedef score {
@@ -69,34 +69,34 @@ module ietf-relevant-state {
       "Number that indicates a score between 0 and 100.";
   }
 
-  identity network-anomaly-phase {
+  identity network-anomaly-state {
     description
-      "Base identity for representing the of the network anomaly
-			 phase.";
+      "Base identity for representing the state of the network
+       anomaly.";
     reference
       "Section 6 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity detection {
-    base network-anomaly-phase;
+    base network-anomaly-state;
     description
-      "A problem is int the detection phase.";
+      "A problem reached detection state.";
     reference
       "Section 6.1 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity validation {
-    base network-anomaly-phase;
+    base network-anomaly-state;
     description
-      "A problem is int the validation phase.";
+      "A problem reached validation state.";
     reference
       "Section 6.2 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
 
   identity refinement {
-    base network-anomaly-phase;
+    base network-anomaly-state;
     description
-      "A problem is int the refinement phase.";
+      "A problem reached refinement state.";
     reference
       "Section 6.3 in draft-ietf-nmop-network-anomaly-lifecycle.";
   }
@@ -206,7 +206,7 @@ module ietf-relevant-state {
       type inet:uri;
       description
         "URI to viusalize the analytical metrics of the
-         relevant-state.";
+        relevant-state.";
     }
     leaf description {
       type string;
@@ -229,10 +229,10 @@ module ietf-relevant-state {
       mandatory false;
       description
         "Captures one approach to look at the data (as a human operator
-         does) to observe if an abnormal situation is arising.";
+        does) to observe if an abnormal situation is arising.";
       reference
         "Section 3.5.3 in
-        draft-ietf-nmop-network-anomaly-architecture.";
+				draft-ietf-nmop-network-anomaly-architecture.";				
     }
     leaf confidence-score {
       type score;
@@ -249,8 +249,8 @@ module ietf-relevant-state {
     }
     choice service {
       description
-        "Indication of the service that is affected
-         (or potentially affected) by the relevant state";
+        "Indication of the service that is affected 
+        (or potentially affected) by the relevant state";
     }
   }
 
@@ -284,7 +284,7 @@ module ietf-relevant-state {
         enum algorithm {
           description
             "This option is used if a algorithm or software
-             provided the label.";
+            provided the label.";
         }
       }
       description
@@ -318,7 +318,7 @@ module ietf-relevant-state {
         type inet:uri;
         description
           "URI to viusalize the analytical metrics of the
-           anomaly.";
+          anomaly.";
       }
       leaf state {
         type identityref {
@@ -377,8 +377,8 @@ module ietf-relevant-state {
         presence "It specifies the symptom for the anomaly";
         description
           "An observable Characteristic, State, Event, or
-           Condition considered as an indication of a Problem
-           or potential Problem.";
+          Condition considered as an indication of a Problem
+          or potential Problem.";
         leaf id {
           type yang:uuid;
           mandatory true;
@@ -403,28 +403,28 @@ module ietf-relevant-state {
       "Notification of a relevant state that can be sent by the
        anomaly detection system to the postmortem management
        system or to the incident management system.";
-    container publisher {
-      description
-        "Publisher represents the entity that produced the
-          relevant-state.";
-      leaf id {
-        type yang:uuid;
+      container publisher {
         description
-          "Unique ID of the publisher.";
+          "Publisher represents the entity that produced the
+            relevant-state.";
+          leaf id {
+            type yang:uuid;
+            description
+              "Unique ID of the publisher.";
+          }
+          leaf name {
+            type string;
+            mandatory true;
+            description
+              "Name of the publisher.";
+          }
+          leaf version {
+            type string;
+            mandatory false;
+            description
+              "Version of the publisher.";
+          }
       }
-      leaf name {
-        type string;
-        mandatory true;
-        description
-          "Name of the publisher.";
-      }
-      leaf version {
-        type string;
-        mandatory false;
-        description
-          "Version of the publisher.";
-      }
-    }
     uses relevant-state-grouping;
     uses anomaly-grouping;
   }

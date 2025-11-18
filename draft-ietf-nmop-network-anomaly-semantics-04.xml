@@ -1419,14 +1419,6 @@ module ietf-network-anomaly-service-topology {
       "doc": "List of anomalies that are part of the relevant state."
     },
     {
-      "name": "vpnNodeTerminations",
-      "type": {
-        "type": "array",
-        "items": "ietf.relevant.state.VpnNodeTermination"
-      },
-      "doc": "List of Node Terminations of interest."
-    },
-    {
       "name": "service",
       "type": [
         "null",
@@ -1472,17 +1464,17 @@ module ietf-network-anomaly-service-topology {
       "doc": "URI to visualize the analytical metrics of the anomaly."
     },
     {
-      "name": "state",
+      "name": "stage",
       "type":  {
           "type": "enum",
-          "name": "State",
+          "name": "Stage",
           "symbols": [
             "detection",
             "validation",
             "refinement"
           ]
         },
-      "doc": "State of the anomaly."
+      "doc": "Stage of the anomaly."
     },
     {
       "name": "description",
@@ -1538,6 +1530,14 @@ module ietf-network-anomaly-service-topology {
       "type": ["null", "ietf.relevant.state.Symptom"],
       "default": null,
       "doc": "It specifies the symptom for the anomaly."
+    },
+    {
+      "name": "vpnNodeTerminations",
+      "type": {
+        "type": "array",
+        "items": "ietf.relevant.state.VpnNodeTermination"
+      },
+      "doc": "List of Node Terminations of interest."
     }
   ]
 }
@@ -1575,7 +1575,7 @@ module ietf-network-anomaly-service-topology {
       "doc": "Version of the system which published the relevant-state notification.."
     }
   ]
-}					
+}
 ]]></sourcecode>
 
           <sourcecode name="Annotator@2025-11-15.avsc"
@@ -1730,7 +1730,7 @@ module ietf-network-anomaly-service-topology {
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
-  "name": "L2VpnService",
+  "name": "L3VpnService",
   "namespace": "ietf.relevant.state",
   "fields": [
     {
@@ -1782,19 +1782,19 @@ module ietf-network-anomaly-service-topology {
 					type="json" markers="true"><![CDATA[
 {
   "type": "record",
-  "name": "L2VpnServiceContainer",
+  "name": "L3VpnServiceContainer",
   "namespace": "ietf.relevant.state",
   "fields": [
     {
-      "name": "l2VpnService",
+      "name": "l3VpnService",
       "type": {
         "type": "array",
-        "items": "ietf.relevant.state.L2VpnService"
+        "items": "ietf.relevant.state.L3VpnService"
       },
-      "doc": "List of the Layer 2 VPN connectivity services."
+      "doc": "List of the Layer 3 VPN connectivity services."
     }
   ],
-  "doc": "Container for Layer 2 VPN service list."
+  "doc": "Container for Layer 3 VPN service list."
 }
 ]]></sourcecode>
 
@@ -1859,12 +1859,14 @@ module ietf-network-anomaly-service-topology {
   "fields": [
     {
       "name": "hostname",
-      "type": "string",
+      "type": ["null", "string"],
+      "default": null,
       "doc": "The hostname of the network node."
     },
     {
       "name": "routeDistinguisher",
-      "type": "string",
+      "type": ["null", "string"],
+      "default": null,
       "doc": "The BGP route-distinguisher obtained through IPFIX or BMP."
     },
     {
@@ -1879,12 +1881,14 @@ module ietf-network-anomaly-service-topology {
     },
     {
       "name": "vrfId",
-      "type": {"type": "array", "items": "long"},
+      "type": ["null", "string"],
+      "default": null,
       "doc": "The VRF identifier."
     },
     {
       "name": "vrfName",
-      "type": {"type": "array", "items": "long"},
+      "type": ["null", "string"],
+      "default": null,
       "doc": "The VRF name."
     },
     {
@@ -1894,7 +1898,7 @@ module ietf-network-anomaly-service-topology {
     },
     {
       "name": "interfaceName",
-      "type": {"type": "array", "items": "long"},
+      "type": {"type": "array", "items": "string"},
       "doc": "The interface name."
     }
   ]

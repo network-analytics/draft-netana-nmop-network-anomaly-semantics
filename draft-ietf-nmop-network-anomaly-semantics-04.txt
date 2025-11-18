@@ -97,8 +97,8 @@ Table of Contents
      7.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  35
      7.2.  Cosmos Bright Lights  . . . . . . . . . . . . . . . . . .  35
    8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  35
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  35
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  36
      9.2.  Informative References  . . . . . . . . . . . . . . . . .  37
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
 
@@ -1238,14 +1238,6 @@ Internet-Draft          Network Anomaly Semantics          November 2025
          "doc": "List of anomalies that are part of the relevant state."
        },
        {
-         "name": "vpnNodeTerminations",
-         "type": {
-           "type": "array",
-           "items": "ietf.relevant.state.VpnNodeTermination"
-         },
-         "doc": "List of Node Terminations of interest."
-       },
-       {
          "name": "service",
          "type": [
            "null",
@@ -1282,14 +1274,6 @@ Internet-Draft          Network Anomaly Semantics          November 2025
          "name": "revision",
          "type": "int",
          "doc": "Revision of the anomaly metadata object."
-
-
-
-Graf, et al.               Expires 19 May 2026                 [Page 23]
-
-Internet-Draft          Network Anomaly Semantics          November 2025
-
-
        },
        {
          "name": "uri",
@@ -1298,17 +1282,25 @@ Internet-Draft          Network Anomaly Semantics          November 2025
          "doc": "URI to visualize the analytical metrics of the anomaly."
        },
        {
-         "name": "state",
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 23]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
+         "name": "stage",
          "type":  {
              "type": "enum",
-             "name": "State",
+             "name": "Stage",
              "symbols": [
                "detection",
                "validation",
                "refinement"
              ]
            },
-         "doc": "State of the anomaly."
+         "doc": "Stage of the anomaly."
        },
        {
          "name": "description",
@@ -1338,14 +1330,6 @@ Internet-Draft          Network Anomaly Semantics          November 2025
          "type": [
            "null",
            {
-
-
-
-Graf, et al.               Expires 19 May 2026                 [Page 24]
-
-Internet-Draft          Network Anomaly Semantics          November 2025
-
-
              "type": "enum",
              "name": "Pattern",
              "symbols": [
@@ -1354,6 +1338,14 @@ Internet-Draft          Network Anomaly Semantics          November 2025
                "mean_shift",
                "seasonality_shift",
                "trend",
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 24]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
                "other"
              ],
              "doc": "Pattern describes the type of pattern that was detected by the annotator (e.g. spike, drop, mean_shift, etc.)."
@@ -1372,6 +1364,14 @@ Internet-Draft          Network Anomaly Semantics          November 2025
          "type": ["null", "ietf.relevant.state.Symptom"],
          "default": null,
          "doc": "It specifies the symptom for the anomaly."
+       },
+       {
+         "name": "vpnNodeTerminations",
+         "type": {
+           "type": "array",
+           "items": "ietf.relevant.state.VpnNodeTermination"
+         },
+         "doc": "List of Node Terminations of interest."
        }
      ]
    }
@@ -1608,7 +1608,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
    <CODE BEGINS> file "L2VpnService.avsc@2025-11-15.avsc"
    {
      "type": "record",
-     "name": "L2VpnService",
+     "name": "L3VpnService",
      "namespace": "ietf.relevant.state",
      "fields": [
        {
@@ -1685,19 +1685,19 @@ Internet-Draft          Network Anomaly Semantics          November 2025
    <CODE BEGINS> file "L3VpnServiceContainer.avsc@2025-11-15.avsc"
    {
      "type": "record",
-     "name": "L2VpnServiceContainer",
+     "name": "L3VpnServiceContainer",
      "namespace": "ietf.relevant.state",
      "fields": [
        {
-         "name": "l2VpnService",
+         "name": "l3VpnService",
          "type": {
            "type": "array",
-           "items": "ietf.relevant.state.L2VpnService"
+           "items": "ietf.relevant.state.L3VpnService"
          },
-         "doc": "List of the Layer 2 VPN connectivity services."
+         "doc": "List of the Layer 3 VPN connectivity services."
        }
      ],
-     "doc": "Container for Layer 2 VPN service list."
+     "doc": "Container for Layer 3 VPN service list."
    }
    <CODE ENDS>
 
@@ -1768,12 +1768,14 @@ Internet-Draft          Network Anomaly Semantics          November 2025
      "fields": [
        {
          "name": "hostname",
-         "type": "string",
+         "type": ["null", "string"],
+         "default": null,
          "doc": "The hostname of the network node."
        },
        {
          "name": "routeDistinguisher",
-         "type": "string",
+         "type": ["null", "string"],
+         "default": null,
          "doc": "The BGP route-distinguisher obtained through IPFIX or BMP."
        },
        {
@@ -1784,8 +1786,6 @@ Internet-Draft          Network Anomaly Semantics          November 2025
        {
          "name": "nextHop",
          "type": {"type": "array", "items": "string"},
-         "doc": "The BGP next-hop IP address."
-       },
 
 
 
@@ -1794,14 +1794,18 @@ Graf, et al.               Expires 19 May 2026                 [Page 32]
 Internet-Draft          Network Anomaly Semantics          November 2025
 
 
+         "doc": "The BGP next-hop IP address."
+       },
        {
          "name": "vrfId",
-         "type": {"type": "array", "items": "long"},
+         "type": ["null", "string"],
+         "default": null,
          "doc": "The VRF identifier."
        },
        {
          "name": "vrfName",
-         "type": {"type": "array", "items": "long"},
+         "type": ["null", "string"],
+         "default": null,
          "doc": "The VRF name."
        },
        {
@@ -1811,7 +1815,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
        },
        {
          "name": "interfaceName",
-         "type": {"type": "array", "items": "long"},
+         "type": {"type": "array", "items": "string"},
          "doc": "The interface name."
        }
      ]
@@ -1837,10 +1841,6 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
       XML: N/A; the requested URI is an XML namespace.
 
-   This document registers the following two YANG modules in the YANG
-   Module Names registry [RFC3688]:
-
-      Name: ietf-network-anomaly-symptom-cbl
 
 
 
@@ -1849,6 +1849,11 @@ Graf, et al.               Expires 19 May 2026                 [Page 33]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
+
+   This document registers the following two YANG modules in the YANG
+   Module Names registry [RFC3688]:
+
+      Name: ietf-network-anomaly-symptom-cbl
 
       Namespace: urn:ietf:params:xml:ns:yang:ietf-network-anomaly-
       symptom-cbl
@@ -1893,11 +1898,6 @@ Internet-Draft          Network Anomaly Semantics          November 2025
    effect on network operations.  The following subtrees and data nodes
    have particular sensitivities/vulnerabilities:
 
-   "There are no particularly sensitive writable data nodes."
-
-   Some of the readable data nodes in this YANG module may be considered
-   sensitive or vulnerable in some network environments.  It is thus
-   important to control read access (e.g., via get, get-config, or
 
 
 
@@ -1906,6 +1906,11 @@ Graf, et al.               Expires 19 May 2026                 [Page 34]
 Internet-Draft          Network Anomaly Semantics          November 2025
 
 
+   "There are no particularly sensitive writable data nodes."
+
+   Some of the readable data nodes in this YANG module may be considered
+   sensitive or vulnerable in some network environments.  It is thus
+   important to control read access (e.g., via get, get-config, or
    notification) to these data nodes.  Specifically, the following
    subtrees and data nodes have particular sensitivities/
    vulnerabilities:
@@ -1947,13 +1952,8 @@ Internet-Draft          Network Anomaly Semantics          November 2025
    The authors would like to thank , for his review and valuable
    comment.
 
-   The authors would like to thank Antonio Roberto for his contribution
-   to the ideas in this draft and Reshad Rahman, Mohamed Boucadair and
-   Ruediger Geib for his review and valuable comments.
 
-9.  References
 
-9.1.  Normative References
 
 
 
@@ -1961,6 +1961,14 @@ Graf, et al.               Expires 19 May 2026                 [Page 35]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
+
+   The authors would like to thank Antonio Roberto for his contribution
+   to the ideas in this draft and Reshad Rahman, Mohamed Boucadair and
+   Ruediger Geib for his review and valuable comments.
+
+9.  References
+
+9.1.  Normative References
 
    [Antagonist]
               Riccobene, V., Du, W., Graf, T., and H. Huang Feng,
@@ -1998,15 +2006,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
               January 2006, <https://www.rfc-editor.org/info/rfc4252>.
 
-   [RFC6141]  Camarillo, G., Ed., Holmberg, C., and Y. Gao, "Re-INVITE
-              and Target-Refresh Request Handling in the Session
-              Initiation Protocol (SIP)", RFC 6141,
-              DOI 10.17487/RFC6141, March 2011,
-              <https://www.rfc-editor.org/info/rfc6141>.
 
-   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
-              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
-              <https://www.rfc-editor.org/info/rfc8040>.
 
 
 
@@ -2017,6 +2017,16 @@ Graf, et al.               Expires 19 May 2026                 [Page 36]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
+
+   [RFC6141]  Camarillo, G., Ed., Holmberg, C., and Y. Gao, "Re-INVITE
+              and Target-Refresh Request Handling in the Session
+              Initiation Protocol (SIP)", RFC 6141,
+              DOI 10.17487/RFC6141, March 2011,
+              <https://www.rfc-editor.org/info/rfc6141>.
+
+   [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
+              Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
+              <https://www.rfc-editor.org/info/rfc8040>.
 
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
@@ -2055,6 +2065,15 @@ Internet-Draft          Network Anomaly Semantics          November 2025
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
               rfc8407bis-28>.
 
+
+
+
+
+Graf, et al.               Expires 19 May 2026                 [Page 37]
+
+Internet-Draft          Network Anomaly Semantics          November 2025
+
+
    [I-D.ietf-nmop-yang-message-broker-integration]
               Graf, T. and A. Elhassany, "An Architecture for YANG-Push
               to Message Broker Integration", Work in Progress,
@@ -2066,14 +2085,6 @@ Internet-Draft          Network Anomaly Semantics          November 2025
    [I-D.ietf-opsawg-collected-data-manifest]
               Claise, B., Quilbeuf, J., Lopez, D., Martinez-Casanueva,
               I. D., and T. Graf, "A Data Manifest for Contextualized
-
-
-
-Graf, et al.               Expires 19 May 2026                 [Page 37]
-
-Internet-Draft          Network Anomaly Semantics          November 2025
-
-
               Telemetry Data", Work in Progress, Internet-Draft, draft-
               ietf-opsawg-collected-data-manifest-10, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
@@ -2109,17 +2120,6 @@ Authors' Addresses
    Dublin
    Ireland
    Email: vincenzo.riccobene@huawei-partners.com
-
-
-
-
-
-
-
-
-
-
-
 
 
 
