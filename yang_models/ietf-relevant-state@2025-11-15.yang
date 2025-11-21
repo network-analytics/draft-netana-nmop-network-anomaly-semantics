@@ -6,12 +6,12 @@ module ietf-relevant-state {
   import ietf-yang-types {
     prefix yang;
     reference
-      "RFC 6991: Common YANG Data Types";
+      "draft-ietf-netmod-rfc6991-bis-18: Common YANG Data Types";
   }
   import ietf-inet-types {
     prefix inet;
     reference
-      "RFC 6991: Common YANG Data Types";
+      "draft-ietf-netmod-rfc6991-bis-18: Common YANG Data Types";
   }
 
   organization
@@ -232,7 +232,7 @@ module ietf-relevant-state {
          does) to observe if an abnormal situation is arising.";
       reference
         "Section 3.5.3 in
-        draft-ietf-nmop-network-anomaly-architecture.";
+         draft-ietf-nmop-network-anomaly-architecture.";
     }
     leaf confidence-score {
       type score;
@@ -246,6 +246,14 @@ module ietf-relevant-state {
       description
         "Score indicating the degree of concern in
          relation to the overall relevant state.";
+    }
+    leaf stage {
+      type identityref {
+        base network-anomaly-stage;
+      }
+      mandatory true;
+      description
+        "Stage of the relevant state.";
     }
     choice service {
       description
@@ -290,6 +298,21 @@ module ietf-relevant-state {
       description
         "An annotator can be either a human user or a
          programmatic entity, such as an algorithm.";
+    }
+  }
+
+  grouping message-broker-grouping {
+    description
+      "References message broker draft-ietf-nmop-yang-message-broker-integration entities.";
+    leaf topic-name {
+      type inet:host-name;
+      description
+        "From which message broker topic the operational data was consumed from.";
+    }
+    leaf subject-name {
+      type inet:host-name;
+      description
+        "To which message broker subject the operational data references to.";
     }
   }
 
@@ -372,6 +395,11 @@ module ietf-relevant-state {
           "Annotator represents the entity that produced the
             annotation.";
         uses annotator-grouping;
+      }
+      container operational-data {
+        description
+          "References the operational data from where the anomaly was observed.";
+        uses message-broker-grouping;
       }
       container symptom {
         presence "It specifies the symptom for the anomaly";

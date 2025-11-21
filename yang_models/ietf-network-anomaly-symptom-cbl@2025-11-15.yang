@@ -99,9 +99,9 @@ module ietf-network-anomaly-symptom-cbl {
       mandatory false;
       description
         "A group of configuration parameters contributing to the symptom
-        detection computation";
+         detection computation";
       reference
-        "Section 3.2 in draft-ietf-nmop-network-anomaly-architecture.";		
+        "Section 3.2 in draft-ietf-nmop-network-anomaly-architecture.";
     }
     leaf season {
       type enumeration {
@@ -116,7 +116,7 @@ module ietf-network-anomaly-symptom-cbl {
       }
       description
         "Associated season.";
-    }	
+    }
   }
 
   augment "/rsn:relevant-state/rsn:anomaly"

@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="18" month="November" year="2025"/>
+    <date day="21" month="November" year="2025"/>
 
     <area>Operations and Management</area>
 
@@ -938,62 +938,62 @@ module: ietf-network-anomaly-service-topology
 
   augment /rsn:relevant-state/rsn:service:
     +--:(l2vpn)
-    |  +--ro l2vpn-service* [vpn-id]
-    |     +--ro vpn-id               string
-    |     +--ro uri?                 inet:uri
-    |     +--ro vpn-name?            string
-    |     +--ro site-ids*            string
-    |     +--ro change-id?           yang:uuid
-    |     +--ro change-start-time?   yang:date-and-time
-    |     +--ro change-end-time?     yang:date-and-time
+    |  +--rw l2vpn-service* [vpn-id]
+    |     +--rw vpn-id               string
+    |     +--rw uri?                 inet:uri
+    |     +--rw vpn-name?            string
+    |     +--rw site-ids*            string
+    |     +--rw change-id?           yang:uuid
+    |     +--rw change-start-time?   yang:date-and-time
+    |     +--rw change-end-time?     yang:date-and-time
     +--:(l3vpn)
-       +--ro l3vpn-service* [vpn-id]
-          +--ro vpn-id               string
-          +--ro uri?                 inet:uri
-          +--ro vpn-name?            string
-          +--ro site-ids*            string
-          +--ro change-id?           yang:uuid
-          +--ro change-start-time?   yang:date-and-time
-          +--ro change-end-time?     yang:date-and-time
+       +--rw l3vpn-service* [vpn-id]
+          +--rw vpn-id               string
+          +--rw uri?                 inet:uri
+          +--rw vpn-name?            string
+          +--rw site-ids*            string
+          +--rw change-id?           yang:uuid
+          +--rw change-start-time?   yang:date-and-time
+          +--rw change-end-time?     yang:date-and-time
   augment /rsn:relevant-state-notification/rsn:service:
     +--:(l2vpn)
-    |  +--ro l2vpn-service* [vpn-id]
-    |     +--ro vpn-id               string
-    |     +--ro uri?                 inet:uri
-    |     +--ro vpn-name?            string
-    |     +--ro site-ids*            string
-    |     +--ro change-id?           yang:uuid
-    |     +--ro change-start-time?   yang:date-and-time
-    |     +--ro change-end-time?     yang:date-and-time
+    |  +-- l2vpn-service* [vpn-id]
+    |     +-- vpn-id               string
+    |     +-- uri?                 inet:uri
+    |     +-- vpn-name?            string
+    |     +-- site-ids*            string
+    |     +-- change-id?           yang:uuid
+    |     +-- change-start-time?   yang:date-and-time
+    |     +-- change-end-time?     yang:date-and-time
     +--:(l3vpn)
-       +--ro l3vpn-service* [vpn-id]
-          +--ro vpn-id               string
-          +--ro uri?                 inet:uri
-          +--ro vpn-name?            string
-          +--ro site-ids*            string
-          +--ro change-id?           yang:uuid
-          +--ro change-start-time?   yang:date-and-time
-          +--ro change-end-time?     yang:date-and-time
+       +-- l3vpn-service* [vpn-id]
+          +-- vpn-id               string
+          +-- uri?                 inet:uri
+          +-- vpn-name?            string
+          +-- site-ids*            string
+          +-- change-id?           yang:uuid
+          +-- change-start-time?   yang:date-and-time
+          +-- change-end-time?     yang:date-and-time
   augment /rsn:relevant-state/rsn:anomaly:
-    +--ro vpn-node-terminations* []
-       +--ro hostname?              inet:host
-       +--ro vrf-id?                uint32
-       +--ro vrf-name?              string
-       +--ro route-distinguisher?   string
-       +--ro interface-id*          uint32
-       +--ro interface-name*        string
-       +--ro peer-ip*               inet:ip-address
-       +--ro next-hop*              inet:ip-address
+    +--rw vpn-node-terminations* [hostname vrf-name]
+       +--rw hostname               inet:host
+       +--rw vrf-id?                uint32
+       +--rw vrf-name               string
+       +--rw route-distinguisher?   string
+       +--rw interface-id*          uint32
+       +--rw interface-name*        string
+       +--rw peer-ip*               inet:ip-address
+       +--rw next-hop*              inet:ip-address
   augment /rsn:relevant-state-notification/rsn:anomaly:
-    +--ro vpn-node-terminations* []
-       +--ro hostname?              inet:host
-       +--ro vrf-id?                uint32
-       +--ro vrf-name?              string
-       +--ro route-distinguisher?   string
-       +--ro interface-id*          uint32
-       +--ro interface-name*        string
-       +--ro peer-ip*               inet:ip-address
-       +--ro next-hop*              inet:ip-address
+    +-- vpn-node-terminations* [hostname vrf-name]
+       +-- hostname               inet:host
+       +-- vrf-id?                uint32
+       +-- vrf-name               string
+       +-- route-distinguisher?   string
+       +-- interface-id*          uint32
+       +-- interface-name*        string
+       +-- peer-ip*               inet:ip-address
+       +-- next-hop*              inet:ip-address
 ]]></sourcecode>
         </section>
 
@@ -1080,7 +1080,6 @@ module ietf-network-anomaly-service-topology {
        used to augment the relevant-state container.";
     list l2vpn-service {
       key "vpn-id";
-      config false;
       description
         "List of VPN connectivity services of interest.";
       leaf vpn-id {
@@ -1131,7 +1130,6 @@ module ietf-network-anomaly-service-topology {
        used to augment the relevant-state container.";
     list l3vpn-service {
       key "vpn-id";
-      config false;
       description
         "List of VPN connectivity services of interest.";
       leaf vpn-id {
@@ -1181,7 +1179,7 @@ module ietf-network-anomaly-service-topology {
       "Node and Network Termination for the VPN Service instance.
        This grouping is used to augment the relevant-state container.";
     list vpn-node-terminations {
-      config false;
+      key "hostname vrf-name";
       description
         "List of Node Terminations of interest.";
       leaf hostname {

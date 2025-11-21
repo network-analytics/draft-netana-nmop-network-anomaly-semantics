@@ -8,28 +8,29 @@ module: ietf-relevant-state
      +--rw strategy?                         string
      +--rw confidence-score?                 score
      +--rw concern-score                     score
+     +--rw stage                             identityref
      +--rw (service)?
      |  +--:(smtopology:l2vpn)
-     |  |  +--ro smtopology:l2vpn-service* [vpn-id]
-     |  |     +--ro smtopology:vpn-id               string
-     |  |     +--ro smtopology:uri?                 inet:uri
-     |  |     +--ro smtopology:vpn-name?            string
-     |  |     +--ro smtopology:site-ids*            string
-     |  |     +--ro smtopology:change-id?           yang:uuid
-     |  |     +--ro smtopology:change-start-time?
+     |  |  +--rw smtopology:l2vpn-service* [vpn-id]
+     |  |     +--rw smtopology:vpn-id               string
+     |  |     +--rw smtopology:uri?                 inet:uri
+     |  |     +--rw smtopology:vpn-name?            string
+     |  |     +--rw smtopology:site-ids*            string
+     |  |     +--rw smtopology:change-id?           yang:uuid
+     |  |     +--rw smtopology:change-start-time?
      |  |     |       yang:date-and-time
-     |  |     +--ro smtopology:change-end-time?
+     |  |     +--rw smtopology:change-end-time?
      |  |             yang:date-and-time
      |  +--:(smtopology:l3vpn)
-     |     +--ro smtopology:l3vpn-service* [vpn-id]
-     |        +--ro smtopology:vpn-id               string
-     |        +--ro smtopology:uri?                 inet:uri
-     |        +--ro smtopology:vpn-name?            string
-     |        +--ro smtopology:site-ids*            string
-     |        +--ro smtopology:change-id?           yang:uuid
-     |        +--ro smtopology:change-start-time?
+     |     +--rw smtopology:l3vpn-service* [vpn-id]
+     |        +--rw smtopology:vpn-id               string
+     |        +--rw smtopology:uri?                 inet:uri
+     |        +--rw smtopology:vpn-name?            string
+     |        +--rw smtopology:site-ids*            string
+     |        +--rw smtopology:change-id?           yang:uuid
+     |        +--rw smtopology:change-start-time?
      |        |       yang:date-and-time
-     |        +--ro smtopology:change-end-time?
+     |        +--rw smtopology:change-end-time?
      |                yang:date-and-time
      +--rw anomaly* [id revision]
         +--rw id                                  yang:uuid
@@ -46,6 +47,9 @@ module: ietf-relevant-state
         |  +--rw name              string
         |  +--rw version?          string
         |  +--rw annotator-type?   enumeration
+        +--rw operational-data
+        |  +--rw topic-name?     inet:host-name
+        |  +--rw subject-name?   inet:host-name
         +--rw symptom!
         |  +--rw id                            yang:uuid
         |  +--rw concern-score                 score
@@ -55,15 +59,15 @@ module: ietf-relevant-state
         |  +--rw smcblsymptom:network-plane?   enumeration
         |  +--rw smcblsymptom:template?        string
         |  +--rw smcblsymptom:season?          enumeration
-        +--ro smtopology:vpn-node-terminations* []
-           +--ro smtopology:hostname?              inet:host
-           +--ro smtopology:vrf-id?                string
-           +--ro smtopology:vrf-name?              string
-           +--ro smtopology:route-distinguisher?   string
-           +--ro smtopology:interface-id*          uint32
-           +--ro smtopology:interface-name*        uint32
-           +--ro smtopology:peer-ip*               inet:ip-address
-           +--ro smtopology:next-hop*              inet:ip-address
+        +--rw smtopology:vpn-node-terminations* [hostname vrf-name]
+           +--rw smtopology:hostname               inet:host
+           +--rw smtopology:vrf-id?                uint32
+           +--rw smtopology:vrf-name               string
+           +--rw smtopology:route-distinguisher?   string
+           +--rw smtopology:interface-id*          uint32
+           +--rw smtopology:interface-name*        string
+           +--rw smtopology:peer-ip*               inet:ip-address
+           +--rw smtopology:next-hop*              inet:ip-address
 
   notifications:
     +---n relevant-state-notification
@@ -79,6 +83,7 @@ module: ietf-relevant-state
        +--ro strategy?                         string
        +--ro confidence-score?                 score
        +--ro concern-score                     score
+       +--ro stage                             identityref
        +--ro (service)?
        |  +--:(smtopology:l2vpn)
        |  |  +--ro smtopology:l2vpn-service* [vpn-id]
@@ -119,6 +124,9 @@ module: ietf-relevant-state
           |  +--ro name              string
           |  +--ro version?          string
           |  +--ro annotator-type?   enumeration
+          +--ro operational-data
+          |  +--ro topic-name?     inet:host-name
+          |  +--ro subject-name?   inet:host-name
           +--ro symptom!
           |  +--ro id                            yang:uuid
           |  +--ro concern-score                 score
@@ -128,12 +136,12 @@ module: ietf-relevant-state
           |  +--ro smcblsymptom:network-plane?   enumeration
           |  +--ro smcblsymptom:template?        string
           |  +--ro smcblsymptom:season?          enumeration
-          +--ro smtopology:vpn-node-terminations* []
-             +--ro smtopology:hostname?              inet:host
-             +--ro smtopology:vrf-id?                string
-             +--ro smtopology:vrf-name?              string
+          +--ro smtopology:vpn-node-terminations* [hostname vrf-name]
+             +--ro smtopology:hostname               inet:host
+             +--ro smtopology:vrf-id?                uint32
+             +--ro smtopology:vrf-name               string
              +--ro smtopology:route-distinguisher?   string
              +--ro smtopology:interface-id*          uint32
-             +--ro smtopology:interface-name*        uint32
+             +--ro smtopology:interface-name*        string
              +--ro smtopology:peer-ip*               inet:ip-address
              +--ro smtopology:next-hop*              inet:ip-address

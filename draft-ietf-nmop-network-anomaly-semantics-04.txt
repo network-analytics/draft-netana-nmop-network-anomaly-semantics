@@ -5,11 +5,11 @@
 NMOP                                                             T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 22 May 2026                                       A. Huang Feng
+Expires: 25 May 2026                                       A. Huang Feng
                                                                INSA-Lyon
                                                             V. Riccobene
                                                                   Huawei
-                                                        18 November 2025
+                                                        21 November 2025
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Graf, et al.               Expires 22 May 2026                  [Page 1]
+Graf, et al.               Expires 25 May 2026                  [Page 1]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -63,7 +63,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 22 May 2026.
+   This Internet-Draft will expire on 25 May 2026.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Graf, et al.               Expires 22 May 2026                  [Page 2]
+Graf, et al.               Expires 25 May 2026                  [Page 2]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -165,7 +165,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                  [Page 3]
+Graf, et al.               Expires 25 May 2026                  [Page 3]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -221,7 +221,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                  [Page 4]
+Graf, et al.               Expires 25 May 2026                  [Page 4]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -277,7 +277,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                  [Page 5]
+Graf, et al.               Expires 25 May 2026                  [Page 5]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -333,7 +333,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                  [Page 6]
+Graf, et al.               Expires 25 May 2026                  [Page 6]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -389,7 +389,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                  [Page 7]
+Graf, et al.               Expires 25 May 2026                  [Page 7]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -445,7 +445,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                  [Page 8]
+Graf, et al.               Expires 25 May 2026                  [Page 8]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -501,7 +501,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                  [Page 9]
+Graf, et al.               Expires 25 May 2026                  [Page 9]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -557,7 +557,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 10]
+Graf, et al.               Expires 25 May 2026                 [Page 10]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -613,7 +613,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 11]
+Graf, et al.               Expires 25 May 2026                 [Page 11]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -669,7 +669,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 12]
+Graf, et al.               Expires 25 May 2026                 [Page 12]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -698,70 +698,70 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
      augment /rsn:relevant-state/rsn:service:
        +--:(l2vpn)
-       |  +--ro l2vpn-service* [vpn-id]
-       |     +--ro vpn-id               string
-       |     +--ro uri?                 inet:uri
-       |     +--ro vpn-name?            string
-       |     +--ro site-ids*            string
-       |     +--ro change-id?           yang:uuid
-       |     +--ro change-start-time?   yang:date-and-time
-       |     +--ro change-end-time?     yang:date-and-time
+       |  +--rw l2vpn-service* [vpn-id]
+       |     +--rw vpn-id               string
+       |     +--rw uri?                 inet:uri
+       |     +--rw vpn-name?            string
+       |     +--rw site-ids*            string
+       |     +--rw change-id?           yang:uuid
+       |     +--rw change-start-time?   yang:date-and-time
+       |     +--rw change-end-time?     yang:date-and-time
        +--:(l3vpn)
-          +--ro l3vpn-service* [vpn-id]
-             +--ro vpn-id               string
-             +--ro uri?                 inet:uri
-             +--ro vpn-name?            string
-             +--ro site-ids*            string
-             +--ro change-id?           yang:uuid
-             +--ro change-start-time?   yang:date-and-time
-             +--ro change-end-time?     yang:date-and-time
+          +--rw l3vpn-service* [vpn-id]
+             +--rw vpn-id               string
+             +--rw uri?                 inet:uri
+             +--rw vpn-name?            string
+             +--rw site-ids*            string
+             +--rw change-id?           yang:uuid
+             +--rw change-start-time?   yang:date-and-time
+             +--rw change-end-time?     yang:date-and-time
      augment /rsn:relevant-state-notification/rsn:service:
        +--:(l2vpn)
-       |  +--ro l2vpn-service* [vpn-id]
-       |     +--ro vpn-id               string
-       |     +--ro uri?                 inet:uri
-       |     +--ro vpn-name?            string
-       |     +--ro site-ids*            string
+       |  +-- l2vpn-service* [vpn-id]
+       |     +-- vpn-id               string
+       |     +-- uri?                 inet:uri
+       |     +-- vpn-name?            string
+       |     +-- site-ids*            string
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 13]
+Graf, et al.               Expires 25 May 2026                 [Page 13]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
 
-       |     +--ro change-id?           yang:uuid
-       |     +--ro change-start-time?   yang:date-and-time
-       |     +--ro change-end-time?     yang:date-and-time
+       |     +-- change-id?           yang:uuid
+       |     +-- change-start-time?   yang:date-and-time
+       |     +-- change-end-time?     yang:date-and-time
        +--:(l3vpn)
-          +--ro l3vpn-service* [vpn-id]
-             +--ro vpn-id               string
-             +--ro uri?                 inet:uri
-             +--ro vpn-name?            string
-             +--ro site-ids*            string
-             +--ro change-id?           yang:uuid
-             +--ro change-start-time?   yang:date-and-time
-             +--ro change-end-time?     yang:date-and-time
+          +-- l3vpn-service* [vpn-id]
+             +-- vpn-id               string
+             +-- uri?                 inet:uri
+             +-- vpn-name?            string
+             +-- site-ids*            string
+             +-- change-id?           yang:uuid
+             +-- change-start-time?   yang:date-and-time
+             +-- change-end-time?     yang:date-and-time
      augment /rsn:relevant-state/rsn:anomaly:
-       +--ro vpn-node-terminations* []
-          +--ro hostname?              inet:host
-          +--ro vrf-id?                uint32
-          +--ro vrf-name?              string
-          +--ro route-distinguisher?   string
-          +--ro interface-id*          uint32
-          +--ro interface-name*        string
-          +--ro peer-ip*               inet:ip-address
-          +--ro next-hop*              inet:ip-address
+       +--rw vpn-node-terminations* [hostname vrf-name]
+          +--rw hostname               inet:host
+          +--rw vrf-id?                uint32
+          +--rw vrf-name               string
+          +--rw route-distinguisher?   string
+          +--rw interface-id*          uint32
+          +--rw interface-name*        string
+          +--rw peer-ip*               inet:ip-address
+          +--rw next-hop*              inet:ip-address
      augment /rsn:relevant-state-notification/rsn:anomaly:
-       +--ro vpn-node-terminations* []
-          +--ro hostname?              inet:host
-          +--ro vrf-id?                uint32
-          +--ro vrf-name?              string
-          +--ro route-distinguisher?   string
-          +--ro interface-id*          uint32
-          +--ro interface-name*        string
-          +--ro peer-ip*               inet:ip-address
-          +--ro next-hop*              inet:ip-address
+       +-- vpn-node-terminations* [hostname vrf-name]
+          +-- hostname               inet:host
+          +-- vrf-id?                uint32
+          +-- vrf-name               string
+          +-- route-distinguisher?   string
+          +-- interface-id*          uint32
+          +-- interface-name*        string
+          +-- peer-ip*               inet:ip-address
+          +-- next-hop*              inet:ip-address
 
 4.3.2.  YANG Module
 
@@ -781,7 +781,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 14]
+Graf, et al.               Expires 25 May 2026                 [Page 14]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -837,7 +837,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 15]
+Graf, et al.               Expires 25 May 2026                 [Page 15]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -861,7 +861,6 @@ Internet-Draft          Network Anomaly Semantics          November 2025
           used to augment the relevant-state container.";
        list l2vpn-service {
          key "vpn-id";
-         config false;
          description
            "List of VPN connectivity services of interest.";
          leaf vpn-id {
@@ -890,15 +889,15 @@ Internet-Draft          Network Anomaly Semantics          November 2025
            description
              "Unique identifier of VPN connectivity service maintenance
               window within the relevant-state window.";
+         }
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 16]
+Graf, et al.               Expires 25 May 2026                 [Page 16]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
 
-         }
          leaf change-start-time {
            type yang:date-and-time;
            description
@@ -920,7 +919,6 @@ Internet-Draft          Network Anomaly Semantics          November 2025
           used to augment the relevant-state container.";
        list l3vpn-service {
          key "vpn-id";
-         config false;
          description
            "List of VPN connectivity services of interest.";
          leaf vpn-id {
@@ -946,16 +944,16 @@ Internet-Draft          Network Anomaly Semantics          November 2025
          }
          leaf change-id {
            type yang:uuid;
+           description
+             "Unique identifier of VPN connectivity service maintenance
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 17]
+Graf, et al.               Expires 25 May 2026                 [Page 17]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
 
-           description
-             "Unique identifier of VPN connectivity service maintenance
               window within the relevant-state window.";
          }
          leaf change-start-time {
@@ -978,7 +976,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
          "Node and Network Termination for the VPN Service instance.
           This grouping is used to augment the relevant-state container.";
        list vpn-node-terminations {
-         config false;
+         key "hostname vrf-name";
          description
            "List of Node Terminations of interest.";
          leaf hostname {
@@ -1002,16 +1000,16 @@ Internet-Draft          Network Anomaly Semantics          November 2025
                VRFname or BMP peer_up VRF Table Name TLV.";
          }
          leaf route-distinguisher {
+           type string;
+           description
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 18]
+Graf, et al.               Expires 25 May 2026                 [Page 18]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
 
-           type string;
-           description
              "The BGP route-distinguisher obtained through
                IPFIX IE90 mplsVpnRouteDistinguisher or BMP
                route-monitoring or peer_up message type.";
@@ -1058,16 +1056,16 @@ Internet-Draft          Network Anomaly Semantics          November 2025
          uses l2vpn-service;
        }
        case l3vpn {
+         description
+           "Layer 3 VPN connectivity service.";
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 19]
+Graf, et al.               Expires 25 May 2026                 [Page 19]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
 
-         description
-           "Layer 3 VPN connectivity service.";
          uses l3vpn-service;
        }
      }
@@ -1117,7 +1115,9 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 20]
+
+
+Graf, et al.               Expires 25 May 2026                 [Page 20]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1173,7 +1173,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 21]
+Graf, et al.               Expires 25 May 2026                 [Page 21]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1229,7 +1229,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 22]
+Graf, et al.               Expires 25 May 2026                 [Page 22]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1285,7 +1285,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 23]
+Graf, et al.               Expires 25 May 2026                 [Page 23]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1341,7 +1341,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 24]
+Graf, et al.               Expires 25 May 2026                 [Page 24]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1397,7 +1397,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 25]
+Graf, et al.               Expires 25 May 2026                 [Page 25]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1453,7 +1453,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 26]
+Graf, et al.               Expires 25 May 2026                 [Page 26]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1509,7 +1509,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 27]
+Graf, et al.               Expires 25 May 2026                 [Page 27]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1565,7 +1565,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 28]
+Graf, et al.               Expires 25 May 2026                 [Page 28]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1621,7 +1621,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 29]
+Graf, et al.               Expires 25 May 2026                 [Page 29]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1677,7 +1677,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 30]
+Graf, et al.               Expires 25 May 2026                 [Page 30]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1733,7 +1733,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 31]
+Graf, et al.               Expires 25 May 2026                 [Page 31]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1789,7 +1789,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 32]
+Graf, et al.               Expires 25 May 2026                 [Page 32]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1845,7 +1845,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 33]
+Graf, et al.               Expires 25 May 2026                 [Page 33]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1901,7 +1901,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 34]
+Graf, et al.               Expires 25 May 2026                 [Page 34]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -1957,7 +1957,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 35]
+Graf, et al.               Expires 25 May 2026                 [Page 35]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -2013,7 +2013,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 36]
+Graf, et al.               Expires 25 May 2026                 [Page 36]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -2069,7 +2069,7 @@ Internet-Draft          Network Anomaly Semantics          November 2025
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 37]
+Graf, et al.               Expires 25 May 2026                 [Page 37]
 
 Internet-Draft          Network Anomaly Semantics          November 2025
 
@@ -2125,4 +2125,4 @@ Authors' Addresses
 
 
 
-Graf, et al.               Expires 22 May 2026                 [Page 38]
+Graf, et al.               Expires 25 May 2026                 [Page 38]

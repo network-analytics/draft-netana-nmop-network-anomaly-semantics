@@ -71,7 +71,6 @@ module ietf-network-anomaly-service-topology {
        used to augment the relevant-state container.";
     list l2vpn-service {
       key "vpn-id";
-      config false;
       description
         "List of VPN connectivity services of interest.";
       leaf vpn-id {
@@ -99,19 +98,19 @@ module ietf-network-anomaly-service-topology {
         type yang:uuid;
         description
           "Unique identifier of VPN connectivity service maintenance
-          window within the relevant-state window.";
+           window within the relevant-state window.";
       }
       leaf change-start-time {
         type yang:date-and-time;
         description
           "Start date and time of the VPN connectivity service
-          maintenance window within the relevant-state window.";
+           maintenance window within the relevant-state window.";
       }
       leaf change-end-time {
         type yang:date-and-time;
         description
           "End date and time of the VPN connectivity service
-          maintenance window within the relevant-state window.";
+           maintenance window within the relevant-state window.";
       }
     }
   }
@@ -122,7 +121,6 @@ module ietf-network-anomaly-service-topology {
        used to augment the relevant-state container.";
     list l3vpn-service {
       key "vpn-id";
-      config false;
       description
         "List of VPN connectivity services of interest.";
       leaf vpn-id {
@@ -150,30 +148,29 @@ module ietf-network-anomaly-service-topology {
         type yang:uuid;
         description
           "Unique identifier of VPN connectivity service maintenance
-          window within the relevant-state window.";
+           window within the relevant-state window.";
       }
       leaf change-start-time {
         type yang:date-and-time;
         description
           "Start date and time of the VPN connectivity service
-          maintenance window within the relevant-state window.";
+           maintenance window within the relevant-state window.";
       }
       leaf change-end-time {
         type yang:date-and-time;
         description
           "End date and time of the VPN connectivity service
-          maintenance window within the relevant-state window.";
+           maintenance window within the relevant-state window.";
       }
     }
   }
-
 
   grouping vpn-node-termination {
     description
       "Node and Network Termination for the VPN Service instance.
        This grouping is used to augment the relevant-state container.";
     list vpn-node-terminations {
-      config false;
+      key "hostname vrf-name";
       description
         "List of Node Terminations of interest.";
       leaf hostname {
