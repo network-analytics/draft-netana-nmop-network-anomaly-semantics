@@ -1,0 +1,16 @@
+{
+  "type": "enum",
+  "name": "NetworkAnomalyStage",
+  "namespace": "ietf.relevant.state",
+  "symbols": [
+    "detection",
+    "validation",
+    "refinement",
+    "problem_forecasted",
+    "problem_potential",
+    "problem_confirmed",
+    "discarded",
+    "analyzed",
+    "adjusted"
+  ]
+}
