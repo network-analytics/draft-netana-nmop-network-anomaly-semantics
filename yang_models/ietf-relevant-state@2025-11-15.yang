@@ -237,15 +237,17 @@ module ietf-relevant-state {
     leaf confidence-score {
       type score;
       description
-        "Score indicating how confident were the detectors
-         in relation to the overall relevant state.";
+        "Indicates how confident the detector detected an outlier. The
+         higher the value the higher the confidence in relation to the
+         overall relevant state.";
     }
     leaf concern-score {
       type score;
       mandatory true;
       description
-        "Score indicating the degree of concern in
-         relation to the overall relevant state.";
+        "Indicates how concerned network operation on connectivity
+         service degradation should be. The higher the value the higher
+         the concern in relation to the overall relevant state.";
     }
     leaf stage {
       type identityref {
@@ -377,9 +379,9 @@ module ietf-relevant-state {
       leaf confidence-score {
         type score;
         description
-          "Score indicating how confident was the detector
-            while considering the given anomaly as part of the
-            relevant event.";
+          "Indicates how confident the detector detected an outlier. The
+           higher the value the higher the confidence in relation to the
+           anomaly.";
       }
       leaf pattern {
         type identityref {
