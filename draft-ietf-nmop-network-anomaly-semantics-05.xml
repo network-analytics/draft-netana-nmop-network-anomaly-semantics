@@ -314,9 +314,10 @@
           <tr>
             <td align="left" colspan="1" rowspan="1">Missing</td>
 
-            <td align="left" colspan="1" rowspan="1">Previous</td>
+            <td align="left" colspan="1" rowspan="1">Drop</td>
 
-            <td align="left" colspan="1" rowspan="1">Time</td>
+            <td align="left" colspan="1" rowspan="1">Outside Monitored
+						Domain</td>
           </tr>
 
           <tr>
