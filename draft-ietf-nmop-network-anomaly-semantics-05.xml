@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="21" month="December" year="2025"/>
+    <date day="17" month="January" year="2026"/>
 
     <area>Operations and Management</area>
 
@@ -215,6 +215,18 @@
             <t>Symptom</t>
 
             <t>Alarm</t>
+          </list></t>
+
+        <t>The following terms are defined in <xref
+        target="I-D.ietf-nmop-terminology"/> but the meaning has been
+				adapted for the use in Outlier Detection:</t>
+
+        <t><list style="symbols">
+            <t>Symptom: An observable value, change, State, event, or
+						condition which itself isn’t classified as an outlier, but
+						may be correlated to an outlier and thus is considered as an
+						indication of a Problem or potential Problem. A Symptom may
+						be part of a collective outlier.</t>
           </list></t>
           
         <t>The following terms are used as defined in <xref
