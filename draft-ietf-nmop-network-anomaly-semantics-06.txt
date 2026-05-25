@@ -19,7 +19,7 @@ Abstract
 
    The document proposes a unified symptoms vocabulary for network
    anomaly metadata to improve data sharing and analysis among human
-   network operators, network analytics vendors, and AI systems to
+   network operators, network analytics implementers, and AI systems to
    improve accuracy of Service Disruption Detection.
 
 Discussion Venues
