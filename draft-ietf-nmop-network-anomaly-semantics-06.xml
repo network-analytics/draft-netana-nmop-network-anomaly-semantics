@@ -2,7 +2,7 @@
 <!DOCTYPE rfc>
 <?rfc toc="yes"?>
 <?rfc tocompact="yes"?>
-<?rfc tocdepth="2"?>
+<?rfc tocdepth="3"?>
 <?rfc tocindent="yes"?>
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes"?>
@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="25" month="May" year="2026"/>
+    <date day="28" month="May" year="2026"/>
 
     <area>Operations and Management</area>
 
@@ -163,7 +163,7 @@
       context and a YANG symptom model in <xref
       target="YANG-Symptom-Module"/> to describe the symptoms defined In
       <xref target="Observed_Symptoms"/>. <xref
-      target="Apache-AVRO-Schema"/> examples above Service
+      target="Apache-AVRO"/> examples above Service
       Models in an Apache AVRO data model based on
       'ietf-relevant-state.yang' data model defined in <xref
       target="I-D.ietf-nmop-network-anomaly-lifecycle"/>.</t>
@@ -1310,7 +1310,7 @@ module ietf-network-anomaly-service-topology {
         </section>
       </section>
       
-      <section anchor="Apache-AVRO-Schema" title="Apache AVRO Schema">
+      <section anchor="Apache-AVRO" title="Apache AVRO">
 
           <t>Depending on implementation, a network operator might
           chose defined YANG models as data models or uses the YANG
@@ -1365,6 +1365,11 @@ module ietf-network-anomaly-service-topology {
               'ietf-network-anomaly-service-topology.yang'.</t>
             </list></t>
 
+          <t>The following two subsections describe the Apache Avro
+					schema and a relevant-state instance data example.</t>
+
+          <section anchor="Apache-AVRO-Relevant-State-Schema"
+					title="Relevant State Schema Example">
 
           <sourcecode name="RelevantStateNotification@2025-11-15.avsc"
 					type="json" markers="true"><![CDATA[
@@ -1918,6 +1923,660 @@ module ietf-network-anomaly-service-topology {
   ]
 }
 ]]></sourcecode>
+
+          </section>
+					
+          <section anchor="Apache-AVRO-Relevant-State-Instance"
+					title="Relevant State Instance Data Example">
+
+          <sourcecode name="ietf-relevant-state@2026-05-25.avsc"
+					type="json" markers="true"><![CDATA[
+{
+    "id": "ac54f3f2-0a07-434b-ba30-2305f9dd91b1",
+    "uri": {
+        "string": "https://www.example.com/olap/l3vpn_overview/?filter=vpn_id[eq]64497:4438&filter=__time[start]2026-05-25T21:33:00Z[end]2026-05-26T21:34:00Z"
+    },
+    "description": {
+        "string": "flow count under normal conditions is 3239 "
+    },
+    "startTime": 1779787980000,
+    "endTime": {
+        "long": 1779788040000
+    },
+    "strategy": {
+        "string": "flow-fwd-1-flow-count-2-update-1-withdraw-0-pipeline"
+    },
+    "confidenceScore": null,
+    "concernScore": 42,
+    "anomaly": [
+        {
+            "id": "aacd5fd4-27fa-5983-97ad-9d3e606deb65",
+            "revision": 0,
+            "uri": {
+                "string": "https://www.example.com/olap/l3vpn_bmp_peer/?dimension=__time&dimension=bmp_msg_type&measure=count&pinnedDimensions=platform_id&pinnedDimensions=peer_ip&visualization=line-chart&filter=__time[start]2026-05-25 21:33[end]2026-05-26 21:33&filter=node_id[in](ip-raif-ch-wci-r-005)&filter=bmp_msg_type[in](peer_down, peer_up)"
+            },
+            "description": null,
+            "startTime": 1779787620000,
+            "endTime": {
+                "long": 1779787980000
+            },
+            "confidenceScore": null,
+            "pattern": null,
+            "annotator": {
+                "id": {
+                    "string": "aacd5fd4-27fa-5983-97ad-9d3e606deb65"
+                },
+                "name": "bmp_peer_down",
+                "annotatorType": {
+                    "AnnotatorType": "algorithm"
+                },
+                "version": {
+                    "string": "1.1.7-phaseout-old-alert-6"
+                }
+            },
+            "symptom": {
+                "Symptom": {
+                    "id": "aacd5fd4-27fa-5983-97ad-9d3e606deb65",
+                    "concernScore": 98,
+                    "action": null,
+                    "reason": null,
+                    "trigger": null,
+                    "networkPlane": {
+                        "NetworkPlane": "control"
+                    },
+                    "template": {
+                        "string": "bmp_peer_down_default"
+                    },
+                    "season": null
+                }
+            },
+            "vpnNodeTerminations": [
+                {
+                    "hostname": "router1",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "null"
+                    },
+                    "peerIp": [
+                        "192.0.2.1"
+                    ],
+                    "nextHop": [],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "router2",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64496:1846330021"
+                    },
+                    "peerIp": [
+                        "192.0.2.2"
+                    ],
+                    "nextHop": [],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "router3",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64496:1846350021"
+                    },
+                    "peerIp": [
+                        "192.0.2.3"
+                    ],
+                    "nextHop": [],
+                    "interfaceId": [],
+                    "interfaceName": []
+                }
+            ],
+            "stage": "detection",
+            "operationalData": {
+                "OperationalData": {
+                    "topicName": {
+                        "string": "aggregations"
+                    },
+                    "subjectName": {
+                        "string": "bmp_peer_changes"
+                    }
+                }
+            }
+        },
+        {
+            "id": "c8d23859-744e-400e-9c76-0500d2a791c2",
+            "revision": 0,
+            "uri": {
+                "string": "https://www.example.com/olap/l3vpn_flow_count/?dimension=__time&measure=sum_flows&compare=P7D&pinnedDimensions=platform_id&pinnedDimensions=node_id&visualization=line-chart&filter=__time[start]2026-05-25 21:34[end]2026-05-26 21:34&filter=tvpn_id-6e549d[eq]64497:4438"
+            },
+            "description": null,
+            "startTime": 1779787080000,
+            "endTime": {
+                "long": 1779787980000
+            },
+            "confidenceScore": null,
+            "pattern": null,
+            "annotator": {
+                "id": {
+                    "string": "6fb0f344-14a1-51bd-a8db-673db6223448"
+                },
+                "name": "flow_count_spike",
+                "annotatorType": {
+                    "AnnotatorType": "algorithm"
+                },
+                "version": {
+                    "string": "1.1.7-phaseout-old-alert-6"
+                }
+            },
+            "symptom": {
+                "Symptom": {
+                    "id": "6fb0f344-14a1-51bd-a8db-673db6223448",
+                    "concernScore": 0,
+                    "action": null,
+                    "reason": null,
+                    "trigger": null,
+                    "networkPlane": {
+                        "NetworkPlane": "forwarding"
+                    },
+                    "template": {
+                        "string": "flow_count_spike_unstable_1"
+                    },
+                    "season": null
+                }
+            },
+            "vpnNodeTerminations": [],
+            "stage": "detection",
+            "operationalData": {
+                "OperationalData": {
+                    "topicName": {
+                        "string": "aggregations"
+                    },
+                    "subjectName": {
+                        "string": "flows"
+                    }
+                }
+            }
+        },
+        {
+            "id": "dfa4aeed-8a1a-55dd-b0a5-5956b4026822",
+            "revision": 0,
+            "uri": {
+                "string": "https://www.example.com/olap/l3vpn_bmp_withdraw/?dimension=__time&dimension=log_typ-dc8&measure=count&pinnedDimensions=bgp_nexthop&visualization=line-chart&filter=__time[start]2026-05-25 21:35[end]2026-05-26 21:35&filter=tcomms-b799dd[eq]64497:4438"
+            },
+            "description": null,
+            "startTime": 1779787800000,
+            "endTime": {
+                "long": 1779787980000
+            },
+            "confidenceScore": null,
+            "pattern": null,
+            "annotator": {
+                "id": {
+                    "string": "dfa4aeed-8a1a-55dd-b0a5-5956b4026822"
+                },
+                "name": "bmp_withdraw",
+                "annotatorType": {
+                    "AnnotatorType": "algorithm"
+                },
+                "version": {
+                    "string": "1.1.7-phaseout-old-alert-6"
+                }
+            },
+            "symptom": {
+                "Symptom": {
+                    "id": "dfa4aeed-8a1a-55dd-b0a5-5956b4026822",
+                    "concernScore": 0,
+                    "action": null,
+                    "reason": null,
+                    "trigger": null,
+                    "networkPlane": {
+                        "NetworkPlane": "control"
+                    },
+                    "template": {
+                        "string": "bmp_withdraw_stable"
+                    },
+                    "season": null
+                }
+            },
+            "vpnNodeTerminations": [
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64496:1001045134"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.1"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64496:1001045133"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.2"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100245968"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.3"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100145384"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.4"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100110431"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.5"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100190390"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.6"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100110432"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.7"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100110435"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.8"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100120935"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.9"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100190391"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.10"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                }
+            ],
+            "stage": "detection",
+            "operationalData": {
+                "OperationalData": {
+                    "topicName": null,
+                    "subjectName": null
+                }
+            }
+        },
+        {
+            "id": "ffdfb6d8-2a00-5219-b458-add2ce57e2db",
+            "revision": 0,
+            "uri": {
+                "string": "https://www.example.com/olap/l3vpn_bmp_update/?dimension=__time&dimension=log_typ-dc8&measure=count&pinnedDimensions=bgp_nexthop&visualization=line-chart&filter=__time[start]2026-05-25 21:35[end]2026-05-26 21:35&filter=tcomms-b799dd[eq]64497:4438"
+            },
+            "description": null,
+            "startTime": 1779787680000,
+            "endTime": {
+                "long": 1779787980000
+            },
+            "confidenceScore": null,
+            "pattern": null,
+            "annotator": {
+                "id": {
+                    "string": "ffdfb6d8-2a00-5219-b458-add2ce57e2db"
+                },
+                "name": "bmp_update",
+                "annotatorType": {
+                    "AnnotatorType": "algorithm"
+                },
+                "version": {
+                    "string": "1.1.7-phaseout-old-alert-6"
+                }
+            },
+            "symptom": {
+                "Symptom": {
+                    "id": "ffdfb6d8-2a00-5219-b458-add2ce57e2db",
+                    "concernScore": 0,
+                    "action": null,
+                    "reason": null,
+                    "trigger": null,
+                    "networkPlane": {
+                        "NetworkPlane": "control"
+                    },
+                    "template": {
+                        "string": "bmp_update_frequent"
+                    },
+                    "season": null
+                }
+            },
+            "vpnNodeTerminations": [
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100420935"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.11"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100520935"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.12"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:101420935"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.13"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:101460935"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.14"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:102460935"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.15"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:103460935"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.16"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:104460935"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.17"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100110431"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.18"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100210431"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.19"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                },
+                {
+                    "hostname": "null",
+                    "vrfId": null,
+                    "vrfName": "null",
+                    "routeDistinguisher": {
+                        "string": "0:64499:100110432"
+                    },
+                    "peerIp": [],
+                    "nextHop": [
+                        "198.51.100.20"
+                    ],
+                    "interfaceId": [],
+                    "interfaceName": []
+                }
+            ],
+            "stage": "detection",
+            "operationalData": {
+                "OperationalData": {
+                    "topicName": null,
+                    "subjectName": null
+                }
+            }
+        },
+        {
+            "id": "96767eba-c9b0-4fcb-abb0-de37cf50fa81",
+            "revision": 0,
+            "uri": {
+                "string": "https://www.example.com/olap/l3vpn_flow_missing/?dimension=__time&measure=sum_bytes&compare=P7D&pinnedDimensions=platform_id&pinnedDimensions=node_id&visualization=line-chart&filter=__time[start]2026-05-25 21:35[end]2026-05-26 21:35&filter=tvpn_id-6e549d[eq]64497:4438"
+            },
+            "description": null,
+            "startTime": 1779787080000,
+            "endTime": {
+                "long": 1779787980000
+            },
+            "confidenceScore": null,
+            "pattern": null,
+            "annotator": {
+                "id": {
+                    "string": "74fe0118-da75-51bb-91fd-161fa7beae76"
+                },
+                "name": "flow_fwd",
+                "annotatorType": {
+                    "AnnotatorType": "algorithm"
+                },
+                "version": {
+                    "string": "1.1.7-phaseout-old-alert-6"
+                }
+            },
+            "symptom": {
+                "Symptom": {
+                    "id": "74fe0118-da75-51bb-91fd-161fa7beae76",
+                    "concernScore": 54,
+                    "action": null,
+                    "reason": null,
+                    "trigger": null,
+                    "networkPlane": {
+                        "NetworkPlane": "forwarding"
+                    },
+                    "template": {
+                        "string": "flow_fwd_normal"
+                    },
+                    "season": null
+                }
+            },
+            "vpnNodeTerminations": [],
+            "stage": "detection",
+            "operationalData": {
+                "OperationalData": {
+                    "topicName": {
+                        "string": "aggregations"
+                    },
+                    "subjectName": {
+                        "string": "flows"
+                    }
+                }
+            }
+        }
+    ],
+    "service": {
+        "L3VpnServiceContainer": {
+            "l3VpnService": [
+                {
+                    "vpnId": "64497:4438",
+                    "uri": {
+                        "string": "https://www.example.com/service/l3vpn?community=64497:4438"
+                    },
+                    "vpnName": {
+                        "string": "l3vpn-name"
+                    },
+                    "siteIds": {
+                        "array": [
+                            "64500:56574",
+                            "64500:56566",
+                            "64499:12048",
+                            "64499:28343",
+                            "64499:28344",
+                            "64499:11990",
+                            "64499:11991"
+                        ]
+                    },
+                    "changeId": null,
+                    "changeStartTime": null,
+                    "changeEndTime": null
+                }
+            ]
+        }
+    },
+    "publisher": {
+        "id": "161495ba-3c0a-5f13-90ae-b907259be226",
+        "name": "Brightlights - Streaming",
+        "version": {
+            "string": "1.1.7-phaseout-old-alert-5"
+        }
+    },
+    "stage": "detection"
+}
+]]></sourcecode>
+					</section>
       </section>
       
     </section>
@@ -2035,7 +2694,7 @@ module ietf-network-anomaly-service-topology {
         System has been deployed in Swisscom production as a proof of
         concept in June 2024 monitoring approximate &gt;13'000 L3 VPN's
         concurrently. The Apache AVRO schema described in <xref
-        target="Apache-AVRO-Schema"/> is being implemented in April
+        target="Apache-AVRO"/> is being implemented in April
         2025 in the development enviroment and considered to be deployed
         in June 2025 in production.</t>
       </section>

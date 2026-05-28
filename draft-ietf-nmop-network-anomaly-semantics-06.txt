@@ -5,11 +5,11 @@
 NMOP                                                             T. Graf
 Internet-Draft                                                     W. Du
 Intended status: Experimental                                   Swisscom
-Expires: 26 November 2026                                  A. Huang Feng
+Expires: 29 November 2026                                  A. Huang Feng
                                                                INSA-Lyon
                                                             V. Riccobene
                                                                   Huawei
-                                                             25 May 2026
+                                                             28 May 2026
 
 
        Semantic Metadata Annotation for Network Anomaly Detection
@@ -53,12 +53,12 @@ Status of This Memo
 
 
 
-Graf, et al.            Expires 26 November 2026                [Page 1]
+Graf, et al.            Expires 29 November 2026                [Page 1]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
 
-   This Internet-Draft will expire on 26 November 2026.
+   This Internet-Draft will expire on 29 November 2026.
 
 Copyright Notice
 
@@ -76,7 +76,7 @@ Copyright Notice
 
 Table of Contents
 
-   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Conventions and Definitions . . . . . . . . . . . . . . . . .   3
      2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Observed Symptoms . . . . . . . . . . . . . . . . . . . . . .   4
@@ -84,18 +84,35 @@ Table of Contents
      4.1.  Overview of the Models for the Symptom Semantic
            Metadata  . . . . . . . . . . . . . . . . . . . . . . . .   8
      4.2.  YANG Module 'ietf-network-anomaly-symptom-cbl'  . . . . .   9
+       4.2.1.  YANG Tree . . . . . . . . . . . . . . . . . . . . . .   9
+       4.2.2.  YANG Module . . . . . . . . . . . . . . . . . . . . .  10
      4.3.  YANG Module 'ietf-network-anomaly-service-topology' . . .  13
-     4.4.  Apache AVRO Schema  . . . . . . . . . . . . . . . . . . .  20
-   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  33
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  34
-   7.  Implementation status . . . . . . . . . . . . . . . . . . . .  35
-     7.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  35
-     7.2.  Cosmos Bright Lights  . . . . . . . . . . . . . . . . . .  35
-   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  35
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  36
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  37
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
+       4.3.1.  YANG Tree . . . . . . . . . . . . . . . . . . . . . .  13
+       4.3.2.  YANG Module . . . . . . . . . . . . . . . . . . . . .  14
+     4.4.  Apache AVRO . . . . . . . . . . . . . . . . . . . . . . .  20
+       4.4.1.  Relevant State Schema Example . . . . . . . . . . . .  21
+       4.4.2.  Relevant State Instance Data Example  . . . . . . . .  33
+   5.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  47
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  48
+   7.  Implementation status . . . . . . . . . . . . . . . . . . . .  48
+     7.1.  Antagonist  . . . . . . . . . . . . . . . . . . . . . . .  49
+     7.2.  Cosmos Bright Lights  . . . . . . . . . . . . . . . . . .  49
+   8.  Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  49
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  49
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  49
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  51
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  52
+
+
+
+
+
+
+
+Graf, et al.            Expires 29 November 2026                [Page 2]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
 
 1.  Introduction
 
@@ -106,13 +123,6 @@ Table of Contents
    when verifying a network connectivity service, monitoring the
    different network planes to understand wherever one network plane
    affects another negatively.
-
-
-
-Graf, et al.            Expires 26 November 2026                [Page 2]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
 
    As a Service Disruption Detection Systems may need to be fine tuned
    to effectively maintain good anomaly detection rates, the system
@@ -152,6 +162,14 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
    *  Contextual Outlier
 
+
+
+
+Graf, et al.            Expires 29 November 2026                [Page 3]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
    *  Service Disruption Detection
 
    *  Service Disruption Detection System
@@ -160,15 +178,6 @@ Internet-Draft          Network Anomaly Semantics               May 2026
    [I-D.ietf-nmop-network-anomaly-lifecycle] :
 
    *  Concern Score
-
-
-
-
-
-Graf, et al.            Expires 26 November 2026                [Page 3]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
 
    The following terms are used as defined in
    [I-D.ietf-nmop-terminology]:
@@ -209,6 +218,14 @@ Internet-Draft          Network Anomaly Semantics               May 2026
       *missing*, where the packet drop occurred outside the measured
       network node, *drop*, where the packet drop was performed by the
       measured network node, and *delay*, which defines the on-path
+
+
+
+Graf, et al.            Expires 29 November 2026                [Page 4]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
       delay measured on the network node.  For Control Plane we
       distinguish between *reachability*, which refers to a change in
       the routing or forwarding information base (RIB/FIB) and
@@ -217,15 +234,6 @@ Internet-Draft          Network Anomaly Semantics               May 2026
       *statistical* change on the interface.
 
    Reason:  For each action, the reason describe why this action was
-
-
-
-
-Graf, et al.            Expires 26 November 2026                [Page 4]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
-
       performed.  For drops in Forwarding Plane we distinguish between
       *Unreachable*, because network layer reachability information was
       missing, *Administered*, because an administrator configured a
@@ -269,15 +277,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-
-
-
-
-
-
-
-
-Graf, et al.            Expires 26 November 2026                [Page 5]
+Graf, et al.            Expires 29 November 2026                [Page 5]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -333,7 +333,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026                [Page 6]
+Graf, et al.            Expires 29 November 2026                [Page 6]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -389,7 +389,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026                [Page 7]
+Graf, et al.            Expires 29 November 2026                [Page 7]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -445,7 +445,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026                [Page 8]
+Graf, et al.            Expires 29 November 2026                [Page 8]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -501,7 +501,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026                [Page 9]
+Graf, et al.            Expires 29 November 2026                [Page 9]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -557,7 +557,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 10]
+Graf, et al.            Expires 29 November 2026               [Page 10]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -613,7 +613,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 11]
+Graf, et al.            Expires 29 November 2026               [Page 11]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -669,7 +669,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 12]
+Graf, et al.            Expires 29 November 2026               [Page 12]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -725,7 +725,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 13]
+Graf, et al.            Expires 29 November 2026               [Page 13]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -781,7 +781,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 14]
+Graf, et al.            Expires 29 November 2026               [Page 14]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -837,7 +837,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 15]
+Graf, et al.            Expires 29 November 2026               [Page 15]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -893,7 +893,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 16]
+Graf, et al.            Expires 29 November 2026               [Page 16]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -949,7 +949,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 17]
+Graf, et al.            Expires 29 November 2026               [Page 17]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1005,7 +1005,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 18]
+Graf, et al.            Expires 29 November 2026               [Page 18]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1061,7 +1061,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 19]
+Graf, et al.            Expires 29 November 2026               [Page 19]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1105,7 +1105,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
    }
    <CODE ENDS>
 
-4.4.  Apache AVRO Schema
+4.4.  Apache AVRO
 
    Depending on implementation, a network operator might chose defined
    YANG models as data models or uses the YANG models as information
@@ -1117,7 +1117,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 20]
+Graf, et al.            Expires 29 November 2026               [Page 20]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1156,6 +1156,11 @@ Internet-Draft          Network Anomaly Semantics               May 2026
    *  VpnTermination.avsc is based on 'vpn-termination' defined in
       'ietf-network-anomaly-service-topology.yang'.
 
+   The following two subsections describe the Apache Avro schema and a
+   relevant-state instance data example.
+
+4.4.1.  Relevant State Schema Example
+
    <CODE BEGINS> file "RelevantStateNotification@2025-11-15.avsc"
    {
      "type": "record",
@@ -1165,19 +1170,19 @@ Internet-Draft          Network Anomaly Semantics               May 2026
        {
          "name": "id",
          "type": {
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 21]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
            "type": "string",
            "logicalType": "uuid"
          },
          "doc": "Unique ID of the relevant state. It is unique in the scope of the Label Store."
        },
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 21]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
-
        {
          "name": "uri",
          "type": ["null", "string"],
@@ -1221,19 +1226,19 @@ Internet-Draft          Network Anomaly Semantics               May 2026
          "type": "int",
          "doc": "Score between 0 and 100 indicating the degree of concern in relation to the overall relevant state."
        },
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 22]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
        {
          "name": "anomaly",
          "type": {
            "type": "array",
            "items": "ietf.relevant.state.Anomaly"
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 22]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
-
          },
          "doc": "List of anomalies that are part of the relevant state."
        },
@@ -1277,19 +1282,19 @@ Internet-Draft          Network Anomaly Semantics               May 2026
        },
        {
          "name": "uri",
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 23]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
          "type": ["null", "string"],
          "default": null,
          "doc": "URI to visualize the analytical metrics of the anomaly."
        },
        {
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 23]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
-
          "name": "stage",
          "type":  {
              "type": "enum",
@@ -1333,19 +1338,19 @@ Internet-Draft          Network Anomaly Semantics               May 2026
              "type": "enum",
              "name": "Pattern",
              "symbols": [
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 24]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
                "drop",
                "spike",
                "mean_shift",
                "seasonality_shift",
                "trend",
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 24]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
-
                "other"
              ],
              "doc": "Pattern describes the type of pattern that was detected by the annotator (e.g. spike, drop, mean_shift, etc.)."
@@ -1392,12 +1397,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-
-
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 25]
+Graf, et al.            Expires 29 November 2026               [Page 25]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1453,7 +1453,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 26]
+Graf, et al.            Expires 29 November 2026               [Page 26]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1509,7 +1509,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 27]
+Graf, et al.            Expires 29 November 2026               [Page 27]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1565,7 +1565,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 28]
+Graf, et al.            Expires 29 November 2026               [Page 28]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1621,7 +1621,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 29]
+Graf, et al.            Expires 29 November 2026               [Page 29]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1677,7 +1677,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 30]
+Graf, et al.            Expires 29 November 2026               [Page 30]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1733,7 +1733,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 31]
+Graf, et al.            Expires 29 November 2026               [Page 31]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1789,7 +1789,7 @@ Internet-Draft          Network Anomaly Semantics               May 2026
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 32]
+Graf, et al.            Expires 29 November 2026               [Page 32]
 
 Internet-Draft          Network Anomaly Semantics               May 2026
 
@@ -1822,6 +1822,767 @@ Internet-Draft          Network Anomaly Semantics               May 2026
    }
    <CODE ENDS>
 
+4.4.2.  Relevant State Instance Data Example
+
+   <CODE BEGINS> file "ietf-relevant-state@2026-05-25.avsc"
+   {
+       "id": "ac54f3f2-0a07-434b-ba30-2305f9dd91b1",
+       "uri": {
+           "string": "https://www.example.com/olap/l3vpn_overview/?filter=vpn_id[eq]64497:4438&filter=__time[start]2026-05-25T21:33:00Z[end]2026-05-26T21:34:00Z"
+       },
+       "description": {
+           "string": "flow count under normal conditions is 3239 "
+       },
+       "startTime": 1779787980000,
+       "endTime": {
+           "long": 1779788040000
+       },
+       "strategy": {
+           "string": "flow-fwd-1-flow-count-2-update-1-withdraw-0-pipeline"
+       },
+       "confidenceScore": null,
+       "concernScore": 42,
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 33]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+       "anomaly": [
+           {
+               "id": "aacd5fd4-27fa-5983-97ad-9d3e606deb65",
+               "revision": 0,
+               "uri": {
+                   "string": "https://www.example.com/olap/l3vpn_bmp_peer/?dimension=__time&dimension=bmp_msg_type&measure=count&pinnedDimensions=platform_id&pinnedDimensions=peer_ip&visualization=line-chart&filter=__time[start]2026-05-25 21:33[end]2026-05-26 21:33&filter=node_id[in](ip-raif-ch-wci-r-005)&filter=bmp_msg_type[in](peer_down, peer_up)"
+               },
+               "description": null,
+               "startTime": 1779787620000,
+               "endTime": {
+                   "long": 1779787980000
+               },
+               "confidenceScore": null,
+               "pattern": null,
+               "annotator": {
+                   "id": {
+                       "string": "aacd5fd4-27fa-5983-97ad-9d3e606deb65"
+                   },
+                   "name": "bmp_peer_down",
+                   "annotatorType": {
+                       "AnnotatorType": "algorithm"
+                   },
+                   "version": {
+                       "string": "1.1.7-phaseout-old-alert-6"
+                   }
+               },
+               "symptom": {
+                   "Symptom": {
+                       "id": "aacd5fd4-27fa-5983-97ad-9d3e606deb65",
+                       "concernScore": 98,
+                       "action": null,
+                       "reason": null,
+                       "trigger": null,
+                       "networkPlane": {
+                           "NetworkPlane": "control"
+                       },
+                       "template": {
+                           "string": "bmp_peer_down_default"
+                       },
+                       "season": null
+                   }
+               },
+               "vpnNodeTerminations": [
+                   {
+                       "hostname": "router1",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 34]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+                           "string": "null"
+                       },
+                       "peerIp": [
+                           "192.0.2.1"
+                       ],
+                       "nextHop": [],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "router2",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64496:1846330021"
+                       },
+                       "peerIp": [
+                           "192.0.2.2"
+                       ],
+                       "nextHop": [],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "router3",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64496:1846350021"
+                       },
+                       "peerIp": [
+                           "192.0.2.3"
+                       ],
+                       "nextHop": [],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   }
+               ],
+               "stage": "detection",
+               "operationalData": {
+                   "OperationalData": {
+                       "topicName": {
+                           "string": "aggregations"
+                       },
+                       "subjectName": {
+                           "string": "bmp_peer_changes"
+                       }
+                   }
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 35]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+               }
+           },
+           {
+               "id": "c8d23859-744e-400e-9c76-0500d2a791c2",
+               "revision": 0,
+               "uri": {
+                   "string": "https://www.example.com/olap/l3vpn_flow_count/?dimension=__time&measure=sum_flows&compare=P7D&pinnedDimensions=platform_id&pinnedDimensions=node_id&visualization=line-chart&filter=__time[start]2026-05-25 21:34[end]2026-05-26 21:34&filter=tvpn_id-6e549d[eq]64497:4438"
+               },
+               "description": null,
+               "startTime": 1779787080000,
+               "endTime": {
+                   "long": 1779787980000
+               },
+               "confidenceScore": null,
+               "pattern": null,
+               "annotator": {
+                   "id": {
+                       "string": "6fb0f344-14a1-51bd-a8db-673db6223448"
+                   },
+                   "name": "flow_count_spike",
+                   "annotatorType": {
+                       "AnnotatorType": "algorithm"
+                   },
+                   "version": {
+                       "string": "1.1.7-phaseout-old-alert-6"
+                   }
+               },
+               "symptom": {
+                   "Symptom": {
+                       "id": "6fb0f344-14a1-51bd-a8db-673db6223448",
+                       "concernScore": 0,
+                       "action": null,
+                       "reason": null,
+                       "trigger": null,
+                       "networkPlane": {
+                           "NetworkPlane": "forwarding"
+                       },
+                       "template": {
+                           "string": "flow_count_spike_unstable_1"
+                       },
+                       "season": null
+                   }
+               },
+               "vpnNodeTerminations": [],
+               "stage": "detection",
+               "operationalData": {
+                   "OperationalData": {
+                       "topicName": {
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 36]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+                           "string": "aggregations"
+                       },
+                       "subjectName": {
+                           "string": "flows"
+                       }
+                   }
+               }
+           },
+           {
+               "id": "dfa4aeed-8a1a-55dd-b0a5-5956b4026822",
+               "revision": 0,
+               "uri": {
+                   "string": "https://www.example.com/olap/l3vpn_bmp_withdraw/?dimension=__time&dimension=log_typ-dc8&measure=count&pinnedDimensions=bgp_nexthop&visualization=line-chart&filter=__time[start]2026-05-25 21:35[end]2026-05-26 21:35&filter=tcomms-b799dd[eq]64497:4438"
+               },
+               "description": null,
+               "startTime": 1779787800000,
+               "endTime": {
+                   "long": 1779787980000
+               },
+               "confidenceScore": null,
+               "pattern": null,
+               "annotator": {
+                   "id": {
+                       "string": "dfa4aeed-8a1a-55dd-b0a5-5956b4026822"
+                   },
+                   "name": "bmp_withdraw",
+                   "annotatorType": {
+                       "AnnotatorType": "algorithm"
+                   },
+                   "version": {
+                       "string": "1.1.7-phaseout-old-alert-6"
+                   }
+               },
+               "symptom": {
+                   "Symptom": {
+                       "id": "dfa4aeed-8a1a-55dd-b0a5-5956b4026822",
+                       "concernScore": 0,
+                       "action": null,
+                       "reason": null,
+                       "trigger": null,
+                       "networkPlane": {
+                           "NetworkPlane": "control"
+                       },
+                       "template": {
+                           "string": "bmp_withdraw_stable"
+                       },
+                       "season": null
+                   }
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 37]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+               },
+               "vpnNodeTerminations": [
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64496:1001045134"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.1"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64496:1001045133"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.2"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100245968"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.3"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 38]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+                       "routeDistinguisher": {
+                           "string": "0:64499:100145384"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.4"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100110431"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.5"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100190390"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.6"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100110432"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.7"
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 39]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100110435"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.8"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100120935"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.9"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100190391"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.10"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   }
+               ],
+               "stage": "detection",
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 40]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+               "operationalData": {
+                   "OperationalData": {
+                       "topicName": null,
+                       "subjectName": null
+                   }
+               }
+           },
+           {
+               "id": "ffdfb6d8-2a00-5219-b458-add2ce57e2db",
+               "revision": 0,
+               "uri": {
+                   "string": "https://www.example.com/olap/l3vpn_bmp_update/?dimension=__time&dimension=log_typ-dc8&measure=count&pinnedDimensions=bgp_nexthop&visualization=line-chart&filter=__time[start]2026-05-25 21:35[end]2026-05-26 21:35&filter=tcomms-b799dd[eq]64497:4438"
+               },
+               "description": null,
+               "startTime": 1779787680000,
+               "endTime": {
+                   "long": 1779787980000
+               },
+               "confidenceScore": null,
+               "pattern": null,
+               "annotator": {
+                   "id": {
+                       "string": "ffdfb6d8-2a00-5219-b458-add2ce57e2db"
+                   },
+                   "name": "bmp_update",
+                   "annotatorType": {
+                       "AnnotatorType": "algorithm"
+                   },
+                   "version": {
+                       "string": "1.1.7-phaseout-old-alert-6"
+                   }
+               },
+               "symptom": {
+                   "Symptom": {
+                       "id": "ffdfb6d8-2a00-5219-b458-add2ce57e2db",
+                       "concernScore": 0,
+                       "action": null,
+                       "reason": null,
+                       "trigger": null,
+                       "networkPlane": {
+                           "NetworkPlane": "control"
+                       },
+                       "template": {
+                           "string": "bmp_update_frequent"
+                       },
+                       "season": null
+                   }
+               },
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 41]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+               "vpnNodeTerminations": [
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100420935"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.11"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100520935"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.12"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:101420935"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.13"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 42]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+                           "string": "0:64499:101460935"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.14"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:102460935"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.15"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:103460935"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.16"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:104460935"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.17"
+                       ],
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 43]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100110431"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.18"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100210431"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.19"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   },
+                   {
+                       "hostname": "null",
+                       "vrfId": null,
+                       "vrfName": "null",
+                       "routeDistinguisher": {
+                           "string": "0:64499:100110432"
+                       },
+                       "peerIp": [],
+                       "nextHop": [
+                           "198.51.100.20"
+                       ],
+                       "interfaceId": [],
+                       "interfaceName": []
+                   }
+               ],
+               "stage": "detection",
+               "operationalData": {
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 44]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+                   "OperationalData": {
+                       "topicName": null,
+                       "subjectName": null
+                   }
+               }
+           },
+           {
+               "id": "96767eba-c9b0-4fcb-abb0-de37cf50fa81",
+               "revision": 0,
+               "uri": {
+                   "string": "https://www.example.com/olap/l3vpn_flow_missing/?dimension=__time&measure=sum_bytes&compare=P7D&pinnedDimensions=platform_id&pinnedDimensions=node_id&visualization=line-chart&filter=__time[start]2026-05-25 21:35[end]2026-05-26 21:35&filter=tvpn_id-6e549d[eq]64497:4438"
+               },
+               "description": null,
+               "startTime": 1779787080000,
+               "endTime": {
+                   "long": 1779787980000
+               },
+               "confidenceScore": null,
+               "pattern": null,
+               "annotator": {
+                   "id": {
+                       "string": "74fe0118-da75-51bb-91fd-161fa7beae76"
+                   },
+                   "name": "flow_fwd",
+                   "annotatorType": {
+                       "AnnotatorType": "algorithm"
+                   },
+                   "version": {
+                       "string": "1.1.7-phaseout-old-alert-6"
+                   }
+               },
+               "symptom": {
+                   "Symptom": {
+                       "id": "74fe0118-da75-51bb-91fd-161fa7beae76",
+                       "concernScore": 54,
+                       "action": null,
+                       "reason": null,
+                       "trigger": null,
+                       "networkPlane": {
+                           "NetworkPlane": "forwarding"
+                       },
+                       "template": {
+                           "string": "flow_fwd_normal"
+                       },
+                       "season": null
+                   }
+               },
+               "vpnNodeTerminations": [],
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 45]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+               "stage": "detection",
+               "operationalData": {
+                   "OperationalData": {
+                       "topicName": {
+                           "string": "aggregations"
+                       },
+                       "subjectName": {
+                           "string": "flows"
+                       }
+                   }
+               }
+           }
+       ],
+       "service": {
+           "L3VpnServiceContainer": {
+               "l3VpnService": [
+                   {
+                       "vpnId": "64497:4438",
+                       "uri": {
+                           "string": "https://www.example.com/service/l3vpn?community=64497:4438"
+                       },
+                       "vpnName": {
+                           "string": "l3vpn-name"
+                       },
+                       "siteIds": {
+                           "array": [
+                               "64500:56574",
+                               "64500:56566",
+                               "64499:12048",
+                               "64499:28343",
+                               "64499:28344",
+                               "64499:11990",
+                               "64499:11991"
+                           ]
+                       },
+                       "changeId": null,
+                       "changeStartTime": null,
+                       "changeEndTime": null
+                   }
+               ]
+           }
+       },
+       "publisher": {
+           "id": "161495ba-3c0a-5f13-90ae-b907259be226",
+           "name": "Brightlights - Streaming",
+           "version": {
+               "string": "1.1.7-phaseout-old-alert-5"
+           }
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 46]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
+
+       },
+       "stage": "detection"
+   }
+   <CODE ENDS>
+
 5.  IANA Considerations
 
    This document registers the following two namespace URIs in the IETF
@@ -1840,15 +2601,6 @@ Internet-Draft          Network Anomaly Semantics               May 2026
       Registrant Contact: The IESG.
 
       XML: N/A; the requested URI is an XML namespace.
-
-
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 33]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
 
    This document registers the following two YANG modules in the YANG
    Module Names registry [RFC3688]:
@@ -1871,6 +2623,16 @@ Internet-Draft          Network Anomaly Semantics               May 2026
       Prefix: smtopology
 
       Reference: RFC XXXX
+
+
+
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 47]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
 
 6.  Security Considerations
 
@@ -1898,14 +2660,6 @@ Internet-Draft          Network Anomaly Semantics               May 2026
    effect on network operations.  The following subtrees and data nodes
    have particular sensitivities/vulnerabilities:
 
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 34]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
-
    "There are no particularly sensitive writable data nodes."
 
    Some of the readable data nodes in this YANG module may be considered
@@ -1922,6 +2676,19 @@ Internet-Draft          Network Anomaly Semantics               May 2026
    This section provides pointers to existing open source
    implementations of this draft.  Note to the RFC-editor: Please remove
    this before publishing.
+
+
+
+
+
+
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 48]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
 
 7.1.  Antagonist
 
@@ -1952,16 +2719,6 @@ Internet-Draft          Network Anomaly Semantics               May 2026
    The authors would like to thank , for his review and valuable
    comment.
 
-
-
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 35]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
-
    The authors would like to thank Antonio Roberto for his contribution
    to the ideas in this draft and Reshad Rahman, Mohamed Boucadair and
    Ruediger Geib for his review and valuable comments.
@@ -1974,6 +2731,20 @@ Internet-Draft          Network Anomaly Semantics               May 2026
               Riccobene, V., Du, W., Graf, T., and H. Huang Feng,
               "Antagonist: Anomaly tagging on historical data",
               <https://github.com/vriccobene/antagonist>.
+
+
+
+
+
+
+
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 49]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
 
    [I-D.ietf-nmop-network-anomaly-architecture]
               Graf, T., Du, W., Francois, P., and A. H. Feng, "A
@@ -2007,17 +2778,6 @@ Internet-Draft          Network Anomaly Semantics               May 2026
               Authentication Protocol", RFC 4252, DOI 10.17487/RFC4252,
               January 2006, <https://www.rfc-editor.org/info/rfc4252>.
 
-
-
-
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 36]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
-
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
@@ -2030,6 +2790,17 @@ Internet-Draft          Network Anomaly Semantics               May 2026
    [RFC8340]  Bjorklund, M. and L. Berger, Ed., "YANG Tree Diagrams",
               BCP 215, RFC 8340, DOI 10.17487/RFC8340, March 2018,
               <https://www.rfc-editor.org/info/rfc8340>.
+
+
+
+
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 50]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
 
    [RFC8341]  Bierman, A. and M. Bjorklund, "Network Configuration
               Access Control Model", STD 91, RFC 8341,
@@ -2064,16 +2835,6 @@ Internet-Draft          Network Anomaly Semantics               May 2026
               <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
               rfc8407bis-28>.
 
-
-
-
-
-
-Graf, et al.            Expires 26 November 2026               [Page 37]
-
-Internet-Draft          Network Anomaly Semantics               May 2026
-
-
    [I-D.ietf-nmop-yang-message-broker-integration]
               Graf, T. and A. Elhassany, "An Architecture for YANG-Push
               to Message Broker Integration", Work in Progress,
@@ -2089,6 +2850,13 @@ Internet-Draft          Network Anomaly Semantics               May 2026
               ietf-opsawg-collected-data-manifest-10, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-opsawg-
               collected-data-manifest-10>.
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 51]
+
+Internet-Draft          Network Anomaly Semantics               May 2026
+
 
 Authors' Addresses
 
@@ -2125,4 +2893,20 @@ Authors' Addresses
 
 
 
-Graf, et al.            Expires 26 November 2026               [Page 38]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Graf, et al.            Expires 29 November 2026               [Page 52]
