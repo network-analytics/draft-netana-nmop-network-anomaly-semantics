@@ -53,26 +53,26 @@
     </author>
 
     <author fullname="Alex Huang Feng" initials="A." surname="Huang Feng">
-      <organization>INSA-Lyon</organization>
+      <organization>Deutsche Telekom</organization>
 
       <address>
         <postal>
           <street/>
 
-          <city>Lyon</city>
+          <city>Barcelona</city>
 
           <region/>
 
           <code/>
 
-          <country>France</country>
+          <country>Spain</country>
         </postal>
 
         <phone/>
 
         <facsimile/>
 
-        <email>alex.huang-feng@insa-lyon.fr</email>
+        <email>alex.huang-feng@t-systems.com</email>
 
         <uri/>
       </address>
@@ -104,7 +104,7 @@
       </address>
     </author>
 
-    <date day="28" month="May" year="2026"/>
+    <date day="24" month="June" year="2026"/>
 
     <area>Operations and Management</area>
 
